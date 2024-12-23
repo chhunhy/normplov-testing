@@ -4,6 +4,7 @@ import UniversityMainContainer from "@/components/UniversityComponent/University
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import Head from "next/head"; // Importing Head to add dynamic metadata
 
 import {
   setPage,
@@ -13,7 +14,7 @@ import {
 } from "@/redux/feature/filter/filterSlice";
 import UniversitySkeleton from "@/components/SkeletonLoading/UniversitySkeleton/UniversitySkeleton";
 import Image from "next/image";
-import { useGetUniversitiesQuery } from "@/redux/api";
+import { useGetUniversitiesQuery } from "@/redux/service/university";
 
 
 type OptionType = {
@@ -106,8 +107,28 @@ export default function Page() {
     router.push(`/university/${id}`);
   };
 
+  // Dynamic Metadata setup
+  const university = data?.payload?.schools[0]; // Assuming the first university is the one displayed
+  const title = university ? `${university.kh_name} - NormPlov` : "NormPlov";
+  const description = university ? university.description : "Explore universities with NormPlov.";
+  const logoUrl = university ? `https://normplov-api.shinoshike.studio/${university.logo_url}` : "/default-logo.png"; // Default logo if not available
+  const coverImage = university ? `https://normplov-api.shinoshike.studio/${university.cover_image}` : "/default-cover.png"; // Default cover image
+
   return (
     <div className="mb-5">
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={coverImage} />
+        <meta property="og:url" content={`https://normplov.shinoshike.studio/university/${university?.uuid}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={coverImage} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <link rel="icon" href={logoUrl} />
+      </Head>
       {/* Include the UniversityMainContainer to filter/search */}
       <UniversityMainContainer
         selectedUniversity={selectedUniversity}

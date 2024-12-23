@@ -95,7 +95,10 @@ const RegisterComponent = () => {
         <div className="px-6 sm:px-8 md:px-6 xl:px-10">
           <div className="flex justify-between items-center ">
             <Link href="/">
-              <Image src="/assets/logo-test.png" width={24} height={24} alt="Logo Image" />
+              <Image src="/assets/logo.jpg"
+                      width={200} height={200}
+                        alt="Logo Image"
+                        className="w-[70px] h-[70px" />
             </Link>
             <div>
               <button

@@ -19,6 +19,8 @@ import { Feedback } from '../../General/Feedback';
 import { SkillResultComponent } from './ResultContentComponent/SkillResultComponent';
 import { LearningStyleResultComponent } from './ResultContentComponent/LearningStyleResultComponent';
 import { InterestResultComponent } from './ResultContentComponent/InterestResultComponent';
+import { PersonalityResultComponent } from './ResultContentComponent/PersonalityResultComponent';
+import { ValueResultComponent } from './ResultContentComponent/ValueResultComponent';
 import Loading from '@/components/General/Loading';
 
 type IntroKh = {
@@ -83,8 +85,8 @@ export default function ResultDynamicComponent() {
         switch (resultType) {
             case 'personality':
                 return (
-                    <div>
-
+                    <div className=''>
+                        <PersonalityResultComponent/>
                     </div>
                 );
             case 'skill':
@@ -98,8 +100,8 @@ export default function ResultDynamicComponent() {
                 );
             case 'value':
                 return (
-                    <div>
-
+                    <div className='bg-white'>
+                       <ValueResultComponent/> 
                     </div>
                 );
             case 'learningStyle':

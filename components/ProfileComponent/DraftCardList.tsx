@@ -1,15 +1,18 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import DynamicDraftCard from "./DraftCard";
 import { Eye, Trash } from "lucide-react";
-import { useGetAllUserDraftQuery,useDeleteUserDraftMutation } from "@/redux/service/draft";
-import Pagination from "./Pagination";
+import {
+  useGetAllUserDraftQuery,
+  useDeleteUserDraftMutation,
+} from "@/redux/service/draft";
+import Pagination from "./PaginationList";
 import DeleteConfirmationModal from "./DeleteComfirmModal";
-// import { retry } from "@reduxjs/toolkit/query";
+import Image from "next/image";
 
 const DraftList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   // Fetch tests
   const { data, refetch } = useGetAllUserDraftQuery({
@@ -22,7 +25,10 @@ const DraftList = () => {
 
   // State for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDraft, setSelectedDraft] = useState<{ uuid: string; title: string } | null>(null);
+  const [selectedDraft, setSelectedDraft] = useState<{
+    uuid: string;
+    title: string;
+  } | null>(null);
 
   // Open modal when delete is triggered
   const openDeleteModal = (uuid: string, title: string) => {
@@ -53,7 +59,7 @@ const DraftList = () => {
       onClick: (uuid: string, title: string) => openDeleteModal(uuid, title),
     },
   ];
-    const colors = [
+  const colors = [
     "bg-orange-500",
     "bg-blue-500",
     "bg-green-500",
@@ -70,12 +76,12 @@ const DraftList = () => {
     "bg-violet-500",
     "bg-fuchsia-500",
     "bg-rose-500",
-  ]
+  ];
   // data?.payload.items?.map
-  const draftCards = data?.payload.items.map((draft,index) => {
-        const backgroundColor = colors[index % colors.length];  // Cycle through the colors
-       return(
-        <DynamicDraftCard
+  const draftCards = data?.payload.items.map((draft, index) => {
+    const backgroundColor = colors[index % colors.length]; // Cycle through the colors
+    return (
+      <DynamicDraftCard
         key={draft.uuid}
         title={draft.draft_name}
         assessment_name={draft.assessment_name}
@@ -86,24 +92,49 @@ const DraftList = () => {
         }))}
         backgroundColor={backgroundColor}
       />
-       )
-    });
+    );
+  });
 
-  return (
-    <div className="relative h-screen">
-      <div className="grid gap-4 grid-cols-1 mb-5">{draftCards}</div>
+  return ( 
+    <div>
+      <h1 className="hidden lg:flex text-3xl pb-3 text-primary font-bold w-full text-left">Draft history</h1>
+      <div className="relative">
+      {data?.payload.items && data.payload.items.length > 0 ? (
+        <>
+          <div className="grid gap-4 grid-cols-1 mb-5">{draftCards}</div>
+          <div className="absolute right-0 bottom-0">
+            {/* Pagination */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={
+                data?.payload.items?.length > 0
+                  ? Math.ceil((data?.payload.metadata.total_items || 0) / itemsPerPage)
+                  : 1
+              }
+              setCurrentPage={setCurrentPage}
+              itemsPerPage={itemsPerPage}
+              setItemsPerPage={setItemsPerPage}
+            />
+          </div>
+        </>
+      ) : (
+        // Fallback content when there are no tests
+        <div className="flex h-full mt-8 flex-col items-center text-center">
+          <Image
+            src="/auth/file1.png" // Replace with the correct image path
+            alt="No Tests Available"
+            width={500}
+            height={500}
+          />
+          <h2 className="text-3xl font-bold text-primary mt-4">
+            គ្មានប្រវត្តិ
+          </h2>
+          <p className="text-gray-600 mt-2">
+            សាកល្បងធ្វើតេស្តដើម្បីជម្រើសអាជីពរបស់អ្នកដោយចាប់ផ្តើមធ្វើតេស្តថ្មី។
+          </p>
+        </div>
+      )}
 
-    <div className="absolute right-0 bottom-0">
-          {/* Pagination */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={Math.ceil((data?.payload.metadata.total_items || 0) / itemsPerPage)}
-        setCurrentPage={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPage}
-      />
-
-    </div>
       {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
         isOpen={isModalOpen}
@@ -111,6 +142,7 @@ const DraftList = () => {
         onConfirm={handleDelete}
         title={selectedDraft?.title || ""}
       />
+    </div>
     </div>
   );
 };

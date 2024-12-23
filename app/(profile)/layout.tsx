@@ -28,17 +28,16 @@ export default function ProfileLayout({
   return (
     <html lang="en">
       <body
-        className={` ${suwannaphum} ${inter} antialiased `}
+        className={`bg-bgPrimaryLight ${suwannaphum.className} ${inter} antialiased `}
       >
         <NavbarPage/>
-        <div className="flex bg-[#F3FBF9]  h-auto w-full lg:flex-row max-w-8xl mx-auto  m-0">
+       
+        <div className=" lg:flex p-6 gap-6">
           {/* Sidebar */}
-          {/* <aside className="xl:w-96 xl:m-20 lg:w-1/4 lg:m-20"> */}
-            <SideBarProfileComponent />
-          {/* </aside> */}
-
+          <SideBarProfileComponent />
+           
           {/* Main Content */}
-          <main className="xl:w-3/4 w-full py-8 px-8 lg:w-3/4">{children}</main>
+          <main className=" w-full h-auto">{children}</main>
         </div>
         <FooterPage/>
       </body>

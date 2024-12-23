@@ -1,4 +1,3 @@
-import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 
@@ -29,7 +28,7 @@ export default function CardUniversity({
           className="object-contain lg:w-40 lg:h-40 md:w-40 md:h-40 w-24 h-24 mr-2 rounded-t-lg md:rounded-none md:rounded-s-lg"
           src={
             logo_url
-              ? `http://136.228.158.126:3300/${logo_url}` // If logo_url exists, use the actual image
+              ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}` // If logo_url exists, use the actual image
               : '/assets/itc.png' // Placeholder image when logo_url is not available
           }
           alt={kh_name}
@@ -64,14 +63,7 @@ export default function CardUniversity({
                 {popular_major}
               </span>
             </div>
-            <div className=" items-center hidden md:flex lg:flex">
-              <div className="text-sm md:text-lg lg:text-lg text-primary ">
-                ព័ត៌មានផ្សេងៗ
-              </div>
-              <div>
-                <BiRightArrowAlt className="text-sm md:text-2xl lg:text-2xl ml-2 text-primary" />
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

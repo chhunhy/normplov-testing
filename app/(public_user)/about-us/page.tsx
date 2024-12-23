@@ -1,14 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import CardTeam from "@/components/About-us/CardTeam";
 
 export default function AboutUs() {
   return (
-    <div className=" bg-white">
-      <section className="grid grid-cols-1 bg-green-50 lg:grid-cols-2 md:grid-cols-1 gap-2 lg:px-20  md:px-20 px-10 lg:h-[650px] md:h-auto">
+    <div className=" bg-slate-50">
+      <section className="grid grid-cols-1 bg-green-50 lg:grid-cols-2 md:grid-cols-1 gap-2 lg:px-20  md:px-20 px-10 lg:h-[650px]  md:h-auto h-[1050px]">
         <div className="max-w-7xl mx-auto my-4 md:my-6 space-y-4 py-10 ">
-          <h1 className="text-secondary text-5xl font-semibold">អំពីយើង</h1>
-          <p className="text-textprimary text-2xl leading-relaxed">
+          <h1 className="text-secondary lg:text-5xl md:text-5xl text-3xl font-semibold">អំពីយើង</h1>
+          <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed">
             ជួយសិស្សថ្នាក់ទីមធ្យមសិក្សាទុតិយភូមិ
             ក្នុងការជ្រើសរើសមុខវិជ្ជាសិក្សានៅសាកលវិទ្យាល័យដោយផ្តល់ឱ្យពួកគេនូវឧបករណ៍
             និងឱកាសសិក្សាស្វែងយល់អំពីសមត្ថភាព ការចាប់អារម្មណ៍ និងគោលដៅអនាគត។
@@ -16,36 +17,39 @@ export default function AboutUs() {
             ការចូលរួមក្នុងសកម្មភាព និងការចែករំលែកចំណេះដឹងពីវិស័យនានា។
           </p>
           <div className="py-4">
-          <Link href="/test" className="bg-emerald-500  text-white px-6 py-2 md:px-8 md:py-2 lg:px-8 lg:py-2 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors">
-            ចាប់ផ្តើម
-          </Link>
+            <Link
+              href="/test"
+              className="bg-emerald-500  text-white px-6 py-2 md:px-8 md:py-2 lg:px-8 lg:py-2 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
+            >
+              ចាប់ផ្តើម
+            </Link>
           </div>
         </div>
         <div className="flex  justify-center items-start w-full h-[700px]  py-10">
           <div>
-            <div className=" absolute  ml-14 bg-green-100 w-[600px] h-[400px] mt-20 rounded-xl"></div>
+            <div className=" absolute  lg:ml-14 md:ml-10 bg-green-100 lg:w-[600px] md:w-[580px]  h-[400px] lg:mt-20 md:mt-24 rounded-xl"></div>
             <Image
               src="/assets/cover-about.jpg"
               width={200}
               height={200}
-              className="relative w-[570px] h-64 ml-40 rounded-xl mt-8 object-fill"
+              className="relative w-[570px] lg:h-64 md:h-65 h-40 lg:ml-40 md:ml-[100px] rounded-xl mt-8 object-fill "
               alt=""
             />
             <Image
               src="/assets/cover-about.jpg"
               width={200}
               height={200}
-              className=" relative w-[450px] h-50 mr-10 rounded-xl mt-8 object-fill"
+              className=" relative lg:ml-0 md:-ml-0 w-[450px] h-50 mr-10 rounded-xl mt-8 object-fill"
               alt=""
             />
           </div>
         </div>
       </section>
-      <section className="flex px-20 mt-10   max-w-full justify-center ">
-        <div className="flex max-w-7xl mx-auto my-4 md:my-6 ">
-          <div className="mt-10 space-y-4 w-[65%] h-auto">
-            <div className=" text-primary text-4xl font-semibold">គោលបំណង</div>
-            <p className="text-textprimary text-2xl leading-relaxed">
+      <section className="flex lg:px-20 md:px-20 px-8 mt-10    max-w-full justify-center ">
+        <div className="flex max-w-7xl mx-auto  my-4 md:my-6 ">
+          <div className="mt-10 space-y-4 lg:w-[65%] md:w-[60%] h-auto">
+            <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold">គោលបំណង</div>
+            <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed">
               ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
               និងការគាំទ្រដែលអ្នកត្រូវការដើម្បីធ្វើការសម្រេចចិត្តដោយមានព័ត៌មានគ្រប់គ្រាន់អំពីអនាគតរបស់អ្នក។
               ជាមួយនឹងឧបករណ៍ និងការណែនាំរបស់យើង
@@ -53,13 +57,13 @@ export default function AboutUs() {
               និងក្តីស្រមៃរបស់អ្នក។
             </p>
           </div>
-          <div className="  w-[35%]   ">
-            <div className="flex justify-end items-start">
+          <div className=" lg:block md:block hidden lg:w-[35%] md:w-[40%]    ">
+            <div className="flex lg:justify-end md:justify-end  lg:items-start md:items-center">
               <Image
                 src="/assets/Team goals-bro.png"
                 width={300}
                 height={300}
-                className=" relative w-[400px] h-[400px] rounded-xl object-fill -mt-8"
+                className=" relative lg:w-[400px] lg:h-[400px] md:w-[420px] md:h-[400px] rounded-xl object-fill lg:-mt-8 md:mt-8"
                 alt=""
               />
             </div>
@@ -67,24 +71,24 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="flex px-20 max-w-full justify-center  ">
+      <section className="flex lg:px-20 md:px-20 px-8 max-w-full justify-center  ">
         <div className="flex max-w-7xl mx-auto my-4 md:my-6 ">
-          <div className="  w-[35%]   ">
+          <div className=" lg:block md:block hidden lg:w-[35%] md:w-[40%]    ">
             <div className="flex justify-start">
               <Image
                 src="/assets/Create-bro.png"
                 width={300}
                 height={300}
-                className=" relative w-[400px] h-[400px]  rounded-xl object-fill -mt-8"
+                className=" relative lg:w-[400px] lg:h-[400px] md:w-[420px] md:h-[390px]  rounded-xl object-fill lg:-mt-8 md:mt-8"
                 alt=""
               />
             </div>
           </div>
-          <div className="mt-10 space-y-4 w-[65%] h-auto">
-            <div className=" text-primary text-4xl font-semibold text-end">
+          <div className="mt-10 space-y-4 lg:w-[65%] md:w-[70%] h-auto">
+            <div className=" text-primary lg:text-4xl md:text-4xl text-3xl  font-semibold text-end">
               ចក្ខុវិស័យ
             </div>
-            <p className="text-textprimary text-2xl leading-relaxed text-end">
+            <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed text-end">
               ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
               និងការគាំទ្រដែលអ្នកត្រូវការដើម្បីធ្វើការសម្រេចចិត្តដោយមានព័ត៌មានគ្រប់គ្រាន់អំពីអនាគតរបស់អ្នក។
               ជាមួយនឹងឧបករណ៍ និងការណែនាំរបស់យើង
@@ -94,23 +98,23 @@ export default function AboutUs() {
           </div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto my-4 md:my-6 flex justify-center ">
-        <div className=" text-primary text-4xl font-semibold ">អ្នកណែនាំ</div>
+      <section className="max-w-7xl mt-4  mx-auto my-4 md:my-6 flex justify-center ">
+        <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">អ្នកណែនាំ</div>
       </section>
-      <section className="flex px-20 max-w-full h-[650px] py-20  justify-center  ">
-        <div className="flex space-x-[200px] max-w-7xl mx-auto my-4 md:my-6  ">
-        <div className=" ">
+      <section className="flex px-20   max-w-full h-[650px] py-20  justify-center  ">
+        <div className="lg:flex md:block lg:space-x-[200px] md:space-x-0   max-w-7xl mx-auto my-4 md:my-6  ">
+          <div className=" mb-10">
             <Image
-              src="/assets/cher_Leang.png"
+              src="/assets/cher_mey.png"
               width={200}
               height={200}
-              className=" w-[390px] h-[320px]  "
+              className=" lg:w-[390px] lg:h-[320px]  md:w-[390px] md:h-[320px] w-[240px] h-[200px]  "
               alt=""
             />
-            <div className="flex justify-center text-textprimary text-2xl mt-[20px]">
+            <div className="flex mr-6 justify-center text-textprimary text-2xl mt-[20px]">
               អ្នកគ្រូ មុំ រស្មី
             </div>
-            <div className="flex justify-center text-textprimary text-2xl -mt-6">
+            <div className="flex mr-6 justify-center text-textprimary text-2xl -mt-6">
               <ul className="wrapper">
                 <li className="icon facebook">
                   <span className="tooltip">Facebook</span>
@@ -151,17 +155,17 @@ export default function AboutUs() {
             </div>
           </div>
           <div className=" ">
-          <Image
-              src="/assets/cher_Leang.png"
+            <Image
+              src="/assets/cher_leang copy 2.png"
               width={200}
               height={200}
-              className=" w-[390px] h-[320px]  "
+              className="lg:w-[390px] lg:h-[320px]  md:w-[390px] md:h-[320px] w-[240px] h-[200px]"
               alt=""
             />
-            <div className="flex justify-center text-textprimary text-2xl mt-[20px]">
-            លោកគ្រូ​ អ៊ឹង មួយលាង
+            <div className="flex mr-6 justify-center text-textprimary text-2xl mt-[20px]">
+              លោកគ្រូ​ អ៉ឹង មួយលាង
             </div>
-            <div className="flex justify-center text-textprimary text-2xl -mt-6">
+            <div className="flex mr-6 justify-center text-textprimary text-2xl -mt-6">
               <ul className="wrapper">
                 <li className="icon facebook">
                   <span className="tooltip">Facebook</span>
@@ -203,8 +207,11 @@ export default function AboutUs() {
           </div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto my-4 md:my-6 flex justify-center ">
-        <div className=" text-primary text-4xl font-semibold ">សមាជិកក្រុម</div>
+      <section className="max-w-full h-40 lg:mt-0 md:mt-[450px] mt-[190px]  items-center  bg-slate-50 mx-auto   flex justify-center ">
+        <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">សមាជិកក្រុម</div>
+      </section>
+      <section className=" bg-slate-50">
+        <CardTeam />
       </section>
     </div>
   );

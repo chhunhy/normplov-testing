@@ -29,7 +29,7 @@ const ProfileForm = () => {
     const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false); // State for modal visibility
   const [updateProfileUser, { isLoading: isUpdating }] =
     useUpdateProfileUserMutation();
-
+  console.log("data user data :",user?.payload.gender)
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -45,16 +45,16 @@ const ProfileForm = () => {
     try {
       // Prepare the payload
       const payload = {
-        username: values.username || null,
-        address: values.address || null,
-        phone_number: values.phone_number || null,
-        bio: values.bio || null,
-        gender: values.gender || null,
+        username: values.username || "",
+        address: values.address || "",
+        phone_number: values.phone_number || "",
+        bio: values.bio || "",
+        gender: values.gender || "",
         date_of_birth: values.date_of_birth
           ? values.date_of_birth.toISOString().split("T")[0] // Convert to 'YYYY-MM-DD'
           : null,
       };
-
+        console.log("gender",payload.gender)
       // Call the update mutation
       const response = await updateProfileUser({
         uuid: user?.payload.uuid || "",
@@ -87,13 +87,15 @@ const ProfileForm = () => {
           date_of_birth: user?.payload.date_of_birth
             ? new Date(user.payload.date_of_birth)
             : null,
-          gender: user?.payload.gender || "",
+            gender: user?.payload.gender
+            ? user.payload.gender.charAt(0).toUpperCase() + user.payload.gender.slice(1).toLowerCase()
+            : "", 
           bio: user?.payload.bio || "",
         }}
         onSubmit={handleSubmit}
       >
         {({ values, setFieldValue }) => (
-          <Form className="space-y-6 rounded-md">
+          <Form className="space-y-6 rounded-md mt-6 lg:mt-0">
             <div className="w-full space-y-8">
               {/* Username */}
               <div>
@@ -143,6 +145,7 @@ const ProfileForm = () => {
                 <div className="w-1/2">
                   <Label htmlFor="gender" text="ភេទ" />
                   <SelectDemo
+                    
                     selectedGender={values.gender}
                     onGenderChange={(gender) => setFieldValue("gender", gender)}
                   />

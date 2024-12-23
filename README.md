@@ -103,3 +103,19 @@ Check Out NormPlov: https://dev-normplov.shinoshike.studio/
    ```
 
 
+### Local Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/NormPlov/normplov-ui-v2.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install i
+   ```
+3. Starting a Development Server
+   ```sh
+   npm run dev
+   ```
+
+

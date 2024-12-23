@@ -1,3 +1,4 @@
+"use client";
 import CardUniversity from "@/components/UniversityComponent/CardUniversity";
 import FeatureGrid from "@//components/ui/FeatureGrid";
 import Image from "next/image";
@@ -6,6 +7,10 @@ import { GoArrowRight } from "react-icons/go";
 import { BiRightArrowAlt } from "react-icons/bi";
 import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
+import { useGetUniversitiesQuery } from "@/redux/service/university";
+
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
 
 // Define the types for the props
 interface FeatureCardProps {
@@ -14,42 +19,36 @@ interface FeatureCardProps {
   description: string; // Description of the feature
 }
 
-const universities = [
-  {
-    name: "សាកលវិទ្យាល័យ ភូមិន្ទភ្នំពេញ",
-    englishName: "Royal University of Phnom Penh",
-    address: "សង្កាត់ទឹកល្អក់១ ខណ្ឌទួលគោក",
-    major : "ព័ត៌មានវិទ្យា",
-    logo: "/assets/itc.png",
-    link: "/university-detail",
-  },
-  {
-    name: "សាកលវិទ្យាល័យ ភូមិន្ទភ្នំពេញ",
-    englishName: "Royal University of Phnom Penh",
-    address: "សង្កាត់ទឹកល្អក់១ ខណ្ឌទួលគោក",
-    major : "ព័ត៌មានវិទ្យា",
-    logo: "/assets/itc.png",
-    link: "#",
-  },
-  {
-      name: "សាកលវិទ្យាល័យ ភូមិន្ទភ្នំពេញ",
-      englishName: "Royal University of Phnom Penh",
-      address: "សង្កាត់ទឹកល្អក់១ ខណ្ឌទួលគោក",
-      major : "ព័ត៌មានវិទ្យា",
-      logo: "/assets/itc.png",
-      link: "#",
-    },
-    {
-      name: "សាកលវិទ្យាល័យ ភូមិន្ទភ្នំពេញ",
-      englishName: "Royal University of Phnom Penh",
-      address: "សង្កាត់ទឹកល្អក់១ ខណ្ឌទួលគោក",
-      major : "ព័ត៌មានវិទ្យា",
-      logo: "/assets/itc.png",
-      link: "#",
-    },
-];
+// Type definition for universities
+type UniversityType = {
+  uuid: string;
+  kh_name: string;
+  en_name: string;
+  location: string;
+  province_name: string;
+  popular_major: string;
+  logo_url: string | null; // Handle null value
+};
 
-export default function page() {
+
+
+export default function Page() {
+  const router = useRouter();
+
+  const { search, province_uuid, page } = useAppSelector(
+    (state) => state.filter
+  ); // Ensure you have selectedUniversity in Redux
+
+  const { data} = useGetUniversitiesQuery({
+    search,
+    province_uuid,
+    page,
+  });
+
+  const handleCardClick = (id: string) => {
+    router.push(`/university/${id}`);
+  };
+
   return (
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
@@ -78,8 +77,8 @@ export default function page() {
           <Image
             src="/assets/background-home-page.png"
             alt="Background Home Page"
-            width={200}
-            height={200}
+            width={2000}
+            height={2000}
             className="object-cover w-full h-[50%]"
           />
         </div>
@@ -132,8 +131,8 @@ export default function page() {
           <Image
             src="/assets/Bachart-XL-jobs.jpg"
             alt="Barchart-XL-jobs"
-            width={200}
-            height={200}
+            width={2000}
+            height={2000}
             className="object-cover w-full h-auto rounded-2xl "
           />
         </div>
@@ -155,7 +154,7 @@ export default function page() {
             សាកលវិទ្យាល័យដែលមានប្រជាប្រិយភាព
           </h1>
           <Link
-            href="/"
+            href="/university"
             className="text-xl  lg:flex md:hidden hidden justify-center items-center font-bold text-center mb-2 text-textprimary"
           >
             <div className="flex">
@@ -165,18 +164,21 @@ export default function page() {
           </Link>
         </div>
         <div className="max-w-7xl mx-auto my-4 md:my-6 mt-10  grid w-auto auto-rows-fr grid-cols-1 lg:gap-8 md:gap-8 gap-4 sm:mt-12 lg:grid-cols-2 md:grid-cols-1">
-        {universities.map((university,index) =>(
-            <CardUniversity
-            key={index}
-            kh_name={university.name}
-            en_name={university.englishName}
-            location={university.address}
-            popular_major={university.major}
-            logo_url={university.logo}
-            />
-          ))}
+          {data?.payload?.schools
+            .slice(0, 4)
+            .map((university: UniversityType, index: number) => (
+              <CardUniversity
+                key={index}
+                kh_name={university.kh_name}
+                en_name={university.en_name}
+                location={university.location}
+                popular_major={university.popular_major}
+                logo_url={university.logo_url || "/assets/default.png"}
+                onClick={() => handleCardClick(university.uuid)}
+              />
+            ))}
           <Link
-            href="/"
+            href=""
             className="text-xl  lg:hidden md:flex hidden justify-end mt-6 items-center font-bold text-center text-textprimary"
           >
             <div className="text-primary">ព័ត៌មានបន្ថែម</div>
@@ -193,7 +195,7 @@ export default function page() {
         <ProcessHomePage />
       </section>
       {/* Feedback Section */}
-      <section>{ /* <FeedbackHomePage/> */} </section>
+      <section>{/* <FeedbackHomePage/> */} </section>
     </div>
   );
 }

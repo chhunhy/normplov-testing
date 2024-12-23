@@ -54,6 +54,7 @@ export default function page() {
 
   return (
     <div className='bg-bgPrimaryLight'>
+      {/* <TestResultPage/> */}
       <ResultDynamicComponent />
     </div>
 

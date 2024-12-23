@@ -32,7 +32,7 @@ export function DatePickerDemo({ selectedDate, onDateChange }: DatePickerDemoPro
         <Button
           variant={"outline"}
           className={cn(
-            "w-full h-12 mt-1 text-left font-normal bg-white border-slate-200 placeholder-gray-400 text-md justify-between",
+            "w-full h-12 mt-1 text-left font-normal bg-white border-slate-200 text-textprimary placeholder-gray-400 text-md justify-between",
             !date && "text-muted-foreground"
           )}
         >
