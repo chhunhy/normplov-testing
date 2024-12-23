@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "@/app/globals.css";
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
@@ -18,27 +17,7 @@ const inter = Inter({
   weight: ["400", "700"],
 });
 
-export const metadata: Metadata = {
-  title: {
-		template: "NormPlov",
-		default: "NormPlov",
-	},
-  description: `NormPlov is driven by a clear set of goals aimed at guiding students towards informed academic and career choices. Our primary objective is to provide personalized recommendations that match students' personality, skills, learning styles, interests, and values, helping them find paths that align with their potential. `,
-  openGraph: {
-		title: {
-			template: "%s - NormPlov",
-			default: "NormPlov",
-		},
-		description: `NormPlov is driven by a clear set of goals aimed at guiding students towards informed academic and career choices. Our primary objective is to provide personalized recommendations that match students' personality, skills, learning styles, interests, and values, helping them find paths that align with their potential.`,
-		images: ["https://normplov-api.shinoshike.studio/assets/metadata.png"],
-		url: "https://normplov.shinoshike.studio",
-	},
-  icons: {
-    icon: "/assets/logo.jpg", // Logo for favicon (replace with your actual logo path)
-    apple: "/assets/logo.jpg", // Apple touch icon (iOS)
-    shortcut: "/assets/logo.jpg", // Shortcut icon for browsers
-  },
-};
+
 export default function UserLayout({
   children,
 }: {

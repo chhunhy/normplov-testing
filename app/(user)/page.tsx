@@ -8,9 +8,11 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
 import { useGetUniversitiesQuery } from "@/redux/service/university";
-
+import Head from "next/head"; // Import Head component
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
+
+
 
 // Define the types for the props
 interface FeatureCardProps {
@@ -32,6 +34,7 @@ type UniversityType = {
 
 
 
+
 export default function Page() {
   const router = useRouter();
 
@@ -49,9 +52,31 @@ export default function Page() {
     router.push(`/university/${id}`);
   };
 
+  // Dynamically set metadata (title, description, etc.)
+  const title = "NormPlov"; // Default title or dynamic title
+  const description = "Find your perfect major and confidence career.";
+  const image = "https://normplov-api.shinoshike.studio/assets/metadata.png"; // Replace with dynamic image if needed
+
+
   return (
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
+
+      {/* Dynamic Metadata with Head */}
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content="https://normplov.shinoshike.studio" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={image} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <link rel="icon" href="/assets/logo.jpg" />
+      </Head>
+
       <section className="relative ">
         {/* Text Content */}
         <div className="flex justify-center ">

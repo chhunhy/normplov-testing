@@ -49,8 +49,8 @@ export default function CardTeam() {
                   <Image
                     src="/assets/lyminh.png"
                     alt="Team Member Image"
-                    width={150}
-                    height={150}
+                    width={1000}
+                    height={1000}
                     className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
                   />
                 </motion.div>
@@ -186,8 +186,8 @@ export default function CardTeam() {
                   <Image
                     src="/assets/roza.png"
                     alt="Team Member Image"
-                    width={150}
-                    height={150}
+                    width={1000}
+                    height={1000}
                     className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
                   />
                 </motion.div>
@@ -323,8 +323,8 @@ export default function CardTeam() {
                   <Image
                     src="/assets/chhunhy.png"
                     alt="Team Member Image"
-                    width={150}
-                    height={150}
+                    width={1000}
+                    height={1000}
                     className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
                   />
                 </motion.div>
@@ -460,8 +460,8 @@ export default function CardTeam() {
                   <Image
                     src="/assets/seamey.png"
                     alt="Team Member Image"
-                    width={150}
-                    height={150}
+                    width={1000}
+                    height={1000}
                     className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
                   />
                 </motion.div>
@@ -597,8 +597,8 @@ export default function CardTeam() {
                   <Image
                     src="/assets/sovanarith.png"
                     alt="Team Member Image"
-                    width={150}
-                    height={150}
+                    width={1000}
+                    height={1000}
                     className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
                   />
                 </motion.div>
@@ -734,8 +734,8 @@ export default function CardTeam() {
                   <Image
                     src="/assets/kimla.png"
                     alt="Team Member Image"
-                    width={150}
-                    height={150}
+                    width={1000}
+                    height={1000}
                     className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
                   />
                 </motion.div>
