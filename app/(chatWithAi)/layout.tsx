@@ -1,6 +1,5 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/ui/app-sidebar"
-import type { Metadata } from "next";
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 

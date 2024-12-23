@@ -54,53 +54,91 @@
 
 import { normPlovApi } from "@/redux/api";
 
-type aiChatResponse = {
+type AiChatResponse = {
   date: string;
   status: number;
-  payload: conversation[];
+  payload: Conversation[]; // The `payload` is an array of conversations
   message: string;
 };
 
-type conversation = {
+type Conversation = {
   uuid: string;
   chat_title: string;
   created_at: string;
-  updated_at: string;
+  updated_at: string | null;
 };
 
 type CreateChatResponse = {
+  date: string; 
+  status: number; 
+  payload: {
+    conversation_uuid: string; 
+    chat_title: string; 
+    conversation_history: {
+      user_query: string | null;
+      ai_reply: string;
+      timestamp: string; 
+    }[]; 
+  };
+  message: string; 
+};
+
+type ConversationHistory = {
+  user_query: string;
+  ai_reply: string;
+  timestamp: string;
+};
+
+type ConversationDetailsResponse = {
   date: string;
   status: number;
   payload: {
     conversation_uuid: string;
     chat_title: string;
-    conversation_history: {
-      user_query: string | null;
-      ai_reply: string;
-      timestamp: string;
-    }[];
+    conversation_history: ConversationHistory[];
+    updated_at: string;
   };
   message: string;
 };
 
+
 export const chatApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({
-    // Fetch All Chats
-    fetchAllChat: builder.query<aiChatResponse, void>({
+    // Fetch  all chat
+    fetchAllChat: builder.query<AiChatResponse, void>({
       query: () => ({
-        url: "api/v1/ai/conversations", // Correct endpoint
+        url: "api/v1/ai/conversations", 
         method: "GET",
       }),
     }),
-
-    // Create New Chat
-    createChat: builder.mutation<CreateChatResponse, void>({
-      query: () => ({
-        url: "api/v1/ai/conversations/start", // Correct endpoint
+    // create new chat
+    createChat: builder.mutation<CreateChatResponse, { user_query: string | null }>({
+      query: (body) => ({
+        url: "api/v1/ai/conversations/start",
         method: "POST",
+        body, 
       }),
     }),
+    // Fetch chat by UUID
+    fetchConversationDetails: builder.query<ConversationDetailsResponse, string>({
+      query: (conversationUuid) => ({
+        url: `api/v1/ai/conversations/${conversationUuid}`,
+        method: "GET",
+      }),
+      providesTags: (result, error, conversationUuid) => [{ type: 'SingleChat', id: conversationUuid }],
+    }),
+
+    // Continue conversation
+    continueConversation: builder.mutation<void, { uuid: string; new_query: string }>({
+      query: ({ uuid, new_query }) => ({
+        url: `api/v1/ai/conversations/${uuid}/continue`,
+        method: "POST",
+        body: { new_query },
+      }),
+      invalidatesTags: (result, error, { uuid }) => [{ type: 'SingleChat', id: uuid }],
+    }),
+    
   }),
 });
 
-export const { useFetchAllChatQuery, useCreateChatMutation } = chatApi;
+export const { useFetchAllChatQuery, useCreateChatMutation, useFetchConversationDetailsQuery, useContinueConversationMutation } = chatApi;
