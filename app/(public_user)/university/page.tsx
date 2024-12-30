@@ -79,6 +79,7 @@ export default function Page() {
     type: selectedUniversity?.value || "", // Pass selectedUniversity for type filtering
     page,
   });
+  
  console.log("university",data)
   const handleNextPage = () => {
     dispatch(setPage(page + 1));

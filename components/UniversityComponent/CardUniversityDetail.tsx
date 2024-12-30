@@ -16,8 +16,6 @@ type MajorType = {
   faculty?: string; // Make the faculty field optional
 };
 
-
-
 // Type definition for universities
 type UniversityType = {
   uuid: string;
@@ -189,14 +187,14 @@ export default function CardUniversityDetail({
   }, [selectedDegree, selectedFaculty, faculties, selectedPage]);
 
   // Handle Degree Selection Change
-const handleDegreeChange = (selectedOption: SelectOption | null) => {
-  setSelectedDegree(selectedOption?.value || ""); // Set to an empty string if no option is selected
-};
+  const handleDegreeChange = (selectedOption: SelectOption | null) => {
+    setSelectedDegree(selectedOption?.value || ""); // Set to an empty string if no option is selected
+  };
 
-// Handle Faculty Selection Change
-const handleFacultyChange = (selectedOption: SelectOption | null) => {
-  setSelectedFaculty(selectedOption?.value || null); // Set to null if no option is selected
-};
+  // Handle Faculty Selection Change
+  const handleFacultyChange = (selectedOption: SelectOption | null) => {
+    setSelectedFaculty(selectedOption?.value || null); // Set to null if no option is selected
+  };
 
   const handlePageChange = (pageNumber: number) => {
     setSelectedPage(pageNumber);
@@ -304,27 +302,41 @@ const handleFacultyChange = (selectedOption: SelectOption | null) => {
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-2">
                   <MapPin className="lg:w-6 lg:h-6 md:w-10 md:h-10 w-8 h-8 text-gray-400" />
-                  <div className=" lg:text-[16px] md:text-sm text-[16px] text-textprimary">
+                  <a
+                    href={googleMapEmbedUrl}
+                    className=" lg:text-[16px] md:text-sm text-[16px] text-textprimary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {location}
-                  </div>
+                  </a>
                 </div>
                 <div className="flex items-center gap-2 ">
                   <Globe className="lg:w-5 lg:h-5 md:w-4 md:h-4 w-5 h-5 text-gray-400 lg:text-[16px] md:text-[16px] text-[16px]" />
-                  <div className="lg:text-[16px] md:text-sm text-[16px] text-primary ">
+                  <a
+                    href={`${website}`}
+                    className="lg:text-[16px] md:text-sm text-[16px] text-primary "
+                  >
                     {website}
-                  </div>
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="lg:w-5 lg:h-5 md:w-4 md:h-4 w-5 h-5 text-gray-400  lg:text-[16px] md:text-[16px] text-[16px]" />
-                  <span className="lg:text-[16px] md:text-sm text-[16px] text-textprimary">
+                  <a
+                    href={`tel:${phone}`}
+                    className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
+                  >
                     {phone}
-                  </span>
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="lg:w-5 lg:h-5 md:w-4 md:h-4 w-5 h-5 text-gray-400" />
-                  <span className="lg:text-[16px] md:text-sm text-[16px] text-textprimary">
+                  <a
+                    href={`mailto:${email}`}
+                    className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
+                  >
                     {email}
-                  </span>
+                  </a>
                 </div>
               </div>
             </CardContent>
@@ -433,18 +445,35 @@ const handleFacultyChange = (selectedOption: SelectOption | null) => {
                     </h3>
                     <p className="text-md text-gray-600">{major.description}</p>
                     <p className="text-md text-gray-600">
-                      Fee per year: ${major.fee_per_year}
+                      Fee per year :{" "}
+                      <span className=" text-primary">
+                        ${major.fee_per_year}
+                      </span>
                     </p>
                     <p className="text-md text-gray-600">
-                      Duration: {major.duration_years} years
+                      Duration :{" "}
+                      <span className=" text-secondary">
+                        {major.duration_years} years
+                      </span>
                     </p>
                   </div>
                 ))
               ) : (
-                <div className="flex items-center h-20">
-                  <p className="text-center">
-                    No majors found for the selected degree and faculty.
-                  </p>
+                <div className=" items-center h-auto lg:w-[990px] md:w-[485px] justify-center ">
+                  <div className="flex justify-center">
+                    <Image
+                      src="/assets/No data-rafiki.png"
+                      width={1000}
+                      height={1000}
+                      alt=""
+                      className="lg:w-[400px] lg:h-[400px] md:w-[250px] md:h-[250px] w-[200px] h-[200px] flex justify-center"
+                    ></Image>
+                  </div>
+                  <div>
+                    <p className="text-center -mt-4 mb-8 text-gray-500">
+                      No majors found for the selected degree and faculty.
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
@@ -460,7 +489,9 @@ const handleFacultyChange = (selectedOption: SelectOption | null) => {
               >
                 Previous
               </button>
-              <div className="mx-4 w-[40px] h-[40px]  bg-slate-200 rounded-full flex justify-center items-center text-textprimary">{selectedPage}</div>
+              <div className="mx-4 w-[40px] h-[40px]  bg-slate-200 rounded-full flex justify-center items-center text-textprimary">
+                {selectedPage}
+              </div>
               <button
                 onClick={() => handlePageChange(selectedPage + 1)}
                 disabled={selectedPage >= totalPages}

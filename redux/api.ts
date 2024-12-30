@@ -15,6 +15,7 @@ type BaseQueryArgs = {
   body?: unknown; // You can refine this type further depending on the structure of your request body
 };
 
+
 // Change to `Record<string, unknown>` instead of `{}` for object options
 type BaseQueryOptions = Record<string, unknown>; // Object with unknown properties
 

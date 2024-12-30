@@ -25,6 +25,8 @@ import { normPlovApi } from './api';
 import authSlice from './feature/auth/authSlice';
 import verifySlice from './feature/verify/verifySlice';
 import filterSlice from './feature/filter/filterSlice';
+import jobsReducer from "./feature/jobs/jobsSlice"; // Import the jobs slice
+
 //import { universityApi } from './api';
 
 
@@ -36,6 +38,7 @@ export const makeStore = () => {
       auth:authSlice,
       verify: verifySlice,
       filter: filterSlice,
+      jobs: jobsReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()

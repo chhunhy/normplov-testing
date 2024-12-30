@@ -7,7 +7,7 @@ export default function SliderUniversity() {
   
   // List of image URLs
   const images = [
-    "https://www.aupp.edu.kh/wp-content/uploads/Students-Life.jpg",
+    "assets/cover-rupp.png",
     "https://rupp.edu.kh/iro/image_banner/mainrupp2.jpg",
     "https://foodstem-euproject.itc.edu.kh/wp-content/uploads/2021/05/ITC-V2-1024x576.jpg",
     "https://www.aub.edu.kh/tc/assets/image/banner-A-1.jpg",

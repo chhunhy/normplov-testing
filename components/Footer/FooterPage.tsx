@@ -28,7 +28,7 @@ export default function FooterPage() {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-start md:justify-center lg:justify-center ">
+          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0 ">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 មាតិការ
@@ -87,7 +87,7 @@ export default function FooterPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="flex justify-start md:justify-center lg:justify-center">
+          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ព័ត៌មានទំនាក់ទំនង
@@ -133,36 +133,40 @@ export default function FooterPage() {
           </div>
 
           {/* Partner Logos */}
-          <div className="flex justify-start md:justify-center lg:justify-center">
+          <div className="flex justify-start md:justify-center lg:justify-start lg:mr-[80px] md:mr-0 mr-0  w-full">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ឧបត្ថម្ភដោយ
               </h3>
-              <div className="lg:space-y-4 md:space-y-4 space-y-0  flex md:block lg:flex  ">
+              <div className="lg:space-y-4  md:space-y-4 space-y-0  flex md:block lg:flex  ">
+                <a href="https://mptc.gov.kh/en/">
                 <Image
                   src="/assets/MPTC-logo.jpg"
                   alt="Partner logo 1"
-                  width={200}
-                  height={60}
+                  width={1000}
+                  height={1000}
                   className="object-contain"
                 />
+                </a>
+                <a href="https://mptc.gov.kh/en/">
                 <Image
                   src="/assets/CBRD-logo.jpg"
                   alt="Partner logo 2"
-                  width={200}
-                  height={60}
-                  className="object-contain "
+                  width={1000}
+                  height={1000}
+                  className="object-contain  "
                 />
+                </a>
               </div>
-              <div className="flex justify-start lg:mt-0 md:mt-2 mt-2 ">
+              <a href="https://www.cstad.edu.kh/" className="flex justify-start lg:mt-2 md:mt-2 mt-2 ">
                 <Image
                   src="/assets/istad_logo.jpg"
                   alt="Partner logo 2"
-                  width={200}
-                  height={60}
+                  width={1000}
+                  height={1000}
                   className="object-contain  w-[170px] h-[64px]"
                 />
-              </div>
+              </a>
             </div>
           </div>
         </div>

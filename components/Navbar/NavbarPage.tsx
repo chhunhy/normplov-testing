@@ -207,9 +207,11 @@ export default function NavbarPage() {
 function LanguageSelector() {
   return (
     <div className="flex md:hidden lg:flex items-center space-x-4">
+      <Link href="/">
       <LanguageOption flag="/assets/khmer-flag.png" label="Khmer" />
+      </Link>
       <div className="h-6 border-l border-slate-400"></div>
-      <LanguageOption flag="/assets/english-flag.png" label="English" />
+      <Link href="/"><LanguageOption flag="/assets/english-flag.png" label="English" /></Link>
     </div>
   );
 }

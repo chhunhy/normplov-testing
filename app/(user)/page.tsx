@@ -7,10 +7,29 @@ import { GoArrowRight } from "react-icons/go";
 import { BiRightArrowAlt } from "react-icons/bi";
 import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
-import { useGetUniversitiesQuery } from "@/redux/service/university";
+import {
+  useGetPopularSchoolsQuery,
+  useGetUniversitiesQuery,
+} from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
+import ChartJobTrending from "@/components/ui/chartJob_trending";
+import React, { useEffect, useState } from "react";
 
+const mockTrendingJobs = [
+  { month: "Jan", label: "Data Scientist", count: 320 },
+  { month: "Feb", label: "Backend Developer", count: 420 },
+  { month: "Mar", label: "AI Specialist", count: 310 },
+  { month: "Apr", label: "Software Engineer", count: 290 },
+  { month: "May", label: "Cybersecurity Expert", count: 270 },
+  { month: "Jun", label: "DevOps Engineer", count: 440 },
+  { month: "Jul", label: "Frontend Developer", count: 250 },
+  { month: "Aug", label: "MIS", count: 380 },
+  { month: "Sep", label: "Financial HR", count: 340 },
+  { month: "Oct", label: "Data Analyst", count: 290 },
+  { month: "Nov", label: "Software Engineer", count: 310 },
+  { month: "Dec", label: "Backend Developer", count: 370 },
+];
 
 
 // Define the types for the props
@@ -31,22 +50,66 @@ type UniversityType = {
   logo_url: string | null; // Handle null value
 };
 
-
-
+interface TrendingJob {
+  month: string;
+  label: string;
+  count: number;
+}
 
 export default function Page() {
   const router = useRouter();
+  const [trendingJobs, setTrendingJobs] = useState<TrendingJob[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  
 
   const { search, province_uuid, page } = useAppSelector(
     (state) => state.filter
   ); // Ensure you have selectedUniversity in Redux
 
-  const { data} = useGetUniversitiesQuery({
+  const { data } = useGetPopularSchoolsQuery({
     search,
     province_uuid,
     page,
   });
 
+  // Fetch Trending Jobs Data
+  useEffect(() => {
+    const fetchTrendingJobs = async () => {
+      setLoading(true);
+      setError(null);
+  
+      try {
+        const API_URL = `https://normplov-api.shinoshike.studio/api/v1/jobs/trending-jobs`;
+        console.log("Fetching data from:", API_URL);
+  
+        const response = await fetch(API_URL);
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+  
+        const result = await response.json();
+  
+        if (result.status === 200 && result.payload?.trending_jobs) {
+          setTrendingJobs(result.payload.trending_jobs);
+        } else {
+          throw new Error(result.message || "Failed to fetch data.");
+        }
+      } catch (err: any) {
+        console.error("Fetch Error:", err);
+        setError(err.message || "An unexpected error occurred.");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchTrendingJobs();
+  }, []);
+  
+  
+
+ 
   const handleCardClick = (id: string) => {
     router.push(`/university/${id}`);
   };
@@ -129,14 +192,16 @@ export default function Page() {
             ការងារដែលកំពុងមានតម្រូវការ
           </h1>
         </div>
-        <div className="max-w-7xl mx-auto my-4 md:my-6   ">
-          <Image
-            src="/assets/Bachart-XL-jobs.jpg"
-            alt="Barchart-XL-jobs"
-            width={2000}
-            height={2000}
-            className="object-cover w-full h-auto rounded-2xl "
-          />
+        <div className="max-w-7xl mx-auto my-4 md:my-6 h-full w-full   ">
+        {loading ? (
+            <div>
+              <div className=" animate-pulse bg-slate-200 w-full h-[600px] rounded-xl mt-10"></div>
+            </div>
+          ) : error ? (
+            <div className="text-red-500">{error}</div>
+          ) : (
+            <ChartJobTrending trendingJobs={mockTrendingJobs} />
+          )}
         </div>
 
         <div className="  bg-primary lg:w-60 lg:h-12 md:w-60 md:h-12 w-40 h-11 flex justify-center rounded-3xl items-center max-w-7xl mx-auto my-4 md:my-6">
@@ -166,19 +231,17 @@ export default function Page() {
           </Link>
         </div>
         <div className="max-w-7xl mx-auto my-4 md:my-6 mt-10  grid w-auto auto-rows-fr grid-cols-1 lg:gap-8 md:gap-8 gap-4 sm:mt-12 lg:grid-cols-2 md:grid-cols-1">
-          {data?.payload?.schools
-            .slice(0, 4)
-            .map((university: UniversityType, index: number) => (
-              <CardUniversity
-                key={index}
-                kh_name={university.kh_name}
-                en_name={university.en_name}
-                location={university.location}
-                popular_major={university.popular_major}
-                logo_url={university.logo_url || "/assets/default.png"}
-                onClick={() => handleCardClick(university.uuid)}
-              />
-            ))}
+          {data?.payload?.map((university: UniversityType, index: number) => (
+            <CardUniversity
+              key={index}
+              kh_name={university.kh_name}
+              en_name={university.en_name}
+              location={university.location}
+              popular_major={university.popular_major}
+              logo_url={university.logo_url || "/assets/default.png"}
+              onClick={() => handleCardClick(university.uuid)}
+            />
+          ))}
           <Link
             href=""
             className="text-xl  lg:hidden md:flex hidden justify-end mt-6 items-center font-bold text-center text-textprimary"

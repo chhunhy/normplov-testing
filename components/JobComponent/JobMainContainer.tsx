@@ -6,7 +6,6 @@ type props = {
     highlight: string;
     title: string;
     desc: string;
-
 }
 
 export const JobMainContainer = ({ highlight, title, desc }: props) => {
