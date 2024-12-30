@@ -9,7 +9,7 @@ import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
 import {
   useGetPopularSchoolsQuery,
-  useGetUniversitiesQuery,
+  
 } from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
@@ -96,14 +96,14 @@ export default function Page() {
         } else {
           throw new Error(result.message || "Failed to fetch data.");
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Fetch Error:", err);
-        setError(err.message || "An unexpected error occurred.");
+        setError(err instanceof Error ? err.message : "An unexpected error occurred.");
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchTrendingJobs();
   }, []);
   
@@ -200,7 +200,7 @@ export default function Page() {
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <ChartJobTrending trendingJobs={mockTrendingJobs} />
+            <ChartJobTrending trendingJobs={trendingJobs} />
           )}
         </div>
 

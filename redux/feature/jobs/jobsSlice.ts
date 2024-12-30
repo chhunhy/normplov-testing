@@ -1,40 +1,53 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Job {
-    uuid: string;
-    title: string;
-    company_name: string;
-    location: string;
-    description: string;
-  }
+type OptionType = {
+  value: string;
+  label: string;
+};
+
+// Define the initial state
 interface JobsState {
-  selectedJob: Job | null; // To store a single selected job
-  loading: boolean; // To track loading state
-  error: string | null; // To store any error messages
+  search: string;
+  page: number;
+  selectedCategory: OptionType | null; // Add selectedCategory filter
+  selectedLocation: OptionType | null; // Add selectedLocation filter
+  selectedJobType: OptionType | null; // Add selectedJobType filter
 }
 
 const initialState: JobsState = {
-  selectedJob: null,
-  loading: false,
-  error: null,
+  search: "",
+  page: 1,
+  selectedCategory: null, // Initialize with null
+  selectedLocation: null, // Initialize with null
+  selectedJobType: null, // Initialize with null
 };
 
 const jobsSlice = createSlice({
   name: "jobs",
   initialState,
   reducers: {
-    setSelectedJob: (state, action: PayloadAction<Job | null>) => {
-      state.selectedJob = action.payload;
+    setSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload;
+      state.page = 1; // Reset page when search changes
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
     },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
+    setSelectedCategory(state, action: PayloadAction<OptionType | null>) {
+      state.selectedCategory = action.payload;
+      state.page = 1; // Reset page when category changes
+    },
+    setSelectedLocation(state, action: PayloadAction<OptionType | null>) {
+      state.selectedLocation = action.payload;
+      state.page = 1; // Reset page when location changes
+    },
+    setSelectedJobType(state, action: PayloadAction<OptionType | null>) {
+      state.selectedJobType = action.payload;
+      state.page = 1; // Reset page when job type changes
     },
   },
 });
 
-export const { setSelectedJob, setLoading, setError } = jobsSlice.actions;
+export const { setSearch, setPage, setSelectedCategory,setSelectedLocation,setSelectedJobType } = jobsSlice.actions;
 
 export default jobsSlice.reducer;
