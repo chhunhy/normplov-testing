@@ -44,7 +44,7 @@ export const JobListingCard = ({ title, desc, image, time, location, isActive, o
             </div>
 
             {/* Text Section */}
-            <div className="col-span-3 -ml-[50px] space-y-2 ">
+            <div className="col-span-3  space-y-2 ">
                 <h2 className="text-lg lg:text-2xl font-semibold text-primary ">{title}</h2>
                 <p className="text-sm lg:text-base text-textprimary">{desc}</p>
                 <div className='flex flex-wrap gap-2'>
