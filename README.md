@@ -5,7 +5,7 @@ Welcome to NormPlov platform
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary><h3>Table of Contents</h3></summary>
-  <ol>x
+  <ol>
     <li>
       <a href="#about-norm_plov">About NormPlov</a>
     </li>
@@ -86,6 +86,22 @@ Check Out NormPlov: https://dev-normplov.shinoshike.studio/
 <!-- GETTING STARTED -->
 
 ## Getting Started
+
+### Local Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/NormPlov/normplov-ui-v2.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install i
+   ```
+3. Starting a Development Server
+   ```sh
+   npm run dev
+   ```
+
 
 ### Local Installation
 

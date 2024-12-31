@@ -111,7 +111,7 @@
 //     )
 // }
 
-import React, { useRef, useState } from 'react';
+import React, {  useRef, useState } from 'react';
 import Image from 'next/image';
 
 type Props = {
@@ -133,6 +133,7 @@ export const QuizQuestionContainer = ({
 }: Props) => {
     const [selected, setSelected] = useState<number | null>(null);
     const questionRef = useRef<HTMLDivElement>(null); // Reference to scroll to this question
+    
 
     const handleOptionClick = (value: number) => {
         setSelected(value); // Save the selected value
@@ -164,6 +165,7 @@ export const QuizQuestionContainer = ({
         }, 300);
         
     };
+
 
     return (
         <div
