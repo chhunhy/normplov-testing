@@ -114,12 +114,14 @@ const TestList = () => {
 
   const testCards = data?.payload.tests?.map((test, index) => {
     const backgroundColor = colors[index % colors.length]; // Cycle through the colors
+    const formattedDate = new Date(test.created_at).toLocaleDateString("en-CA"); // Format date
     return (
       <DynamicTestCard
         key={test.test_uuid}
         title={test.test_name}
         assessment_type_name={test.assessment_type_name}
-        date={test.created_at}
+        date={formattedDate} // Use formatted date here
+        // date={test.created_at}
         actions={actions.map((action) => ({
           ...action,
           onClick: () => action.onClick(test.test_uuid, test.assessment_type_name),
@@ -131,11 +133,11 @@ const TestList = () => {
 
   return (
   <div className="pt-4 lg:pt-0">
-             <h1 className="hidden lg:flex text-3xl pb-3 text-primary font-bold w-full text-left">Testing history</h1>
+      <h1 className="hidden lg:flex text-3xl pb-3 text-primary font-bold w-full text-left">Testing history</h1>
       <div className="relative w-full">
       {data?.payload.tests && data.payload.tests.length > 0 ? (
         <>
-          <div className="grid gap-4 grid-cols-1 mb-5">{testCards}</div>
+          <div className="grid gap-5 lg:gap-6 grid-cols-1 mb-5">{testCards}</div>
           {/* Pagination */}
          <div className="">
          <div className="">

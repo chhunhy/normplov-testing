@@ -55,6 +55,7 @@ export default function ResultDynamicComponent() {
 
     // Normalize the values
     const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
+    console.log("REs",resultType, params.resultType)
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
 
     // Handle invalid or missing parameters
