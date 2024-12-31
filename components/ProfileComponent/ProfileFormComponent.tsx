@@ -116,7 +116,7 @@ const ProfileForm = () => {
                     name="password"
                     id="password"
                     onClick={toggleChangePasswordModal}
-                    placeholder="Click the button to change password"
+                    placeholder="••••••••"
                     className="custom-class mt-1"
                     readOnly={true} // Make the field read-only
                   />
@@ -132,8 +132,8 @@ const ProfileForm = () => {
               </div>
 
               {/* Date of Birth and Gender */}
-              <div className="flex w-full justify-between gap-5">
-                <div className="w-1/2">
+              <div className="block md:flex w-full justify-between gap-5">
+                <div className="w-full md:w-1/2 pb-5 md:pb-0">
                   <Label htmlFor="date_of_birth" text="ថ្ងៃ ខែ ឆ្នាំ កំណើត" />
                   <DatePickerDemo
                     selectedDate={values.date_of_birth?.toISOString() || null}
@@ -142,7 +142,7 @@ const ProfileForm = () => {
                     }
                   />
                 </div>
-                <div className="w-1/2">
+                <div className="w-full md:w-1/2">
                   <Label htmlFor="gender" text="ភេទ" />
                   <SelectDemo
                     
@@ -151,19 +151,19 @@ const ProfileForm = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between w-full gap-5">
+              <div className="block md:flex justify-between w-full gap-5">
                 {/* Phone Number */}
-                <div className="w-1/2">
+                <div className="w-full md:w-1/2">
                   <Label htmlFor="phone_number" text="លេខទូរស័ព្ទ" />
                   <FieldProfile
                     type="text"
                     name="phone_number"
                     id="phone_number"
-                    placeholder="Enter your phone number"
+                    placeholder="បញ្ជូលលេខទូរស័ព្ទរបស់អ្នក"
                   />
                 </div>
                 {/* Address */}
-                <div className="w-1/2">
+                <div className="w-full md:w-1/2">
                   <Label htmlFor="address" text="អាសយដ្ឋាន" />
                   <FieldProfile
                     type="text"

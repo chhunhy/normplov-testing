@@ -138,35 +138,40 @@ export default function FooterPage() {
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ឧបត្ថម្ភដោយ
               </h3>
-              <div className="lg:space-y-4  md:space-y-4 space-y-0  flex md:block lg:flex  ">
-                <a href="https://mptc.gov.kh/en/">
-                <Image
-                  src="/assets/MPTC-logo.jpg"
-                  alt="Partner logo 1"
-                  width={1000}
-                  height={1000}
-                  className="object-contain"
-                />
-                </a>
-                <a href="https://mptc.gov.kh/en/">
-                <Image
-                  src="/assets/CBRD-logo.jpg"
-                  alt="Partner logo 2"
-                  width={1000}
-                  height={1000}
-                  className="object-contain  "
-                />
-                </a>
-              </div>
-              <a href="https://www.cstad.edu.kh/" className="flex justify-start lg:mt-2 md:mt-2 mt-2 ">
+             
+                <div className="space-y-4">
+                  <Image
+                    src="/assets/MPTC-logo.jpg"
+                    alt="Partner logo 1"
+                    width={1000}
+                    height={1000}
+                    className="object-contain w-40  "
+                  />
+                  <Image
+                    src="/assets/CBRD-logo.jpg"
+                    alt="Partner logo 2"
+                    width={1000}
+                    height={1000}
+                    className="object-contain w-40 -ml-1"
+                  />
+                </div>
+                <div className="space-y-4 mt-4">
+                <h3 className="font-semibold text-2xl text-textprimary">
+                រៀបចំដោយ
+              </h3>
                 <Image
                   src="/assets/istad_logo.jpg"
                   alt="Partner logo 2"
                   width={1000}
                   height={1000}
-                  className="object-contain  w-[170px] h-[64px]"
+                  className="object-contain w-[158px]"
                 />
-              </a>
+                </div>
+          
+
+              {/* <div className=" mt-4 ">
+              
+              </div> */}
             </div>
           </div>
         </div>

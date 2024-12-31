@@ -32,13 +32,15 @@ export default function ProfileLayout({
       >
         <NavbarPage/>
        
-        <div className=" lg:flex p-6 gap-6">
+       <section className="lg:container lg:mx-auto">
+       <div className=" lg:flex p-6 lg:p-8 gap-6 lg:gap-12">
           {/* Sidebar */}
           <SideBarProfileComponent />
            
           {/* Main Content */}
           <main className=" w-full h-auto">{children}</main>
         </div>
+       </section>
         <FooterPage/>
       </body>
     </html>

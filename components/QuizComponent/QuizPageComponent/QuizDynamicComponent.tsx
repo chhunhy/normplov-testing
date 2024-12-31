@@ -19,7 +19,7 @@ import learningStyleJson from '@/app/(user)/json/learningStyleKh.json';
 // import allTestJson from '@/app/(user)/json/allTest.json';
 import { usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
 import Loading from '@/components/General/Loading';
-
+import { useDraftAssessmentMutation } from '@/redux/service/draft';
 
 
 
@@ -48,6 +48,7 @@ type QuizResponse = { [question: string]: number };
 
 export default function QuizDynamicComponent() {
   const [predictAssessment] = usePredictAssessmentMutation();
+  const [ draftAssessment ] = useDraftAssessmentMutation();
   const { testType } = useParams(); // Get the dynamic route parameter
   const router = useRouter();
 
@@ -78,6 +79,22 @@ export default function QuizDynamicComponent() {
 
     return { responses };
   };
+  const processResponsesForDraft = (
+    userResponses: { [key: string]: number },
+    questions: { question: string; category: string }[]
+  ) => {
+    const responses: { [key: string]: number } = {};
+  
+    // Map user responses to their respective categories
+    questions.forEach(({ question, category }) => {
+      if (userResponses[question] !== undefined) {
+        responses[category] = userResponses[question];
+      }
+    });
+  
+    return responses; // Return partial responses for draft
+  };
+  
 
 
   if (!quizData) {
@@ -86,7 +103,8 @@ export default function QuizDynamicComponent() {
   }
 
   const assessmentType = Array.isArray(testType) ? testType[0] : testType;
-
+  // const draftType = Array.isArray(testType) ? testType[1] : testType;
+  console.log("Assessment type: " + assessmentType)
   const showLoading = () => {
     setTimeout(() => setIsLoading(true), 200); // Only show spinner after 200ms
   };
@@ -108,8 +126,7 @@ export default function QuizDynamicComponent() {
 
 
     const processedResponses = processResponsesFromModifiedJSON(userResponses, quizData.questions);
-
-
+    console.log("Process",processedResponses)
 
     try {
       
@@ -132,15 +149,53 @@ export default function QuizDynamicComponent() {
   };
 
 
-  const handleDraftClick = () => {
-    toast.success("Your progress has been saved. You can continue later from your profile.", {
-      icon: <span>📂</span>,
-      className: "Toastify__toast",
-    });
-    router.push(`/test`);
+  // const handleDraftClick = async () => {
+  //   showLoading();
+  //   const processedResponses = processResponsesFromModifiedJSON(userResponses, quizData.questions);
+  //   try{
+  //       await draftAssessment({
+  //       draftType: assessmentType, // Use the normalized `assessmentType` here
+  //       body: { responses: processedResponses, userResponses },
+  //       }).unwrap();
+  //       toast.success("Your progress has been saved. You can continue later from your profile.", {
+  //         icon: <span>📂</span>,
+  //         className: "Toastify__toast",
+  //       });
+  //       router.push(`/test`);
+  //   }catch(err){
+  //     toast.error("Failed to submit responses. Please try again.");
+  //     console.log(err)
+  //   }finally{
+  //     hideLoading(); // Stop loading spinner
+  //   }
+  // };
+
+  const handleDraftClick = async () => {
+    showLoading();
+  
+    // Filter only the answered questions
+    const processedResponses = processResponsesForDraft(userResponses, quizData.questions);
+  
+    try {
+      // Send the filtered responses to the draft API
+      await draftAssessment({
+        draftType: assessmentType, // Use normalized `assessmentType`
+        body: { responses: processedResponses }, // Only include relevant responses
+      }).unwrap();
+  
+      // Notify the user of success
+      toast.success("Your progress has been saved. You can continue later from your profile.");
+      router.push(`/test`);
+    } catch (err) {
+      // Log and notify the user of errors
+      toast.error("Failed to save progress. Please try again.");
+      console.error("Error saving draft:", err);
+    } finally {
+      // Hide the loading spinner
+      hideLoading();
+    }
   };
-
-
+  
   const { instructKh, quizButtonKh } = generalTestJson;
   const { questions, introKh } = quizData;
 
@@ -148,6 +203,17 @@ export default function QuizDynamicComponent() {
   const handleAnswer = (question: string, response: number) => {
     setUserResponses((prev) => ({ ...prev, [question]: response })); // Update responses
   };
+  // const handleAnswer = (question: string, response: number) => {
+  //   // Update user responses
+  //   setUserResponses((prev) => ({ ...prev, [question]: response }));
+  
+  //   // Dynamically track completed questions
+  //   const questionIndex = questions.findIndex((q) => q.question === question);
+  //   if (questionIndex !== -1 && !completedQuestions.includes(questionIndex)) {
+  //     setCompletedQuestions((prev) => [...prev, questionIndex]);
+  //   }
+  // };
+  
 
 
   return (

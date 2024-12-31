@@ -109,7 +109,7 @@ const RegisterComponent = () => {
               </button>
             </div>
           </div>
-          <div className="h-fit mt-10 md:mt-11 xl:mt-0">
+          <div className="h-fit mt-10 md:mt-11 xl:mt-0 px-12">
             <h1 className="text-4xl font-bold text-primary">បង្កើតគណនីថ្មី</h1>
             <Formik
               initialValues={initialValues}
@@ -174,7 +174,8 @@ const RegisterComponent = () => {
                       htmlFor="terms"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-textprimary"
                     >
-                     ខ្ញុំបានអាននិងយល់ព្រមលើ <Link href="/policy" className="text-primary pl-2"> គោលការណ៍ឯកជនភាព</Link>
+                     ខ្ញុំបានអាននិងយល់ព្រមលើ <Link href="/privacy-policy"   target="_blank" 
+    rel="noopener noreferrer"  className="text-primary pl-2"> គោលការណ៍ឯកជនភាព</Link>
                     </label>
                     
                   </div>

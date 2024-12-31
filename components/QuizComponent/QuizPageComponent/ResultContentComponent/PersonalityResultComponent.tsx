@@ -6,12 +6,34 @@ import { QuizResultListing } from "../../QuizResultListing";
 import { useFetchAssessmentDetailsQuery } from "@/redux/feature/assessment/result";
 import { useParams } from "next/navigation";
 import CardPersonality from "../../CardPersonality";
-import ScoreBar from "../ScoreBarPersonality";
 import { RecommendationCard } from "../../RecommendationCard";
+import {
+  BarChart,
+  Bar,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Rectangle,
+  TooltipProps
+} from "recharts";
 // Define types for API response
 type PersonalityDimension = {
   dimension_name: string;
   score: number;
+};
+
+type ChartData = {
+  label: string;
+  score: number;
+  color: string;
+};
+
+type BarProps = {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  payload?: { color?: string };
 };
 // type PersonalityTraits = {
 //   positive: string[];
@@ -55,6 +77,16 @@ type PersonalityDimension = {
 
 export const PersonalityResultComponent = () => {
   const params = useParams();
+  const dimensionFullNames: { [key: string]: string } = {
+    I_Score: "Introvert Score",
+    E_Score: "Extrovert Score",
+    S_Score: "Sensors Score",
+    T_Score: "Thinkers Score",
+    J_Score: "Judgers Score",
+    N_Score: "Intuitive Score",
+    F_Score: "Feeling Score",
+    P_Score: "Perceivers Score",
+  };
 
   // Normalize the values from params
   // const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
@@ -82,19 +114,64 @@ export const PersonalityResultComponent = () => {
   //   const skillCategory = response?.[0]?.categoryPercentages;
   const personalities = response?.[0]?.personalityType;
   const personalitiesDimension = response?.[0]?.dimensions;
+  const dimensions: PersonalityDimension[] = response?.[0]?.dimensions || [];
+  const chartData: ChartData[] = dimensions.map((dim, index) => ({
+    label: dimensionFullNames[dim.dimension_name] || dim.dimension_name, // Use full name or fallback to the key
+    score: dim.score,
+    color: [
+      "#fa6a02", // Orange
+      "#fa0272", // Pink
+      "#fadd02", // Yellow
+      "#029bfa", // Teal
+      "#02faa7", // green
+      "#6502fa", // Orange
+      "#11b851", // Purple
+      "#f74848", // Orange
+
+    ][index % 8], // Cycle through colors
+  }));
+ 
+  
+  const CustomBar = (props: BarProps) => {
+    const { x, y, width, height } = props;
+    return (
+      <Rectangle
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        fill={props.payload?.color}
+        radius={[4, 4, 0, 0]} // Rounded top corners
+      />
+    );
+  };
+  const renderCustomLegend = () => (
+    <div className="w-full flex  flex-wrap gap-8  ">
+      {chartData.map((entry, index) => (
+        <div key={index} className="flex items-center  gap-4  ">
+          <div
+            className="w-4 h-4 rounded"
+            style={{ backgroundColor: entry.color }}
+          ></div>
+          <span className="text-md text-textprimary">{entry.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+
   console.log("Personalities dimension", personalitiesDimension);
   // Function to dynamically get matching dimensions
-  const getDimensionPair = (name1: string, name2: string) => {
-    const dim1 =
-      personalitiesDimension?.find(
-        (d: PersonalityDimension) => d.dimension_name === name1
-      )?.score || 0;
-    const dim2 =
-      personalitiesDimension?.find(
-        (d: PersonalityDimension) => d.dimension_name === name2
-      )?.score || 0;
-    return { dim1, dim2 };
-  };
+  // const getDimensionPair = (name1: string, name2: string) => {
+  //   const dim1 =
+  //     personalitiesDimension?.find(
+  //       (d: PersonalityDimension) => d.dimension_name === name1
+  //     )?.score || 0;
+  //   const dim2 =
+  //     personalitiesDimension?.find(
+  //       (d: PersonalityDimension) => d.dimension_name === name2
+  //     )?.score || 0;
+  //   return { dim1, dim2 };
+  // };
 
   const personailitiesTrait = response?.[0]?.traits;
   console.log("PersonailitiesTrait", personailitiesTrait);
@@ -147,6 +224,28 @@ export const PersonalityResultComponent = () => {
       ],
     },
   ];
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: TooltipProps<number, string>) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload as {
+        label: string;
+        score: number;
+        color: string; // Add color property from chartData
+      }; // Ensure payload structure is typed correctly
+  
+      return (
+        <div className="bg-white p-2 border rounded shadow-sm">
+      
+          <p className="font-semibold text-slate-600">{data.label}</p>
+          <p className="text-gray-500">Score: {data.score}</p>
+        </div>
+      );
+    }
+  
+    return null;
+  };
   return (
     <div className="bg-white">
       {/* Personalities Name and Description */}
@@ -163,67 +262,32 @@ export const PersonalityResultComponent = () => {
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">
             ក្រាហ្វបង្ហាញពីបុគ្គលិកលក្ខណៈ
           </h2>
-          <div className="space-y-6 md:p-8">
-            {/* Introvert vs Extrovert */}
-            <ScoreBar
-              labelLeft="Introvert"
-              labelRight="Extrovert"
-              valueLeft={getDimensionPair("I_Score", "E_Score").dim1}
-              valueRight={getDimensionPair("I_Score", "E_Score").dim2}
-              colorLeft="bg-red-400"
-              colorRight="bg-orange-400"
-              customStyles={{
-                container: "rounded-xl",
-                labelText: "text-red-600 text-md md:text-xl font-bold",
-                valueText: "text-gray-700  text-md md:text-xl font-semibold",
-              }}
-            />
-
-            {/* Sensing vs Intuition */}
-            <ScoreBar
-              labelLeft="Sensing"
-              labelRight="Intuition"
-              valueLeft={getDimensionPair("S_Score", "N_Score").dim1}
-              valueRight={getDimensionPair("S_Score", "N_Score").dim2}
-              colorLeft="bg-yellow-400"
-              colorRight="bg-teal-400"
-              customStyles={{
-                container: "",
-                labelText: "text-red-600 text-md md:text-xl font-bold",
-                valueText: "text-gray-700  text-md md:text-xl font-semibold",
-              }}
-            />
-
-            {/* Thinking vs Feeling */}
-            <ScoreBar
-              labelLeft="Thinking"
-              labelRight="Feeling"
-              valueLeft={getDimensionPair("T_Score", "F_Score").dim1}
-              valueRight={getDimensionPair("T_Score", "F_Score").dim2}
-              colorLeft="bg-green-400"
-              colorRight="bg-blue-700"
-              customStyles={{
-                container: "",
-                labelText: "text-red-600 text-md md:text-xl font-bold",
-                valueText: "text-gray-700  text-md md:text-xl font-semibold",
-              }}
-            />
-
-            {/* Judging vs Perceiving */}
-            <ScoreBar
-              labelLeft="Judging"
-              labelRight="Perceiving"
-              valueLeft={getDimensionPair("J_Score", "P_Score").dim1}
-              valueRight={getDimensionPair("J_Score", "P_Score").dim2}
-              colorLeft="bg-blue-500"
-              colorRight="bg-yellow-400"
-              customStyles={{
-                container: "",
-                labelText: "text-red-600 text-md md:text-xl font-bold",
-                valueText: "text-gray-700  text-md md:text-xl font-semibold",
-              }}
-            />
+          <div className="bg-white lg:space-y-8 mx-auto lg:p-4 lg:mt-3 grid grid-cols-1 lg:grid-cols-3">
+            <div className="col-span-2 ">
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart
+                  data={chartData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Tooltip content={<CustomTooltip />} />
+                  {/* <XAxis dataKey="label" /> */}
+                  {/* <Tooltip /> */}
+                  <Bar
+                    dataKey="score"
+                    shape={(props: BarProps) => <CustomBar {...props} />}
+                    name="Score"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className=" col-span-1 flex  flex-col items-center justify-center">
+              {renderCustomLegend()}
+            </div>
           </div>
+          {/* Legend */}
+         {/* Legend */}
+        
         </div>
         <div className="mx-4 md:mx-0 border border-slate-50 mt-5 md:mt-14 p-6 rounded-[8px]">
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">

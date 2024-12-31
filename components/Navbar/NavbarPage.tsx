@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useGetUserQuery } from "@/redux/service/user"; // Import the user API
-
+import { useGetUserQuery } from "@/redux/service/user";
 const navLinks = [
   { href: "/", label: "ទំព័រដើម" },
   { href: "/test", label: "តេស្ត" },
