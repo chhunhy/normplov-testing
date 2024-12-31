@@ -108,6 +108,11 @@ export default function ResultDynamicComponent() {
                 return (
                     <LearningStyleResultComponent />
                 );
+            case 'all':
+                return (
+                    <div>We havent finished the result.</div>
+                )
+
             default:
                 return <p>Unknown result type</p>;
         }

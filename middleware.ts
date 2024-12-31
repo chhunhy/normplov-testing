@@ -7,7 +7,6 @@ export function middleware(request: NextRequest) {
 
     const refreshToken = request.cookies.get("normplov-refresh-token");
 
-
     if (!refreshToken) {
         console.log("No refresh token found, redirecting to login...");
         return NextResponse.redirect(new URL("/login", request.url));

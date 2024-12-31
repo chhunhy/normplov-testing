@@ -1,3 +1,4 @@
+import { MultipleStepQuizComponent } from "@/components/QuizComponent/QuizPageComponent/MultipleStepQuizComponent";
 import QuizDynamicComponent from "@/components/QuizComponent/QuizPageComponent/QuizDynamicComponent"
 import React from "react"
 
@@ -46,8 +47,10 @@ export async function generateMetadata({ params }: { params: { testType: string 
  }
  
 
-export default function page() {
-   return (
-        <QuizDynamicComponent/>
-   )
+export default function page({ params }: { params: { testType: string } }) {
+  if (params.testType === "all") {
+    return <MultipleStepQuizComponent />;
+  }
+  
+  return <QuizDynamicComponent />;
 }
