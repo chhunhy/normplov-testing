@@ -30,13 +30,17 @@ export const metadata: Metadata = {
 };
 
 const suwannaphum = Suwannaphum({
+  weight: ["100", "300", "400", "700", "900"],
   subsets: ["khmer"],
-  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-suwannaphum",
 });
 
 const inter = Inter({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
-  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 
@@ -47,7 +51,10 @@ export default function PublicUserLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${suwannaphum.className} ${inter} antialiased`}>
+      <body
+        className={`${suwannaphum.variable} ${inter.variable}`}
+        suppressHydrationWarning
+      >
         <NavbarPage />
         <main className="w-full"> {children} <FloatingButtons/> </main>
         <FooterPage />

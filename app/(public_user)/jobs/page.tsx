@@ -25,6 +25,7 @@ import {
 } from "@/redux/feature/jobs/jobsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
+import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
 
 interface CategoryOption {
   value: string;
@@ -154,7 +155,6 @@ interface Job {
 export default function Job() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
@@ -164,7 +164,7 @@ export default function Job() {
     useAppSelector((state: RootState) => state.jobs);
 
   // Fetch jobs based on the filter state
-  const { data, error, isLoading } = useGetJobsQuery({
+  const { data } = useGetJobsQuery({
     search,
     page,
     category: selectedCategory?.value || "", // Send category if
@@ -239,7 +239,7 @@ export default function Job() {
   }, []);
 
   if (!data) {
-    return <p>Loading...</p>;
+    return <JobsSkeleton/>;
   }
 
   console.log("data: ", data);
@@ -378,7 +378,7 @@ export default function Job() {
                 <SelectValue>
                   {selectedJobType
                     ? selectedJobType.label
-                    : "ប្រភេទនៃការបំពេញការងារ"}
+                    : "ប្រភេទបំពេញការងារ"}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -417,7 +417,7 @@ export default function Job() {
       {/* Job searching */}
       <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
-          ឪកាសការងារ
+        ឱកាសការងារ
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">

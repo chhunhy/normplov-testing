@@ -55,7 +55,7 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
               top: 30, // Add space at the top
               bottom: 30, // Add space at the bottom
               right: 80, // Add extra space on the right to prevent truncation
-              left:20,
+              left: 20,
             },
           },
           plugins: {
@@ -72,6 +72,20 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
                 size: 14,
               },
               color: "#6b7280",
+            },
+            tooltip: {
+              enabled: true,
+              callbacks: {
+                title: (tooltipItems) => {
+                  // Return the month label for the tooltip title
+                  return tooltipItems[0].label;
+                },
+                label: (tooltipItem) => {
+                  // Show the job label in the tooltip
+                  const jobLabel = jobLabels[tooltipItem.dataIndex];
+                  return `${jobLabel}`;
+                },
+              },
             },
           },
           scales: {
@@ -106,7 +120,7 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
   }, [trendingJobs]);
 
   return (
-    <div className=" mt-[50px] ">
+    <div className="mt-[50px]">
       <canvas
         ref={chartRef}
         width="400"

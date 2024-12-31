@@ -12,7 +12,7 @@ export default function FooterPage() {
           <div className="flex justify-center">
             <div className="space-y-4">
               <Link href="/" className="text-emerald-500 text-xl font-semibold">
-                Logo
+                <Image src="/assets/logo.jpg" alt="Logo" width={1000} height={1000} className="lg:w-[60px] md:w-[50px] w-[40px] "></Image>
               </Link>
               <p className="text-textprimary block md:hidden lg:block text-md leading-relaxed">
                 នាំផ្លូវ គឺជាគេហទំព័រដែលជួយឲ្យអ្នក

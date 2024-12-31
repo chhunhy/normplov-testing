@@ -52,14 +52,14 @@ export default function CardUniversity({
           </div>
           <div className="lg:mb-2 md:mbb-2 mb-2 text-sm md:text-lg block md:hidden lg:hidden  lg:text-lg text-textprimary">
             ជំនាញពេញនិយម ៖
-            <span className="text-sm md:text-lg lg:text-lg ml-2 text-secondary">
+            <span className="text-sm md:text-lg lg:text-lg ml-2 text-secondary bg-secondary bg-opacity-10 text-opacity-80 max-w-fit px-1 lg:px-2 rounded-xl">
               {popular_major}
             </span>
           </div>
           <div className="flex justify-between items-center ">
             <div className="text-sm md:text-lg hidden md:flex lg:flex lg:text-lg text-textprimary">
               ជំនាញពេញនិយម ៖
-              <span className="text-sm md:text-lg lg:text-lg ml-2 text-secondary">
+              <span className="text-sm md:text-lg lg:text-lg ml-2 text-secondary bg-secondary bg-opacity-10 text-opacity-80 max-w-fit px-1 lg:px-2 rounded-xl">
                 {popular_major}
               </span>
             </div>

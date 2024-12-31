@@ -4,16 +4,19 @@ import { Inter, Suwannaphum } from "next/font/google";
 import SideBarProfileComponent from "@/components/ProfileComponent/SideBarProfileComponent";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import FooterPage from "@/components/Footer/FooterPage";
-const suwannaphum = Suwannaphum({
+export const suwannaphum = Suwannaphum({
+  weight: ["100", "300", "400", "700", "900"],
   subsets: ["khmer"],
-  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-suwannaphum",
 });
 
-const inter = Inter({
+export const inter = Inter({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
-  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-inter",
 });
-
 
 
 export default function ProfileLayout({
@@ -24,7 +27,8 @@ export default function ProfileLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-bgPrimaryLight ${suwannaphum.className} ${inter} antialiased `}
+        className={`${suwannaphum.variable} ${inter.variable}`}
+        suppressHydrationWarning
       >
         <NavbarPage/>
        
