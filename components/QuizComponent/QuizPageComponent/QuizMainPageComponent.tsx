@@ -151,10 +151,6 @@ export default function QuizMainPageComponent() {
 
             )}
 
-
-
-
-
         </div>
     )
 }

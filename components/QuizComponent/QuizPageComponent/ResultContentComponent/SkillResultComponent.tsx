@@ -141,7 +141,7 @@
 // }
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { QuizCircularProgress } from '../../QuizCircularProgress';
 import QuizHeader from '../../QuizHeader';
 import { QuizResultListing } from '../../QuizResultListing';
@@ -152,6 +152,7 @@ import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/resul
 import { useParams } from 'next/navigation';
 import { RecommendationCard } from '../../RecommendationCard';
 import Loading from '@/components/General/Loading';
+import Pagination from '@/components/ProfileComponent/Pagination';
 
 type Skill = {
   skill: string;
@@ -172,6 +173,8 @@ type RecommendedCareer = {
 
 export const SkillResultComponent = () => {
   const params = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
   // Normalize the values from params
   // const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
@@ -216,7 +219,26 @@ export const SkillResultComponent = () => {
 
   const recommendedCareer = response?.[0]?.strongCareers;
 
+  const topCategory = response?.[0]?.topCategory
+
+  console.log("category: ", topCategory)
+
   console.log("data from skill: ", response?.[0])
+
+  // Pagination handler
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  // Calculate total pages for career recommendations
+  const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+
+  // Get current items for the current page
+  const currentItems = recommendedCareer.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
 
   return (
     <div>
@@ -224,11 +246,7 @@ export const SkillResultComponent = () => {
       <div className="bg-white">
         <div className="space-y-6 lg:space-y-16 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
           <p className="text-lg md:text-xl lg:text-2xl text-textprimary">
-            <span className="text-primary font-semibold">Cognitive Skills</span> is your domain skill
-            refer to the mental abilities that individuals use to acquire knowledge, understand
-            concepts, reason, and solve problems. These skills are essential for processing
-            information, thinking critically, and making informed decisions. They involve the
-            application of logic, creativity, and critical thinking to various tasks and situations.
+            <span className="text-primary font-semibold">{topCategory.name}</span> {topCategory.description}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6  ">
@@ -260,62 +278,86 @@ export const SkillResultComponent = () => {
       </div>
 
       {/* Strength */}
-      <div className="bg-bgPrimaryLight">
-        <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-          <QuizHeader title="ចំណុចខ្លាំងរបស់អ្នក" description="Strength" size="sm" type="result" />
+      {
+        strongSkill.length === 0 ? ('') : (
+          <div className="bg-bgPrimaryLight">
+            <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
+              <QuizHeader title="ចំណុចខ្លាំងរបស់អ្នក" description="Strength" size="sm" type="result" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6  ">
-            {strongSkill.map((skill: Skill, index: number) => (
-              <QuizResultListing key={index} title={skill.skill} desc={skill.description} image={checkIcon} />
-            ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6  ">
+                {strongSkill.map((skill: Skill, index: number) => (
+                  <QuizResultListing key={index} title={skill.skill} desc={skill.description} image={checkIcon} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )
+      }
+
 
       {/* Growth */}
-      <div className="bg-bgPrimaryLight">
-        <div className="space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-          <QuizHeader
-            title="ចំណុចដែលអ្នកត្រូវអភិវឌ្ឍបន្ថែម"
-            description="Growth Focus"
-            size="sm"
-            type="result"
-            titleColor="text-secondary"
-          />
+      {
+        averageSkill.length === 0 ? ('') : (
+          <div className="bg-bgPrimaryLight">
+            <div className="space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
+              <QuizHeader
+                title="ចំណុចដែលអ្នកត្រូវអភិវឌ្ឍបន្ថែម"
+                description="Growth Focus"
+                size="sm"
+                type="result"
+                titleColor="text-secondary"
+              />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6  ">
-            {averageSkill.map((skill: Skill, index: number) => (
-              <QuizResultListing key={index} title={skill.skill} desc={skill.description} image={upIcon} />
-            ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6  ">
+                {averageSkill.map((skill: Skill, index: number) => (
+                  <QuizResultListing key={index} title={skill.skill} desc={skill.description} image={upIcon} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )
+      }
+
 
       {/* weakness */}
-      <div className="bg-bgPrimaryLight">
-        <div className="space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-          <QuizHeader title="ចំណុចខ្សោយរបស់អ្នក" description="Your Weakness" size="sm" type="result" titleColor="text-danger" />
+      {
+        weakSkill.length === 0 ? ('') : (
+          <div className="bg-bgPrimaryLight">
+            <div className="space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
+              <QuizHeader title="ចំណុចខ្សោយរបស់អ្នក" description="Your Weakness" size="sm" type="result" titleColor="text-danger" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 lg:gap-6 ">
-            {weakSkill.map((skill: Skill, index: number) => (
-              <QuizResultListing key={index} title={skill.skill} desc={skill.description} image={xIcon} />
-            ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 lg:gap-6 ">
+                {weakSkill.map((skill: Skill, index: number) => (
+                  <QuizResultListing key={index} title={skill.skill} desc={skill.description} image={xIcon} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )
+      }
+
 
       <div className='space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 '>
 
         <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-          {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
-            <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
-
+          {currentItems.map((item: RecommendedCareer, index: number) => (
+            <RecommendationCard
+              key={item.career_name || index}
+              jobTitle={item.career_name}
+              jobDesc={item.description}
+              majors={item.majors}
+            />
           ))}
-
-
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+        />
 
       </div>
 

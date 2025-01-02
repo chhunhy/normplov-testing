@@ -22,6 +22,7 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors }: props) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
 
+
     const handleToggle = () => {
         setIsExpanded(!isExpanded); // Toggle between expanded and collapsed
     };
@@ -29,12 +30,16 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors }: props) => {
     return (
         <div className="rounded-xl bg-[#FDFDFB] w-full h-auto mt-10 relative text-textprimary">
             {/* Instruction Label */}
-            <span className="absolute left-4 -top-4 inline-flex items-center bg-primary px-4 py-1 text-lg md:text-xl font-semibold text-white rounded-xl">
+            {/* <span className="absolute left-4 -top-4 inline-flex items-center bg-primary px-4 py-1 text-lg md:text-xl font-semibold text-white rounded-xl max-w-[300px] line-clamp-2">
+                {jobTitle}
+            </span> */}
+
+            <span className="inline-flex left-4 -top-4 items-center bg-primary px-4 py-1 text-lg md:text-xl font-semibold text-white rounded-2xl max-w-[440px] break-words">
                 {jobTitle}
             </span>
 
             {/* How it Works Section */}
-            <div className="px-6 pt-8 pb-6 rounded-b-lg">
+            <div className="px-6 pt-4 pb-6 rounded-b-lg">
 
                 <p
                     className={`text-md md:text-lg  overflow-hidden text-textprimary ${!isExpanded ? 'line-clamp-3' : ''}`}
@@ -82,10 +87,10 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors }: props) => {
                             )} */}
                             {majors.length > 0 ? (
                                 majors.map((major, index) => (
-                                    <div key={index}>
-                                        <p className="font-semibold">{major.major_name}</p>
+                                    <div key={index} className='pl-2'>
+                                        <p className="font-semibold text-base md:text-lg mb-2 text-primary">{major.major_name}</p>
                                         {major.schools.length > 0 ? (
-                                            <ul className="space-y-2 text-base md:text-lg list-disc pl-6">
+                                            <ul className="space-y-2 text-base md:text-md list-decimal pl-6">
                                                 {major.schools.map((school, schoolIndex) => (
                                                     <li key={schoolIndex}>{school}</li>
                                                 ))}
@@ -98,12 +103,13 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors }: props) => {
                             ) : (
                                 <p className='text-gray-500'>No recommended majors available.</p>
                             )}
+
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
             </div>
 
-        </div>
+        </div >
 
     )
 }

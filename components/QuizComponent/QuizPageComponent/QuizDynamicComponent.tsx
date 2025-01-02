@@ -259,6 +259,7 @@ export default function QuizDynamicComponent() {
               }
             }}
             handleAnswer={handleAnswer}
+            lang='kh'
           />
         ))}
 
@@ -274,6 +275,7 @@ export default function QuizDynamicComponent() {
           type="leftIcon"
           outline="true"
           onClick={handleDraftClick}
+
         />
         <QuizButton
           title={quizButtonKh.result}
@@ -281,6 +283,8 @@ export default function QuizDynamicComponent() {
           icon={<ArrowRight />}
           type="rightIcon"
           onClick={handleResultClick}
+          isDisable={(completedQuestions.length < totalQuestions) ? true : false}
+          outline='false'
         />
       </div>
     </div>
