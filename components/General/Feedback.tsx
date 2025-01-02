@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Textarea } from "@/components/ui/textarea"
 import { QuizButton } from '../QuizComponent/QuizButton';
 import { useParams } from 'next/navigation';
-import { useFormik } from 'formik';
+import { FormikErrors, FormikValues, useFormik } from 'formik';
 import DOMPurify from "dompurify";
 import { useSubmitFeedbackMutation } from '@/redux/feature/general/feedback';
 import { toast } from 'react-toastify';
@@ -30,12 +30,17 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
             feedback: "",
         },
 
+        validate: (values: FormikValues) => {
+            const errors: FormikErrors<FormikValues> = {}; 
+            if (!values.feedback.trim()) {
+                errors.feedback = "Please input your feedback.";
+            }
+            return errors;
+        },
+
         onSubmit: async (values, { resetForm }) => {
 
-            if (!values.feedback.trim()) {
-                toast.error("Please input your feedback.");
-                return;
-            }
+           
             const sanitizedFeedback = DOMPurify.sanitize(values.feedback).toString();
             console.log("Sanitized Feedback:", sanitizedFeedback);
 
@@ -92,14 +97,15 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
                             name="feedback"
                             value={formik.values.feedback}
                             onChange={formik.handleChange}
-                            className={`bg-white border ${!formik.values.feedback.trim() ? "border-red-500" : "border-gray-200"
+                            className={`bg-white border ${formik.errors.feedback && formik.touched.feedback  ? "border-red-500" : "border-gray-200"
                                 } pl-2 rounded-xl outline-none focus:border-gray-300 text-sm text-textprimary h-24 mb-4`}
                             placeholder={placeholder}
                         />
+                        
 
-                        {!formik.values.feedback.trim() && (
+                        {formik.touched.feedback && formik.errors.feedback && (
                             <p className="text-red-500 text-sm mb-4">
-                                Please input your feedback.
+                                {formik.errors.feedback}
                             </p>
                         )}
 

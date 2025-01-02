@@ -32,17 +32,17 @@ export const QuizLinkAndChatContainer = ({ chatTitle, chatDesc, chatButton, link
     }
 
     const handleClickChat = () => {
-        router.push("/chat")
+        router.push("/chat-with-ai")
     }
 
     return (
         <div className='bg-white '>
-            <div className='max-w-7xl mx-auto p-4 md:p-10 lg:p-12  grid  grid-cols-1 md:grid-cols-12 '>
-                <div className='col-span-4 p-4 md:p-8 lg:p-16 bg-primary  md:rounded-l-xl  rounded-t-xl space-y-4 lg:space-y-6 place-content-center'>
+            <div className='max-w-7xl mx-auto p-4 md:p-10 lg:p-12  grid  grid-cols-1 lg:grid-cols-12 gap-4'>
+                <div className='col-span-1  lg:col-span-4 p-4 md:p-8 lg:p-16 bg-primary w-full md:rounded-xl  rounded-xl space-y-4 lg:space-y-6 place-content-center '>
                     <QuizHeader title={chatTitle} description={chatDesc} type='quiz' size='sm' />
                     <QuizButton title={chatButton} full={true} color='#FFA500' onClick={handleClickChat} />
                 </div>
-                <div className='col-span-8 p-4 md:p-8 lg:p-16 bg-bgPrimaryLight rounded-none md:rounded-r-xl  place-content-center'>
+                <div className='col-span-1 lg:col-span-8 p-4 md:p-8 lg:p-16 bg-bgPrimaryLight rounded-none md:rounded-xl  place-content-center'>
                     <div className=" w-full space-y-4 lg:space-y-6">
                         {/* <Input type="email" placeholder="http://example.com/link/to/document" className='pl-2 outline-none rounded-xl py-2 bg-white' /> */}
 

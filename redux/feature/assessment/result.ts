@@ -145,6 +145,7 @@ export const resultApi = normPlovApi.injectEndpoints({
         
           case "skill":
             return [{
+              topCategory: parsedData.top_category || {},
               assessmentType: resultType,
               testUUID: parsedData.test_uuid,
               testName: resultType,
