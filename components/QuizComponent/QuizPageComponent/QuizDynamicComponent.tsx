@@ -259,6 +259,7 @@ export default function QuizDynamicComponent() {
               }
             }}
             handleAnswer={handleAnswer}
+            lang='kh'
           />
         ))}
 

@@ -55,7 +55,7 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
                 resetForm();
             } catch (error) {
                 console.error('Error submitting feedback:', error);
-                toast.error("Failed to submit feedback. Please try again.");
+                // toast.error("Failed to submit feedback. Please try again.");
             }
         },
     });

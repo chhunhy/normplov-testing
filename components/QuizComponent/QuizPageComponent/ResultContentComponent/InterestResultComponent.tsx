@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import QuizHeader from '../../QuizHeader'
 import { QuizInterestResultCard } from '../../QuizInterestResultCard'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation';
 import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/result';
 import { RecommendationCard } from '../../RecommendationCard';
 import Loading from '@/components/General/Loading';
+import Pagination from '@/components/ProfileComponent/Pagination';
 
 type ChartDataType = {
     label: string;
@@ -35,6 +36,8 @@ type Major = {
 
 export const InterestResultComponent = () => {
     const params = useParams();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
 
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
@@ -46,7 +49,7 @@ export const InterestResultComponent = () => {
     console.log("data from interest: ", response)
 
     if (isLoading) {
-        return <div className='w-full flex justify-center items-center'><Loading/></div>;
+        return <div className='w-full flex justify-center items-center'><Loading /></div>;
     }
 
     if (error || !response) {
@@ -68,7 +71,7 @@ export const InterestResultComponent = () => {
         score: item.score * 10,
     })) || [];
 
-    const careerPath =  response[0]?.careerPath
+    const careerPath = response[0]?.careerPath
 
     console.log("image:", interestCard[0].image_url)
 
@@ -78,6 +81,21 @@ export const InterestResultComponent = () => {
     //     Artistic: creativityImage,
     //     Enterprising: enterprising,
     // };
+
+    // Pagination handler
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+    };
+
+    // Calculate total pages for career recommendations
+    const totalPages = Math.ceil(careerPath.length / itemsPerPage);
+
+    // Get current items for the current page
+    const currentItems = careerPath.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
 
     return (
 
@@ -119,7 +137,7 @@ export const InterestResultComponent = () => {
                         title={item.dimension_name}
                         desc={item.description}
                         image={item.image_url}
-                      
+
                     />
                 ))}
             </div>
@@ -129,13 +147,24 @@ export const InterestResultComponent = () => {
                 <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                    {careerPath?.map((item: RecommendedCareer, index: number) => (
-                        <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
-
+                    {currentItems.map((item: RecommendedCareer, index: number) => (
+                        <RecommendationCard
+                            key={item.career_name || index}
+                            jobTitle={item.career_name}
+                            jobDesc={item.description}
+                            majors={item.majors}
+                        />
                     ))}
-
-
                 </div>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    setCurrentPage={handlePageChange}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+                />
+
+
 
             </div>
 

@@ -182,7 +182,7 @@ export const QuizQuestionContainer = ({
             {/* Emojis and Labels */}
             <div className="flex justify-between items-center w-full">
                 {/* Disagree Label */}
-                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold ${selected !== null ? 'text-danger opacity-30' : 'text-danger'}`}>
+                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl text-nowrap font-semibold ${selected !== null ? 'text-danger opacity-30' : 'text-danger'}`}>
                     {lang === 'en' ? 'Disagree' : 'មិនឯកភាពទាំងស្រុង'}
                 </span>
 
@@ -213,7 +213,7 @@ export const QuizQuestionContainer = ({
                 </div>
 
                 {/* Agree Label */}
-                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold ${selected !== null ? 'text-primary opacity-30' : 'text-primary'}`}>
+                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl text-nowrap font-semibold ${selected !== null ? 'text-primary opacity-30' : 'text-primary'}`}>
                     {lang === 'en' ? 'Agree' : 'ឯកភាពទាំងស្រុង'}
                 </span>
             </div>

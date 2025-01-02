@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { QuizLearningStyleResultCard } from '../../QuizLearningStyleResultCard'
 import QuizHeader from '../../QuizHeader'
 import { QuizOptHorizontalContainer } from '../../QuizOptHorizontalContainer'
@@ -18,12 +18,13 @@ import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/resul
 import { RecommendationCard } from '../../RecommendationCard'
 import { useParams } from 'next/navigation'
 import Loading from '@/components/General/Loading';
+import Pagination from '@/components/ProfileComponent/Pagination';
 
 
 type ChartData = {
     name: string;
     value: number;
-    color: string; 
+    color: string;
 };
 
 
@@ -66,6 +67,8 @@ type RecommendedCareer = {
 
 export const LearningStyleResultComponent = () => {
     const params = useParams();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
 
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
@@ -77,11 +80,11 @@ export const LearningStyleResultComponent = () => {
     console.log("data from learning: ", response)
 
     if (isLoading) {
-        return <div className=' w-full flex justify-center items-center'><Loading/></div>;
+        return <div className=' w-full flex justify-center items-center'><Loading /></div>;
     }
 
     if (error || !response) {
-        return <div  className=' w-full flex justify-center items-center'><p >Error loading data or data is missing.</p></div>;
+        return <div className=' w-full flex justify-center items-center'><p >Error loading data or data is missing.</p></div>;
     }
 
     const recommendedTechniques = response?.[0]?.recommendedTechniques || [];
@@ -109,6 +112,21 @@ export const LearningStyleResultComponent = () => {
         const { x, y, width, height } = props;
         return <Rectangle fill={props?.payload?.color} x={x} y={y} width={width} height={height} />;
     };
+
+
+    // Pagination handler
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+    };
+
+    // Calculate total pages for career recommendations
+    const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+
+    // Get current items for the current page
+    const currentItems = recommendedCareer.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     const renderCustomLegend = () => (
         <div className="w-full space-y-2 flex flex-wrap justify-between items-center content-end lg:grid lg:grid-cols-2 lg:gap-4 lg:pb-8">
@@ -202,13 +220,22 @@ export const LearningStyleResultComponent = () => {
                     <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                        {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
-                            <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
-
+                        {currentItems.map((item: RecommendedCareer, index: number) => (
+                            <RecommendationCard
+                                key={item.career_name || index}
+                                jobTitle={item.career_name}
+                                jobDesc={item.description}
+                                majors={item.majors}
+                            />
                         ))}
-
-
                     </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        setCurrentPage={handlePageChange}
+                        itemsPerPage={itemsPerPage}
+                        setItemsPerPage={setItemsPerPage}
+                    />
 
                 </div>
 

@@ -141,7 +141,7 @@
 // }
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { QuizCircularProgress } from '../../QuizCircularProgress';
 import QuizHeader from '../../QuizHeader';
 import { QuizResultListing } from '../../QuizResultListing';
@@ -152,6 +152,7 @@ import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/resul
 import { useParams } from 'next/navigation';
 import { RecommendationCard } from '../../RecommendationCard';
 import Loading from '@/components/General/Loading';
+import Pagination from '@/components/ProfileComponent/Pagination';
 
 type Skill = {
   skill: string;
@@ -172,6 +173,8 @@ type RecommendedCareer = {
 
 export const SkillResultComponent = () => {
   const params = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
   // Normalize the values from params
   // const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
@@ -217,6 +220,21 @@ export const SkillResultComponent = () => {
   const recommendedCareer = response?.[0]?.strongCareers;
 
   console.log("data from skill: ", response?.[0])
+
+  // Pagination handler
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  // Calculate total pages for career recommendations
+  const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+
+  // Get current items for the current page
+  const currentItems = recommendedCareer.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
 
   return (
     <div>
@@ -309,13 +327,22 @@ export const SkillResultComponent = () => {
         <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-          {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
-            <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
-
+          {currentItems.map((item: RecommendedCareer, index: number) => (
+            <RecommendationCard
+              key={item.career_name || index}
+              jobTitle={item.career_name}
+              jobDesc={item.description}
+              majors={item.majors}
+            />
           ))}
-
-
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+        />
 
       </div>
 
