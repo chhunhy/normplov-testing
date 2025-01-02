@@ -95,12 +95,12 @@ const LoginComponent = () => {
 
   return (
     <section
-      className=" w-full h-screen  bg-primary/20  p-12"
+      className=" w-full  md:p-20 lg:bg-primary/20  lg:p-12"
       // style={{
       //   backgroundImage: "linear-gradient(to top, #0ba360 0%, #3cba92 100%)",
       // }}
     >
-      <div className="h-full max-w-full bg-transparent bg-white m-auto rounded-xl">
+      <div className="h-full w-full bg-transparent bg-white m-auto md:mt-24 lg:mt-0 rounded-xl">
         {/* <div className="flex flex-row-reverse mx-4 flex-end right-0 top-0">
           <div className="flex flex-end w-1/2 justify-between items-center">
 
@@ -122,29 +122,29 @@ const LoginComponent = () => {
             </button>
           </div>
         </div> */}
-        <div className="flex justify-between -mt-0 p-0 b">
-          <div className=" h-full w-7/12 pb-5 bg-primary/80 rounded-l-xl">
-            <div className="text-center pt-6">
+        <div className="lg:flex justify-between ">
+          <div className="hidden md:flex lg:block lg:max-h-screen w-full pb-8 lg:w-7/12 lg:pb-5 bg-primary/80 md:rounded-xl lg:rounded-none lg:rounded-l-xl">
+            <div className="text-center pt-10">
               <h1 className="text-4xl text-white font-bold pb-4">
                 សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ
               </h1>
-              <p className="text-white px-14 text-lg">
+              <p className="text-white md:pt-5 lg:pt-0 md:px-20 lg:px-14 pb-11 text-lg">
                 រកឃើញសក្តានុពលរបស់អ្នក និងស្វែងរកជំនាញឯកទេស
                 នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង
                 និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។
               </p>
             </div>
-            <div className="">
+            <div className="md:hidden lg:block ">
               <Image
-                src="/auth/loginPerson.png"
+                src="/auth/login.png"
                 width={1000}
                 height={1000}
                 alt="Login Image"
-                className="w-96 mx-auto mt-2"
+                className="max-w-lg h-3/4 mx-auto "
               />
             </div>
           </div>
-          <div className="   w-1/2 flex mx-auto">
+          <div className="w-full  lg:w-1/2 flex mx-auto">
             <div className=" w-full  mx-auto">
             <div className="flex flex-row-reverse ">
                   <button
@@ -155,10 +155,10 @@ const LoginComponent = () => {
                     <IoCloseSharp />
                   </button>
                 </div>
-              <div className="px-12">
+              <div className="lg:px-12">
                 
 
-                <div className="mt-3 px-12">
+                <div className="mt-12 md:mt-14 px-8 lg:mt-10 lg:px-12">
                   <h1 className="text-4xl font-bold text-primary">ចូលគណនី</h1>
                   <Formik
                     initialValues={initialValues}

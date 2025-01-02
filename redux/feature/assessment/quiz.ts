@@ -28,6 +28,7 @@ export const quizApi = normPlovApi.injectEndpoints({
         url: `api/v1/draft/latest-drafts`,
         method: "GET",
       }),
+      providesTags:["AllTestAsess","userDraft"]
     }),
   }),
 });

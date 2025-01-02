@@ -15,7 +15,6 @@ const inter = Inter({
   display: "swap",
   variable: "--font-inter",
 });
-
 export const metadata: Metadata = {
   title: {
     template: "NormPlov",

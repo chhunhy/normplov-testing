@@ -115,6 +115,7 @@ export default function FooterPage() {
                       className="text-textprimary"
                     >
                       normplov.istad@gmail.com
+                      normplov.istad@gmail.com
                     </a>
                     <p className="text-gray-500 text-sm">អ៉ីម៉ែល</p>
                   </div>

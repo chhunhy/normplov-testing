@@ -109,8 +109,8 @@ const ProfileForm = () => {
               </div>
 
                             {/* Password */}
-              <div className="flex w-full justify-between gap-5">
-                <div className="w-4/5">
+              <div className="flex w-full justify-between gap-4 sm:gap-5">
+                <div className="w-full sm:w-4/5">
                    <Label htmlFor="password" text="ពាក្យសម្ងាត់" />
                    <PasswordFieldUser
                     name="password"
@@ -121,7 +121,7 @@ const ProfileForm = () => {
                     readOnly={true} // Make the field read-only
                   />
                 </div>
-                <div className="w-1/5">
+                <div className="w-2/5 md:w-1/5">
                   <Button
                     type="button"
                     text="ផ្លាស់ប្តូរ"
@@ -153,7 +153,7 @@ const ProfileForm = () => {
               </div>
               <div className="block md:flex justify-between w-full gap-5">
                 {/* Phone Number */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 pb-5 md:pb-0">
                   <Label htmlFor="phone_number" text="លេខទូរស័ព្ទ" />
                   <FieldProfile
                     type="text"
@@ -201,8 +201,8 @@ const ProfileForm = () => {
 
             {/* Change Password Modal */}
       {isChangePasswordModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white border-1 border border-slate-200 rounded-xl px-8 w-2/5 relative">
+        <div className="fixed inset-0 px-5 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white border-1 border border-slate-200 rounded-xl px-4 w-full sm:w-2/3 md:w-2/3 lg:px-8 lg:w-2/5 relative">
             <button
               className="absolute top-3 right-3 text-gray-600"
               onClick={toggleChangePasswordModal}

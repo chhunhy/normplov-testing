@@ -188,42 +188,19 @@ export const PersonalityResultComponent = () => {
   //   console.log("PersonailitiesTrait", personailitiesTrait)
   //   const averageSkill = response?.[0]?.skillsGrouped["Average"];
   //   const weakSkill = response?.[0]?.skillsGrouped["Weak"];
+  type Major = {
+    major_name: string; // The name of the major
+    schools: string[];  // An array of schools offering the major
+};
+  type RecommendedCareer = {
+    career_name: string;
+    description: string;
+    majors: Major[]; // Array of Major objects
+};
 
   const recommendedCareer = response?.[0]?.careerRecommendations;
   console.log("Recommended Career: ", recommendedCareer);
-  // Example data for the RecommendationCard
-  const recommendations = [
-    {
-      jobTitle: "Software Engineer",
-      jobDesc:
-        "Design, develop, and maintain software applications. Collaborate with cross-functional teams to deliver high-quality products.",
-      majors: [
-        {
-          major_name: "Computer Science",
-          schools: ["MIT", "Stanford University", "Carnegie Mellon University"],
-        },
-        {
-          major_name: "Software Engineering",
-          schools: ["Harvard University", "UC Berkeley"],
-        },
-      ],
-    },
-    {
-      jobTitle: "Data Analyst",
-      jobDesc:
-        "Analyze data to uncover trends and insights. Prepare data reports to assist in decision-making.",
-      majors: [
-        {
-          major_name: "Data Science",
-          schools: ["NYU", "Columbia University"],
-        },
-        {
-          major_name: "Statistics",
-          schools: ["Princeton University", "University of Chicago"],
-        },
-      ],
-    },
-  ];
+
   const CustomTooltip = ({
     active,
     payload,
@@ -347,7 +324,7 @@ export const PersonalityResultComponent = () => {
         </div>
         <div className="mx-4 md:mx-0 border border-slate-50 mt-5 md:mt-14 p-6 rounded-[8px]">
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">
-            លក្ខណៈសំខាន់ៗរបស់ {personalities?.name}
+            ចំណុចខ្លាំងនិងចំណុចខ្សោយរបស់អ្នក {personalities?.name}
           </h2>
           {/* Strength */}
           <div className="">
@@ -410,14 +387,10 @@ export const PersonalityResultComponent = () => {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {recommendations.map((recommendation, index) => (
-              <RecommendationCard
-                key={index}
-                jobTitle={recommendation.jobTitle}
-                jobDesc={recommendation.jobDesc}
-                majors={recommendation.majors}
-              />
-            ))}
+           {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
+                                       <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
+           
+                                   ))}
           </div>
         </div>
       </div>

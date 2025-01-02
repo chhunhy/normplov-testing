@@ -155,7 +155,7 @@ const TestList = () => {
         // Fallback content when there are no tests
         <div className="flex h-full mt-8 flex-col items-center text-center">
           <Image
-            src="/auth/file1.png"
+            src="/auth/DraftandTest.png"
             alt="No Tests Available"
             width={500}
             height={500}

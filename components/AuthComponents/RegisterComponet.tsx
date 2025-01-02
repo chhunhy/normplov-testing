@@ -4,7 +4,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form} from 'formik';
 import { IoCloseSharp } from 'react-icons/io5';
 import Label from './LabelComponent';
 import DynamicField from './AuthField';
@@ -16,6 +16,7 @@ import { useRegisterMutation } from '@/redux/service/auth';
 import { setEmail } from "@/redux/feature/verify/verifySlice";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
+import CustomCheckbox from "./CustomCheckBox";
 
 type ValueTypes = {
   username: string;
@@ -89,27 +90,75 @@ const RegisterComponent = () => {
     }
   };
 
+  const handleClose = () => {
+    router.push("/"); // Redirect to the referrer
+  };
   return (
-    <section className="w-full h-screen flex justify-center items-center">
-      <div className="w-[90%] h-[97%] sm:w-[75%] sm:h-[97%] md:w-[95%] md:h-[98%] xl:w-[85%] xl:h-[98%] m-auto">
-        <div className="px-6 sm:px-8 md:px-6 xl:px-10">
-          <div className="flex justify-between items-center ">
-            <Link href="/">
-              <Image src="/assets/logo.jpg"
-                      width={200} height={200}
-                        alt="Logo Image"
-                        className="w-[70px] h-[70px" />
-            </Link>
-            <div>
-              <button
-                className="text-2xl text-gray-500 hover:text-gray-700"
-                onClick={() => console.log('Close button clicked')}
-              >
-                <IoCloseSharp />
-              </button>
-            </div>
+    <section
+    className=" w-full  md:p-20 lg:bg-primary/20  lg:p-12"
+    // style={{
+    //   backgroundImage: "linear-gradient(to top, #0ba360 0%, #3cba92 100%)",
+    // }}
+  >
+    <div className=" w-full bg-transparent bg-white m-auto md:mt-24 lg:mt-0 rounded-xl">
+      {/* <div className="flex flex-row-reverse mx-4 flex-end right-0 top-0">
+        <div className="flex flex-end w-1/2 justify-between items-center">
+
+                  <Link href="/">
+                    <Image
+                      src="/assets/logo.jpg"
+                      width={1000}
+                      height={1000}
+                      alt="Logo Image"
+                      className="h-16 w-16 ml-10"
+                    />
+                  </Link>
+
+          <button
+            className="text-2xl text-gray-500 hover:text-gray-700"
+            onClick={() => console.log("Close button clicked")}
+          >
+            <IoCloseSharp />
+          </button>
+        </div>
+      </div> */}
+      <div className="lg:flex justify-between ">
+        <div className="hidden md:flex lg:block  w-full pb-8 lg:w-7/12 lg:pb-8 bg-primary/80 md:rounded-xl lg:rounded-none lg:rounded-l-xl">
+          <div className="text-center pt-10">
+            <h1 className="text-4xl text-white font-bold pb-4">
+              សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ
+            </h1>
+            <p className="text-white md:pt-5 lg:pt-0 md:px-20 lg:px-14 pb-8 text-lg">
+              រកឃើញសក្តានុពលរបស់អ្នក និងស្វែងរកជំនាញឯកទេស
+              នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង
+              និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។
+            </p>
           </div>
-          <div className="h-fit mt-10 md:mt-11 xl:mt-0 px-12">
+          <div className="md:hidden lg:block ">
+            <Image
+              src="/auth/login.png"
+              width={1000}
+              height={1000}
+              alt="Login Image"
+              className="max-w-xl mt-14 mx-auto "
+            />
+          </div>
+        </div>
+        <div className="w-full  lg:w-1/2 flex mx-auto">
+          <div className=" w-full  mx-auto">
+          <div className="flex flex-row-reverse ">
+                <button
+                  className="text-2xl text-gray-500 hover:text-gray-700 px-3 pt-3"
+                     onClick={handleClose}
+                    aria-label="Close login page"
+                >
+                  <IoCloseSharp />
+                </button>
+              </div>
+            <div className="lg:px-12 lg:py-6 h-full">
+              
+
+            <div className="h-fit mt-10 md:mt-11 xl:mt-0 px-12">
             <h1 className="text-4xl font-bold text-primary">បង្កើតគណនីថ្មី</h1>
             <Formik
               initialValues={initialValues}
@@ -169,13 +218,18 @@ const RegisterComponent = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2 mt-4">
-                    <Field type="checkbox" id="terms" name="terms" />
+                  <CustomCheckbox
+                    id="terms"
+                    name="terms"
+ 
+                    />
+                    {/* <Field type="checkbox" id="terms" name="terms" /> */}
                     <label
                       htmlFor="terms"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-textprimary"
                     >
                      ខ្ញុំបានអាននិងយល់ព្រមលើ <Link href="/privacy-policy"   target="_blank" 
-    rel="noopener noreferrer"  className="text-primary pl-2"> គោលការណ៍ឯកជនភាព</Link>
+              rel="noopener noreferrer"  className="text-primary pl-2"> គោលការណ៍ឯកជនភាព</Link>
                     </label>
                     
                   </div>
@@ -207,8 +261,9 @@ const RegisterComponent = () => {
                                     icon={
                                         <Image
                                         src="/assets/google.png"
-                                        width={24} height={24}
+                                        width={1000} height={1000}
                                          alt="Google icon"
+                                         className="w-6"
                                        />
                                     }
                                     className="w-full border-2 border-primary  text-textprimary"
@@ -223,9 +278,39 @@ const RegisterComponent = () => {
             </Formik>
             <ToastContainer />
           </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
+
+
+
+    // <section className="w-full h-screen flex justify-center items-center">
+    //   <div className="w-[90%] h-[97%] sm:w-[75%] sm:h-[97%] md:w-[95%] md:h-[98%] xl:w-[85%] xl:h-[98%] m-auto">
+    //     <div className="px-6 sm:px-8 md:px-6 xl:px-10">
+    //       <div className="flex justify-between items-center ">
+    //         <Link href="/">
+    //           <Image src="/assets/logo.jpg"
+    //                   width={200} height={200}
+    //                     alt="Logo Image"
+    //                     className="w-[70px] h-[70px" />
+    //         </Link>
+    //         <div>
+    //           <button
+    //             className="text-2xl text-gray-500 hover:text-gray-700"
+    //             onClick={() => console.log('Close button clicked')}
+    //           >
+    //             <IoCloseSharp />
+    //           </button>
+    //         </div>
+    //       </div>
+          
+    //     </div>
+    //   </div>
+    // </section>
   );
 };
 

@@ -112,9 +112,7 @@ const SideBarProfileComponent = () => {
   // };
  if(isLoading){
    return(
-     <div className="flex justify-center items-center h-screen">
-       <div className="animate-spin text-3xl text-gray-800">Loading...</div>
-     </div>
+     <h1>Loading...</h1>
    )
  }
   const handleLogout = async () => {
@@ -209,12 +207,12 @@ const SideBarProfileComponent = () => {
                   src={
                     selectedImage ||
                     avatarUrl ||
-                    "/assets/placeholderProfile.png"
+                    "/auth/personplaceholder.png"
                   }
                   alt="Profile picture"
                   width={1000}
                   height={1000}
-                  className="object-cover rounded-full"
+                  className="object-cover rounded-full w-full h-full"
                 />
               ) : (
                 <div
@@ -384,12 +382,12 @@ const SideBarProfileComponent = () => {
                   src={
                     selectedImage ||
                     avatarUrl ||
-                    "/assets/placeholderProfile.png"
+                    "/auth/personplaceholder.png"
                   }
                   alt="Profile picture"
                   width={1000}
                   height={1000}
-                  className="object-cover rounded-full"
+                  className="object-cover h-full w-full rounded-full"
                 />
               ) : (
                 <div

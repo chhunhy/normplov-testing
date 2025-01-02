@@ -85,27 +85,31 @@ const ResetPasswordComponent = () => {
             setIsLoading(false);
           }
     }
+    const handleClose = () => {
+        router.push("/forgot-password"); // Redirect to the referrer
+      };
 
   return (
     <section className="w-full h-screen flex justify-center items-center ">
-        <div className='w-[90%] h-[90%] sm:w-[75%] sm:h-[90%] md:w-[95%] md:h-[90%] xl:w-[85%] xl:h-[68%] m-auto border-1 border border-slate-100 rounded-xl'>
-            <div className="px-6 sm:px-8 md:px-6 xl:px-10">
+        <div className='w-full mx-3 md:w-1/2 lg:w-1/3 p-6 m-auto border-1 border border-slate-100 rounded-xl'>
+            <div className="">
                 {/* <div className='flex justify-end mt-3'> */}
-                <div className="flex justify-between items-center ">
+                <div className="flex justify-between items-center pb-5">
             <Link href="/">
-              <Image src="/assets/logo-test.png" width={24} height={24} alt="Logo Image" />
+              <Image src="/auth/logoFile.jpg" width={1000} height={1000} alt="Logo Image"
+              className="w-20 md:w-24" />
             </Link>
             <div>
               <button
                 className="text-2xl text-gray-500 hover:text-gray-700"
-                onClick={() => console.log('Close button clicked')}
+                onClick={() => handleClose()}
               >
                 <IoCloseSharp />
               </button>
             </div>
           </div>
-                <div className="h-fit mt-10 md:mt-11 xl:mt-10">
-                    <h1 className="text-4xl font-bold text-primary">បង្កើតពាក្យសម្ងាត់ថ្មី</h1>
+                <div className="">
+                    <h1 className="text-2xl md:text-3xl font-bold text-primary">បង្កើតពាក្យសម្ងាត់ថ្មី</h1>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
@@ -118,7 +122,7 @@ const ResetPasswordComponent = () => {
                     {({}) => (
                         <Form>
                             {/* Form For Register */}
-                            <div className="space-y-6 mt-10">
+                            <div className="space-y-6 mt-4 lg:mt-6">
                                 {/* Password Field */}
                                 <div>
                                     <Label htmlFor="new_password" text="ពាក្យសម្ងាត់ថ្មី" required />

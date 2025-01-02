@@ -195,46 +195,27 @@ export const ValueResultComponent = () => {
       />
     );
   };
+  type Major = {
+    major_name: string; // The name of the major
+    schools: string[];  // An array of schools offering the major
+};
+  type RecommendedCareer = {
+    career_name: string;
+    description: string;
+    majors: Major[]; // Array of Major objects
+};
 
-  const recommendations = [
-    {
-      jobTitle: "Software Engineer",
-      jobDesc:
-        "Design, develop, and maintain software applications. Collaborate with cross-functional teams to deliver high-quality products.",
-      majors: [
-        {
-          major_name: "Computer Science",
-          schools: ["MIT", "Stanford University", "Carnegie Mellon University"],
-        },
-        {
-          major_name: "Software Engineering",
-          schools: ["Harvard University", "UC Berkeley"],
-        },
-      ],
-    },
-    {
-      jobTitle: "Data Analyst",
-      jobDesc:
-        "Analyze data to uncover trends and insights. Prepare data reports to assist in decision-making.",
-      majors: [
-        {
-          major_name: "Data Science",
-          schools: ["NYU", "Columbia University"],
-        },
-        {
-          major_name: "Statistics",
-          schools: ["Princeton University", "University of Chicago"],
-        },
-      ],
-    },
-  ];
+  const recommendedCareer = response?.[0]?.careerRecommendations;
+  console.log("Recommended Career: ", recommendedCareer);
+
+
   // Render custom legend
   const renderCustomLegend = () => (
-    <div className="w-full   space-y-2  flex flex-wrap justify-start items-start   lg:grid lg:grid-cols-2 lg:gap-4">
+    <div className="w-full   space-y-2  flex flex-wrap justify-start items-start   lg:grid lg:grid-cols-2 lg:gap-3">
       {chartData.map((entry, index) => (
-        <div key={index} className="flex  items-center px-2 space-x-3">
+        <div key={index} className="flex items-center  space-x-2">
           <div
-            className="w-3 h-3 rounded-[4px]"
+            className="w-4 h-4 rounded-[4px]"
             style={{ backgroundColor: entry.color }}
           ></div>
           <span className="text-xs font-medium  text-gray-700">
@@ -292,7 +273,7 @@ export const ValueResultComponent = () => {
             </div>
 
             {/* Legend */}
-            <div className="col-span-1 flex items-center flex-col justify-center ">
+            <div className="col-span-1 flex items-center flex-col justify-between ">
               {renderCustomLegend()}
             </div>
           </div>
@@ -351,14 +332,10 @@ export const ValueResultComponent = () => {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {recommendations.map((recommendation, index) => (
-              <RecommendationCard
-                key={index}
-                jobTitle={recommendation.jobTitle}
-                jobDesc={recommendation.jobDesc}
-                majors={recommendation.majors}
-              />
-            ))}
+               {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
+                                                   <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
+                       
+                                               ))}
           </div>
         </div>
     </div>
