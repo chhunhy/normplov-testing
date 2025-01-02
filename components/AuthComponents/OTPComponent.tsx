@@ -91,24 +91,29 @@ function OTPComponent() {
       setResending(false); // Stop loading
     }
   };
+  const handleClose = () => {
+    router.push("/register"); // Redirect to the referrer
+  };
+  
 
   return (
     <section className="w-full h-screen flex justify-center items-center">
-      <div className="m-auto border-1 border border-slate-100 rounded-xl py-7">
+      <div className="m-auto border-1 md:border border-slate-100 rounded-xl py-7">
         <div className="px-6 sm:px-8 md:px-6 xl:px-10">
           <div className="flex justify-between items-center">
             <Link href="/">
-              <Image src="/assets/logo-test.png" width={24} height={24} alt="Logo Image" />
+             <Image src="/auth/logoFile.jpg" width={1000} height={1000} alt="Logo Image"
+                                    className="w-20 md:w-24" />
             </Link>
             <button
               className="text-2xl text-gray-500 hover:text-gray-700"
-              onClick={() => console.log('Close button clicked')}
+              onClick={() => handleClose()}
             >
               <IoCloseSharp />
             </button>
           </div>
           <div className="h-fit w-fit pt-9 pb-5">
-            <h1 className="text-4xl font-bold text-primary">ផ្ទៀងផ្ទាត់លេខកូដសម្ងាត់</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-primary">ផ្ទៀងផ្ទាត់លេខកូដសម្ងាត់</h1>
             <p className="pt-4 text-slate-500">
             យើងបានផ្ញើលេខកូដ 6 ខ្ទង់ទៅកាន់អ៊ីមែលរបស់អ្នក។​ អ្នកមានពេល <span className="font-bold text-primary">{` ${timer}s`}</span> វិនាទី
              

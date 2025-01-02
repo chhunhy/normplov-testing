@@ -27,8 +27,9 @@ export default function ProfileLayout({
   return (
     <html lang="en">
       <body
-        className={`${suwannaphum.variable} ${inter.variable}`}
+        className={`bg-bgPrimaryLight ${suwannaphum.variable} ${inter.variable} ` }
         suppressHydrationWarning
+        
       >
         <NavbarPage/>
        

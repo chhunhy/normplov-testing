@@ -9,26 +9,27 @@ type LogoutComponentProps = {
 
 const LogoutComponent: React.FC<LogoutComponentProps> = ({ onClose, onConfirm }) => {
   return (
-    <section className="p-10 text-center content-center bg-white  rounded-xl">
-      <div className="">
+    <section className="w-1/2 lg:w-2/6  bg-white  rounded-xl">
+      <div className="p-6">
         {/* <button className="text-3xl"><IoMdClose /></button> */}
-        <h1 className="text-2xl lg:text-3xl text-primary font-bold ">បញ្ចាក់ការចាកចេញ</h1>
+        <h1 className="text-2xl lg:text-2xl text-primary font-bold ">បញ្ចាក់ការចាកចេញ</h1>
         <p className="text-lg pt-3 text-textprimary">តើអ្នកពិតជាចង់ចាកចេញមែនទេ?</p>
-        <div className="flex  gap-5 mt-4 justify-center">
+        <div className="flex  gap-5 mt-5 flex-row-reverse ">
           <Button
             type="button"
-            text="Yes"
+            text="ចាកចេញ"
             onClick={onConfirm} // Confirm the logout
-            className="w-16 bg-primary hover:bg-primary-dark text-white font-medium border-collapse"
+            className=" bg-primary hover:bg-primary-dark text-white font-medium border-collapse"
           />
             <Button
               type="button"
-              text="No" // Use the close icon for the button
+              text="មិនចាកចេញ" // Use the close icon for the button
               onClick={onClose} // Close the modal
-              className="w-16 border  text-red-500 font-medium border-collapse flex items-center justify-center" // Center the icon
+              className=" border  text-red-500 font-medium border-collapse flex items-center justify-center" // Center the icon
             />
         </div>
       </div>
+      
     </section>
   );
 };

@@ -109,7 +109,7 @@ export default function FooterPage() {
                       href="mailto:normplov@gmail.com"
                       className="text-textprimary"
                     >
-                      normplov@gmail.com
+                      normplov.istad@gmail.com
                     </a>
                     <p className="text-gray-500 text-sm">អ៉ីម៉ែល</p>
                   </div>
@@ -139,7 +139,7 @@ export default function FooterPage() {
                 ឧបត្ថម្ភដោយ
               </h3>
              
-                <div className="space-y-4">
+                <div className="flex justify-between gap-2">
                   <Image
                     src="/assets/MPTC-logo.jpg"
                     alt="Partner logo 1"

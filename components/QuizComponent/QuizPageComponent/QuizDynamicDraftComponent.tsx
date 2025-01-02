@@ -1713,10 +1713,18 @@ import skillJson from "@/app/(user)/json/skillKh.json";
 import interestJson from "@/app/(user)/json/interestKh.json";
 import valueJson from "@/app/(user)/json/valueKh.json";
 import learningStyleJson from "@/app/(user)/json/learningStyleKh.json";
+import generalTestJson from '@/app/(user)/json/testGeneralKh.json';
 import { useRouter } from "next/navigation";
+import { QuizIntroContainer } from '@/components/QuizComponent/QuizIntroContainer';
 type QuizData = {
   questions: { question: string; category: string }[];
+  introKh: {
+    title: string;
+    highlight: string;
+    description: string;
+  };
 };
+
 
 const quizDataMap: Record<string, QuizData> = {
   personality: personalityJson,
@@ -1970,9 +1978,25 @@ export default function QuizDynamicDraftComponent() {
       toast.error("An error occurred while saving the draft.");
     }
   };
+  const { instructKh } = generalTestJson;
+  const { introKh } = quizData;
 
   return (
     <div className="w-full relative">
+      {/* Intro Section */}
+            <div className="bg-bgPrimaryLight">
+              <QuizIntroContainer
+                introTitle={introKh.title}
+                introHightlight={introKh.highlight}
+                introDesc={introKh.description}
+                instructLabel={instructKh.instructionLabel}
+                howItWorkTitle={instructKh.howItWorksTitle}
+                howItWorkStep={instructKh.howItWorksSteps}
+                emojiLabels={instructKh.emojiLabels}
+                RepresentedImageTitle={instructKh.representedImageTitle}
+              />
+      
+            </div>
       <div className="sticky top-0 z-10 bg-white pt-4">
         <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
           <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">
@@ -2010,7 +2034,7 @@ export default function QuizDynamicDraftComponent() {
           onClick={handleSaveDraftAgain}
         />
         <QuizButtonDisable
-          title="Submit"
+          title="លទ្ធផល"
           rounded="xl"
           icon={<ArrowRight />}
           type="rightIcon"

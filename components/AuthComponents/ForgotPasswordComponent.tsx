@@ -63,34 +63,37 @@ const ForgotPasswordComponent = () => {
     }
     
   }
+  const handleClose = () => {
+    router.push("/login"); // Redirect to the referrer
+  };
 
   return (
     
-    <section className="w-full h-screen flex justify-center items-center ">
-        <div className='w-[90%] h-[55%]  sm:h-[60%] md:h-[60%] xl:w-[85%] xl:h-[58%] m-auto border-1 border border-slate-100 rounded-xl'>
-        <div className="px-6 sm:px-8 md:px-6 xl:px-10">
+    <section className="w-full  h-screen flex justify-center items-center ">
+        <div className='m-auto md:w-1/2 lg:w-1/3 p-8 border-1 border bg-white border-slate-100 rounded-xl'>
+        <div className="">
             {/* Close Button - Left Aligned */}
-            <div className=" flex justify-between items-center">
+            <div className="mb-5 flex justify-between ">
              <Link href="/">
              <Image
-                      src="/assets/logo-test.png"
-                      width={24} height={24}
+                     src="/auth/logoFile.jpg"
+                      width={1000} height={500}
                         alt="Logo Image"
-                        className="mt-4"
+                        className="bg-red-200 w-20"
                       />
              </Link>
                 <div className="">
                 <button
                     className="text-2xl text-gray-500 hover:text-gray-700"
-                    onClick={() => console.log('Close button clicked')}
+                    onClick={() => handleClose()}
                 >
                     <IoCloseSharp />
                 </button>
                 </div>
           </div>
-        <div className=" h-fit mt-7 ">
-          <h1 className="text-4xl font-bold text-primary">ភ្លេចពាក្យសម្ងាត់</h1>
-          <p className='pt-3 text-slate-400'>សូមបញ្ចូលអ៉ីម៉ែល ដើម្បីទទួលបានលេខកូដផ្ទៀងផ្ទាត់</p>
+        <div className="bg-white">
+          <h1 className="text-3xl pb-3 font-bold text-primary">ភ្លេចពាក្យសម្ងាត់</h1>
+          <p className=' text-slate-400'>សូមបញ្ចូលអ៉ីម៉ែល ដើម្បីទទួលបានលេខកូដផ្ទៀងផ្ទាត់</p>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
