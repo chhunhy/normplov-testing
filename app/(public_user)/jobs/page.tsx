@@ -143,14 +143,20 @@ interface Job {
   company_name: string;
   location: string;
   job_type: string;
-  category: string;
+  category?: string; // Required
   description: string;
   requirements: string[];
   responsibilities: string[];
+  posted_at_days_ago?: string;
+  is_scraped?: boolean;
+  created_at_days_ago?: string;
   logo?: string;
   created_at: string;
   closing_date: string;
+  isActive?: boolean;
 }
+
+
 
 export default function Job() {
   const dispatch = useAppDispatch();
@@ -239,7 +245,7 @@ export default function Job() {
   }, []);
 
   if (!data) {
-    return <JobsSkeleton/>;
+    return <JobsSkeleton />;
   }
 
   console.log("data: ", data);
@@ -417,24 +423,30 @@ export default function Job() {
       {/* Job searching */}
       <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
-        ឱកាសការងារ
+          ឱកាសការងារ
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
           <div className="lg:col-span-8 space-y-4">
-            {jobs.map((job) => (
+            {jobs.map((job: Job) => (
               <JobListingCard
                 key={job.uuid}
+                uuid={job.uuid}
                 title={job.title}
                 desc={job.company_name}
                 image={job.logo}
                 time={job.job_type}
                 location={job.location}
+                closing_date={job.closing_date}
+                created_at_days_ago={job.created_at_days_ago}
+                posted_at_days_ago={job.posted_at_days_ago}
+                is_scraped={job.is_scraped}
+                isActive={false} // Default or dynamic value
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}
             <div>
-            <Pagination
+              <Pagination
                 currentPage={page}
                 totalPages={totalPages}
                 setCurrentPage={handlePageChange}

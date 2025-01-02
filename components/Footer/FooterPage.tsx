@@ -12,7 +12,13 @@ export default function FooterPage() {
           <div className="flex justify-center">
             <div className="space-y-4">
               <Link href="/" className="text-emerald-500 text-xl font-semibold">
-                <Image src="/assets/logo.jpg" alt="Logo" width={1000} height={1000} className="lg:w-[60px] md:w-[50px] w-[40px] "></Image>
+                <Image
+                  src="/assets/logo.jpg"
+                  alt="Logo"
+                  width={1000}
+                  height={1000}
+                  className="lg:w-[60px] md:w-[50px] w-[40px] "
+                ></Image>
               </Link>
               <p className="text-textprimary block md:hidden lg:block text-md leading-relaxed">
                 នាំផ្លូវ គឺជាគេហទំព័រដែលជួយឲ្យអ្នក
@@ -68,7 +74,7 @@ export default function FooterPage() {
                 </li>
                 <li>
                   <Link
-                    href="/policy"
+                    href="/privacy-policy"
                     className="text-textprimary hover:text-emerald-500"
                   >
                     ឯកជនភាព
@@ -85,7 +91,6 @@ export default function FooterPage() {
               </ul>
             </div>
           </div>
-
           {/* Contact Information */}
           <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0">
             <div>
@@ -109,7 +114,7 @@ export default function FooterPage() {
                       href="mailto:normplov@gmail.com"
                       className="text-textprimary"
                     >
-                      normplov@gmail.com
+                      normplov.istad@gmail.com
                     </a>
                     <p className="text-gray-500 text-sm">អ៉ីម៉ែល</p>
                   </div>
@@ -138,27 +143,27 @@ export default function FooterPage() {
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ឧបត្ថម្ភដោយ
               </h3>
-             
-                <div className="space-y-4">
-                  <Image
-                    src="/assets/MPTC-logo.jpg"
-                    alt="Partner logo 1"
-                    width={1000}
-                    height={1000}
-                    className="object-contain w-40  "
-                  />
-                  <Image
-                    src="/assets/CBRD-logo.jpg"
-                    alt="Partner logo 2"
-                    width={1000}
-                    height={1000}
-                    className="object-contain w-40 -ml-1"
-                  />
-                </div>
-                <div className="space-y-4 mt-4">
+
+              <div className="flex justify-between gap-2">
+                <Image
+                  src="/assets/MPTC-logo.jpg"
+                  alt="Partner logo 1"
+                  width={1000}
+                  height={1000}
+                  className="object-contain w-40  "
+                />
+                <Image
+                  src="/assets/CBRD-logo.jpg"
+                  alt="Partner logo 2"
+                  width={1000}
+                  height={1000}
+                  className="object-contain w-40 -ml-1"
+                />
+              </div>
+              <div className="space-y-4 mt-4">
                 <h3 className="font-semibold text-2xl text-textprimary">
-                រៀបចំដោយ
-              </h3>
+                  រៀបចំដោយ
+                </h3>
                 <Image
                   src="/assets/istad_logo.jpg"
                   alt="Partner logo 2"
@@ -166,8 +171,7 @@ export default function FooterPage() {
                   height={1000}
                   className="object-contain w-[158px]"
                 />
-                </div>
-          
+              </div>
 
               {/* <div className=" mt-4 ">
               

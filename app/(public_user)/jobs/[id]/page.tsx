@@ -2,7 +2,6 @@
 import { JobListingCard } from "@/components/JobComponent/JobListingCard";
 import { JobMainContainer } from "@/components/JobComponent/JobMainContainer";
 import React, { useState, useEffect  } from "react";
-import  { StaticImageData } from 'next/image';
 import {
   Select,
   SelectContent,
@@ -40,21 +39,23 @@ type OptionType = {
 
 // Define a Job type based on the expected job structure
 interface Job {
-    uuid: string;
-    title: string;
-    company_name: string;
-    location: string;
-    job_type: string;
-    category: string;
-    description: string;
-    requirements: string[];
-    responsibilities: string[];
-    image: string | StaticImageData;
-    created_at: string;
-    closing_date: string;
-    website?: string; // Add website as optional
-    facebook_url?: string; // Add facebook_url as optional
-  }
+  uuid: string;
+  title: string;
+  company_name: string;
+  location: string;
+  job_type: string;
+  category?: string; // Required
+  description: string;
+  requirements: string[];
+  responsibilities: string[];
+  posted_at_days_ago?: string;
+  is_scraped?: boolean;
+  created_at_days_ago?: string;
+  logo?: string;
+  created_at: string;
+  closing_date: string;
+  isActive?: boolean;
+}
   
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -334,14 +335,20 @@ export default function Page({ params }: { params: { id: string } }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
           <div className="lg:col-span-5 space-y-4">
-            {jobs.map((job) => (
+          {jobs.map((job: Job) => (
               <JobListingCard
                 key={job.uuid}
+                uuid={job.uuid}
                 title={job.title}
                 desc={job.company_name}
                 image={job.logo}
                 time={job.job_type}
                 location={job.location}
+                closing_date={job.closing_date}
+                created_at_days_ago={job.created_at_days_ago}
+                posted_at_days_ago={job.posted_at_days_ago}
+                is_scraped={job.is_scraped}
+                isActive={false} // Default or dynamic value
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}

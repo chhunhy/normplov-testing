@@ -26,6 +26,8 @@ import authSlice from './feature/auth/authSlice';
 import verifySlice from './feature/verify/verifySlice';
 import filterSlice from './feature/filter/filterSlice';
 import jobsSlice from "./feature/jobs/jobsSlice"; // Import the jobs slice
+import bookmarkReducer from "./feature/jobs/bookmarkSlice"; 
+
 //import { universityApi } from './api';
 
 
@@ -38,6 +40,7 @@ export const makeStore = () => {
       verify: verifySlice,
       filter: filterSlice,
       jobs: jobsSlice, // Correctly add jobsSlice reducer here
+      bookmarks: bookmarkReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()

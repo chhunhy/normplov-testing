@@ -206,11 +206,15 @@ export default function CardUniversityDetail({
       <header className="relative">
         <div className="lg:w-full lg:h-[300px] md:w-full md:h-[200px] w-full h-[100px] overflow-hidden">
           <Image
-            src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${cover_image}`}
-            alt={kh_name}
+            src={
+              cover_image
+                ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${cover_image}`
+                : "/assets/default-image.png" // Path to your default image
+            }
+            alt={kh_name || "Default Image"}
             width={200}
             height={200}
-            unoptimized // This disables Next.js image optimization (optional if needed)
+            unoptimized // Optional, depending on your optimization needs
             className="w-full h-full object-cover"
           />
         </div>
@@ -301,7 +305,9 @@ export default function CardUniversityDetail({
               </div>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-2">
-                  <MapPin className="lg:w-6 lg:h-6 md:w-10 md:h-10 w-8 h-8 text-gray-400" />
+                  <div className="flex justify-start items-end">
+                    <MapPin className="lg:w-6 lg:h-6 md:w-10 md:h-10 w-8 h-8 text-gray-400" />
+                  </div>
                   <a
                     href={googleMapEmbedUrl}
                     className=" lg:text-[16px] md:text-sm text-[16px] text-textprimary"
@@ -317,7 +323,7 @@ export default function CardUniversityDetail({
                     href={`${website}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-primary "
                   >
-                    {website}
+                    {website || "Unvailable"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
@@ -326,7 +332,7 @@ export default function CardUniversityDetail({
                     href={`tel:${phone}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
                   >
-                    {phone}
+                    {phone || "Unvailable"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
@@ -335,30 +341,36 @@ export default function CardUniversityDetail({
                     href={`mailto:${email}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
                   >
-                    {email}
+                    {email || "Unvailable"}
                   </a>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent>
-              <h2 className="font-bold text-xl text-primary mb-4">បេសកកម្ម</h2>
-              <div className="space-y-2 text-md text-gray-600">
-                <p>{mission}</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <h2 className="font-bold text-xl text-primary mb-4">
-                ចក្ខុវិស័យ
-              </h2>
-              <div className="space-y-2 text-md text-gray-600">
-                <p>{vision}</p>
-              </div>
-            </CardContent>
-          </Card>
+          {mission && (
+            <Card>
+              <CardContent>
+                <h2 className="font-bold text-xl text-primary mb-4">
+                  បេសកកម្ម
+                </h2>
+                <div className="space-y-2 text-md text-gray-600">
+                  <p>{mission}</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+          {vision && (
+            <Card>
+              <CardContent>
+                <h2 className="font-bold text-xl text-primary mb-4">
+                  ចក្ខុវិស័យ
+                </h2>
+                <div className="space-y-2 text-md text-gray-600">
+                  <p>{vision}</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Main Content */}
@@ -378,7 +390,7 @@ export default function CardUniversityDetail({
               <h2 className="lg:text-2xl md:text-xl text-xl font-bold text-textprimary">
                 ជំនាញសិក្សា
               </h2>
-              <span className="text-orange-500 font-medium">
+              <span className="rounded-[8px] text-primary bg-primary bg-opacity-10 text-opacity-80 text-xs lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
                 តម្លៃសិក្សា៖ {lowest_price}$-{highest_price}$
               </span>
             </div>

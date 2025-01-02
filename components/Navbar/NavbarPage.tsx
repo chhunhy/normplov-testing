@@ -133,7 +133,7 @@ export default function NavbarPage() {
               href="/login"
               className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
             >
-              Sign in
+              ចូលគណនី
             </Link>
           )}
           {/* <Link
@@ -193,7 +193,7 @@ export default function NavbarPage() {
               href="/login"
               className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
             >
-              Sign in
+              ចូលគណនី
             </Link>
           )}
           </div>
@@ -207,10 +207,10 @@ function LanguageSelector() {
   return (
     <div className="flex md:hidden lg:flex items-center space-x-4">
       <Link href="/">
-      <LanguageOption flag="/assets/khmer-flag.png" label="Khmer" />
+      <LanguageOption flag="/assets/khmer-flag.png" label="ភាសាខ្មែរ" />
       </Link>
       <div className="h-6 border-l border-slate-400"></div>
-      <Link href="/"><LanguageOption flag="/assets/english-flag.png" label="English" /></Link>
+      <Link href="/"><LanguageOption flag="/assets/english-flag.png" label="អង់គ្លេស" /></Link>
     </div>
   );
 }
