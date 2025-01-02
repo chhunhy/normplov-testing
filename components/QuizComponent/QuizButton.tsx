@@ -9,17 +9,20 @@ type props = {
     full?: true | false;
     color?: string;
     onClick?: () => void;
+    isDisable?: boolean;
 }
 
-export const QuizButton = ({ title, type = 'none', rounded = 'xl', outline = 'false' , icon , full = false , color='#0BBB8A' , onClick}: props) => {
+export const QuizButton = ({ title, type = 'none', rounded = 'xl', outline = 'false' , icon , full = false , color='#0BBB8A' , onClick, isDisable = false }: props) => {
     return (
-        <button type='button' onClick={onClick}
+        <button type='button' onClick={onClick} disabled={isDisable}
         className={`flex items-center justify-center gap-2 font-semibold
             ${rounded === 'xl' ? 'rounded-xl' : 'rounded-full'}
-            ${outline === 'true' ? 'bg-transparent border-2 border-primary text-primary' : 'text-white'}
+            ${outline === 'true' ? `bg-transparent border-2 border-primary text-primary` : `text-white bg-primary`}
             ${full ? 'w-full py-2 ' : 'px-4 py-2'}
+            ${isDisable ? `bg-primary bg-opacity-40 cursor-not-allowed `: `bg-${color} text-primary`}
             transition duration-200 hover:opacity-80 focus:ring-2 focus:ring-primary focus:outline-none`}
-          style={{ backgroundColor: outline === 'true' ? 'transparent' : color }}
+       
+          
         >
             {/* Left Icon */}
             {type === 'leftIcon' && icon && <span className="mr-1">{icon}</span>}
