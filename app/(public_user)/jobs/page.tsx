@@ -154,6 +154,8 @@ interface Job {
   created_at: string;
   closing_date: string;
   isActive?: boolean;
+  visitor_count?:number;
+  bookmarked?: boolean;
 }
 
 
@@ -442,6 +444,8 @@ export default function Job() {
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
+                visitor_count={job.visitor_count ?? 0}
+                bookmarked={job.bookmarked ?? false} 
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}

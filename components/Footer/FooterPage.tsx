@@ -34,10 +34,10 @@ export default function FooterPage() {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0 ">
+          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-[80px] mr-0 ">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
-                មាតិការ
+                មាតិកា
               </h3>
               <ul className="space-y-1">
                 <li>
@@ -92,7 +92,7 @@ export default function FooterPage() {
             </div>
           </div>
           {/* Contact Information */}
-          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0">
+          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-[60px] mr-0">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ព័ត៌មានទំនាក់ទំនង
@@ -114,7 +114,6 @@ export default function FooterPage() {
                       href="mailto:normplov@gmail.com"
                       className="text-textprimary"
                     >
-                      normplov.istad@gmail.com
                       normplov.istad@gmail.com
                     </a>
                     <p className="text-gray-500 text-sm">អ៉ីម៉ែល</p>
@@ -145,7 +144,7 @@ export default function FooterPage() {
                 ឧបត្ថម្ភដោយ
               </h3>
 
-              <div className="flex justify-between gap-2">
+              <div className="lg:flex md:block justify-between gap-2">
                 <Image
                   src="/assets/MPTC-logo.jpg"
                   alt="Partner logo 1"

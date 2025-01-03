@@ -83,13 +83,11 @@ export const userApi = normPlovApi.injectEndpoints({
       invalidatesTags: ["userProfile"],
     }),
 
-    postBookmark: builder.mutation<void, { uuid: string }>({
+    postBookmark: builder.mutation<{ message: string }, { uuid: string }>({
       query: ({ uuid }) => ({
         url: `api/v1/bookmarks/${uuid}`,
         method: "POST",
-        body: { uuid },
       }),
-      // Invalidates the bookmarks cache after bookmarking
       invalidatesTags: ["bookmarks"],
     }),
 
