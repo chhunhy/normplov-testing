@@ -150,7 +150,7 @@ export default function FooterPage() {
                   alt="Partner logo 1"
                   width={1000}
                   height={1000}
-                  className="object-contain w-40  "
+                  className="object-contain w-40  lg:mb-0 md:mb-4 mb-4"
                 />
                 <Image
                   src="/assets/CBRD-logo.jpg"

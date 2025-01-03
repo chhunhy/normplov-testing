@@ -164,7 +164,7 @@ export default function Page() {
             <FeatureCard
               image="/assets/feature-02.png"
               title="សិស្សសកលវិទ្យាល័យ"
-              description="សិស្សសកលវិទ្យាល័យដែលមានអារម្មណ៍ថាកំពុងជ្រើសរើសជំនាញខុស"
+              description="សិស្សសាកលវិទ្យាល័យដែលមានអារម្មណ៍ថាកំពុងជ្រើសរើសជំនាញខុស"
             />
 
             {/* Feature 3: Business Professional */}

@@ -188,8 +188,16 @@ export default function Job() {
         );
         const data = await response.json();
 
-        const totalPages = data.payload.metadata.total_pages;
-        let allJobs: Job[] = []; // Explicitly typing the array as an array of Job objects
+        // Log the response for debugging
+        console.log("API Response:", data);
+
+        if (!data.payload || !data.payload.items) {
+          console.error("No items in the response");
+          return;
+        }
+
+        const totalPages = data.payload.metadata.total_pages || 1; // Default to 1 page if not provided
+        let allJobs: Job[] = [];
 
         // Fetch all pages based on total_pages
         for (let page = 1; page <= totalPages; page++) {
@@ -197,10 +205,14 @@ export default function Job() {
             `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs?page=${page}`
           );
           const pageData = await pageResponse.json();
-          allJobs = [...allJobs, ...pageData.payload.items];
+          if (pageData.payload && pageData.payload.items) {
+            allJobs = [...allJobs, ...pageData.payload.items];
+          } else {
+            console.error(`No items found on page ${page}`);
+          }
         }
 
-        // Extract categories
+        // Extract unique categories, locations, and job types
         const categories = allJobs.reduce((acc: string[], job: Job) => {
           if (job.category && !acc.includes(job.category)) {
             acc.push(job.category);
@@ -213,7 +225,6 @@ export default function Job() {
         }));
         setCategories(formattedCategories);
 
-        // Extract locations
         const locations = allJobs.reduce((acc: string[], job: Job) => {
           if (job.location && !acc.includes(job.location)) {
             acc.push(job.location);
@@ -226,7 +237,6 @@ export default function Job() {
         }));
         setLocations(formattedLocations);
 
-        // Extract job types
         const jobTypes = allJobs.reduce((acc: string[], job: Job) => {
           if (job.job_type && !acc.includes(job.job_type)) {
             acc.push(job.job_type);
@@ -245,6 +255,7 @@ export default function Job() {
 
     fetchCategoriesAndLocations();
   }, []);
+  
 
   if (!data) {
     return <JobsSkeleton />;
@@ -252,8 +263,17 @@ export default function Job() {
 
   console.log("data: ", data);
 
-  const handleCardClick = (id: string) => {
+  const handleCardClick = async (id: string) => {
     router.push(`/jobs/${id}`);
+    // Fetch job details
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs/${id}`);
+      const jobDetail = await response.json();
+      // Optionally, you can store this detailed job data in your Redux store or local state
+      console.log("Job Details: ", jobDetail);
+    } catch (error) {
+      console.error("Failed to fetch job details", error);
+    }
   };
 
   const jobs = data?.payload?.items || [];
@@ -330,6 +350,7 @@ export default function Job() {
               )}
             </SelectContent>
           </Select>
+
 
           {/* Location Filter */}
           {/* Location Filter */}

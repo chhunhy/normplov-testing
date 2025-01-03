@@ -29,7 +29,7 @@ const Card = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={`bg-white rounded-lg  border shadow-slate-50 overflow-hidden ${className}`}
+    className={`bg-white rounded-xl  border shadow-slate-50 overflow-hidden ${className}`}
     {...props}
   />
 ));
