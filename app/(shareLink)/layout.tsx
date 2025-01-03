@@ -55,7 +55,7 @@ export default function ShareLinkLayout({
       >
         {/* <NavbarPage /> */}
         <main className="w-full"> {children} <FloatingButtons/> </main>
-        {/* <FooterPage /> */}
+
       </body>
     </html>
   );
