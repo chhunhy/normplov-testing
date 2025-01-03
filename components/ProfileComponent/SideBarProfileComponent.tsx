@@ -8,6 +8,7 @@ import { useGetUserQuery, usePostImageMutation } from "@/redux/service/user"; //
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import LogoutComponent from "./LogoutComponent"; // Import the LogoutComponent
+import SideBarSkeleton from "../SkeletonLoading/ProfileComponent/SidebarSkeleton";
 
 // type ValueTypes = {
 //   avatar: File | string | null;
@@ -86,7 +87,20 @@ const SideBarProfileComponent = () => {
 
   const username = userData?.username || "User";
   const email = userData?.email;
-
+  // if(isUpadintProfile){
+  //   return(
+  //     <section>
+  //         {/* Profile Picture Skeleton */}
+  //         <div className="flex justify-center">
+  //             <div className="relative border-2 border-gray-300 bg-gray-200 w-28 h-28 rounded-full p-2 animate-pulse"></div>
+  //           </div>
+  //           <div className="text-center mt-2">
+  //             <div className="w-24 h-4 bg-gray-300 animate-pulse rounded mx-auto"></div>
+  //             <div className="w-32 h-4 bg-gray-300 animate-pulse rounded mt-2 mx-auto"></div>
+  //           </div>
+  //     </section>
+  //   )
+  //  }
 
 
   // const handleSubmit = async (values: ValueTypes) => {
@@ -111,10 +125,15 @@ const SideBarProfileComponent = () => {
   //   }
   // };
  if(isLoading){
-   return(
-     <h1>Loading...</h1>
-   )
+
+    return (
+      <div className="w-1/2 ">
+        <SideBarSkeleton isSidebarOpen={isSidebarOpen} />;
+      </div>
+    )
+   
  }
+
   const handleLogout = async () => {
     try {
       const res = await fetch(
@@ -126,7 +145,7 @@ const SideBarProfileComponent = () => {
       );
 
       const data = await res.json();
-
+      
       if (res.ok) {
         toast.success(data.message || "Logged out successfully!");
         router.push("/");
@@ -165,7 +184,9 @@ const SideBarProfileComponent = () => {
   };
 
   return (
+
     <div className="">
+      {/* <SideBarSkeleton isSidebarOpen={isSidebarOpen} /> */}
       <div className="flex flex-col h-fit ">
       
        <div>

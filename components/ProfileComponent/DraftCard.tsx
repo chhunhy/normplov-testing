@@ -98,12 +98,16 @@ const DynamicDraftCard = ({
   backgroundColor,
 }: DraftCardProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  // Find the "View" action
+  const viewAction = actions.find((action) => action.actionKey === "view");
 
   return (
     <div>
       
-      <div className="flex justify-between items-center p-3 bg-white  rounded-xl w-full">
-      {/* Icon and Content */}
+      <div  className={`flex justify-between items-center p-3 bg-white rounded-xl w-full transition-all duration-200 ${
+        viewAction ? "cursor-pointer" : "cursor-default"
+      }`}
+      onClick={viewAction?.onClick}> 
       <div className="flex items-center">
         <div
           className={`flex justify-center items-center w-12 h-12 rounded-full ${backgroundColor}`}

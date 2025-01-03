@@ -10,13 +10,15 @@ import Pagination from "./Pagination";
 import DeleteConfirmationModal from "./DeleteComfirmModal";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
+import DraftListSkeleton from "../SkeletonLoading/ProfileComponent/DraftSkeleton";
 const DraftList = () => {
   const router =useRouter()
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
   // Fetch tests
-  const { data, refetch } = useGetAllUserDraftQuery({
+  const { data, refetch,isLoading } = useGetAllUserDraftQuery({
     page: currentPage,
     page_size: itemsPerPage,
   });
@@ -177,6 +179,14 @@ const DraftList = () => {
   const totalItems = data?.payload.metadata.total_items || 0;
 const totalPages = Math.ceil(totalItems / itemsPerPage);
 console.log("pagination",{ totalItems, itemsPerPage, totalPages });
+if (isLoading) {
+  return (
+    <section>
+      <DraftListSkeleton />
+      <PaginationSkeleton/>
+    </section>
+  );
+}
 
   return ( 
     <div className="pt-4 lg:pt-0">

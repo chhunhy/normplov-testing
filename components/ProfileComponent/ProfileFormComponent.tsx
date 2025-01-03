@@ -14,6 +14,7 @@ import {
 } from "@/redux/service/user";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProfileFormSkeleton from "../SkeletonLoading/ProfileComponent/ProfileFormSkeleton";
 
 type ProfileFormValues = {
   username: string;
@@ -31,7 +32,9 @@ const ProfileForm = () => {
     useUpdateProfileUserMutation();
   console.log("data user data :",user?.payload.gender)
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>
+      <ProfileFormSkeleton/>
+    </div>
   }
 
   if (error) {

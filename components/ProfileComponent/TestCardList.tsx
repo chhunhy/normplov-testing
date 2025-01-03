@@ -7,6 +7,8 @@ import Pagination from "./Pagination";
 import DeleteConfirmationModal from "./DeleteComfirmModal";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import TestListSkeleton from "../SkeletonLoading/ProfileComponent/TestListSkeleton";
+import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 
 const TestList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,10 +16,11 @@ const TestList = () => {
   const router = useRouter(); // For navigation
 
   // Fetch tests
-  const { data, refetch } = useGetAllUserTestQuery({
+  const { data, refetch,isLoading } = useGetAllUserTestQuery({
     page: currentPage,
     page_size: itemsPerPage,
   });
+  
 
   // Delete mutation
   const [deleteUserTest] = useDeleteUserTestMutation();
@@ -130,6 +133,16 @@ const TestList = () => {
       />
     );
   });
+  // If loading, show skeleton loader
+  if (isLoading) {
+    return (
+      <section>
+        <TestListSkeleton />
+        <PaginationSkeleton/>
+      </section>
+    );
+  }
+
 
   return (
   <div className="pt-4 lg:pt-0">

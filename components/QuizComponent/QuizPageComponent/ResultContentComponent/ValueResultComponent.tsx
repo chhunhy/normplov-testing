@@ -90,7 +90,7 @@
 //   );
 // };
 
-import React from "react";
+import React, { useState } from "react";
 
 import {
   BarChart,
@@ -109,13 +109,20 @@ import StyledContentCard from "./ValueDescription";
 import StyledContentList from "./ValueList";
 import { RecommendationCard } from "../../RecommendationCard";
 import QuizHeader from "../../QuizHeader";
+import { QuizResultListingValue } from "../QuizResultListingValue";
+import upIcon from "@/public/Quiz/skill-icon/up.png";
+import Pagination from "@/components/ProfileComponent/Pagination";
+import ValueSkeletonLoader from "@/components/SkeletonLoading/ProfileComponent/ValueSkeleton";
 // Define ChartData type
 type ChartData = {
   label: string;
   score: number;
   color: string;
 };
-
+type value = {
+  category: string;
+  improvements: string[];
+};
 // Define ValueDetails type
 type ValueDetails = {
   name: string;
@@ -129,31 +136,39 @@ type BarProps = {
   width?: number;
   height?: number;
   payload?: {
-      color?: string;
+    color?: string;
   };
-}
+};
 export const ValueResultComponent = () => {
   const params = useParams();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const resultTypeString =
     typeof params.resultType === "string" ? params.resultType : "";
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
   const {
     data: response,
-    error,
     isLoading,
   } = useFetchAssessmentDetailsQuery({
     testUUID: uuidString,
     resultType: resultTypeString,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error || !response) return <p>Error loading data...</p>;
+  // if (!resultTypeString || !uuidString) {
+  //   return <div className=' w-full flex justify-center items-center'><Loading /></div>;
+  // }
+
+  if (isLoading) {
+    return(
+      <ValueSkeletonLoader/>
+    )
+    // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
+  }
 
   console.log("Response:", response);
   //  // Extract value details
-  const valueDetails:ValueDetails[] = response?.[0]?.valueDetails || [];
+  const valueDetails: ValueDetails[] = response?.[0]?.valueDetails || [];
   console.log("Value Details:", valueDetails);
   // Define fixed colors for backgrounds and progress bars
   const backgroundColors = ["#FFFFFF", "#FFFFFF", "#FFFFFF"]; // Green-100, Orange-100, Red-100
@@ -161,28 +176,30 @@ export const ValueResultComponent = () => {
 
   // Extract the chart data
   const chartData: ChartData[] =
-    response?.[0]?.chartData?.map((item: { label: string; score: number }, index: number) => ({
-      label: item.label,
-      score: item.score,
-      color: [
-        "#F88787",
-        "#FFA500",
-        "#4CAF50",
-        "#2196F3",
-        "#9C27B0",
-        "#FFC107",
-        "#009688",
-        "#00BCD4",
-        "#03A9F4",
-        "#3F51B5",
-        "#E91E63",
-      ][index % 11], // Cycle through colors
-    })) || [];
+    response?.[0]?.chartData?.map(
+      (item: { label: string; score: number }, index: number) => ({
+        label: item.label,
+        score: item.score,
+        color: [
+          "#F88787",
+          "#FFA500",
+          "#4CAF50",
+          "#2196F3",
+          "#9C27B0",
+          "#FFC107",
+          "#009688",
+          "#00BCD4",
+          "#03A9F4",
+          "#3F51B5",
+          "#E91E63",
+        ][index % 11], // Cycle through colors
+      })
+    ) || [];
 
   console.log("Chart Data:", chartData);
 
   // Custom bar shape for dynamic coloring
-  const CustomBar = (props:BarProps) => {
+  const CustomBar = (props: BarProps) => {
     const { x, y, width, height } = props;
     return (
       <Rectangle
@@ -197,17 +214,19 @@ export const ValueResultComponent = () => {
   };
   type Major = {
     major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
-};
+    schools: string[]; // An array of schools offering the major
+  };
   type RecommendedCareer = {
     career_name: string;
     description: string;
     majors: Major[]; // Array of Major objects
-};
+  };
 
   const recommendedCareer = response?.[0]?.careerRecommendations;
   console.log("Recommended Career: ", recommendedCareer);
+  const focusGrowth = response?.[0]?.key_improvements;
 
+  console.log("Focus Growth: ", focusGrowth);
 
   // Render custom legend
   const renderCustomLegend = () => (
@@ -225,9 +244,23 @@ export const ValueResultComponent = () => {
       ))}
     </div>
   );
+    // Pagination handler
+    const handlePageChange = (newPage: number) => {
+      setCurrentPage(newPage);
+    };
+  
+  // Calculate total pages for career recommendations
+  const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+
+  // Get current items for the current page
+  const currentItems = recommendedCareer.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="max-w-7xl mx-auto p-4 md:p-10 lg:p-12 bg-white rounded-lg space-y-12">
+    
       <div>
         <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">
           ក្រាហ្វបង្ហាញពីបុគ្គលិកលក្ខណៈ
@@ -247,9 +280,15 @@ export const ValueResultComponent = () => {
       </div>
 
       <div>
-        <h2 className="text-textprimary text-xl md:text-2xl pb-4">
+        <QuizHeader
+          title="ក្រាហ្វនេះបង្ហាញពី value ទាំងអស់របស់អ្នក"
+          description=""
+          size="sm"
+          type="result"
+        />
+        {/* <h2 className="text-textprimary text-xl md:text-2xl pb-4">
           ក្រាហ្វនេះបង្ហាញពី value ទាំងអស់របស់អ្នក
-        </h2>
+        </h2> */}
         <div className="border border-slate-50 rounded-[8px]">
           {/* Bar Chart with custom legend */}
           <div className=" lg:space-y-8 mx-auto lg:p-4 items-center lg:mt-3 grid grid-cols-1 lg:grid-cols-3 ">
@@ -265,7 +304,7 @@ export const ValueResultComponent = () => {
                   <Tooltip />
                   <Bar
                     dataKey="score"
-                    shape={(props:BarProps) => <CustomBar {...props} />}
+                    shape={(props: BarProps) => <CustomBar {...props} />}
                     name="Score"
                   />
                 </BarChart>
@@ -280,11 +319,18 @@ export const ValueResultComponent = () => {
         </div>
       </div>
       <div className="">
-        <h2 className="text-textprimary text-xl md:text-2xl pb-4">
+        <QuizHeader
+          title=" ការពិពណ៌នាពី value នីមួយៗរបស់អ្នក"
+          description=""
+          size="sm"
+          type="result"
+          titleColor="text-secondary"
+        />
+        {/* <h2 className="text-textprimary text-xl md:text-2xl pb-4">
           ការពិពណ៌នាពី value
-        </h2>
+        </h2> */}
         <div className="bg-bgPrimaryLight rounded-[8px] p-2 md:p-4">
-          {valueDetails.map((item,index) => (
+          {valueDetails.map((item, index) => (
             <StyledContentCard
               key={index}
               title={item.name} // Use the name from the API response
@@ -292,14 +338,19 @@ export const ValueResultComponent = () => {
               bgColor={index % 2 === 0 ? "#0BBB8A" : "#FFA500"} // Alternate background colors
             />
           ))}
-         
         </div>
       </div>
       <div>
-        <h2 className="text-textprimary text-xl md:text-2xl pb-4">
+        <QuizHeader
+          title="លក្ខណៈសំខាន់ៗ របស់អ្នក"
+          description=""
+          size="sm"
+          type="result"
+        />
+        {/* <h2 className="text-textprimary text-xl md:text-2xl pb-4">
           លក្ខណៈសំខាន់ៗ របស់អ្នក
-        </h2>
-        <div className="bg-bgPrimaryLight p-2 md:p-4 rounded-[8px] ">
+        </h2> */}
+        <div className="bg-bgPrimaryLight grid grid-cols-1 lg:grid-cols-2 p-2 md:p-4 rounded-[8px] ">
           {/* Dynamically render characteristics for each value */}
           {valueDetails.map((item, index) => {
             // Split characteristics into separate points
@@ -323,21 +374,56 @@ export const ValueResultComponent = () => {
           })}
         </div>
       </div>
-      <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
-          <QuizHeader
-            title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
-            description="These career may suitable for you"
-            size="sm"
-            type="result"
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-               {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
-                                                   <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
-                       
-                                               ))}
-          </div>
+      <div className="">
+        {/* Growth */}
+        <QuizHeader
+          title="ចំណុចដែលអ្នកត្រូវអភិវឌ្ឍបន្ថែម"
+          description=""
+          size="sm"
+          type="result"
+          titleColor="text-secondary"
+        />
+        <div className="">
+          {focusGrowth.map((value: value, index: number) => (
+            <QuizResultListingValue
+              key={index}
+              title={value.category}
+              desc={
+                value.improvements[0]
+                  .split(".")
+                  .filter((improvement) => improvement.trim() !== "") // Split and filter
+              }
+              image={upIcon}
+            />
+          ))}
         </div>
+      </div>
+      <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
+        <QuizHeader
+          title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
+          description="These career may suitable for you"
+          size="sm"
+          type="result"
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {currentItems.map((item: RecommendedCareer, index: number) => (
+            <RecommendationCard
+              key={item.career_name || index}
+              jobTitle={item.career_name}
+              jobDesc={item.description}
+              majors={item.majors}
+            />
+          ))}
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+        />
+      </div>
     </div>
   );
 };

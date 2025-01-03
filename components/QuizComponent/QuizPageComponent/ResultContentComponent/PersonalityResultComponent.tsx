@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import checkIcon from "@/public/Quiz/skill-icon/check.png";
 import xIcon from "@/public/Quiz/skill-icon/x.png";
 import QuizHeader from "../../QuizHeader";
@@ -7,6 +7,7 @@ import { useFetchAssessmentDetailsQuery } from "@/redux/feature/assessment/resul
 import { useParams } from "next/navigation";
 import CardPersonality from "../../CardPersonality";
 import { RecommendationCard } from "../../RecommendationCard";
+import Pagination from "@/components/ProfileComponent/Pagination";
 import {
   BarChart,
   Bar,
@@ -16,6 +17,8 @@ import {
   Rectangle,
   TooltipProps
 } from "recharts";
+import Loading from "@/components/General/Loading";
+import PersonalityResultSkeleton from "@/components/SkeletonLoading/ProfileComponent/PersonalityResultSkeleton";
 // Define types for API response
 type PersonalityDimension = {
   dimension_name: string;
@@ -77,6 +80,8 @@ type BarProps = {
 
 export const PersonalityResultComponent = () => {
   const params = useParams();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
   const dimensionFullNames: { [key: string]: string } = {
     I_Score: "Introvert Score",
     E_Score: "Extrovert Score",
@@ -96,7 +101,7 @@ export const PersonalityResultComponent = () => {
     typeof params.resultType === "string" ? params.resultType : "";
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
-  const { data: response, error } = useFetchAssessmentDetailsQuery({
+  const { data: response,isLoading } = useFetchAssessmentDetailsQuery({
     testUUID: uuidString,
     resultType: resultTypeString,
   });
@@ -104,12 +109,12 @@ export const PersonalityResultComponent = () => {
   console.log(`result: ${resultTypeString} id: ${uuidString}`);
 
   if (!resultTypeString || !uuidString) {
-    return <p>Loading...</p>;
+    return <div className=' w-full flex justify-center items-center'><Loading /></div>;
   }
 
-  if (error) {
-    console.error("Error fetching data:", error);
-    return <p>Error loading data</p>;
+  if (isLoading) {
+    return <PersonalityResultSkeleton/>
+    // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
   //   const skillCategory = response?.[0]?.categoryPercentages;
   const personalities = response?.[0]?.personalityType;
@@ -223,6 +228,19 @@ export const PersonalityResultComponent = () => {
   
     return null;
   };
+      // Pagination handler
+      const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+      };
+    
+    // Calculate total pages for career recommendations
+    const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+  
+    // Get current items for the current page
+    const currentItems = recommendedCareer.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
   return (
     <div className="bg-white">
       {/* Personalities Name and Description */}
@@ -379,20 +397,31 @@ export const PersonalityResultComponent = () => {
           </div>
         </div>
         <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
-          <QuizHeader
-            title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
-            description="These career may suitable for you"
-            size="sm"
-            type="result"
-          />
+        <QuizHeader
+          title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
+          description="These career may suitable for you"
+          size="sm"
+          type="result"
+        />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-           {recommendedCareer?.map((item: RecommendedCareer, index: number) => (
-                                       <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
-           
-                                   ))}
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {currentItems.map((item: RecommendedCareer, index: number) => (
+            <RecommendationCard
+              key={item.career_name || index}
+              jobTitle={item.career_name}
+              jobDesc={item.description}
+              majors={item.majors}
+            />
+          ))}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+        />
+      </div>
       </div>
     </div>
   );

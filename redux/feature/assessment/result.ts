@@ -19,6 +19,7 @@ interface LearningStyleResult extends AssessmentResult {
 interface ValueResult extends AssessmentResult {
   chartData: { label: string; score: number }[];
   valueDetails: { name: string; definition: string; characteristics: string; percentage: string }[];
+  key_improvements:{category:string;improvements:string[]}[];
   careerRecommendations: { career_name: string; description: string; majors: string[] }[];
 }
 
@@ -125,6 +126,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               createdAt: responseData.created_at,
               chartData: parsedData.chart_data || [],
               valueDetails: parsedData.value_details || [],
+              key_improvements: parsedData.key_improvements || [],
               careerRecommendations: parsedData.career_recommendations || []
             }];
         

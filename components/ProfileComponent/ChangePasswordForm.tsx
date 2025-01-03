@@ -9,7 +9,6 @@ import Button from "../AuthComponents/ButtonComponentForAuth"; // Adjust the imp
 import { useChangePasswordMutation } from "@/redux/service/user";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 type ValueTypes = {
   old_password: string;
   new_password: string;
@@ -47,7 +46,7 @@ type ChangePasswordFormProps = {
 const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [changePassword] = useChangePasswordMutation();
-
+  
   const handleChangePassword = async (values: ValueTypes) => {
     setIsLoading(true);
     try {

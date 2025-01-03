@@ -27,13 +27,14 @@ export default function ProfileLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-bgPrimaryLight ${suwannaphum.variable} ${inter.variable} ` }
+        className={` ${suwannaphum.variable} ${inter.variable} ` }
         suppressHydrationWarning
         
       >
         <NavbarPage/>
        
-       <section className="lg:container lg:mx-auto">
+       <section className="w-full bg-[#F7FDFB]">
+       <section className="lg:container lg:mx-auto ">
        <div className=" lg:flex p-6 lg:p-8 gap-6 lg:gap-12">
           {/* Sidebar */}
           <SideBarProfileComponent />
@@ -41,6 +42,7 @@ export default function ProfileLayout({
           {/* Main Content */}
           <main className=" w-full h-auto">{children}</main>
         </div>
+       </section>
        </section>
         <FooterPage/>
       </body>
