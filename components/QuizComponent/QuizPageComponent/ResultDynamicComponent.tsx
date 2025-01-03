@@ -61,10 +61,7 @@ export default function ResultDynamicComponent() {
     console.log("data link share",data?.payload.shareable_link)
     if (error || !data) {
         return (
-          <div className="w-full text-center py-10">
-            <h1 className="text-2xl font-bold">Error</h1>
-            <p>Unable to generate shareable link.</p>
-          </div>
+          <Loading/>
         );
       }
     // Handle invalid or missing parameters

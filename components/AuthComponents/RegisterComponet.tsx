@@ -17,6 +17,7 @@ import { setEmail } from "@/redux/feature/verify/verifySlice";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import CustomCheckbox from "./CustomCheckBox";
+import LoginWithGoogle from "./LoginWithGoogle";
 
 type ValueTypes = {
   username: string;
@@ -254,6 +255,9 @@ const RegisterComponent = () => {
                             </div>
                             {/* Google Button */}
                             <div className="mt-4">
+                        <LoginWithGoogle />
+                      </div>
+                            {/* <div className="mt-4">
                                  <Button
                                     type="button"
                                     text="ភ្ជាប់ជាមួយ Google"  
@@ -268,7 +272,7 @@ const RegisterComponent = () => {
                                     }
                                     className="w-full border-2 border-primary  text-textprimary"
                                 />
-                            </div>
+                            </div> */}
                              {/* Don't have accoun? Register */}
                              <div className='mt-4 text-center text-textprimary '>
                                  <span>មានគណនីរួចហើយ?<Link href="/login" className='text-primary hover:underline hover:font-semibold pl-1.5'>ចូលគណនី</Link></span>
