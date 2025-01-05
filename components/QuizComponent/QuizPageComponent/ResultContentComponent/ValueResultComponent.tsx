@@ -113,6 +113,8 @@ import { QuizResultListingValue } from "../QuizResultListingValue";
 import upIcon from "@/public/Quiz/skill-icon/up.png";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import ValueSkeletonLoader from "@/components/SkeletonLoading/ProfileComponent/ValueSkeleton";
+import Image from "next/image";
+import errorLoading from '@/public/assets/errorLoading.png'
 // Define ChartData type
 type ChartData = {
   label: string;
@@ -150,6 +152,7 @@ export const ValueResultComponent = () => {
   const {
     data: response,
     isLoading,
+    error
   } = useFetchAssessmentDetailsQuery({
     testUUID: uuidString,
     resultType: resultTypeString,
@@ -165,6 +168,22 @@ export const ValueResultComponent = () => {
     )
     // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
+
+  if (error) {
+    return (
+        <div className='bg-white w-full flex flex-col justify-center items-center py-6'>
+            < Image
+                src={errorLoading}
+                alt="Error Loading Data"
+                width={500}
+                height={500}
+                className="object-fill"
+            />
+            <p className='text-danger text-md lg:text-xl font-semibold text-center'>Sorry, we couldn&#39;t load your data right now.</p>
+            <p className='text-gray-500 text-sm lg:text-lg text-center'>Try refreshing the page or come back later.</p>
+        </div>
+    );
+}
 
   console.log("Response:", response);
   //  // Extract value details
@@ -222,9 +241,9 @@ export const ValueResultComponent = () => {
     majors: Major[]; // Array of Major objects
   };
 
-  const recommendedCareer = response?.careerRecommendations;
+  const recommendedCareer = response?.careerRecommendations ?? [];
   console.log("Recommended Career: ", recommendedCareer);
-  const focusGrowth = response?.key_improvements;
+  const focusGrowth = response?.key_improvements ?? [];
 
   console.log("Focus Growth: ", focusGrowth);
 

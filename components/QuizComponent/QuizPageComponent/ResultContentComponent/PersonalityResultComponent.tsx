@@ -19,6 +19,8 @@ import {
 } from "recharts";
 import Loading from "@/components/General/Loading";
 import PersonalityResultSkeleton from "@/components/SkeletonLoading/ProfileComponent/PersonalityResultSkeleton";
+import errorLoading from '@/public/assets/errorLoading.png'
+import Image from "next/image";
 // Define types for API response
 type PersonalityDimension = {
   dimension_name: string;
@@ -101,7 +103,7 @@ export const PersonalityResultComponent = () => {
     typeof params.resultType === "string" ? params.resultType : "";
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
-  const { data: response,isLoading } = useFetchAssessmentDetailsQuery({
+  const { data: response,isLoading, error } = useFetchAssessmentDetailsQuery({
     testUUID: uuidString,
     resultType: resultTypeString,
   });
@@ -116,6 +118,24 @@ export const PersonalityResultComponent = () => {
     return <PersonalityResultSkeleton/>
     // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
+
+  if (error) {
+    return (
+        <div className='bg-white w-full flex flex-col justify-center items-center py-6'>
+            < Image
+                src={errorLoading}
+                alt="Error Loading Data"
+                width={500}
+                height={500}
+                className="object-fill"
+            />
+            <p className='text-danger text-md lg:text-xl font-semibold text-center'>Sorry, we couldn&#39;t load your data right now.</p>
+            <p className='text-gray-500 text-sm lg:text-lg text-center'>Try refreshing the page or come back later.</p>
+        </div>
+    );
+}
+
+
   //   const skillCategory = response?.[0]?.categoryPercentages;
   const personalities = response?.personalityType;
   const personalitiesDimension = response?.dimensions;
@@ -203,7 +223,7 @@ export const PersonalityResultComponent = () => {
     majors: Major[]; // Array of Major objects
 };
 
-  const recommendedCareer = response?.careerRecommendations;
+  const recommendedCareer = response?.careerRecommendations ?? [];
   console.log("Recommended Career: ", recommendedCareer);
 
   const CustomTooltip = ({
@@ -234,7 +254,7 @@ export const PersonalityResultComponent = () => {
       };
     
     // Calculate total pages for career recommendations
-    const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+    const totalPages = Math.ceil(recommendedCareer?.length / itemsPerPage);
   
     // Get current items for the current page
     const currentItems = recommendedCareer.slice(
