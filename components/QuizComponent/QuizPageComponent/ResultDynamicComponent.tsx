@@ -67,6 +67,7 @@ export default function ResultDynamicComponent() {
           </div>
         );
       }
+
     // Handle invalid or missing parameters
     if (!resultType || !uuid) {
         return <div className=' w-full flex justify-center items-center'><Loading/></div>;

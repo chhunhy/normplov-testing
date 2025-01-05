@@ -24,6 +24,7 @@ import learningStyleJson from '@/app/(user)/json/learningStyleKh.json'
 import allTestJson from '@/app/(user)/json/allTest.json'
 import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
 
+
 type TestAssessment = {
     draft_uuid: string | null;
     is_draft: boolean;
@@ -35,17 +36,20 @@ type TestAssessment = {
 
 
 export default function QuizMainPageComponent() {
+
     const token = useSelector(selectToken);
 
     const router = useRouter();
 
     const isAuthenticated = token !== null;
 
-    const testData = useFetchAllTestQuery()
-    const AllTestAssessment = testData.data?.payload
+    console.log("authenticate: ", isAuthenticated)
 
-    console.log("test: ", testData.data?.payload)
-    
+    const { data, isLoading, isSuccess } = useFetchAllTestQuery()
+    const AllTestAssessment = data?.payload
+
+    console.log("test: ", data?.payload)
+
 
     const handleQuizClick = (test: string) => {
         router.push(`/test/${test}`);
@@ -56,13 +60,11 @@ export default function QuizMainPageComponent() {
             router.push(
                 `/draft/${route.toLowerCase().replace(/\s+/g, "")}/${draftUuid}`
             )
-          console.log(draftUuid, route);
+            console.log(draftUuid, route);
         } else {
             router.push(`/test/${route}`);
         }
-      };
-
-    
+    };
 
 
     const { typeOfQuizKh, introKh, instructKh } = generalTestJson
@@ -88,6 +90,7 @@ export default function QuizMainPageComponent() {
         { title: allMainKh.title, desc: allMainKh.desc, image: allTest, buttonText: allMainKh.buttonText, route: allMainKh.route }
     ];
 
+    // console.log("image: ",AllTestAssessment[0].image)
 
     return (
         <div className='w-full bg-bgPrimaryLight pb-6 lg:pb-12'>
@@ -110,22 +113,34 @@ export default function QuizMainPageComponent() {
                         size='sm'
                         type='result'
                     />
-
-                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 '>
-                        {AllTestAssessment?.map((option: TestAssessment, index: number) => (
-                            <QuizOptHorizontalContainer
-                                key={index}
-                                title={option.title}
-                                desc={option.description} // Fixing the property name to match the data
-                                image={option.image}
-                                onClick={() => handleDraftQuizClick(option.draft_uuid, option.route)}
-                                isDraft={option.is_draft}
-                                isAuthenticated={true}
-                            />
-                        ))}
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                        {isLoading ? (
+                            Array(6).fill(0).map((_, index) => (
+                                <QuizOptHorizontalContainer
+                                    key={index}
+                                    title=""
+                                    desc=""
+                                    isLoading={true} // Pass the loading state as true
+                                />
+                            ))
+                        ) : isSuccess && AllTestAssessment ? (
+                            AllTestAssessment.map((option: TestAssessment, index: number) => (
+                                <QuizOptHorizontalContainer
+                                    key={index}
+                                    title={option.title}
+                                    desc={option.description}
+                                    image={option.image}
+                                    onClick={() => handleDraftQuizClick(option.draft_uuid, option.route)}
+                                    isDraft={option.is_draft}
+                                    type='main'
+                                    
+                                />
+                            ))
+                        ) : (
+                            <div>No data available</div>
+                        )}
                     </div>
                 </div>
-
             ) : (
                 <div className='max-w-7xl mx-auto space-y-6 lg:space-y-12 p-4 md:p-10 lg:p-12'>
                     <QuizHeader
@@ -134,21 +149,31 @@ export default function QuizMainPageComponent() {
                         size='sm'
                         type='result'
                     />
-
-                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 '>
-                        {quizOptions.map((option, index) => (
-                            <QuizOptHorizontalContainer
-                                key={index}
-                                title={option.title}
-                                desc={option.desc}
-                                image={option.image}
-                                onClick={() => handleQuizClick(option.route)}
-                            />
-                        ))}
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                        {/* Only show skeletons or loading indicator if `isLoading` is true */}
+                        {isLoading ? (
+                            Array(6).fill(0).map((_, index) => (
+                                <QuizOptHorizontalContainer
+                                    key={index}
+                                    title=""
+                                    desc=""
+                                    isLoading={true} // Pass the loading state as true
+                                />
+                            ))
+                        ) : (
+                            quizOptions.map((option, index) => (
+                                <QuizOptHorizontalContainer
+                                    key={index}
+                                    title={option.title}
+                                    desc={option.desc}
+                                    image={option.image}
+                                    onClick={() => handleQuizClick(option.route)}
+                                    type='main'
+                                />
+                            ))
+                        )}
                     </div>
                 </div>
-
-
             )}
 
         </div>

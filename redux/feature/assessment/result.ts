@@ -106,7 +106,7 @@ export const resultApi = normPlovApi.injectEndpoints({
         // Process data based on the provided resultType
         switch (resultType) {
           case "learningStyle":
-            return [{
+            return {
               assessmentType: resultType,
               testUUID: parsedData.test_uuid,
               testName: resultType,
@@ -116,10 +116,10 @@ export const resultApi = normPlovApi.injectEndpoints({
               dimensions: parsedData.dimensions || [],
               recommendedTechniques: parsedData.recommended_techniques || [],
               relatedCareers: parsedData.related_careers || []
-            }] as any; 
+            } as any; 
         
           case "value":
-            return [{
+            return {
               assessmentType: resultType,
               testUUID: parsedData.test_uuid,
               testName: resultType,
@@ -128,10 +128,10 @@ export const resultApi = normPlovApi.injectEndpoints({
               valueDetails: parsedData.value_details || [],
               key_improvements: parsedData.key_improvements || [],
               careerRecommendations: parsedData.career_recommendations || []
-            }];
+            };
         
           case "interest":
-            return [{
+            return {
               assessmentType: resultType,
               testUUID: parsedData.test_uuid,
               testName: resultType,
@@ -143,10 +143,10 @@ export const resultApi = normPlovApi.injectEndpoints({
               careerPath: parsedData.career_path || [],
               chartData: parsedData.chart_data || [],
               dimensionDescriptions: parsedData.dimension_descriptions || []
-            }];
+            };
         
           case "skill":
-            return [{
+            return {
               topCategory: parsedData.top_category || {},
               assessmentType: resultType,
               testUUID: parsedData.test_uuid,
@@ -155,10 +155,10 @@ export const resultApi = normPlovApi.injectEndpoints({
               categoryPercentages: parsedData.category_percentages || {},
               skillsGrouped: parsedData.skills_grouped || {},
               strongCareers: parsedData.strong_careers || []
-            }] as any;
+            } as any;
         
           case "personality":
-            return [{
+            return {
               assessmentType: resultType,
               testUUID: parsedData.test_uuid,
               testName: resultType,
@@ -169,7 +169,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               strengths: parsedData.strengths || [],
               weaknesses: parsedData.weaknesses || [],
               careerRecommendations: parsedData.career_recommendations || []
-            }];
+            };
         
           default:
             console.error("Unknown result type:", resultType);

@@ -94,7 +94,7 @@ export const PersonalityResultComponent = () => {
   };
 
   // Normalize the values from params
-  // const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
+  // const resultType = Array.isArray(params.resultType) ? params.resultType   : params.resultType;
   // const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
 
   const resultTypeString =
@@ -117,9 +117,9 @@ export const PersonalityResultComponent = () => {
     // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
   //   const skillCategory = response?.[0]?.categoryPercentages;
-  const personalities = response?.[0]?.personalityType;
-  const personalitiesDimension = response?.[0]?.dimensions;
-  const dimensions: PersonalityDimension[] = response?.[0]?.dimensions || [];
+  const personalities = response?.personalityType;
+  const personalitiesDimension = response?.dimensions;
+  const dimensions: PersonalityDimension[] = response?.dimensions || [];
   const chartData: ChartData[] = dimensions.map((dim, index) => ({
     label: dimensionFullNames[dim.dimension_name] || dim.dimension_name, // Use full name or fallback to the key
     score: dim.score,
@@ -178,12 +178,12 @@ export const PersonalityResultComponent = () => {
   //   return { dim1, dim2 };
   // };
 
-  const personailitiesTrait = response?.[0]?.traits;
+  const personailitiesTrait = response?.traits;
   console.log("PersonailitiesTrait", personailitiesTrait);
   console.log("PersonailitiesTrait Positive", personailitiesTrait?.positive);
   console.log("PersonailitiesTrait Negative", personailitiesTrait?.negative);
-  console.log("Personailities Strength", response?.[0]?.strengths);
-  console.log("Personailities Weakness", response?.[0]?.weaknesses);
+  console.log("Personailities Strength", response?.strengths);
+  console.log("Personailities Weakness", response?.weaknesses);
 
   //   if (!skillCategory) {
   //     return <p>Loading...</p>;
@@ -203,7 +203,7 @@ export const PersonalityResultComponent = () => {
     majors: Major[]; // Array of Major objects
 };
 
-  const recommendedCareer = response?.[0]?.careerRecommendations;
+  const recommendedCareer = response?.careerRecommendations;
   console.log("Recommended Career: ", recommendedCareer);
 
   const CustomTooltip = ({
@@ -356,7 +356,7 @@ export const PersonalityResultComponent = () => {
               />
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                {response?.[0]?.strengths.map(
+                {response?.strengths.map(
                   (strength: string, index: number) => (
                     <QuizResultListing
                       key={index}
@@ -382,7 +382,7 @@ export const PersonalityResultComponent = () => {
               />
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                {response?.[0]?.weaknesses.map(
+                {response?.weaknesses.map(
                   (weakness: string, index: number) => (
                     <QuizResultListing
                       key={index}

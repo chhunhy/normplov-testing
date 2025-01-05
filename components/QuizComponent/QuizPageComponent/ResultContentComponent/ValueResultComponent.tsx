@@ -168,7 +168,7 @@ export const ValueResultComponent = () => {
 
   console.log("Response:", response);
   //  // Extract value details
-  const valueDetails: ValueDetails[] = response?.[0]?.valueDetails || [];
+  const valueDetails: ValueDetails[] = response?.valueDetails || [];
   console.log("Value Details:", valueDetails);
   // Define fixed colors for backgrounds and progress bars
   const backgroundColors = ["#FFFFFF", "#FFFFFF", "#FFFFFF"]; // Green-100, Orange-100, Red-100
@@ -176,7 +176,7 @@ export const ValueResultComponent = () => {
 
   // Extract the chart data
   const chartData: ChartData[] =
-    response?.[0]?.chartData?.map(
+    response?.chartData?.map(
       (item: { label: string; score: number }, index: number) => ({
         label: item.label,
         score: item.score,
@@ -222,9 +222,9 @@ export const ValueResultComponent = () => {
     majors: Major[]; // Array of Major objects
   };
 
-  const recommendedCareer = response?.[0]?.careerRecommendations;
+  const recommendedCareer = response?.careerRecommendations;
   console.log("Recommended Career: ", recommendedCareer);
-  const focusGrowth = response?.[0]?.key_improvements;
+  const focusGrowth = response?.key_improvements;
 
   console.log("Focus Growth: ", focusGrowth);
 
