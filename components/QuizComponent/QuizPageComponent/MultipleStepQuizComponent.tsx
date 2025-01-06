@@ -198,6 +198,7 @@ export const MultipleStepQuizComponent = () => {
                     icon={<ArrowRight />}
                     type="rightIcon"
                     onClick={currentQuizIndex === quizSequence.length - 1 ? handleResultClick : handleNextClick}
+                    // isDisable={(completedQuestions.length < totalQuestions) ? true : false}
                 />
             </div>
         </div>

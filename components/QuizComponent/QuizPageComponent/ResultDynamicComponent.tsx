@@ -22,6 +22,7 @@ import { InterestResultComponent } from './ResultContentComponent/InterestResult
 import { PersonalityResultComponent } from './ResultContentComponent/PersonalityResultComponent';
 import { ValueResultComponent } from './ResultContentComponent/ValueResultComponent';
 import Loading from '@/components/General/Loading';
+import { AllResultComponent } from './ResultContentComponent/AllResultComponent';
 
 type IntroKh = {
     title: string;
@@ -57,13 +58,17 @@ export default function ResultDynamicComponent() {
     const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
     console.log("REs",resultType, params.resultType)
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
-    const { data, error} = useGetShareLinksQuery({ uuid });
+    const { data} = useGetShareLinksQuery({ uuid });
     console.log("data link share",data?.payload.shareable_link)
-    if (error || !data) {
-        return (
-          <Loading/>
-        );
-      }
+    // if (error || !data) {
+    //     return (
+    //       <div className="w-full text-center py-10">
+    //         <h1 className="text-2xl font-bold">Error</h1>
+    //         <p>Unable to generate shareable link.</p>
+    //       </div>
+    //     );
+    //   }
+
     // Handle invalid or missing parameters
     if (!resultType || !uuid) {
         return <div className=' w-full flex justify-center items-center'><Loading/></div>;
@@ -117,7 +122,7 @@ export default function ResultDynamicComponent() {
                 );
             case 'all':
                 return (
-                    <div>We havent finished the result.</div>
+                    <AllResultComponent/>
                 )
 
             default:
@@ -129,6 +134,7 @@ export default function ResultDynamicComponent() {
         <div className='w-full '>
 
             {/* Introduction container */}
+            
             <QuizResultIntroContainer
                 title={introKh.title}
                 highlight={introKh.highlight}
@@ -137,7 +143,7 @@ export default function ResultDynamicComponent() {
                 type="result"
             />
 
-            <div >
+            <div className='w-full'>
                 {renderResultContent()}
             </div>
 

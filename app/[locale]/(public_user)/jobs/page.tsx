@@ -443,7 +443,6 @@ export default function Job() {
             rounded="xl"
             outline="false"
             full={false}
-            color="#0BBB8A"
             onClick={() => {
               dispatch(setSelectedCategory(null)); // Reset the category to null
               dispatch(setSearch("")); // Optionally reset the search filter

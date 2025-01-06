@@ -33,7 +33,7 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
         validate: (values: FormikValues) => {
             const errors: FormikErrors<FormikValues> = {}; 
             if (!values.feedback.trim()) {
-                errors.feedback = "Please input your feedback.";
+                errors.feedback = "សូមបញ្ចូលមតិកែលម្អរបស់អ្នក";
             }
             return errors;
         },
@@ -110,7 +110,7 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
                         )}
 
                         <div className='flex justify-end'>
-                            <QuizButton title={buttonTitle} full={true} onClick={formik.handleSubmit} />
+                            <QuizButton  title={buttonTitle} full={true} onClick={formik.handleSubmit} />
                         </div>
                     </form>
 

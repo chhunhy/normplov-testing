@@ -25,5 +25,5 @@ export function middleware(request: NextRequest) {
 
 // Apply the middleware to the necessary routes
 export const config = {
-    matcher: ["/", "/test/personality", "/test/skill", "/test/learningStyle", "/test/value", "/test/interest", "/test-result/:path*", "/profile-about-user", "/profile-quiz-history", "/profile-draft", "/chat-with-ai"]
+    matcher: ["/test/all","/", "/test/personality", "/test/skill", "/test/learningStyle", "/test/value", "/test/interest", "/test-result/:path*", "/profile-about-user", "/profile-quiz-history", "/profile-draft", "/chat-with-ai"]
 };
