@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
 import { MapPin } from "lucide-react";
@@ -11,8 +11,8 @@ import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import {
   setBookmark,
-  initializeBookmarks,
 } from "@/redux/feature/jobs/bookmarkSlice";
+import { useRouter } from "next/navigation";
 
 type props = {
   uuid: string;
@@ -50,10 +50,10 @@ export const JobListingCard = ({
   const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
     `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
   );
-
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
@@ -62,7 +62,9 @@ export const JobListingCard = ({
     e.stopPropagation(); // Prevent parent click handlers
 
     if (!token) {
+      // If no token, prompt user to log in
       alert("You must log in to bookmark a job.");
+      router.push("/login"); // Redirect to login page
       return;
     }
 

@@ -199,18 +199,22 @@ export default function Job() {
         const totalPages = data.payload.metadata.total_pages || 1; // Default to 1 page if not provided
         let allJobs: Job[] = [];
 
-        // Fetch all pages based on total_pages
         for (let page = 1; page <= totalPages; page++) {
-          const pageResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs?page=${page}`
-          );
-          const pageData = await pageResponse.json();
-          if (pageData.payload && pageData.payload.items) {
-            allJobs = [...allJobs, ...pageData.payload.items];
-          } else {
-            console.error(`No items found on page ${page}`);
+          try {
+            const pageResponse = await fetch(
+              `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs?page=${page}`
+            );
+            const pageData = await pageResponse.json();
+            if (pageData.payload && pageData.payload.items) {
+              allJobs = [...allJobs, ...pageData.payload.items];
+            } else {
+              console.error(`No items found on page ${page}`);
+            }
+          } catch (error) {
+            console.error(`Error fetching page ${page}:`, error);
           }
         }
+      
 
         // Extract unique categories, locations, and job types
         const categories = allJobs.reduce((acc: string[], job: Job) => {
@@ -264,17 +268,24 @@ export default function Job() {
   console.log("data: ", data);
 
   const handleCardClick = async (id: string) => {
-    router.push(`/jobs/${id}`);
-    // Fetch job details
     try {
+      router.push(`/jobs/${id}`);
       const response = await fetch(`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs/${id}`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch job details. Status: ${response.status}`);
+      }
+      
       const jobDetail = await response.json();
-      // Optionally, you can store this detailed job data in your Redux store or local state
       console.log("Job Details: ", jobDetail);
+      
     } catch (error) {
-      console.error("Failed to fetch job details", error);
+      console.error("Failed to fetch job details:", error);
+      // Optionally, you can display an error message to the user here
+      alert("Sorry, there was an error fetching the job details. Please try again.");
     }
   };
+  
 
   const jobs = data?.payload?.items || [];
   const totalPages = data?.payload?.metadata?.total_pages || 1;

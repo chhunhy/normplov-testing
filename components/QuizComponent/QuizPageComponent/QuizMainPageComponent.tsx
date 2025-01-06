@@ -15,13 +15,13 @@ import value from '@/public/Quiz/optQuiz/value.png'
 import personality from '@/public/Quiz/optQuiz/Personality.png'
 
 // Import json
-import generalTestJson from '@/app/(user)/json/testGeneralKh.json'
-import personalityJson from '@/app/(user)/json/personalityKh.json'
-import interestJson from '@/app/(user)/json/interestKh.json'
-import skillJson from '@/app/(user)/json/skillKh.json'
-import valueJson from '@/app/(user)/json/valueKh.json'
-import learningStyleJson from '@/app/(user)/json/learningStyleKh.json'
-import allTestJson from '@/app/(user)/json/allTest.json'
+import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.json'
+import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json'
+import interestJson from '../../../app/[locale]/(user)/json/interestKh.json'
+import skillJson from '../../../app/[locale]/(user)/json/skillKh.json'
+import valueJson from '../../../app/[locale]/(user)/json/valueKh.json'
+import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json'
+import allTestJson from '../../../app/[locale]/(user)/json/allTest.json'
 import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
 
 type TestAssessment = {

@@ -63,7 +63,6 @@ interface Job {
 export default function Page({ params }: { params: { id: string } }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { id } = params;  // Use the dynamic id from params
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
