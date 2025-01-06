@@ -1,8 +1,10 @@
+'use client'
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/ui/app-sidebar"
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
-import { Metadata } from "next";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 
 const suwannaphum = Suwannaphum({
@@ -15,27 +17,6 @@ const inter = Inter({
   weight: ["400", "700"],
 });
 
-export const metadata: Metadata = {
-  title: {
-		template: "NormPlov",
-		default: "NormPlov",
-	},
-  description: `NormPlov: Find your perfect major and confindence career.`,
-  openGraph: {
-		title: {
-			template: "%s - NormPlov",
-			default: "NormPlov",
-		},
-		description: `NormPlov: Find your perfect major and confindence career.`,
-		images: ["https://normplov-api.shinoshike.studio/assets/metadata.png"],
-		url: "https://normplov.shinoshike.studio",
-	},
-  icons: {
-    icon: "/assets/logo.jpg", // Logo for favicon (replace with your actual logo path)
-    apple: "/assets/logo.jpg", // Apple touch icon (iOS)
-    shortcut: "/assets/logo.jpg", // Shortcut icon for browsers
-  },
-};
 
 
 export default function ChatLayout({
@@ -43,11 +24,24 @@ export default function ChatLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const params = useParams();
+  const [selectedChatId, setSelectedChatId] = useState< string[] |  string | null>(null);
+
+  useEffect(() => {
+    // You can fetch the `uuid` from params and set it as `selectedChatId`
+    const uuid = params.id;
+    if (uuid) {
+      setSelectedChatId(uuid);  // Set the selected chat id when the route changes
+    }
+  }, [params.id]);  // Ensure selected chat id updates on route changes
+
   return (
     <html lang="en">
       <body className={`${suwannaphum.className} ${inter} antialiased`}>
         <SidebarProvider>
-          <AppSidebar />
+          {/* <AppSidebar /> */}
+          <AppSidebar selectedChatId={selectedChatId} setSelectedChatId={setSelectedChatId} />
           <main className="w-full h-screen overflow-hidden">
             <SidebarTrigger />
             {children}

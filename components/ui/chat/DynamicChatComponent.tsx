@@ -6,6 +6,7 @@ import { ChatMessageList } from '@/components/ui/chat/chat-message-list';
 import { ChatInput } from '@/components/ui/chat/chat-input';
 import { Send } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { useGetUserQuery } from '@/redux/service/user';
 
 type Message = {
   id: string;
@@ -21,6 +22,12 @@ type DynamicChatPageProps = {
 
 export const DynamicChatComponent = ({ messages, updateMessages }: DynamicChatPageProps) => {
   const [userInput, setUserInput] = useState('');
+  const { data:user} = useGetUserQuery();
+  console.log("user data",user)
+  const userData=user?.payload
+  const avatarUrl = userData?.avatar
+  ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
+  : null;
 
   // Handle form submission
   const handleSendMessage = (e: React.FormEvent) => {
@@ -30,7 +37,7 @@ export const DynamicChatComponent = ({ messages, updateMessages }: DynamicChatPa
     const userMessage: Message = {
       id: Date.now().toString(),
       variant: 'sent',
-      avatar: null, // No avatar for the user
+      avatar:  avatarUrl, // No avatar for the user
       message: userInput,
     };
 
@@ -38,6 +45,7 @@ export const DynamicChatComponent = ({ messages, updateMessages }: DynamicChatPa
 
     setUserInput('');
   }
+
 
 
   return (

@@ -1,4 +1,4 @@
-import { AppSidebar } from '@/components/ui/app-sidebar';
+
 import Image from 'next/image';
 import aichat from '@/public/chat/emptymailbox.png'
 
@@ -8,7 +8,7 @@ export default function page() {
   return (
     <div >
       {/* Chat Sidebar */}
-      <AppSidebar />
+      {/* <AppSidebar /> */}
 
       <div>
         <div className="h-screen flex justify-center items-center overflow-hidden p-4">

@@ -1,19 +1,13 @@
 import React, { useState } from 'react'
-import { useParams } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import QuizHeader from '../../QuizHeader';
-import Image from 'next/image';
-import AllJson from "@/app/(user)/json/allTest.json"
 import { PersonalityResultComponent } from './PersonalityResultComponent';
 import { SkillResultComponent } from './SkillResultComponent';
 import { InterestResultComponent } from './InterestResultComponent';
 import { ValueResultComponent } from './ValueResultComponent';
 import { LearningStyleResultComponent } from './LearningStyleResultComponent';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Clock } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export const AllResultComponent = () => {
-    const params = useParams();
 
     const [selectedTab, setSelectedTab] = useState('personality');
 

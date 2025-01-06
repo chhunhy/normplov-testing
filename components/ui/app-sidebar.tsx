@@ -1,5 +1,5 @@
 'use client'
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft, Ellipsis, Pencil, Plus, Trash } from "lucide-react";
 import chatImage from "@/public/chat/chat.png";
 import {
   Sidebar,
@@ -16,6 +16,11 @@ import { useRouter } from "next/navigation";
 import { useCreateChatMutation, useFetchAllChatQuery } from "@/redux/feature/chat/aiChat";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./skeleton";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 type ChatData = {
   uuid: string;
@@ -24,9 +29,15 @@ type ChatData = {
   updated_at: string | null;
 };
 
-export function AppSidebar() {
+type AppSidebarProps = {
+  selectedChatId: string | null | string[];
+  setSelectedChatId: React.Dispatch<React.SetStateAction<string | null | string[]>>;
+};
+
+
+export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProps) {
   const [chatData, setChatData] = useState<ChatData[]>([]);
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
+  // const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { data: apiData, isLoading, isError } = useFetchAllChatQuery();
   const [createChat] = useCreateChatMutation();
   const router = useRouter();
@@ -69,13 +80,16 @@ export function AppSidebar() {
 
   if (isError) return <p>Error loading chats. Please try again later.</p>;
 
+  const sortedChatData = [...chatData].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+  console.log("chat id: ", selectedChatId)
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="bg-white">
+      <SidebarContent className="bg-white">
         <SidebarGroup>
           <SidebarHeader>
             <SidebarMenu>
-              <SidebarMenuItem className="flex mb-2 justify-between">
+              <SidebarMenuItem className="flex mb-2 justify-between ">
                 <Button
                   variant="outline"
                   size="icon"
@@ -85,8 +99,8 @@ export function AppSidebar() {
                   <ArrowLeft color="#0BBB8A" />
                 </Button>
                 <div className="flex gap-1 items-center ">
-                  <p className="text-lg font-semibold">Message</p>
-                  <div className="w-6 h-6 flex justify-center items-center rounded-full text-xs font-normal bg-gray-500 bg-opacity-10 text-gray-600">
+                  <p className="text-lg font-semibold text-gray-700">Message</p>
+                  <div className="w-6 h-6 flex justify-center items-center rounded-full text-xs font-normal bg-gray-400 bg-opacity-10 text-gray-700">
                     {Object.keys(chatData).length}
                   </div>
                 </div>
@@ -105,19 +119,19 @@ export function AppSidebar() {
           <SidebarGroupContent>
             {isLoading ? (
               <div className="flex justify-center items-center p-4">
-                  <div className="space-y-2">
-                    <Skeleton className="h-[60px] w-[200px] rounded-xl" />
-                    <Skeleton className="h-[60px] w-[200px] rounded-xl" />
-                    <Skeleton className="h-[60px] w-[200px] rounded-xl" />
-                  </div>
+                <div className="space-y-2">
+                  <Skeleton className="h-[60px] w-[200px] rounded-xl" />
+                  <Skeleton className="h-[60px] w-[200px] rounded-xl" />
+                  <Skeleton className="h-[60px] w-[200px] rounded-xl" />
+                </div>
               </div>
             ) : (
               <SidebarMenu>
-                {chatData.map((chat) => (
+                {sortedChatData.map((chat) => (
                   <SidebarMenuItem key={chat.uuid}>
                     <button
                       onClick={() => chatDetailNavigate(chat.uuid)}
-                      className={`w-full text-left ${selectedChatId === chat?.uuid ? "bg-primary bg-opacity-10" : ""
+                      className={`w-full text-left ${chat?.uuid === selectedChatId ? "bg-primary bg-opacity-10" : ""
                         } hover:bg-primary hover:bg-opacity-10`}
                     >
                       <div className="flex items-start gap-4 p-4 rounded-lg">
@@ -128,15 +142,43 @@ export function AppSidebar() {
                           height={36}
                           className="rounded-xl"
                         />
-                        <div className="flex flex-col">
-                          <span className="text-base font-semibold">
-                            {chat.chat_title || "Untitled Chat"}
-                          </span>
-                          <span className="text-xs text-gray-400">
-                            {new Date(chat.created_at).toLocaleDateString()}
-                          </span>
+                        <div className="flex justify-between">
+                          <div>
+                            <p className="text-[14px] text-gray-700 font-semibold overflow-hidden whitespace-nowrap max-w-[120px] text-ellipsis ">
+                              {chat.chat_title || "Untitled Chat"}
+                            </p>
+
+                            <p className="text-xs text-gray-500">
+                              {new Date(chat.created_at).toLocaleDateString('en-US', {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric',
+                              })}
+                            </p>
+                          </div>
+
+                          <div className="relative group">
+                            <Popover >
+                              <PopoverTrigger asChild>
+                                <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:bg-opacity-20"><Ellipsis /></Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-28 bg-white text-left">
+                                <div className="flex items-center gap-2 font-semibold text-gray-700">
+                                  <Pencil className="w-4 h-4" />
+                                  <p className="text-[14px]">Rename</p>
+                                </div>
+                                <div className="flex items-center gap-2 mt-2 text-danger font-semibold">
+                                  <Trash className="w-4 h-4" />
+                                  <p className="text-[14px]">Delete</p>
+                                </div>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+
                         </div>
+
                       </div>
+
                     </button>
                   </SidebarMenuItem>
                 ))}

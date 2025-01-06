@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { DynamicChatComponent } from '@/components/ui/chat/DynamicChatComponent';
-import { AppSidebar } from '@/components/ui/app-sidebar';
 import Image from 'next/image';
 import aichat from '@/public/chat/emptymailbox.png'
 import { useParams } from 'next/navigation';
 import { useContinueConversationMutation, useFetchConversationDetailsQuery } from '@/redux/feature/chat/aiChat';
 import Loading from '@/components/General/Loading';
+import { useGetUserQuery } from '@/redux/service/user';
 
 type Message = {
   id: string;
@@ -21,13 +21,21 @@ export default function ChatApp() {
   const uuid = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const { data: chatDetail, isFetching } = useFetchConversationDetailsQuery(uuid || '', {
-    skip: !uuid, 
+    skip: !uuid,
   });
   const [continueConversation] = useContinueConversationMutation();
 
   const [chatData, setChatData] = useState<{ [key: string]: Message[] }>({});
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
 
+  const { data: user } = useGetUserQuery();
+  console.log("user data", user)
+  const userData = user?.payload
+  const avatarUrl = userData?.avatar
+    ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
+    : '/chat/ai.png';
+
+  console.log("avatar", avatarUrl)
   useEffect(() => {
     if (chatDetail?.payload) {
       const filteredMessages = chatDetail.payload.conversation_history
@@ -35,7 +43,7 @@ export default function ChatApp() {
           {
             id: `${index * 2}`,
             variant: 'sent' as const,
-            avatar: null,
+            avatar: avatarUrl,
             message: entry.user_query || '',
           },
           {
@@ -50,7 +58,7 @@ export default function ChatApp() {
       setChatData({ [uuid]: filteredMessages });
       setSelectedChatId(uuid);
     }
-  }, [chatDetail, uuid]);
+  }, [chatDetail, uuid, avatarUrl]);
 
 
   const updateMessages = (chatId: string, newMessage: Message) => {
@@ -63,7 +71,7 @@ export default function ChatApp() {
   const handleSendMessage = async (newQuery: string) => {
     try {
       await continueConversation({ uuid, new_query: newQuery }).unwrap();
-      
+
     } catch (error) {
       console.error('Error continuing conversation:', error);
     }
@@ -81,10 +89,11 @@ export default function ChatApp() {
   return (
     <div >
       {/* Sidebar */}
-      <AppSidebar/>
+      {/* <AppSidebar /> */}
 
       {/* Chat Content */}
       <div >
+ 
         {selectedChatId ? (
           <DynamicChatComponent
             messages={chatData[selectedChatId] || []}
