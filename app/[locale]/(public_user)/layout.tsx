@@ -1,12 +1,13 @@
-import "@/app/globals.css";
+//import "@/app/globals.css";
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import FooterPage from "@/components/Footer/FooterPage";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import FloatingButtons from "@/components/General/FloatingButton";
 import { Metadata } from "next";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
 
 export const metadata: Metadata = {
   title: {
@@ -44,40 +45,37 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-
-
-export default function UserLayout({
+export default async function PublicUserLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
-  return (
-    <html lang="en">
-      <body
-        className={`${suwannaphum.variable} ${inter.variable}`}
-        suppressHydrationWarning
-      >
-        <NavbarPage />
-        <main className="w-full"> 
-          {children}
-          <FloatingButtons/>
-        </main>
+  const { locale } = params;
 
-        <FooterPage />
-        <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-      </body>
-    </html>
+  // Dynamically fetch the messages based on the locale
+  const messages = await getMessages({ locale });
+
+  if (!messages) {
+    return notFound(); // Handle missing locale case
+  }
+
+  return (
+    <NextIntlClientProvider messages={messages}>
+      <html lang={locale}>
+        <body
+          className={`${suwannaphum.variable} ${inter.variable}`}
+          suppressHydrationWarning
+        >
+          <NavbarPage />
+          <main className="w-full">
+            {" "}
+            {children} <FloatingButtons />{" "}
+          </main>
+          <FooterPage />
+        </body>
+      </html>
+    </NextIntlClientProvider>
   );
 }
-

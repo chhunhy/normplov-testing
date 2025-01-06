@@ -1,0 +1,27 @@
+{
+  "Navbar": {
+    "navLinks": {
+      "home": "Home",
+      "test": "Tests",
+      "university": "University",
+      "jobs": "Jobs",
+      "privacyPolicy": "Policy",
+      "aboutUs": "About us"
+    },
+    "buttons": {
+      "signIn": "Sign in ",
+      "khmerLanguage": "Khmer",
+      "englishLanguage": "English"
+    }
+  },
+  "HomePage":{
+    "heading": {
+      "part1": "Discover",
+      "part2": "Your Specialty",
+      "part3": "Today"
+    },
+    "description": "Discover your potential and find the specialization that aligns with your interests, strengths, and future career goals at a university that suits you.",
+    "getstart":"Get Start"
+  }
+  
+}

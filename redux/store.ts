@@ -26,13 +26,13 @@ import authSlice from './feature/auth/authSlice';
 import verifySlice from './feature/verify/verifySlice';
 import filterSlice from './feature/filter/filterSlice';
 import jobsSlice from "./feature/jobs/jobsSlice"; // Import the jobs slice
-import bookmarkReducer from "./feature/jobs/bookmarkSlice"; 
+import bookmarkReducer, { initializeBookmarks } from "./feature/jobs/bookmarkSlice";
 
 //import { universityApi } from './api';
 
 
 export const makeStore = () => {
-  return configureStore({
+  const store = configureStore({
     reducer: {
       [normPlovApi.reducerPath]: normPlovApi.reducer,
      // [universityApi.reducerPath]: universityApi.reducer,
@@ -47,6 +47,12 @@ export const makeStore = () => {
     .concat(normPlovApi.middleware)
     //.concat(universityApi.middleware)
   });
+  // Initialize bookmarks from localStorage
+  const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks") || "{}");
+  store.dispatch(initializeBookmarks(storedBookmarks));
+
+  return store;
+  
 };
 
 export type AppStore = ReturnType<typeof makeStore>;

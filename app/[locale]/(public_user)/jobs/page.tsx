@@ -1,7 +1,9 @@
 "use client";
 import { JobListingCard } from "@/components/JobComponent/JobListingCard";
 import { JobMainContainer } from "@/components/JobComponent/JobMainContainer";
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
+import job from "@/public/job/job.png";
+import { JobBannerCard } from "@/components/JobComponent/JobBannerCard";
 import {
   Select,
   SelectContent,
@@ -23,14 +25,111 @@ import {
 } from "@/redux/feature/jobs/jobsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
-import { JobDetailCard } from "@/components/JobComponent/JobDetailCard";
-import JobDetailSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobDetailSkeleton";
+import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
 
 interface CategoryOption {
   value: string;
   label: string;
 }
 
+// const jobListings = [
+//   {
+//     id: '1',
+//     title: 'iOS Developer',
+//     desc: 'Anakut Digital Solutions',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Full-Time',
+//     location: 'Remote',
+//     category: 'Software Development',
+//     jobDesc: 'We are seeking a highly skilled and experienced Mid-Senior iOS Developer to join our dynamic team. As a Mid-Senior iOS Developer, you will play a crucial role in designing, developing, and maintaining high-quality iOS applications.',
+//     jobDescLabel: 'Job Description',
+//     salary: '600+',
+//   },
+//   {
+//     id: '2',
+//     title: 'Backend Developer',
+//     desc: 'Anakut Digital Solutions',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Part-Time',
+//     location: 'Phnom Penh',
+//     category: 'Backend Development',
+//     jobDesc: 'Join our innovative team as a Backend Developer and play a pivotal role in developing robust and scalable server-side applications.',
+//     jobDescLabel: 'Job Description',
+//     salary: '500+',
+//   },
+//   {
+//     id: '3',
+//     title: 'Frontend Developer',
+//     desc: 'Cambodia Tech Ventures',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Full-Time',
+//     location: 'Phnom Penh',
+//     category: 'Web Development',
+//     jobDesc: 'We are looking for a passionate Frontend Developer to build innovative and interactive user interfaces.',
+//     jobDescLabel: 'Job Description',
+//     salary: '700+',
+//   },
+//   {
+//     id: '4',
+//     title: 'Graphic Designer',
+//     desc: 'Creative Agency',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Contract',
+//     location: 'Siem Reap',
+//     category: 'Design',
+//     jobDesc: 'Collaborate with clients to create visually appealing designs and branding.',
+//     jobDescLabel: 'Job Description',
+//     salary: '400+',
+//   },
+//   {
+//     id: '5',
+//     title: 'Data Analyst',
+//     desc: 'Tech Analytics Co.',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Full-Time',
+//     location: 'Remote',
+//     category: 'Data Science',
+//     jobDesc: 'Analyze and interpret complex data sets to inform business decisions.',
+//     jobDescLabel: 'Job Description',
+//     salary: '800+',
+//   },
+//   {
+//     id: '6',
+//     title: 'Digital Marketing Specialist',
+//     desc: 'Global Marketing Ltd.',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Part-Time',
+//     location: 'Phnom Penh',
+//     category: 'Marketing',
+//     jobDesc: 'Develop and execute digital marketing strategies to enhance brand presence.',
+//     jobDescLabel: 'Job Description',
+//     salary: '600+',
+//   },
+//   {
+//     id: '7',
+//     title: 'Product Manager',
+//     desc: 'Tech Innovations',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Full-Time',
+//     location: 'Phnom Penh',
+//     category: 'Management',
+//     jobDesc: 'Oversee product lifecycle and collaborate with cross-functional teams to deliver high-quality solutions.',
+//     jobDescLabel: 'Job Description',
+//     salary: '1200+',
+//   },
+//   {
+//     id: '8',
+//     title: 'AI Researcher',
+//     desc: 'Future AI Labs',
+//     image: '/job/khmerEnterpriseLogo.png',
+//     time: 'Full-Time',
+//     location: 'Remote',
+//     category: 'Artificial Intelligence',
+//     jobDesc: 'Conduct cutting-edge research in AI and machine learning technologies.',
+//     jobDescLabel: 'Job Description',
+//     salary: '1500+',
+//   },
+// ];
 
 type OptionType = {
   value: string;
@@ -55,10 +154,13 @@ interface Job {
   created_at: string;
   closing_date: string;
   isActive?: boolean;
+  visitor_count?:number;
+  bookmarked?: boolean;
 }
-  
 
-export default function Page({ params }: { params: { id: string } }) {
+
+
+export default function Job() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -70,7 +172,7 @@ export default function Page({ params }: { params: { id: string } }) {
     useAppSelector((state: RootState) => state.jobs);
 
   // Fetch jobs based on the filter state
-  const { data} = useGetJobsQuery({
+  const { data } = useGetJobsQuery({
     search,
     page,
     category: selectedCategory?.value || "", // Send category if
@@ -86,19 +188,35 @@ export default function Page({ params }: { params: { id: string } }) {
         );
         const data = await response.json();
 
-        const totalPages = data.payload.metadata.total_pages;
-        let allJobs: Job[] = []; // Explicitly typing the array as an array of Job objects
+        // Log the response for debugging
+        console.log("API Response:", data);
 
-        // Fetch all pages based on total_pages
-        for (let page = 1; page <= totalPages; page++) {
-          const pageResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs?page=${page}`
-          );
-          const pageData = await pageResponse.json();
-          allJobs = [...allJobs, ...pageData.payload.items];
+        if (!data.payload || !data.payload.items) {
+          console.error("No items in the response");
+          return;
         }
 
-        // Extract categories
+        const totalPages = data.payload.metadata.total_pages || 1; // Default to 1 page if not provided
+        let allJobs: Job[] = [];
+
+        for (let page = 1; page <= totalPages; page++) {
+          try {
+            const pageResponse = await fetch(
+              `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs?page=${page}`
+            );
+            const pageData = await pageResponse.json();
+            if (pageData.payload && pageData.payload.items) {
+              allJobs = [...allJobs, ...pageData.payload.items];
+            } else {
+              console.error(`No items found on page ${page}`);
+            }
+          } catch (error) {
+            console.error(`Error fetching page ${page}:`, error);
+          }
+        }
+      
+
+        // Extract unique categories, locations, and job types
         const categories = allJobs.reduce((acc: string[], job: Job) => {
           if (job.category && !acc.includes(job.category)) {
             acc.push(job.category);
@@ -111,7 +229,6 @@ export default function Page({ params }: { params: { id: string } }) {
         }));
         setCategories(formattedCategories);
 
-        // Extract locations
         const locations = allJobs.reduce((acc: string[], job: Job) => {
           if (job.location && !acc.includes(job.location)) {
             acc.push(job.location);
@@ -124,7 +241,6 @@ export default function Page({ params }: { params: { id: string } }) {
         }));
         setLocations(formattedLocations);
 
-        // Extract job types
         const jobTypes = allJobs.reduce((acc: string[], job: Job) => {
           if (job.job_type && !acc.includes(job.job_type)) {
             acc.push(job.job_type);
@@ -143,43 +259,53 @@ export default function Page({ params }: { params: { id: string } }) {
 
     fetchCategoriesAndLocations();
   }, []);
+  
 
   if (!data) {
-    return <JobDetailSkeleton/>;
+    return <JobsSkeleton />;
   }
 
   console.log("data: ", data);
 
-  const handleCardClick = (id: string) => {
-    router.push(`/jobs/${id}`);
+  const handleCardClick = async (id: string) => {
+    try {
+      router.push(`/jobs/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs/${id}`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch job details. Status: ${response.status}`);
+      }
+      
+      const jobDetail = await response.json();
+      console.log("Job Details: ", jobDetail);
+      
+    } catch (error) {
+      console.error("Failed to fetch job details:", error);
+      // Optionally, you can display an error message to the user here
+      alert("Sorry, there was an error fetching the job details. Please try again.");
+    }
   };
+  
 
   const jobs = data?.payload?.items || [];
   const totalPages = data?.payload?.metadata?.total_pages || 1;
-  
+
+  // Fetch filter options (categories)
 
   const handleSearchChange = (query: string) => {
     dispatch(setSearch(query));
-    router.push(`/jobs?search=${query}`); // Update URL for search
   };
-
   const handleCategoryChange = (category: OptionType | null) => {
-    dispatch(setSelectedCategory(category));
-    router.push(`/jobs?category=${category?.value}`); // Update URL for category
+    dispatch(setSelectedCategory(category)); // Dispatch the category update action
   };
 
   const handleLocationChange = (location: OptionType | null) => {
-    dispatch(setSelectedLocation(location));
-    router.push(`/jobs?location=${location?.value}`); // Update URL for location
+    dispatch(setSelectedLocation(location)); // Dispatch the location update action
   };
 
   const handleJobTypeChange = (jobType: OptionType | null) => {
-    dispatch(setSelectedJobType(jobType));
-    router.push(`/jobs?job_type=${jobType?.value}`); // Update URL for job type
+    dispatch(setSelectedJobType(jobType)); // Dispatch the job type update action
   };
-
-  // Check if a job is selected based on the id parameter
-  const selectedJobFromId = jobs.find((job) => job.uuid === params.id);
 
   // Pagination handlers
   const handlePageChange = (newPage: number) => {
@@ -235,6 +361,7 @@ export default function Page({ params }: { params: { id: string } }) {
               )}
             </SelectContent>
           </Select>
+
 
           {/* Location Filter */}
           {/* Location Filter */}
@@ -334,8 +461,8 @@ export default function Page({ params }: { params: { id: string } }) {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-          <div className="lg:col-span-5 space-y-4">
-          {jobs.map((job: Job) => (
+          <div className="lg:col-span-8 space-y-4">
+            {jobs.map((job: Job) => (
               <JobListingCard
                 key={job.uuid}
                 uuid={job.uuid}
@@ -349,6 +476,8 @@ export default function Page({ params }: { params: { id: string } }) {
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
+                visitor_count={job.visitor_count ?? 0}
+                bookmarked={job.bookmarked ?? false} 
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}
@@ -362,29 +491,14 @@ export default function Page({ params }: { params: { id: string } }) {
               />
             </div>
           </div>
-          {/* Right Section: Job Details */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-4 ">
             <div className="lg:sticky lg:top-0">
-              {selectedJobFromId ? (
-                <JobDetailCard
-                  jobTitle={selectedJobFromId.title}
-                  jobCompany={selectedJobFromId.company_name}
-                  image={selectedJobFromId.logo || '/path/to/fallback/image.jpg'} 
-                  time={selectedJobFromId.job_type}
-                  location={selectedJobFromId.location}
-                  // category={selectedJobFromId.}
-                  website={selectedJobFromId.website}
-                  social={selectedJobFromId.facebook_url}
-                  jobDesc={selectedJobFromId.description}
-                  jobRequirement={selectedJobFromId.requirements ?? []}
-                  jobResponse={selectedJobFromId.responsibilities ?? []}
-                  buttonText="Apply Now"
-                />
-              ) : (
-                <div className="p-4 text-gray-600">
-                  Please select a job to see the details.
-                </div>
-              )}
+              <JobBannerCard
+                title="មិនទាន់ដឹងថាការងារមួយណាសាកសមនឹងអ្នក?"
+                desc="សាកល្បងតេស្តវាយតម្លៃរបស់យើង និងស្វែងរកអាជីព ការងារដ៏មានសក្តានុពលនៅថ្ងៃនេះ"
+                buttonText="សាកល្បងតេស្ត"
+                image={job}
+              />
             </div>
           </div>
         </div>

@@ -13,6 +13,9 @@ import { useRouter } from "next/navigation";
 import ChartJobTrending from "@/components/ui/chartJob_trending";
 import React, { useEffect, useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";
+import {useTranslations} from 'next-intl';
+
+
 
 const mockTrendingJobs = [
   { month: "Jan", label: "Data Scientist", count: 320 },
@@ -53,7 +56,10 @@ type UniversityType = {
 // count: number;
 //}
 
-export default function Page() {
+
+
+export  default function Page() {
+  const t = useTranslations('HomePage');  // Hook to access translations
   const router = useRouter();
   //const [trendingJobs, setTrendingJobs] = useState<TrendingJob[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -117,18 +123,16 @@ export default function Page() {
         <div className="flex justify-center ">
           <div className="container mx-auto px-4 pt-10 md:pt-16 lg:pt-16 text-center ">
             <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold lg:mb-6 md:mb-4 mb-0">
-              <span className="text-emerald-500">ស្វែងរក</span>
-              <span className="text-orange-400">ជំនាញឯកទេស</span>
-              <span className="text-emerald-500">របស់អ្នក</span>
+              <span className="text-emerald-500">{t('heading.part1')}</span>
+              <span className="text-orange-400"> {t('heading.part2')}</span>
+              <span className="text-emerald-500"> {t('heading.part3')}</span>
             </h1>
             <p className="lg:max-w-5xl md:max-w-2xl max-w-4xl mx-auto text-textprimary lg:text-2xl md:text-2xl text-md m-3">
-              រកឃើញសក្តានុពលរបស់អ្នក និងស្វែងរកជំនាញឯកទេស
-              នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត
-              ចំណុចខ្លាំងនិងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។
+              {t('description')}
             </p>
 
             <button className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors">
-              ចាប់ផ្តើម
+            {t('getstart')}
             </button>
           </div>
         </div>
@@ -164,7 +168,7 @@ export default function Page() {
             <FeatureCard
               image="/assets/feature-02.png"
               title="សិស្សសកលវិទ្យាល័យ"
-              description="សិស្សសកលវិទ្យាល័យដែលមានអារម្មណ៍ថាកំពុងជ្រើសរើសជំនាញខុស"
+              description="សិស្សសាកលវិទ្យាល័យដែលមានអារម្មណ៍ថាកំពុងជ្រើសរើសជំនាញខុស"
             />
 
             {/* Feature 3: Business Professional */}
