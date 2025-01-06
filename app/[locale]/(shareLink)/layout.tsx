@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+//import "@/app/globals.css";
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import FloatingButtons from "@/components/General/FloatingButton";
