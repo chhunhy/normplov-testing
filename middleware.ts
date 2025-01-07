@@ -34,12 +34,13 @@ export function middleware(request: NextRequest) {
         return response;
     }
 
+
     // Check for refresh token or any other condition if needed
     const refreshToken = request.cookies.get("normplov-refresh-token");
 
     if (!refreshToken) {
         console.log("No refresh token found, redirecting to login...");
-        return NextResponse.redirect(new URL("/login", request.url));
+        return NextResponse.redirect(new URL('/km/login', request.url));
     }
 
     console.log("Refresh token found, allowing request...");
@@ -49,5 +50,5 @@ export function middleware(request: NextRequest) {
 
 // Apply the middleware to the necessary routes
 export const config = {
-    matcher: ["/test/all", "/", "/test/personality", "/test/skill", "/test/learningStyle", "/test/value", "/test/interest", "/test-result/:path*", "/profile-about-user", "/profile-quiz-history", "/profile-draft", "/chat-with-ai"]
+    matcher: ["/:lang/test/all", "/", "/test/personality", "/test/skill", "/test/learningStyle", "/test/value", "/test/interest", "/test-result/:path*", "/profile-about-user", "/profile-quiz-history", "/profile-draft", "/chat-with-ai"]
 };

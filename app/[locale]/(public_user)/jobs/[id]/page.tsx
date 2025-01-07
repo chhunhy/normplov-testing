@@ -1,7 +1,7 @@
 "use client";
 import { JobListingCard } from "@/components/JobComponent/JobListingCard";
 import { JobMainContainer } from "@/components/JobComponent/JobMainContainer";
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -58,21 +58,30 @@ interface Job {
   bookmarked?: boolean;
   visitor_count?: number;
 }
-  
+
 
 export default function Page({ params }: { params: { id: string } }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathname = usePathname();
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
 
   const { search, selectedCategory, selectedLocation, selectedJobType, page } =
     useAppSelector((state: RootState) => state.jobs);
 
   // Fetch jobs based on the filter state
-  const { data} = useGetJobsQuery({
+  const { data } = useGetJobsQuery({
     search,
     page,
     category: selectedCategory?.value || "", // Send category if
@@ -87,7 +96,7 @@ export default function Page({ params }: { params: { id: string } }) {
           `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs`
         );
         const data = await response.json();
-  
+
         const totalPages = data.payload.metadata.total_pages;
         let allJobs: Job[] = []; // Explicitly typing the array as an array of Job objects
 
@@ -146,21 +155,30 @@ export default function Page({ params }: { params: { id: string } }) {
     fetchCategoriesAndLocations();
   }, []);
 
-  
+
 
   if (!data) {
-    return <JobDetailSkeleton/>;
+    return <JobDetailSkeleton />;
   }
 
   //console.log("data: ", data);
 
   const handleCardClick = (id: string) => {
-    router.push(`/jobs/${id}`);
+    const newPath = `/${currentLocale}/jobs/${id}`;
+
+    // Ensure the new path does not contain the duplicate locale part
+    if (!pathname.startsWith(`/${currentLocale}`)) {
+      // If the pathname doesn't include the current locale, add it
+      router.push(newPath);
+    } else {
+      // If the pathname already includes the locale, navigate to the result directly
+      router.push(newPath);
+    }
   };
 
   const jobs = data?.payload?.items || [];
   const totalPages = data?.payload?.metadata?.total_pages || 1;
-  
+
 
   const handleSearchChange = (query: string) => {
     dispatch(setSearch(query));
@@ -338,7 +356,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
           <div className="lg:col-span-5 space-y-4">
-          {jobs.map((job: Job) => (
+            {jobs.map((job: Job) => (
               <JobListingCard
                 key={job.uuid}
                 uuid={job.uuid}
@@ -352,7 +370,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
-                bookmarked={job.bookmarked ?? false} 
+                bookmarked={job.bookmarked ?? false}
                 visitor_count={job.visitor_count ?? 0}
                 onClick={() => handleCardClick(job.uuid)}
               />
@@ -374,7 +392,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <JobDetailCard
                   jobTitle={selectedJobFromId.title}
                   jobCompany={selectedJobFromId.company_name}
-                  image={selectedJobFromId.logo || '/path/to/fallback/image.jpg'} 
+                  image={selectedJobFromId.logo || '/path/to/fallback/image.jpg'}
                   time={selectedJobFromId.job_type}
                   location={selectedJobFromId.location}
                   // category={selectedJobFromId.}
