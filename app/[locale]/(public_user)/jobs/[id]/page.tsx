@@ -55,6 +55,8 @@ interface Job {
   created_at: string;
   closing_date: string;
   isActive?: boolean;
+  bookmarked?: boolean;
+  visitor_count?: number;
 }
   
 
@@ -85,7 +87,7 @@ export default function Page({ params }: { params: { id: string } }) {
           `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs`
         );
         const data = await response.json();
-
+  
         const totalPages = data.payload.metadata.total_pages;
         let allJobs: Job[] = []; // Explicitly typing the array as an array of Job objects
 
@@ -144,11 +146,13 @@ export default function Page({ params }: { params: { id: string } }) {
     fetchCategoriesAndLocations();
   }, []);
 
+  
+
   if (!data) {
     return <JobDetailSkeleton/>;
   }
 
-  console.log("data: ", data);
+  //console.log("data: ", data);
 
   const handleCardClick = (id: string) => {
     router.push(`/jobs/${id}`);
@@ -348,6 +352,8 @@ export default function Page({ params }: { params: { id: string } }) {
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
+                bookmarked={job.bookmarked ?? false} 
+                visitor_count={job.visitor_count ?? 0}
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}

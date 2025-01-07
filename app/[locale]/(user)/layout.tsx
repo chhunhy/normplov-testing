@@ -1,11 +1,15 @@
-import "@/app/globals.css";
+//import "@/app/globals.css";
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import FooterPage from "@/components/Footer/FooterPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import FloatingButtons from "@/components/General/FloatingButton";
 import { Metadata } from "next";
-
+import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation"; // Optional for error handling
 
 export const metadata: Metadata = {
   title: {
@@ -43,23 +47,50 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-
-export default function PublicUserLayout({
+export default async function UserLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { locale: string }; // Dynamic locale
 }) {
-  return (
-    <html lang="en">
-      <body
-        className={`${suwannaphum.variable} ${inter.variable}`}
-        suppressHydrationWarning
-      >
-        <NavbarPage />
-        <main className="w-full"> {children} <FloatingButtons/> </main>
-        <FooterPage />
-      </body>
-    </html>
-  );
-}
 
+  const { locale } = params;
+
+  // Dynamically fetch the messages based on the locale
+  const messages = await getMessages({ locale });
+
+  if (!messages) {
+    return notFound(); // Handle missing locale case
+  }
+    return (
+      <NextIntlClientProvider messages={messages}>
+        <html lang={locale}>
+          <body
+            className={`${suwannaphum.variable} ${inter.variable}`}
+            suppressHydrationWarning
+          >
+            <NavbarPage />
+            <main className="w-full">
+              {children}
+              <FloatingButtons />
+            </main>
+
+            <FooterPage />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </body>
+        </html>
+      </NextIntlClientProvider>
+    );
+  } 

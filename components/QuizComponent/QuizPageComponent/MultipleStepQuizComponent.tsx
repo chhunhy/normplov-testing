@@ -3,12 +3,12 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { QuizIntroContainer } from '../QuizIntroContainer';
-import generalTestJson from '@/app/(user)/json/testGeneralKh.json';
-import personalityJson from '@/app/(user)/json/personalityKh.json';
-import skillJson from '@/app/(user)/json/skillKh.json';
-import interestJson from '@/app/(user)/json/interestKh.json';
-import valueJson from '@/app/(user)/json/valueKh.json';
-import learningStyleJson from '@/app/(user)/json/learningStyleKh.json';
+import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.json';
+import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json';
+import skillJson from '../../../app/[locale]/(user)/json/skillKh.json';
+import interestJson from '../../../app/[locale]/(user)/json/interestKh.json';
+import valueJson from '../../../app/[locale]/(user)/json/valueKh.json';
+import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json';
 import { useRouter } from 'next/navigation';
 import { Progress } from "@/components/ui/progress";
 import { QuizQuestionContainer } from '../QuizQuestionContainer';

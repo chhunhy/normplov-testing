@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { IoCloseSharp } from "react-icons/io5";
@@ -16,6 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+
 type ValueTypes = {
   email: string;
   password: string;
@@ -226,6 +228,9 @@ const LoginComponent = () => {
                           <span className="w-1/2 border-b border-gray-300"></span>
                         </div>
                         {/* Google Button */}
+                        {/* <div className="mt-4">
+                          <LoginWithGoogle />
+                        </div> */}
                         <div className="mt-4 text-center">
                           <Button
                             type="button"

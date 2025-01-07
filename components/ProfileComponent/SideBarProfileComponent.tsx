@@ -335,6 +335,7 @@ const SideBarProfileComponent = () => {
               iconBackgroundColor="bg-yellow-400"
               isActive={activeButton === "profile-quiz-history"}
               onClick={() =>
+                // {`/${locale}/profile-about-user`}
                 handleButtonClick(
                   "profile-quiz-history",
                   "/profile-quiz-history"

@@ -1,9 +1,9 @@
 'use client'
 import QuizHeader from '@/components/QuizComponent/QuizHeader'
 import { QuizIntroContainer } from '@/components/QuizComponent/QuizIntroContainer'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { QuizOptHorizontalContainer } from '@/components/QuizComponent/QuizOptHorizontalContainer'
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSelector } from "react-redux";
 import { selectToken } from "@/redux/feature/auth/authSlice";
 // Import image
@@ -15,14 +15,15 @@ import value from '@/public/Quiz/optQuiz/value.png'
 import personality from '@/public/Quiz/optQuiz/Personality.png'
 
 // Import json
-import generalTestJson from '@/app/(user)/json/testGeneralKh.json'
-import personalityJson from '@/app/(user)/json/personalityKh.json'
-import interestJson from '@/app/(user)/json/interestKh.json'
-import skillJson from '@/app/(user)/json/skillKh.json'
-import valueJson from '@/app/(user)/json/valueKh.json'
-import learningStyleJson from '@/app/(user)/json/learningStyleKh.json'
-import allTestJson from '@/app/(user)/json/allTest.json'
+import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.json'
+import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json'
+import interestJson from '../../../app/[locale]/(user)/json/interestKh.json'
+import skillJson from '../../../app/[locale]/(user)/json/skillKh.json'
+import valueJson from '../../../app/[locale]/(user)/json/valueKh.json'
+import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json'
+import allTestJson from '../../../app/[locale]/(user)/json/allTest.json'
 import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
+
 
 
 type TestAssessment = {
@@ -37,9 +38,23 @@ type TestAssessment = {
 
 export default function QuizMainPageComponent() {
 
+    const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+    console.log("locale: ",currentLocale)
+
     const token = useSelector(selectToken);
 
     const router = useRouter();
+
+    const pathname = usePathname();
+
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage) {
+          setCurrentLocale(savedLanguage);
+        }
+    }, []);
+    
 
     const isAuthenticated = token !== null;
 
@@ -47,24 +62,6 @@ export default function QuizMainPageComponent() {
 
     const { data, isLoading, isSuccess } = useFetchAllTestQuery()
     const AllTestAssessment = data?.payload
-
-    console.log("test: ", data?.payload)
-
-
-    const handleQuizClick = (test: string) => {
-        router.push(`/test/${test}`);
-    };
-
-    const handleDraftQuizClick = (draftUuid: string | null, route: string) => {
-        if (draftUuid) {
-            router.push(
-                `/draft/${route.toLowerCase().replace(/\s+/g, "")}/${draftUuid}`
-            )
-            console.log(draftUuid, route);
-        } else {
-            router.push(`/test/${route}`);
-        }
-    };
 
 
     const { typeOfQuizKh, introKh, instructKh } = generalTestJson
@@ -90,7 +87,37 @@ export default function QuizMainPageComponent() {
         { title: allMainKh.title, desc: allMainKh.desc, image: allTest, buttonText: allMainKh.buttonText, route: allMainKh.route }
     ];
 
-    // console.log("image: ",AllTestAssessment[0].image)
+
+    const handleQuizClick = (test: string) => {
+        const newPath = `/${currentLocale}/test/${test}`;
+    
+        // Check if the pathname already contains the locale to avoid duplication
+        if (!pathname.startsWith(`/${currentLocale}`)) {
+            router.push(newPath); 
+        } else {
+            // If the pathname already includes the locale, navigate normally without changing the locale
+            router.push(`/${currentLocale}/test/${test}`);
+        }
+    };
+    
+    const handleDraftQuizClick = (draftUuid: string | null, route: string) => {
+        let updatedRoute = `/${currentLocale}/test/${route}`;
+    
+        if (draftUuid) {
+            updatedRoute = `/${currentLocale}/draft/${route.toLowerCase().replace(/\s+/g, "")}/${draftUuid}`;
+        }
+    
+        // Check if the pathname already contains the locale to avoid duplication
+        if (!pathname.startsWith(`/${currentLocale}`)) {
+            // If the pathname doesn't start with the locale, add it
+            router.push(updatedRoute); // Navigate normally
+        } else {
+            // If the pathname already includes the locale, navigate normally without changing the locale
+            router.push(updatedRoute); // Navigate normally
+        }
+    };
+
+    console.log()
 
     return (
         <div className='w-full bg-bgPrimaryLight pb-6 lg:pb-12'>
@@ -104,6 +131,7 @@ export default function QuizMainPageComponent() {
                 emojiLabels={instructKh.emojiLabels}
                 RepresentedImageTitle={instructKh.representedImageTitle}
             />
+
 
             {isAuthenticated ? (
                 <div className='max-w-7xl mx-auto space-y-6 lg:space-y-12 p-4 md:p-10 lg:p-12'>
@@ -133,7 +161,7 @@ export default function QuizMainPageComponent() {
                                     onClick={() => handleDraftQuizClick(option.draft_uuid, option.route)}
                                     isDraft={option.is_draft}
                                     type='main'
-                                    
+
                                 />
                             ))
                         ) : (

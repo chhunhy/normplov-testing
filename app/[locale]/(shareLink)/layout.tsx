@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import FloatingButtons from "@/components/General/FloatingButton";
@@ -55,7 +55,7 @@ export default function ShareLinkLayout({
       >
         {/* <NavbarPage /> */}
         <main className="w-full"> {children} <FloatingButtons/> </main>
-        {/* <FooterPage /> */}
+
       </body>
     </html>
   );

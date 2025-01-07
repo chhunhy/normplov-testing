@@ -8,18 +8,18 @@ import { QuizResultIntroContainer } from '../QuizResultIntroContainer';
 
 
 // Import JSON data
-import personalityJson from '@/app/(user)/json/personalityKh.json';
-import skillJson from '@/app/(user)/json/skillKh.json';
-import interestJson from '@/app/(user)/json/interestKh.json';
-import valueJson from '@/app/(user)/json/valueKh.json';
-import learningStyleJson from '@/app/(user)/json/learningStyleKh.json';
-import allTestJson from '@/app/(user)/json/allTest.json';
-import { SkillResultComponent } from './ResultContentComponent/SkillResultComponent';
-import { LearningStyleResultComponent } from './ResultContentComponent/LearningStyleResultComponent';
-import { InterestResultComponent } from './ResultContentComponent/InterestResultComponent';
-import { PersonalityResultComponent } from './ResultContentComponent/PersonalityResultComponent';
-import { ValueResultComponent } from './ResultContentComponent/ValueResultComponent';
+import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json';
+import skillJson from '../../../app/[locale]/(user)/json/skillKh.json';
+import interestJson from '../../../app/[locale]/(user)/json/interestKh.json';
+import valueJson from '../../../app/[locale]/(user)/json/valueKh.json';
+import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json';
+import allTestJson from '../../../app/[locale]/(user)/json/allTest.json';
 import Loading from '@/components/General/Loading';
+import { PublicPersonalityResultComponent } from './PublicResultContentComponent/PublicPersonalityResultComponent';
+import { PublicSkillResultComponent } from './PublicResultContentComponent/PublicSkillResultComponent';
+import { PublicInterestResultComponent } from './PublicResultContentComponent/PublicInterestResultComponent';
+import { PublicValueResultComponent } from './PublicResultContentComponent/PublicValueResultComponent';
+import { PublicLearningStyleResultComponent } from './PublicResultContentComponent/PublicLearningStyleResultComponent';
 
 type IntroKh = {
     title: string;
@@ -85,27 +85,27 @@ export default function ResultShareDynamicComponent() {
             case 'personality':
                 return (
                     <div className=''>
-                        <PersonalityResultComponent/>
+                        <PublicPersonalityResultComponent/>
                     </div>
                 );
             case 'skill':
                 return (
-                    <SkillResultComponent/>
+                    <PublicSkillResultComponent/>
                 );
             case 'interest':
                 return (
-                    <InterestResultComponent/>
+                    <PublicInterestResultComponent/>
                     
                 );
             case 'value':
                 return (
                     <div className='bg-white'>
-                       <ValueResultComponent/> 
+                       <PublicValueResultComponent/> 
                     </div>
                 );
             case 'learningStyle':
                 return (
-                    <LearningStyleResultComponent />
+                    <PublicLearningStyleResultComponent />
                 );
             case 'all':
                 return (
