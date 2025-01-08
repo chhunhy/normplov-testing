@@ -61,6 +61,7 @@ export default function NavbarPage() {
   //const { i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     // Fetch user data
+    const { locale } = useParams();
   const { data:user} = useGetUserQuery();
   console.log("user data",user)
   const userData=user?.payload
@@ -68,7 +69,7 @@ export default function NavbarPage() {
   ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
   : null;
   
-  const { locale } = useParams();
+  
   const currentLocale = locale || 'en'; // Default to 'en' if locale is not defined
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
 // Handle language change by modifying the URL
@@ -133,7 +134,7 @@ const navLinks = [
           {user ? (
             <div className="flex items-center space-x-4">
               <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
-              <Link href="/profile-quiz-history">
+              <Link href={`/profile-quiz-history`}>
               {
                 avatarUrl ?(
                   <Image
@@ -167,7 +168,7 @@ const navLinks = [
             </div>
           ) : (
             <Link
-              href="/login"
+              href={`${locale}/login`}
               className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
             >
               {t("Navbar.buttons.signIn")}
@@ -214,7 +215,7 @@ const navLinks = [
             {user ? (
             <div className="flex items-center space-x-4">
               <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
-              <Link href="/profile-quiz-history">
+              <Link href={`/profile-quiz-history`}>
                   <Image
                     src={avatarUrl || "/auth/personplaceholder.png"} // Fallback to default avatar if null
                     alt="User Avatar"

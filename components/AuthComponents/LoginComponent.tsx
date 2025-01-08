@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import LoginWithGoogle from "./LoginWithGoogle";
+import { signIn } from "next-auth/react";
 type ValueTypes = {
   email: string;
   password: string;
@@ -227,10 +227,8 @@ const LoginComponent = () => {
                           <span className="w-1/2 border-b border-gray-300"></span>
                         </div>
                         {/* Google Button */}
-                        <div className="mt-4">
-                          <LoginWithGoogle />
-                        </div>
-                        {/* <div className="mt-4 text-center">
+                        
+                        <div className="mt-4 text-center">
                           <Button
                             type="button"
                             text="ភ្ជាប់ជាមួយ Google"
@@ -245,7 +243,7 @@ const LoginComponent = () => {
                             }
                             className=" w-full border-2 border-primary  text-textprimary "
                           />
-                        </div> */}
+                        </div>
                         {/* Don't have accoun? Register */}
                         <div className="mt-4 text-center text-textprimary ">
                           <span>

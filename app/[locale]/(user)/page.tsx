@@ -9,7 +9,7 @@ import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
 import { useGetPopularSchoolsQuery } from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
-import { useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import ChartJobTrending from "@/components/ui/chartJob_trending";
 import React, { useEffect, useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";
@@ -111,8 +111,9 @@ export  default function Page() {
     fetchTrendingJobs();
   }, []);
 
+  const { locale } = useParams();
   const handleCardClick = (id: string) => {
-    router.push(`/university/${id}`);
+    router.push(`${locale}/university/${id}`);
   };
 
   return (

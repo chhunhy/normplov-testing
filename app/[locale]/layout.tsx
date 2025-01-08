@@ -29,6 +29,7 @@ export default async function RootLayout({
   params: { locale: string }; // Dynamic locale
 }>) {
   const { locale } = params;
+  
 
   // Dynamically fetch the messages based on the locale
   const messages = await getMessages({ locale });
@@ -37,6 +38,7 @@ export default async function RootLayout({
     return notFound(); // Handle missing locale case
   }
 
+  
     return (
       <NextIntlClientProvider messages={messages}>
         <html lang={locale}>
@@ -52,3 +54,4 @@ export default async function RootLayout({
       </NextIntlClientProvider>
     );
   } 
+  

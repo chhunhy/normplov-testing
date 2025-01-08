@@ -3,7 +3,7 @@ import QuizHeader from '@/components/QuizComponent/QuizHeader'
 import { QuizIntroContainer } from '@/components/QuizComponent/QuizIntroContainer'
 import React from 'react'
 import { QuizOptHorizontalContainer } from '@/components/QuizComponent/QuizOptHorizontalContainer'
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useSelector } from "react-redux";
 import { selectToken } from "@/redux/feature/auth/authSlice";
 // Import image
@@ -23,6 +23,9 @@ import valueJson from '../../../app/[locale]/(user)/json/valueKh.json'
 import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json'
 import allTestJson from '../../../app/[locale]/(user)/json/allTest.json'
 import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
+import { useAppSelector } from '@/redux/hooks'
+import { RootState } from '@/redux/store'
+
 
 
 type TestAssessment = {
@@ -33,6 +36,10 @@ type TestAssessment = {
     image: string;
     route: string;
 };
+
+// Locale extraction logic
+const SUPPORTED_LOCALES = ['km', 'en'];
+const FALLBACK_LOCALE = 'km';
 
 
 export default function QuizMainPageComponent() {
@@ -49,11 +56,13 @@ export default function QuizMainPageComponent() {
     const AllTestAssessment = data?.payload
 
     console.log("test: ", data?.payload)
+    const {locale} = useParams()
 
 
-    const handleQuizClick = (test: string) => {
-        router.push(`/test/${test}`);
-    };
+  const handleQuizClick = (test: string) => {
+    router.push(`/${locale}/test/${test}`);
+  };
+
 
     const handleDraftQuizClick = (draftUuid: string | null, route: string) => {
         if (draftUuid) {
@@ -179,3 +188,4 @@ export default function QuizMainPageComponent() {
         </div>
     )
 }
+

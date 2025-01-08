@@ -27,6 +27,8 @@ import verifySlice from './feature/verify/verifySlice';
 import filterSlice from './feature/filter/filterSlice';
 import jobsSlice from "./feature/jobs/jobsSlice"; // Import the jobs slice
 import bookmarkReducer, { initializeBookmarks } from "./feature/jobs/bookmarkSlice";
+import localeReducer from "@/redux/feature/localeSlice/localeSlice";
+import { setLocale } from "@/redux/feature/localeSlice/localeSlice";
 
 //import { universityApi } from './api';
 
@@ -41,6 +43,7 @@ export const makeStore = () => {
       filter: filterSlice,
       jobs: jobsSlice, // Correctly add jobsSlice reducer here
       bookmarks: bookmarkReducer,
+      locale: localeReducer, // Add the locale slice here
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
@@ -48,9 +51,15 @@ export const makeStore = () => {
     //.concat(universityApi.middleware)
   });
   // Initialize bookmarks from localStorage
-  const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks") || "{}");
-  store.dispatch(initializeBookmarks(storedBookmarks));
+  //const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks") || "{}");
+  //store.dispatch(initializeBookmarks(storedBookmarks));
 
+  // Load locale from localStorage if available
+  const savedLocale =
+    typeof window !== "undefined" ? localStorage.getItem("locale") : null;
+  if (savedLocale) {
+    store.dispatch(setLocale(savedLocale));
+  }
   return store;
   
 };
