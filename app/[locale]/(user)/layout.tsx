@@ -60,6 +60,7 @@ export default async function UserLayout({
   // Dynamically fetch the messages based on the locale
   const messages = await getMessages({ locale });
 
+
   if (!messages) {
     return notFound(); // Handle missing locale case
   }

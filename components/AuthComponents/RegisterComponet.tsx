@@ -253,8 +253,10 @@ const RegisterComponent = () => {
                                  <span className="w-1/2 border-b border-gray-300"></span>
                             </div>
                             {/* Google Button */}
-                            
-                             <div className="mt-4">
+                            <div className="mt-4">
+                        {/* <LoginWithGoogle /> */}
+                      </div>
+                            {/* <div className="mt-4">
                                  <Button
                                     type="button"
                                     text="ភ្ជាប់ជាមួយ Google"  

@@ -9,7 +9,7 @@ import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
 import { useGetPopularSchoolsQuery } from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams,useRouter } from "next/navigation";
 import ChartJobTrending from "@/components/ui/chartJob_trending";
 import React, { useEffect, useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";

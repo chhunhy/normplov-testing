@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -154,7 +154,7 @@ interface Job {
   created_at: string;
   closing_date: string;
   isActive?: boolean;
-  visitor_count?:number;
+  visitor_count?: number;
   bookmarked?: boolean;
 }
 
@@ -167,6 +167,16 @@ export default function Job() {
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
+  const pathname = usePathname();
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
+
 
   const { search, selectedCategory, selectedLocation, selectedJobType, page } =
     useAppSelector((state: RootState) => state.jobs);
@@ -214,7 +224,7 @@ export default function Job() {
             console.error(`Error fetching page ${page}:`, error);
           }
         }
-      
+
 
         // Extract unique categories, locations, and job types
         const categories = allJobs.reduce((acc: string[], job: Job) => {
@@ -259,7 +269,7 @@ export default function Job() {
 
     fetchCategoriesAndLocations();
   }, []);
-  
+
 
   if (!data) {
     return <JobsSkeleton />;
@@ -269,23 +279,35 @@ export default function Job() {
 
   const handleCardClick = async (id: string) => {
     try {
-      router.push(`/jobs/${id}`);
+
+      const newPath = `/${currentLocale}/jobs/${id}`;
+
+      // Ensure the new path does not contain the duplicate locale part
+      if (!pathname.startsWith(`/${currentLocale}`)) {
+        // If the pathname doesn't include the current locale, add it
+        router.push(newPath);
+      } else {
+        // If the pathname already includes the locale, navigate to the result directly
+        router.push(newPath);
+      }
+
+      // router.push(`/jobs/${id}`);
       const response = await fetch(`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs/${id}`);
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch job details. Status: ${response.status}`);
       }
-      
+
       const jobDetail = await response.json();
       console.log("Job Details: ", jobDetail);
-      
+
     } catch (error) {
       console.error("Failed to fetch job details:", error);
       // Optionally, you can display an error message to the user here
       alert("Sorry, there was an error fetching the job details. Please try again.");
     }
   };
-  
+
 
   const jobs = data?.payload?.items || [];
   const totalPages = data?.payload?.metadata?.total_pages || 1;
@@ -476,7 +498,7 @@ export default function Job() {
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
                 visitor_count={job.visitor_count ?? 0}
-                bookmarked={job.bookmarked ?? false} 
+                bookmarked={job.bookmarked ?? false}
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}

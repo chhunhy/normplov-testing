@@ -30,8 +30,6 @@ import bookmarkReducer, { initializeBookmarks } from "./feature/jobs/bookmarkSli
 import localeReducer from "@/redux/feature/localeSlice/localeSlice";
 import { setLocale } from "@/redux/feature/localeSlice/localeSlice";
 
-//import { universityApi } from './api';
-
 
 export const makeStore = () => {
   const store = configureStore({
@@ -67,3 +65,4 @@ export const makeStore = () => {
 export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];
+

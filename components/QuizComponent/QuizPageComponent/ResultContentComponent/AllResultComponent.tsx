@@ -7,7 +7,6 @@ import { ValueResultComponent } from './ValueResultComponent';
 import { LearningStyleResultComponent } from './LearningStyleResultComponent';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-
 export const AllResultComponent = () => {
 
     const [selectedTab, setSelectedTab] = useState('personality');

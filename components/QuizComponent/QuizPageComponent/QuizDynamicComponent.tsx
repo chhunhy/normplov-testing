@@ -1,6 +1,6 @@
 'use client'
-import React, { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { QuizIntroContainer } from '@/components/QuizComponent/QuizIntroContainer';
 import { Progress } from "@/components/ui/progress";
 import { QuizQuestionContainer } from '@/components/QuizComponent/QuizQuestionContainer';
@@ -48,9 +48,20 @@ type QuizResponse = { [question: string]: number };
 
 export default function QuizDynamicComponent() {
   const [predictAssessment] = usePredictAssessmentMutation();
-  const [ draftAssessment ] = useDraftAssessmentMutation();
-  const { testType } = useParams(); // Get the dynamic route parameter
+  const [draftAssessment] = useDraftAssessmentMutation();
   const router = useRouter();
+  const pathname = usePathname();
+  const { testType } = useParams(); // Get the dynamic route parameter
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
+
+  console.log("lang: ", currentLocale)
 
   // Always call hooks
   const [userResponses, setUserResponses] = useState<QuizResponse>({});
@@ -84,17 +95,17 @@ export default function QuizDynamicComponent() {
     questions: { question: string; category: string }[]
   ) => {
     const responses: { [key: string]: number } = {};
-  
+
     // Map user responses to their respective categories
     questions.forEach(({ question, category }) => {
       if (userResponses[question] !== undefined) {
         responses[category] = userResponses[question];
       }
     });
-  
+
     return responses; // Return partial responses for draft
   };
-  
+
 
 
   if (!quizData) {
@@ -126,10 +137,10 @@ export default function QuizDynamicComponent() {
 
 
     const processedResponses = processResponsesFromModifiedJSON(userResponses, quizData.questions);
-    console.log("Process",processedResponses)
+    console.log("Process", processedResponses)
 
     try {
-      
+
       const result = await predictAssessment({
         assessmentType: assessmentType, // Use the normalized `assessmentType` here
         body: processedResponses,
@@ -139,7 +150,27 @@ export default function QuizDynamicComponent() {
 
       toast.success("Responses submitted successfully!");
 
-      router.push(`/test-result/${assessmentType}/${testUuid}`); // Use `assessmentType` here too
+      // const newPath = `${currentLocale}/test-result/${assessmentType}/${testUuid}`;
+
+      // // Check if the pathname already contains the locale to avoid duplication
+      // if (!pathname.startsWith(`/${currentLocale}`)) {
+      //   router.push(newPath);
+      // } else {
+      //   // If the pathname already includes the locale, navigate normally without changing the locale
+      //   router.push(`${currentLocale}/test-result/${assessmentType}/${testUuid}`);
+      // }
+
+      const newPath = `/${currentLocale}/test-result/${assessmentType}/${testUuid}`;
+
+      // Ensure the new path does not contain the duplicate locale part
+      if (!pathname.startsWith(`/${currentLocale}`)) {
+        // If the pathname doesn't include the current locale, add it
+        router.push(newPath);
+      } else {
+        // If the pathname already includes the locale, navigate to the result directly
+        router.push(newPath);
+      }
+
     } catch (err) {
       toast.error("Failed to submit responses. Please try again.");
       console.log(err)
@@ -172,17 +203,17 @@ export default function QuizDynamicComponent() {
 
   const handleDraftClick = async () => {
     showLoading();
-  
+
     // Filter only the answered questions
     const processedResponses = processResponsesForDraft(userResponses, quizData.questions);
-  
+
     try {
       // Send the filtered responses to the draft API
       await draftAssessment({
         draftType: assessmentType, // Use normalized `assessmentType`
         body: { responses: processedResponses }, // Only include relevant responses
       }).unwrap();
-  
+
       // Notify the user of success
       toast.success("Your progress has been saved. You can continue later from your profile.");
       router.push(`/test`);
@@ -195,7 +226,7 @@ export default function QuizDynamicComponent() {
       hideLoading();
     }
   };
-  
+
   const { instructKh, quizButtonKh } = generalTestJson;
   const { questions, introKh } = quizData;
 
@@ -206,21 +237,21 @@ export default function QuizDynamicComponent() {
   // const handleAnswer = (question: string, response: number) => {
   //   // Update user responses
   //   setUserResponses((prev) => ({ ...prev, [question]: response }));
-  
+
   //   // Dynamically track completed questions
   //   const questionIndex = questions.findIndex((q) => q.question === question);
   //   if (questionIndex !== -1 && !completedQuestions.includes(questionIndex)) {
   //     setCompletedQuestions((prev) => [...prev, questionIndex]);
   //   }
   // };
-  
+
 
 
   return (
     <div className="w-full relative">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-50">
-          <Loading /> 
+          <Loading />
         </div>
       )}
 

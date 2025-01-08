@@ -5,43 +5,45 @@ import { useAppSelector } from "./redux/hooks";
 import { makeStore } from "./redux/store";
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
-    const url = request.nextUrl.clone();
-  //const locale = useParams()
 
-  // Check if the URL is the root path and redirect to /km
-  //if (pathname === "/") {
-    //console.log("Redirecting to /km...");
-   // return NextResponse.redirect(new URL("/km", request.url));
-  //}
+    // const url = request.url;
 
-  const supportedLocales = ["km", "en"];
-  const defaultLocale = "km"; // Default locale
+    // // Get language prefix from the URL
+    // const urlSegments = new URL(url).pathname.split('/');
+    // const languageInUrl = urlSegments[1]; // Language should be the second part of the URL
 
-  // Retrieve locale from the path
-  const localeFromPath = pathname.split("/")[1];
+    // // If no language in the URL and cookie is missing, default to 'km'
+    // const language = request.cookies.get('language');
 
-  // Check if the locale is missing or invalid
-  if (!supportedLocales.includes(localeFromPath)) {
-    // Retrieve locale from cookies or use default
-    const localeFromCookie =
-      request.cookies.get("locale")?.value || defaultLocale;
+    // if (!language) {
+    //     // If no language is set, check if the URL contains a valid language prefix
+    //     if (!languageInUrl || (languageInUrl !== 'en' && languageInUrl !== 'km')) {
+    //         // If no valid language in URL, redirect to '/km' and set the cookie
+    //         const res = NextResponse.redirect(new URL('/km', url));
+    //         res.cookies.set('language', 'km', { path: '/' }); // Set default language in cookie
+    //         return res;
+    //     } else {
+    //         // If valid language in URL, set it in the cookie
+    //         const res = NextResponse.next();
+    //         res.cookies.set('language', languageInUrl, { path: '/' });
+    //         return res;
+    //     }
+    // }
 
-    // Redirect to the correct locale
-    url.pathname = `/${localeFromCookie}${pathname}`;
-    return NextResponse.redirect(url);
-  }
+    // Check if the URL is the root path and redirect to /km
+    if (pathname === '/') {
+        const response = NextResponse.redirect(new URL('/km', request.url));
+        return response;
+    }
 
-  // Save the locale to cookies for future requests
-  const response = NextResponse.next();
-  response.cookies.set("locale", localeFromPath, { path: "/" });
 
   // Check for refresh token or any other condition if needed
   const refreshToken = request.cookies.get("normplov-refresh-token");
 
-  if (!refreshToken) {
-    console.log("No refresh token found, redirecting to login...");
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+    if (!refreshToken) {
+        console.log("No refresh token found, redirecting to login...");
+        return NextResponse.redirect(new URL('/km/login', request.url));
+    }
 
   console.log("Refresh token found, allowing request...");
 
@@ -50,18 +52,5 @@ export function middleware(request: NextRequest) {
 
 // Apply the middleware to the necessary routes
 export const config = {
-  matcher: [
-    "/",
-    "/test/all",
-    "/test/personality",
-    "/test/skill",
-    "/test/learningStyle",
-    "/test/value",
-    "/test/interest",
-    "/test-result/:path*",
-    "/profile-about-user",
-    "/profile-quiz-history",
-    "/profile-draft",
-    "/chat-with-ai",
-  ],
+    matcher: ["/:lang/test/all", "/", "/:lang/test/personality", "/:lang/test/skill", "/:lang/test/learningStyle", "/:lang/test/value", "/:lang/test/interest", "/test-result/:path*", "/:lang/profile-about-user", "/:lang/profile-quiz-history", "/:lang/profile-draft", "/:lang/chat-with-ai"]
 };
