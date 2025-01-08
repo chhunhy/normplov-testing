@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "./button";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useCreateChatMutation, useFetchAllChatQuery } from "@/redux/feature/chat/aiChat";
+import { usePathname, useRouter } from "next/navigation";
+import { useCreateChatMutation, useDeleteChatMutation, useFetchAllChatQuery, useRenameChatMutation } from "@/redux/feature/chat/aiChat";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./skeleton";
 import {
@@ -21,6 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { toast } from "react-toastify";
 
 type ChatData = {
   uuid: string;
@@ -40,7 +41,20 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
   // const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { data: apiData, isLoading, isError } = useFetchAllChatQuery();
   const [createChat] = useCreateChatMutation();
+  const [renameChat] = useRenameChatMutation();
+  const [deleteChat] = useDeleteChatMutation();
   const router = useRouter();
+  const pathname = usePathname();
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
+  const [isEditing, setIsEditing] = useState<string | null>(null); // Track which chat is being edited
+  const [newTitle, setNewTitle] = useState<string>('');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     if (apiData?.payload) {
@@ -49,8 +63,26 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
   }, [apiData]);
 
   const handleBackClick = () => {
-    router.back();
+    const uuid = localStorage.getItem('resultUuid')
+    const type = localStorage.getItem('currentType')
+
+    const newPath = `/${currentLocale}/test-result/${type}/${uuid}`;
+
+    if (uuid && type) {
+      // Ensure the new path does not contain the duplicate locale part
+      if (!pathname.startsWith(`/${currentLocale}`)) {
+        // If the pathname doesn't include the current locale, add it
+        router.push(newPath);
+      } else {
+        // If the pathname already includes the locale, navigate to the result directly
+        router.push(newPath);
+      }
+    }else{
+      router.push(`/${currentLocale}`)
+    }
+    
   };
+
 
   const createNewChat = async () => {
     try {
@@ -74,9 +106,68 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
 
   const chatDetailNavigate = (uuid: string) => {
     setSelectedChatId(uuid);
-    router.push(`/chat-with-ai/${uuid}`);
+    const newPath = `/${currentLocale}/chat-with-ai/${uuid}`;
+
+    // Ensure the new path does not contain the duplicate locale part
+    if (!pathname.startsWith(`/${currentLocale}`)) {
+      // If the pathname doesn't include the current locale, add it
+      router.push(newPath);
+    } else {
+      // If the pathname already includes the locale, navigate to the result directly
+      router.push(newPath);
+    }
+
   };
 
+
+  const handleSaveTitle = (uuid: string) => {
+    if (newTitle.trim() !== '') {
+      handleRenameChat(uuid, newTitle); // Update the title in the parent component or API
+    }
+    setIsEditing(null); // Exit edit mode
+  };
+
+
+  const handleRenameClick = (uuid: string, currentTitle: string) => {
+    setIsEditing(uuid); // Set the chat being edited
+    setNewTitle(currentTitle); // Set the current title as the default value in input
+  };
+
+
+  const handleRenameChat = async (uuid: string, newTitle: string) => {
+    try {
+      // Trigger the rename mutation
+      await renameChat({ uuid, new_title: newTitle }).unwrap();
+      console.log("Chat title updated successfully");
+
+      // Optionally, update the local state if you need to update UI immediately
+      setIsEditing(null); // Exit edit mode
+    } catch (error) {
+      console.error("Error renaming chat:", error);
+    }
+  }
+
+  const handleDeleteChat = async (uuid: string) => {
+    try {
+      // Trigger the rename mutation
+      await deleteChat({ uuid }).unwrap();
+      toast.success("Chat has been deleted successfully 🎉")
+      const newPath = `/${currentLocale}/chat-with-ai`;
+
+      // Ensure the new path does not contain the duplicate locale part
+      if (!pathname.startsWith(`/${currentLocale}`)) {
+        // If the pathname doesn't include the current locale, add it
+        router.push(newPath);
+      } else {
+        // If the pathname already includes the locale, navigate to the result directly
+        router.push(newPath);
+      }
+      console.log("Chat title have been deleted successfully");
+
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+    }
+  }
 
   if (isError) return <p>Error loading chats. Please try again later.</p>;
 
@@ -118,11 +209,24 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
           </SidebarHeader>
           <SidebarGroupContent>
             {isLoading ? (
-              <div className="flex justify-center items-center p-4">
-                <div className="space-y-2">
-                  <Skeleton className="h-[60px] w-[200px] rounded-xl" />
-                  <Skeleton className="h-[60px] w-[200px] rounded-xl" />
-                  <Skeleton className="h-[60px] w-[200px] rounded-xl" />
+              <div className="flex justify-center items-center p-4 space-y-4 w-full">
+                <div className="w-full max-w-md space-y-3">
+                  {/* Skeleton for the chat list - dynamically rendered skeletons */}
+                  {Array(6).fill(0).map((_, index) => (
+                    <div key={index} className="flex items-center gap-4 p-2">
+                      <div>
+                        <Skeleton className="w-12 h-12 rounded-xl bg-gray-200" />
+                      </div>
+                      {/* Avatar skeleton */}
+                      <div className="flex flex-col space-y-2 w-full">
+                        <Skeleton className="w-full h-3 bg-gray-200 rounded-xl" /> {/* Title skeleton */}
+                        <Skeleton className="w-1/2 h-2 bg-gray-200 rounded-xl" /> {/* Date skeleton */}
+                      </div>
+                      <div>
+                        <Skeleton className="w-8 h-2 bg-gray-200 rounded-xl" /> {/* Date skeleton */}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ) : (
@@ -131,10 +235,10 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
                   <SidebarMenuItem key={chat.uuid}>
                     <button
                       onClick={() => chatDetailNavigate(chat.uuid)}
-                      className={`w-full text-left ${chat?.uuid === selectedChatId ? "bg-primary bg-opacity-10" : ""
+                      className={`w-full text-left flex justify-between items-center  ${chat?.uuid === selectedChatId ? "bg-primary bg-opacity-10" : ""
                         } hover:bg-primary hover:bg-opacity-10`}
                     >
-                      <div className="flex items-start gap-4 p-4 rounded-lg">
+                      <div className="flex  items-start gap-4 p-4 rounded-lg">
                         <Image
                           src={chatImage}
                           alt="Chat avatar"
@@ -142,41 +246,53 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
                           height={36}
                           className="rounded-xl"
                         />
-                        <div className="flex justify-between">
-                          <div>
+                        <div>
+                          {/* <p className="text-[14px] text-gray-700 font-semibold overflow-hidden whitespace-nowrap max-w-[120px] text-ellipsis ">
+                            {chat.chat_title || "Untitled Chat"}
+                          </p> */}
+
+                          {isEditing === chat.uuid ? (
+                            <input
+                              type="text"
+                              value={newTitle}
+                              onChange={(e) => setNewTitle(e.target.value)}
+                              onBlur={() => handleSaveTitle(chat.uuid)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSaveTitle(chat.uuid);
+                              }}
+                              className="text-[14px] text-gray-700 font-semibold w-full bg-transparent border-b-2 border-primary outline-none"
+                            />
+                          ) : (
                             <p className="text-[14px] text-gray-700 font-semibold overflow-hidden whitespace-nowrap max-w-[120px] text-ellipsis ">
-                              {chat.chat_title || "Untitled Chat"}
+                              {chat.chat_title || 'Untitled Chat'}
                             </p>
-
-                            <p className="text-xs text-gray-500">
-                              {new Date(chat.created_at).toLocaleDateString('en-US', {
-                                month: 'long',
-                                day: 'numeric',
-                                year: 'numeric',
-                              })}
-                            </p>
-                          </div>
-
-                          <div className="relative group">
-                            <Popover >
-                              <PopoverTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:bg-opacity-20"><Ellipsis /></Button>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-28 bg-white text-left">
-                                <div className="flex items-center gap-2 font-semibold text-gray-700">
-                                  <Pencil className="w-4 h-4" />
-                                  <p className="text-[14px]">Rename</p>
-                                </div>
-                                <div className="flex items-center gap-2 mt-2 text-danger font-semibold">
-                                  <Trash className="w-4 h-4" />
-                                  <p className="text-[14px]">Delete</p>
-                                </div>
-                              </PopoverContent>
-                            </Popover>
-                          </div>
-
+                          )}
+                          <p className="text-xs text-gray-500">
+                            {new Date(chat.created_at).toLocaleDateString('en-US', {
+                              month: 'long',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                          </p>
                         </div>
 
+                      </div>
+                      <div >
+                        <Popover >
+                          <PopoverTrigger asChild>
+                            <Button variant="ghost" size="icon" className=" rounded-full hover:bg-primary hover:bg-opacity-20"><Ellipsis /></Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-28 bg-white text-left">
+                            <div className="flex items-center gap-2 font-semibold text-gray-700 hover:cursor-pointer" onClick={() => handleRenameClick(chat.uuid, chat.chat_title)}>
+                              <Pencil className="w-4 h-4" />
+                              <p className="text-[14px]">Rename</p>
+                            </div>
+                            <div className="flex items-center gap-2 mt-2 text-danger font-semibold hover:cursor-pointer" onClick={() => handleDeleteChat(chat.uuid)}>
+                              <Trash className="w-4 h-4" />
+                              <p className="text-[14px]">Delete</p>
+                            </div>
+                          </PopoverContent>
+                        </Popover>
                       </div>
 
                     </button>

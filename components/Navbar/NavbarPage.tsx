@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useGetUserQuery } from "@/redux/service/user";
 import { useTranslations } from 'next-intl';
+import useHandleResultUuid from '@/components/General/Hook/useHandleResultUuid'
 
 
 interface NavbarTranslationKeys {
@@ -74,17 +75,45 @@ export default function NavbarPage() {
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
 
 
-  useEffect(() => {
-    const language = localStorage.getItem('language');
+  // useEffect(() => {
+  //   const language = localStorage.getItem('language');
     
-    if (language) {
-      setCurrentLocale(language); // Set the locale from localStorage
+  //   if (language) {
+  //     setCurrentLocale(language); // Set the locale from localStorage
+  //   } else {
+  //     // If no language in localStorage, set it to 'km' by default
+  //     localStorage.setItem('language', 'km'); // Set default language to 'km'
+  //     setCurrentLocale('km');
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    // Check if the route has /en or /km in the URL
+    const languageFromUrl = pathname.split('/')[1];
+
+    // If the route includes '/en' or '/km', proceed to check sessionStorage
+    if (languageFromUrl === 'en' || languageFromUrl === 'km') {
+      const language = sessionStorage.getItem('language');
+
+      if (language) {
+        setCurrentLocale(language); 
+      } else {
+        // If no language in sessionStorage, set it to 'km' by default
+        sessionStorage.setItem('language', languageFromUrl); 
+        setCurrentLocale(languageFromUrl); 
+      }
     } else {
-      // If no language in localStorage, set it to 'km' by default
-      localStorage.setItem('language', 'km'); // Set default language to 'km'
+      // Default to 'km' if no valid language prefix in the URL
+      sessionStorage.setItem('language', 'km');
       setCurrentLocale('km');
     }
-  }, []);
+
+    // Cleanup when component unmounts, which will be triggered when the page is closed or refreshed
+    return () => {
+      sessionStorage.removeItem('language');
+    };
+  }, [pathname]);
+
 
   const handleLanguageChange = (lang: string) => {
     localStorage.setItem('language', lang); // Save language to localStorage
@@ -102,6 +131,8 @@ export default function NavbarPage() {
     { href: "/about-us", label: t("Navbar.navLinks.aboutUs") },
 
   ];
+
+  useHandleResultUuid();
 
   // If `locale` is not available, you can set a default value
   return (

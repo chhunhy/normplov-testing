@@ -5,6 +5,8 @@ import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const suwannaphum = Suwannaphum({
@@ -26,7 +28,7 @@ export default function ChatLayout({
 }>) {
 
   const params = useParams();
-  const [selectedChatId, setSelectedChatId] = useState< string[] |  string | null>(null);
+  const [selectedChatId, setSelectedChatId] = useState<string[] | string | null>(null);
 
   useEffect(() => {
     // You can fetch the `uuid` from params and set it as `selectedChatId`
@@ -48,7 +50,18 @@ export default function ChatLayout({
           </main>
         </SidebarProvider>
       </body>
-
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </html>
   );
 }

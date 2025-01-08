@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import { DynamicChatComponent } from '@/components/ui/chat/DynamicChatComponent';
 import Image from 'next/image';
-import aichat from '@/public/chat/emptymailbox.png'
-import { useParams } from 'next/navigation';
-import { useContinueConversationMutation, useFetchConversationDetailsQuery } from '@/redux/feature/chat/aiChat';
+import aichat from '@/public/chat/aiChat.png'
+import { useParams, usePathname } from 'next/navigation';
+import { useContinueConversationMutation, useCreateChatMutation, useFetchConversationDetailsQuery } from '@/redux/feature/chat/aiChat';
 import Loading from '@/components/General/Loading';
 import { useGetUserQuery } from '@/redux/service/user';
+import { useRouter } from 'next/navigation';
 
 type Message = {
   id: string;
@@ -17,8 +18,19 @@ type Message = {
 };
 
 export default function ChatApp() {
+  const router = useRouter();
   const params = useParams();
+  const pathname = usePathname();
   const uuid = Array.isArray(params.id) ? params.id[0] : params.id;
+  const [createChat] = useCreateChatMutation();
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
 
   const { data: chatDetail, isFetching } = useFetchConversationDetailsQuery(uuid || '', {
     skip: !uuid,
@@ -85,6 +97,34 @@ export default function ChatApp() {
     );
   }
 
+  const createNewChat = async () => {
+    try {
+      const response = await createChat({ user_query: null }).unwrap();
+
+      const newChat = {
+        uuid: response.payload.conversation_uuid,
+        chat_title: response.payload.chat_title,
+        created_at: new Date().toISOString(),
+        updated_at: null,
+      };
+
+      // Navigate to the new chat's details page
+      const newPath = `/${currentLocale}/chat-with-ai/${newChat.uuid}`;
+
+      // Ensure the new path does not contain the duplicate locale part
+      if (!pathname.startsWith(`/${currentLocale}`)) {
+        // If the pathname doesn't include the current locale, add it
+        router.push(newPath);
+      } else {
+        // If the pathname already includes the locale, navigate to the result directly
+        router.push(newPath);
+      }
+      // router.push(`/chat-with-ai/${newChat.uuid}`);
+    } catch (error) {
+      console.error("Failed to create new chat:", error);
+    }
+  };
+
 
   return (
     <div >
@@ -93,7 +133,7 @@ export default function ChatApp() {
 
       {/* Chat Content */}
       <div >
- 
+
         {selectedChatId ? (
           <DynamicChatComponent
             messages={chatData[selectedChatId] || []}
@@ -115,13 +155,10 @@ export default function ChatApp() {
                   alt="Quiz Illustration"
                   width={500}
                   height={500}
-                  className="object-fill"
+                  className="object-fill w-[250px] h-[250px]"
                 />
-                <p className='text-center -mt-4'><span className='text-primary'>No chats yet? </span>Create a new conversation or pick one from the sidebar to get started.</p>
-
+                <p className='text-center -mt-2 max-w-[400px]'><span onClick={createNewChat} className='text-primary hover:cursor-pointer hover:underline'>No chats yet?</span> Create a new conversation or pick one from the sidebar to get started.</p>
               </div>
-
-
             </div>
 
           </div>
