@@ -11,15 +11,12 @@ import { toast } from 'react-toastify';
 
 // Import JSON data
 import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.json';
-import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json';
-import skillJson from '../../../app/[locale]/(user)/json/skillKh.json';
-import interestJson from '../../../app/[locale]/(user)/json/interestKh.json';
-import valueJson from '../../../app/[locale]/(user)/json/valueKh.json';
-import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json';
+
 // import allTestJson from '@/app/(user)/json/allTest.json';
 import { usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
 import Loading from '@/components/General/Loading';
 import { useDraftAssessmentMutation } from '@/redux/service/draft';
+import { useTranslations } from 'next-intl';
 
 
 
@@ -34,14 +31,7 @@ type QuizData = {
 
 
 
-const quizDataMap: Record<string, QuizData> = {
-  'personality': personalityJson,
-  'skill': skillJson,
-  'interest': interestJson,
-  'value': valueJson,
-  'learningStyle': learningStyleJson,
-  // 'all': allTestJson
-};
+
 
 
 type QuizResponse = { [question: string]: number };
@@ -62,6 +52,82 @@ export default function QuizDynamicComponent() {
   }, []);
 
   console.log("lang: ", currentLocale)
+
+  const t = useTranslations();
+
+  // const quizDataMap: Record<string, QuizData> = {
+  //   'personality': personalityJson,
+  //   'skill': skillJson,
+  //   'interest': interestJson,
+  //   'value': valueJson,
+  //   'learningStyle': learningStyleJson,
+  //   // 'all': allTestJson
+  // };
+
+
+  const learningStyleTest: QuizData = {
+    questions: [
+      {
+        question: t('LearningStyleTest.question_1'), // You will use the translation key here
+        category: "Q1_Visual"
+      },
+      {
+        question: t('LearningStyleTest.question_2'),
+        category: "Q2_Visual"
+      },
+      {
+        question: t('LearningStyleTest.question_3'),
+        category: "Q3_Auditory"
+      },
+      {
+        question: t('LearningStyleTest.question_4'),
+        category: "Q4_Auditory"
+      },
+      {
+        question: t('LearningStyleTest.question_5'),
+        category: "Q5_ReadWrite"
+      },
+      {
+        question: t('LearningStyleTest.question_6'),
+        category: "Q6_ReadWrite"
+      },
+      {
+        question: t('LearningStyleTest.question_7'),
+        category: "Q7_Kinesthetic"
+      },
+      {
+        question: t('LearningStyleTest.question_8'),
+        category: "Q8_Kinesthetic"
+      }
+    ],
+    introKh: {
+      title: "LearningStyleTest.learningStyle_intro_title", // Translation key
+      highlight: "LearningStyleTest.learningStyle_intro_highlight", // Translation key
+      description: "LearningStyleTest.learningStyle_intro_description" // Translation key
+    }
+  };
+
+  const howItWorksSteps = [
+    t('TestMainPage.instructKh.howItWorksSteps.step1'),
+    t('TestMainPage.instructKh.howItWorksSteps.step2'),
+  ];
+
+  const emojiLabels = [
+    t('TestMainPage.instructKh.emojiLabels.stronglyDisagree'),
+    t('TestMainPage.instructKh.emojiLabels.disagree'),
+    t('TestMainPage.instructKh.emojiLabels.neutral'),
+    t('TestMainPage.instructKh.emojiLabels.agree'),
+    t('TestMainPage.instructKh.emojiLabels.stronglyAgree'),
+  ];
+
+
+  const quizDataMap: Record<string, QuizData> = {
+    learningStyle: learningStyleTest
+    // Add more tests here if necessary
+  };
+
+
+
 
   // Always call hooks
   const [userResponses, setUserResponses] = useState<QuizResponse>({});
@@ -227,8 +293,8 @@ export default function QuizDynamicComponent() {
     }
   };
 
-  const { instructKh, quizButtonKh } = generalTestJson;
-  const { questions, introKh } = quizData;
+  const { quizButtonKh } = generalTestJson;
+  const { questions } = quizData;
 
 
   const handleAnswer = (question: string, response: number) => {
@@ -257,7 +323,7 @@ export default function QuizDynamicComponent() {
 
       {/* Intro Section */}
       <div className="bg-bgPrimaryLight">
-        <QuizIntroContainer
+        {/* <QuizIntroContainer
           introTitle={introKh.title}
           introHightlight={introKh.highlight}
           introDesc={introKh.description}
@@ -266,6 +332,18 @@ export default function QuizDynamicComponent() {
           howItWorkStep={instructKh.howItWorksSteps}
           emojiLabels={instructKh.emojiLabels}
           RepresentedImageTitle={instructKh.representedImageTitle}
+        /> */}
+
+
+        <QuizIntroContainer
+          introTitle={t(quizData.introKh.title)} // Translated title
+          introHightlight={t(quizData.introKh.highlight)} // Translated highlight
+          introDesc={t(quizData.introKh.description)} // Translated description
+          instructLabel={t('TestMainPage.instructKh.instructionLabel')}
+          howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
+          howItWorkStep={howItWorksSteps} // Map over questions and fetch their translations
+          emojiLabels={emojiLabels}
+          RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
         />
 
       </div>

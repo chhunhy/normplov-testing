@@ -14,17 +14,55 @@
       "englishLanguage": "English"
     }
   },
-  "HomePage":{
+  "HomePage": {
     "heading": {
       "part1": "Discover",
       "part2": "Your Specialty",
       "part3": "Today"
     },
     "description": "Discover your potential and find the specialization that aligns with your interests, strengths, and future career goals at a university that suits you.",
-    "getstart":"Get Start"
+    "getstart": "Get Start"
+  },
+  "TestMainPage": {
+    "typeOfQuizKh": {
+      "title": "Select test type",
+      "description": "Depending on the type of test you choose, you will get results on career and major that you should choose and to get to know yourself better."
+    },
+    "introKh": {
+      "title": "Career ",
+      "highlight": "Test",
+      "description": "Choosing the right career path can be challenging, but understanding yourself is the first step towards finding the right career for you. This questionnaire is designed to help you understand your strengths, weaknesses, interests, learning style, values ​​and personality, and provide advice on careers and major to study."
+    },
+    "instructKh": {
+      "instructionLabel": "Instructions",
+      "howItWorksTitle": "How this Works",
+      "representedImageTitle": "Represented Emoji",
+      "howItWorksSteps": {
+        "step1": "Click on the emoji to indicate how much you agree with each question",
+        "step2": "After completing the test, you'll receive results with recommendations for majors and careers that suit you."
+      },
+      "emojiLabels": {
+        "stronglyDisagree": "Strongly Disagree",
+        "disagree": "Disagree",
+        "neutral": "Neutral",
+        "agree": "Agree",
+        "stronglyAgree": "Strongly Agree"
+      }
+    }
+  },
+  "LearningStyleTest": {
+    "learningStyle_intro_title": "Learning Style",
+    "learningStyle_intro_highlight": " Test",
+    "learningStyle_intro_description": "Based on this test, you will get results on how you learn, following the VARK theory created by Neil Fleming, along with career and skills recommendations.",
+    
+    "question_1": "I understand information best when it is presented using diagrams, charts, or videos.",
+    "question_2": "Using color-coding or visual aids helps me organize and recall information.",
+    "question_3": "I learn more effectively when someone explains concepts to me verbally.",
+    "question_4": "Group discussions or talking through ideas help me grasp concepts better.",
+    "question_5": "I prefer to learn by reading detailed instructions or writing notes.",
+    "question_6": "Writing summaries or lists helps me retain new information.",
+    "question_7": "I learn best by doing hands-on activities or experiments.",
+    "question_8": "Practicing real-life examples or physically interacting with materials helps me understand better."
+    
   }
-
-
-  
-  
 }

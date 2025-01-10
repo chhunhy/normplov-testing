@@ -30,7 +30,21 @@ export const quizApi = normPlovApi.injectEndpoints({
       }),
       providesTags:["AllTestAsess","userDraft"]
     }),
+
+    // for all test assessment
+    LoadFiveTest: builder.query<any, string[]>({
+      query: (testUuids) => {
+          // Construct the URL with multiple test_uuids
+          const testUuidParams = testUuids
+              .map((uuid) => `test_uuids=${uuid}`)
+              .join('&'); // Join them with '&' to create multiple query parameters
+          return {
+              url: `api/v1/assessment/get-aggregated-tests?${testUuidParams}`,
+              method: 'GET',
+          };
+      },
+  }),
   }),
 });
 
-export const { usePredictAssessmentMutation, useFetchAllTestQuery } = quizApi;
+export const { usePredictAssessmentMutation, useFetchAllTestQuery, useLoadFiveTestQuery} = quizApi;

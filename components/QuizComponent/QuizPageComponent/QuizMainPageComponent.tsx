@@ -15,7 +15,6 @@ import value from '@/public/Quiz/optQuiz/value.png'
 import personality from '@/public/Quiz/optQuiz/Personality.png'
 
 // Import json
-import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.json'
 import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json'
 import interestJson from '../../../app/[locale]/(user)/json/interestKh.json'
 import skillJson from '../../../app/[locale]/(user)/json/skillKh.json'
@@ -23,6 +22,7 @@ import valueJson from '../../../app/[locale]/(user)/json/valueKh.json'
 import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json'
 import allTestJson from '../../../app/[locale]/(user)/json/allTest.json'
 import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
+import { useTranslations } from 'next-intl'
 
 
 
@@ -40,7 +40,9 @@ export default function QuizMainPageComponent() {
 
     const [currentLocale, setCurrentLocale] = useState<string>('km');
 
-    console.log("locale: ",currentLocale)
+    console.log("locale: ", currentLocale)
+
+    const t = useTranslations('TestMainPage');
 
     const token = useSelector(selectToken);
 
@@ -51,10 +53,10 @@ export default function QuizMainPageComponent() {
     useEffect(() => {
         const savedLanguage = localStorage.getItem('language');
         if (savedLanguage) {
-          setCurrentLocale(savedLanguage);
+            setCurrentLocale(savedLanguage);
         }
     }, []);
-    
+
 
     const isAuthenticated = token !== null;
 
@@ -64,7 +66,7 @@ export default function QuizMainPageComponent() {
     const AllTestAssessment = data?.payload
 
 
-    const { typeOfQuizKh, introKh, instructKh } = generalTestJson
+    // const { typeOfQuizKh, introKh, instructKh } = t('TestMainPage')
 
     const { personalityMainKh } = personalityJson
 
@@ -90,23 +92,23 @@ export default function QuizMainPageComponent() {
 
     const handleQuizClick = (test: string) => {
         const newPath = `/${currentLocale}/test/${test}`;
-    
+
         // Check if the pathname already contains the locale to avoid duplication
         if (!pathname.startsWith(`/${currentLocale}`)) {
-            router.push(newPath); 
+            router.push(newPath);
         } else {
             // If the pathname already includes the locale, navigate normally without changing the locale
             router.push(`/${currentLocale}/test/${test}`);
         }
     };
-    
+
     const handleDraftQuizClick = (draftUuid: string | null, route: string) => {
         let updatedRoute = `/${currentLocale}/test/${route}`;
-    
+
         if (draftUuid) {
             updatedRoute = `/${currentLocale}/draft/${route.toLowerCase().replace(/\s+/g, "")}/${draftUuid}`;
         }
-    
+
         // Check if the pathname already contains the locale to avoid duplication
         if (!pathname.startsWith(`/${currentLocale}`)) {
             // If the pathname doesn't start with the locale, add it
@@ -119,25 +121,40 @@ export default function QuizMainPageComponent() {
 
     console.log()
 
+    const howItWorksSteps = [
+        t('instructKh.howItWorksSteps.step1'),
+        t('instructKh.howItWorksSteps.step2'),
+    ];
+
+    const emojiLabels = [
+        t('instructKh.emojiLabels.stronglyDisagree'),
+        t('instructKh.emojiLabels.disagree'),
+        t('instructKh.emojiLabels.neutral'),
+        t('instructKh.emojiLabels.agree'),
+        t('instructKh.emojiLabels.stronglyAgree'),
+    ];
+
+
     return (
         <div className='w-full bg-bgPrimaryLight pb-6 lg:pb-12'>
+
             <QuizIntroContainer
-                introTitle={introKh.title}
-                introHightlight={introKh.highlight}
-                introDesc={introKh.description}
-                instructLabel={instructKh.instructionLabel}
-                howItWorkTitle={instructKh.howItWorksTitle}
-                howItWorkStep={instructKh.howItWorksSteps}
-                emojiLabels={instructKh.emojiLabels}
-                RepresentedImageTitle={instructKh.representedImageTitle}
+                introTitle={t('introKh.title')}
+                introHightlight={t('introKh.highlight')}
+                introDesc={t('introKh.description')}
+                instructLabel={t('instructKh.instructionLabel')}
+                howItWorkTitle={t('instructKh.howItWorksTitle')}
+                howItWorkStep={howItWorksSteps}
+                emojiLabels={emojiLabels}
+                RepresentedImageTitle={t('instructKh.representedImageTitle')}
             />
 
 
             {isAuthenticated ? (
                 <div className='max-w-7xl mx-auto space-y-6 lg:space-y-12 p-4 md:p-10 lg:p-12'>
                     <QuizHeader
-                        title={typeOfQuizKh.title}
-                        description={typeOfQuizKh.description}
+                        title={t('typeOfQuizKh.title')}
+                        description={t('typeOfQuizKh.description')}
                         size='sm'
                         type='result'
                     />
@@ -172,8 +189,8 @@ export default function QuizMainPageComponent() {
             ) : (
                 <div className='max-w-7xl mx-auto space-y-6 lg:space-y-12 p-4 md:p-10 lg:p-12'>
                     <QuizHeader
-                        title={typeOfQuizKh.title}
-                        description={typeOfQuizKh.description}
+                        title={t('typeOfQuizKh.title')}
+                        description={t('typeOfQuizKh.description')}
                         size='sm'
                         type='result'
                     />

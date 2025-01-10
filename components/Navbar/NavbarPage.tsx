@@ -196,7 +196,7 @@ export default function NavbarPage() {
                           userData?.username || "U"
                         )}`}
                       >
-                        {userData?.username.charAt(0).toUpperCase() || "U"}
+                        {userData?.username?.charAt(0).toUpperCase() || "U"}
                       </div>
                     )
                   }

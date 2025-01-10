@@ -8,9 +8,9 @@ type props = {
   introDesc: string;
   instructLabel: string;
   howItWorkTitle: string;
-  howItWorkStep: string[];
+  howItWorkStep?: string[];
   RepresentedImageTitle: string;
-  emojiLabels: string[];
+  emojiLabels?: string[];
 }
 
 export const QuizIntroContainer = ({introTitle, introHightlight, introDesc, instructLabel, howItWorkTitle, howItWorkStep, RepresentedImageTitle, emojiLabels}: props) => {
