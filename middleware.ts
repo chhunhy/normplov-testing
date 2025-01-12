@@ -1,6 +1,8 @@
+import { useParams } from "next/navigation";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
+import { useAppSelector } from "./redux/hooks";
+import { makeStore } from "./redux/store";
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
@@ -11,17 +13,17 @@ export function middleware(request: NextRequest) {
     }
 
 
-    // Check for refresh token or any other condition if needed
-    const refreshToken = request.cookies.get("normplov-refresh-token");
+  // Check for refresh token or any other condition if needed
+  const refreshToken = request.cookies.get("normplov-refresh-token");
 
     if (!refreshToken) {
         console.log("No refresh token found, redirecting to login...");
         return NextResponse.redirect(new URL('/km/login', request.url));
     }
 
-    console.log("Refresh token found, allowing request...");
+  console.log("Refresh token found, allowing request...");
 
-    return NextResponse.next();
+  return NextResponse.next();
 }
 
 // Apply the middleware to the necessary routes

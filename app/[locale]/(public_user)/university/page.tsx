@@ -2,7 +2,7 @@
 import CardUniversity from "@/components/UniversityComponent/CardUniversity";
 import UniversityMainContainer from "@/components/UniversityComponent/UniversityMainContainer";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter,useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import {
@@ -35,6 +35,7 @@ type UniversityType = {
 export default function Page() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { locale } = useParams(); // Extract the current locale
   const { search, province_uuid, page, selectedUniversity } = useAppSelector(
     (state) => state.filter
   ); // Ensure you have selectedUniversity in Redux
@@ -104,7 +105,7 @@ export default function Page() {
 
 
   const handleCardClick = (id: string) => {
-    router.push(`/university/${id}`);
+    router.push(`/${locale}/university/${id}`);
   };
 
   

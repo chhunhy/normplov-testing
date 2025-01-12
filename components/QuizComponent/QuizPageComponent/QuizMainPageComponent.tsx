@@ -36,6 +36,8 @@ type TestAssessment = {
 };
 
 
+
+
 export default function QuizMainPageComponent() {
 
     const [currentLocale, setCurrentLocale] = useState<string>('km');
@@ -224,3 +226,4 @@ export default function QuizMainPageComponent() {
         </div>
     )
 }
+
