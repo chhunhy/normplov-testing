@@ -260,7 +260,7 @@ export const SkillResultComponent = () => {
             <div className='space-y-4 lg:space-y-8'>
               
               <div>
-                <p className='text-md md:text-xl'>ជំនាញដែលលេចធ្លោរបស់អ្នក</p>
+                <p className='text-md md:text-xl mb-2'>ជំនាញដែលលេចធ្លោរបស់អ្នក</p>
                 <p className='text-3xl md:text-4xl text-primary font-bold '>{topCategory?.name || "Category Name"}</p>
               </div>
 

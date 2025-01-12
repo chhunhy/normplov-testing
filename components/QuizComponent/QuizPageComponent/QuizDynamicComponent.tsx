@@ -31,9 +31,6 @@ type QuizData = {
 
 
 
-
-
-
 type QuizResponse = { [question: string]: number };
 
 export default function QuizDynamicComponent() {

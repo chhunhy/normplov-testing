@@ -3,12 +3,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { QuizIntroContainer } from '../QuizIntroContainer';
-import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.json';
-import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json';
-import skillJson from '../../../app/[locale]/(user)/json/skillKh.json';
-import interestJson from '../../../app/[locale]/(user)/json/interestKh.json';
-import valueJson from '../../../app/[locale]/(user)/json/valueKh.json';
-import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json';
 import { Progress } from "@/components/ui/progress";
 import { QuizQuestionContainer } from '../QuizQuestionContainer';
 import { QuizButton } from '../QuizButton';
@@ -16,6 +10,7 @@ import { ArrowRight } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useLoadCareerPredictionMutation, useLoadFiveTestQuery, usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
 import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 // Define quiz data types
 type QuizData = {
@@ -30,18 +25,12 @@ type QuizData = {
 // Define the order of quizzes
 const quizSequence = ['personality', 'interest', 'skill', 'value', 'learningStyle'];
 
-const quizDataMap: Record<string, QuizData> = {
-    'personality': personalityJson,
-    'skill': skillJson,
-    'interest': interestJson,
-    'value': valueJson,
-    'learningStyle': learningStyleJson,
-};
 
 type QuizResponse = { [question: string]: number };
 
 export const MultipleStepQuizComponent = () => {
     const router = useRouter();
+    const t = useTranslations();
     // const { testType } = useParams();
     const pathname = usePathname();
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
@@ -50,8 +39,6 @@ export const MultipleStepQuizComponent = () => {
     const [questions, setQuestions] = useState<{ question: string; category: string }[]>([]);
     const [testUuids, setTestUuids] = useState<string[]>([]);
     const [isReadyToFetch, setIsReadyToFetch] = useState<boolean>(false);
-
-
 
     const [, setPreviousCompletedQuestions] = useState<number[]>([]); // Store completed questions from the previous quiz
     const currentQuizType = quizSequence[currentQuizIndex];
@@ -81,8 +68,382 @@ export const MultipleStepQuizComponent = () => {
 
     // Get the current quiz type based on the index
 
-    const { introKh } = quizDataMap[currentQuizType];
-    const { instructKh } = generalTestJson;
+    // Learning Style quiz Data
+  const learningStyleTest: QuizData = {
+    questions: [
+      {
+        question: t('LearningStyleTest.question_1'), // You will use the translation key here
+        category: "Q1_Visual"
+      },
+      {
+        question: t('LearningStyleTest.question_2'),
+        category: "Q2_Visual"
+      },
+      {
+        question: t('LearningStyleTest.question_3'),
+        category: "Q3_Auditory"
+      },
+      {
+        question: t('LearningStyleTest.question_4'),
+        category: "Q4_Auditory"
+      },
+      {
+        question: t('LearningStyleTest.question_5'),
+        category: "Q5_ReadWrite"
+      },
+      {
+        question: t('LearningStyleTest.question_6'),
+        category: "Q6_ReadWrite"
+      },
+      {
+        question: t('LearningStyleTest.question_7'),
+        category: "Q7_Kinesthetic"
+      },
+      {
+        question: t('LearningStyleTest.question_8'),
+        category: "Q8_Kinesthetic"
+      }
+    ],
+    introKh: {
+      title: "LearningStyleTest.learningStyle_intro_title", // Translation key
+      highlight: "LearningStyleTest.learningStyle_intro_highlight", // Translation key
+      description: "LearningStyleTest.learningStyle_intro_description" // Translation key
+    }
+  };
+
+  //  Personality quiz Data
+  const PersonalityTest: QuizData = {
+    questions: [
+      {
+        question: t('PersonalityTest.question_1'), // You will use the translation key here
+        category: "Q1"
+      },
+      {
+        question: t('PersonalityTest.question_2'),
+        category: "Q2"
+      },
+      {
+        question: t('PersonalityTest.question_3'),
+        category: "Q3"
+      },
+      {
+        question: t('PersonalityTest.question_4'),
+        category: "Q4"
+      },
+      {
+        question: t('PersonalityTest.question_5'),
+        category: "Q5"
+      },
+      {
+        question: t('PersonalityTest.question_6'),
+        category: "Q6"
+      },
+      {
+        question: t('PersonalityTest.question_7'),
+        category: "Q7"
+      },
+      {
+        question: t('PersonalityTest.question_8'),
+        category: "Q8"
+      },
+      {
+        question: t('PersonalityTest.question_9'),
+        category: "Q9"
+      },
+      {
+        question: t('PersonalityTest.question_10'),
+        category: "Q10"
+      },
+      {
+        question: t('PersonalityTest.question_11'),
+        category: "Q11"
+      },
+      {
+        question: t('PersonalityTest.question_12'),
+        category: "Q12"
+      },
+      {
+        question: t('PersonalityTest.question_13'),
+        category: "Q13"
+      },
+      {
+        question: t('PersonalityTest.question_14'),
+        category: "Q14"
+      },
+      {
+        question: t('PersonalityTest.question_15'),
+        category: "Q15"
+      },
+      {
+        question: t('PersonalityTest.question_16'),
+        category: "Q16"
+      }
+    ],
+    introKh: {
+      title: "PersonalityTest.Personality_intro_title", // Translation key
+      highlight: "PersonalityTest.Personality_intro_highlight", // Translation key
+      description: "PersonalityTest.Personality_intro_description" // Translation key
+    }
+  };
+
+  // interest quiz data
+  const InterestTest: QuizData = {
+    questions: [
+      {
+        question: t('InterestTest.question_1'), // You will use the translation key here
+        category: "q1"
+      },
+      {
+        question: t('InterestTest.question_2'),
+        category: "q2"
+      },
+      {
+        question: t('InterestTest.question_3'),
+        category: "q3"
+      },
+      {
+        question: t('InterestTest.question_4'),
+        category: "q4"
+      },
+      {
+        question: t('InterestTest.question_5'),
+        category: "q5"
+      },
+      {
+        question: t('InterestTest.question_6'),
+        category: "q6"
+      },
+      {
+        question: t('InterestTest.question_7'),
+        category: "q7"
+      },
+      {
+        question: t('InterestTest.question_8'),
+        category: "q8"
+      },
+      {
+        question: t('InterestTest.question_9'),
+        category: "q9"
+      },
+      {
+        question: t('InterestTest.question_10'),
+        category: "q10"
+      },
+      {
+        question: t('InterestTest.question_11'),
+        category: "q11"
+      },
+      {
+        question: t('InterestTest.question_12'),
+        category: "q12"
+      }
+    ],
+    introKh: {
+      title: "InterestTest.interest_intro_title", // Translation key
+      highlight: "InterestTest.interest_intro_highlight", // Translation key
+      description: "InterestTest.interest_intro_description" // Translation key
+    }
+  };
+
+  // skill quiz data
+  const SkillTest: QuizData = {
+    questions: [
+      {
+        question: t('SkillTest.question_1'), // You will use the translation key here
+        category: "Complex Problem Solving"
+      },
+      {
+        question: t('SkillTest.question_2'),
+        category: "Critical Thinking Score"
+      },
+      {
+        question: t('SkillTest.question_3'),
+        category: "Mathematics Score"
+      },
+      {
+        question: t('SkillTest.question_4'),
+        category: "Science Score"
+      },
+      {
+        question: t('SkillTest.question_5'),
+        category: "Learning Strategy Score"
+      },
+      {
+        question: t('SkillTest.question_6'),
+        category: "Monitoring Score"
+      },
+      {
+        question: t('SkillTest.question_7'),
+        category: "Active Listening Score"
+      },
+      {
+        question: t('SkillTest.question_8'),
+        category: "Social Perceptiveness Score"
+      },
+      {
+        question: t('SkillTest.question_9'),
+        category: "Judgment and Decision Making Score"
+      },
+      {
+        question: t('SkillTest.question_10'),
+        category: "Instructing Score"
+      },
+      {
+        question: t('SkillTest.question_11'),
+        category: "Active Learning Score"
+      },
+      {
+        question: t('SkillTest.question_12'),
+        category: "Time Management Score"
+      },
+      {
+        question: t('SkillTest.question_13'),
+        category: "Writing Score"
+      },
+      {
+        question: t('SkillTest.question_14'),
+        category: "Speaking Score"
+      },
+      {
+        question: t('SkillTest.question_15'),
+        category: "Reading Comprehension Score"
+      }
+
+    ],
+    introKh: {
+      title: "SkillTest.skill_intro_title", // Translation key
+      highlight: "SkillTest.skill_intro_highlight", // Translation key
+      description: "SkillTest.skill_intro_description" // Translation key
+    }
+  };
+
+  // value quiz data
+  const ValueTest: QuizData = {
+    questions: [
+      {
+        question: t('ValueTest.question_1'), // You will use the translation key here
+        category: "Q1"
+      },
+      {
+        question: t('ValueTest.question_2'),
+        category: "Q2"
+      },
+      {
+        question: t('ValueTest.question_3'),
+        category: "Q3"
+      },
+      {
+        question: t('ValueTest.question_4'),
+        category: "Q4"
+      },
+      {
+        question: t('ValueTest.question_5'),
+        category: "Q5"
+      },
+      {
+        question: t('ValueTest.question_6'),
+        category: "Q6"
+      },
+      {
+        question: t('ValueTest.question_7'),
+        category: "Q7"
+      },
+      {
+        question: t('ValueTest.question_8'),
+        category: "Q8"
+      },
+      {
+        question: t('ValueTest.question_9'),
+        category: "Q9"
+      },
+      {
+        question: t('ValueTest.question_10'),
+        category: "Q10"
+      },
+      {
+        question: t('ValueTest.question_11'),
+        category: "Q11"
+      },
+      {
+        question: t('ValueTest.question_12'),
+        category: "Q12"
+      },
+      {
+        question: t('ValueTest.question_13'),
+        category: "Q13"
+      },
+      {
+        question: t('ValueTest.question_14'),
+        category: "Q14"
+      },
+      {
+        question: t('ValueTest.question_15'),
+        category: "Q15"
+      },
+      {
+        question: t('ValueTest.question_16'),
+        category: "Q16"
+      },
+      {
+        question: t('ValueTest.question_17'),
+        category: "Q17"
+      },
+      {
+        question: t('ValueTest.question_18'),
+        category: "Q18"
+      },
+      {
+        question: t('ValueTest.question_19'),
+        category: "Q19"
+      },
+      {
+        question: t('ValueTest.question_20'),
+        category: "Q20"
+      },
+      {
+        question: t('ValueTest.question_21'),
+        category: "Q21"
+      },
+      {
+        question: t('ValueTest.question_22'),
+        category: "Q22"
+      },
+
+
+    ],
+    introKh: {
+      title: "ValueTest.value_intro_title", // Translation key
+      highlight: "ValueTest.value_intro_highlight", // Translation key
+      description: "ValueTest.value_intro_description" // Translation key
+    }
+  };
+
+
+
+  const howItWorksSteps = [
+    t('TestMainPage.instructKh.howItWorksSteps.step1'),
+    t('TestMainPage.instructKh.howItWorksSteps.step2'),
+  ];
+
+  const emojiLabels = [
+    t('TestMainPage.instructKh.emojiLabels.stronglyDisagree'),
+    t('TestMainPage.instructKh.emojiLabels.disagree'),
+    t('TestMainPage.instructKh.emojiLabels.neutral'),
+    t('TestMainPage.instructKh.emojiLabels.agree'),
+    t('TestMainPage.instructKh.emojiLabels.stronglyAgree'),
+  ];
+
+
+  const quizDataMap: Record<string, QuizData> = {
+    personality: PersonalityTest,
+    learningStyle: learningStyleTest,
+    interest: InterestTest,
+    skill: SkillTest,
+    value: ValueTest
+  };
+
+    // const { introKh } = quizDataMap[currentQuizType];
+    // const { instructKh } = generalTestJson;
 
     // Set new questions based on the current quiz
     useEffect(() => {
@@ -99,8 +460,6 @@ export const MultipleStepQuizComponent = () => {
         }
     }, [currentQuizIndex]); // Depend on currentQuizIndex to load new quiz questions
 
-    // console.log('user response:', userResponses)
-    // console.log('previous: ', previousCompletedQuestions)
 
     // Calculate the total number of questions across all quizzes
     const totalQuestionsAcrossAllQuizzes = Object.values(quizDataMap).reduce(
@@ -161,21 +520,7 @@ export const MultipleStepQuizComponent = () => {
     };
 
     const handleResultClick = async () => {
-        // // Logic to show the results or submit the final assessment
-        // console.log('Showing results');
-        // // Example: Navigate to a result page
-        // router.push('/quiz-result');
-
-        // if (completedQuestions.length < totalQuestions) {
-        //     toast.error("Please answer all the questions to see the result.");
-        //     return;
-        // }
-
-        // if (!quizData || !quizData.questions) {
-        //     console.error("Quiz data or questions are missing.");
-        //     return;
-        // }
-
+   
         const assessmentType = currentQuizType;
 
 
@@ -245,7 +590,7 @@ export const MultipleStepQuizComponent = () => {
 
             }
 
-            toast.success("Responses submitted successfully!");
+            // toast.success("Responses submitted successfully!");
 
             handleNextClick();
 
@@ -285,14 +630,14 @@ export const MultipleStepQuizComponent = () => {
             {/* Intro Section */}
             <div className="bg-bgPrimaryLight">
                 <QuizIntroContainer
-                    introTitle={introKh.title}
-                    introHightlight={introKh.highlight}
-                    introDesc={introKh.description}
-                    instructLabel={instructKh.instructionLabel}
-                    howItWorkTitle={instructKh.howItWorksTitle}
-                    howItWorkStep={instructKh.howItWorksSteps}
-                    emojiLabels={instructKh.emojiLabels}
-                    RepresentedImageTitle={instructKh.representedImageTitle}
+                    introTitle={t(quizDataMap[currentQuizType]?.introKh.title)}
+                    introHightlight={t(quizDataMap[currentQuizType]?.introKh.highlight)}
+                    introDesc={t(quizDataMap[currentQuizType]?.introKh.description)}
+                    instructLabel={t('TestMainPage.instructKh.instructionLabel')}
+                    howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
+                    howItWorkStep={howItWorksSteps}
+                    emojiLabels={emojiLabels}
+                    RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
                 />
             </div>
 
@@ -344,7 +689,7 @@ export const MultipleStepQuizComponent = () => {
                     icon={<ArrowRight />}
                     type="rightIcon"
                     onClick={handleResultClick}
-                // isDisable={(completedQuestions.length < totalQuestions) ? true : false}
+                    isDisable={(completedQuestions.length < quizDataMap[currentQuizType].questions.length) ? true : false}
                 />
             </div>
         </div>

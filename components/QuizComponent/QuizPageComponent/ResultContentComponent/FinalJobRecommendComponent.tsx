@@ -71,7 +71,7 @@ export const FinalJobRecommendComponent = () => {
    
     return (
 
-        <div className='space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12' >
+        <div className=' max-w-7xl mx-auto p-4 md:p-10 lg:p-12' >
 
 
             <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
