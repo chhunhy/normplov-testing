@@ -19,7 +19,7 @@ interface LearningStyleResult extends AssessmentResult {
 interface ValueResult extends AssessmentResult {
   chartData: { label: string; score: number }[];
   valueDetails: { name: string; definition: string; characteristics: string; percentage: string }[];
-  key_improvements:{category:string;improvements:string[]}[];
+  key_improvements: { category: string; improvements: string[] }[];
   careerRecommendations: { career_name: string; description: string; majors: string[] }[];
 }
 
@@ -33,7 +33,7 @@ interface InterestResult extends AssessmentResult {
   dimensionDescriptions: { dimension_name: string; description: string }[];
 }
 
-interface SkillResult  {
+interface SkillResult {
   assessmentType: string;
   testUUID: string;
   testName: string;
@@ -52,31 +52,31 @@ interface PersonalityResult extends AssessmentResult {
   careerRecommendations: { career_name: string; description: string; majors: string[] }[];
 }
 // Define the type for each test item
-type Tests ={
-    test_uuid: string;
-    test_name: string;
-    assessment_type_name:string;
-    created_at: string;
-  }
-  
-  // Define the type for pagination metadata
-type Metadata ={
-    page: number;
-    page_size: number;
-    total_items: number;
-    total_pages: number;
-  }
-  
-  // Define the response structure for the API
-type UserTestResponse ={
-    date: string;
-    status: number;
-    payload: {
-      tests: Tests[];  // Array of test items
-      metadata: Metadata;  // Pagination metadata
-    };
-    message: string;
-  }
+type Tests = {
+  test_uuid: string;
+  test_name: string;
+  assessment_type_name: string;
+  created_at: string;
+}
+
+// Define the type for pagination metadata
+type Metadata = {
+  page: number;
+  page_size: number;
+  total_items: number;
+  total_pages: number;
+}
+
+// Define the response structure for the API
+type UserTestResponse = {
+  date: string;
+  status: number;
+  payload: {
+    tests: Tests[];  // Array of test items
+    metadata: Metadata;  // Pagination metadata
+  };
+  message: string;
+}
 export const resultApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({
     fetchAssessmentDetails: builder.query({
@@ -85,16 +85,16 @@ export const resultApi = normPlovApi.injectEndpoints({
         url: `api/v1/test/${testUUID}`, // Dynamic query parameter
         method: 'GET',
       }),
-      
+
       transformResponse: (response: any, meta, arg) => {
         const responseData = response?.payload[0];
-       
+
         const resultType = arg.resultType
         console.log("data from api: ", responseData);
 
         if (!responseData) {
           console.error("No response data found");
-          return [];  
+          return [];
         }
 
         console.log("result typee: ", arg.resultType)
@@ -102,7 +102,7 @@ export const resultApi = normPlovApi.injectEndpoints({
         const parsedData = JSON.parse(responseData.user_response_data);
 
         console.log("parsed json: ", parsedData)
-       
+
         // Process data based on the provided resultType
         switch (resultType) {
           case "learningStyle":
@@ -116,8 +116,8 @@ export const resultApi = normPlovApi.injectEndpoints({
               dimensions: parsedData.dimensions || [],
               recommendedTechniques: parsedData.recommended_techniques || [],
               relatedCareers: parsedData.related_careers || []
-            } as any; 
-        
+            } as any;
+
           case "value":
             return {
               assessmentType: resultType,
@@ -129,7 +129,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               key_improvements: parsedData.key_improvements || [],
               careerRecommendations: parsedData.career_recommendations || []
             };
-        
+
           case "interest":
             return {
               assessmentType: resultType,
@@ -144,7 +144,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               chartData: parsedData.chart_data || [],
               dimensionDescriptions: parsedData.dimension_descriptions || []
             };
-        
+
           case "skill":
             return {
               topCategory: parsedData.top_category || {},
@@ -156,7 +156,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               skillsGrouped: parsedData.skills_grouped || {},
               strongCareers: parsedData.strong_careers || []
             } as any;
-        
+
           case "personality":
             return {
               assessmentType: resultType,
@@ -170,7 +170,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               weaknesses: parsedData.weaknesses || [],
               careerRecommendations: parsedData.career_recommendations || []
             };
-        
+
           default:
             console.error("Unknown result type:", resultType);
             return [];  // Return an empty array for unknown tests
@@ -178,13 +178,19 @@ export const resultApi = normPlovApi.injectEndpoints({
       }
     }),
     getAllUserTest: builder.query<UserTestResponse, { page: number; page_size: number }>({
-      query: ({ page = 1, page_size= 10 }) =>({
-          url: `api/v1/test/my-tests?page=${page}&page_size=${page_size}`,
-          method: "GET",
+      query: ({ page = 1, page_size = 10 }) => ({
+        url: `api/v1/test/my-tests?page=${page}&page_size=${page_size}`,
+        method: "GET",
       })
-       
-  })
+
+    }),
+    getTestDetail: builder.query<any, { uuid: string; }>({
+      query: ({uuid}) => ({
+        url: `api/v1/test/${uuid}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useFetchAssessmentDetailsQuery,useGetAllUserTestQuery } = resultApi;
+export const { useFetchAssessmentDetailsQuery, useGetAllUserTestQuery, useGetTestDetailQuery } = resultApi;

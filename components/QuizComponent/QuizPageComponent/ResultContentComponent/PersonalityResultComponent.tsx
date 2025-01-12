@@ -101,11 +101,16 @@ export const PersonalityResultComponent = () => {
 
   const resultTypeString =
     typeof params.resultType === "string" ? params.resultType : "";
+
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
+  const finalUuid = resultTypeString === "all" ? localStorage.getItem("personality") || "" : uuidString;
+
+  const finalResultTypeString = resultTypeString === "all" ? "personality" : resultTypeString;
+
   const { data: response,isLoading, error } = useFetchAssessmentDetailsQuery({
-    testUUID: uuidString,
-    resultType: resultTypeString,
+    testUUID: finalUuid,
+    resultType: finalResultTypeString,
   });
 
   console.log(`result: ${resultTypeString} id: ${uuidString}`);
@@ -376,7 +381,7 @@ export const PersonalityResultComponent = () => {
               />
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                {response?.strengths.map(
+                {response?.strengths?.map(
                   (strength: string, index: number) => (
                     <QuizResultListing
                       key={index}
@@ -402,7 +407,7 @@ export const PersonalityResultComponent = () => {
               />
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                {response?.weaknesses.map(
+                {response?.weaknesses?.map(
                   (weakness: string, index: number) => (
                     <QuizResultListing
                       key={index}

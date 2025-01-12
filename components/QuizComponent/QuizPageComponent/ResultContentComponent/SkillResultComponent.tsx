@@ -185,9 +185,13 @@ export const SkillResultComponent = () => {
   const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
   const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
+  const finalUuid = resultTypeString === "all" ? localStorage.getItem("skill") || "" : uuidString;
+
+  const finalResultTypeString = resultTypeString === "all" ? "skill" : resultTypeString;
+
   const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
-    testUUID: uuidString,
-    resultType: resultTypeString
+    testUUID: finalUuid,
+    resultType: finalResultTypeString
   });
 
   console.log(`result: ${resultTypeString} id: ${uuidString}`)
@@ -249,13 +253,22 @@ export const SkillResultComponent = () => {
     <div>
       {/* skill category  container */}
       <div className="bg-white">
-        <div className="space-y-6 lg:space-y-16 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
+        <div className="space-y-6 lg:space-y-16 max-w-7xl mx-auto p-4 md:p-10 lg:py-12 ">
           {isLoading ? (
             <Skeleton className='w-full h-[150px]' />
           ) : (
-            <p className="text-lg md:text-xl lg:text-2xl text-textprimary">
-              <span className="text-primary font-semibold">{topCategory?.name || "Category Name"}</span> {topCategory?.description || "Category Description"}
-            </p>
+            <div className='space-y-4 lg:space-y-8'>
+              
+              <div>
+                <p className='text-md md:text-xl'>ជំនាញដែលលេចធ្លោរបស់អ្នក</p>
+                <p className='text-3xl md:text-4xl text-primary font-bold '>{topCategory?.name || "Category Name"}</p>
+              </div>
+
+              <p className="text-lg md:text-xl  text-textprimary ">
+                {topCategory?.description || "Category Description"}
+              </p>
+            </div>
+
           )}
 
 

@@ -12,9 +12,10 @@ import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh
 import { Progress } from "@/components/ui/progress";
 import { QuizQuestionContainer } from '../QuizQuestionContainer';
 import { QuizButton } from '../QuizButton';
-import {  ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { useLoadFiveTestQuery, usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
+import { useLoadCareerPredictionMutation, useLoadFiveTestQuery, usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
+import { usePathname, useRouter } from 'next/navigation';
 
 // Define quiz data types
 type QuizData = {
@@ -40,8 +41,9 @@ const quizDataMap: Record<string, QuizData> = {
 type QuizResponse = { [question: string]: number };
 
 export const MultipleStepQuizComponent = () => {
-    // const router = useRouter();
+    const router = useRouter();
     // const { testType } = useParams();
+    const pathname = usePathname();
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
     const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
     const [userResponses, setUserResponses] = useState<QuizResponse>({});
@@ -53,8 +55,9 @@ export const MultipleStepQuizComponent = () => {
 
     const [, setPreviousCompletedQuestions] = useState<number[]>([]); // Store completed questions from the previous quiz
     const currentQuizType = quizSequence[currentQuizIndex];
-    const [, setCurrentLocale] = useState<string>('km');
+    const [currentLocale, setCurrentLocale] = useState<string>('km');
     const [predictAssessment,] = usePredictAssessmentMutation();
+    const [predictFinalCareer] = useLoadCareerPredictionMutation();
 
 
     // Use `useLoadFiveTestQuery` with a condition
@@ -62,9 +65,8 @@ export const MultipleStepQuizComponent = () => {
         skip: !isReadyToFetch, // Only run the query when isReadyToFetch is true
     });
 
-    console.log('data:',data)
-
     
+   console.log("data: ", data)
 
 
 
@@ -108,11 +110,11 @@ export const MultipleStepQuizComponent = () => {
 
     // since the completeQuestions length is set to 0 when go to new quiz type, so add the previous number of questions to ensure that it is not set to 0
     const totalAnsweredQuestions = (
-        currentQuizType === 'interest' ? 16 : 
-        currentQuizType === 'skill' ? 28 : 
-        currentQuizType === 'value' ? 43 : 
-        currentQuizType === 'learningStyle' ? 65 : 0
-        ) + completedQuestions.length;
+        currentQuizType === 'interest' ? 16 :
+            currentQuizType === 'skill' ? 28 :
+                currentQuizType === 'value' ? 43 :
+                    currentQuizType === 'learningStyle' ? 65 : 0
+    ) + completedQuestions.length;
 
 
     // Calculate the progress as a percentage
@@ -214,7 +216,33 @@ export const MultipleStepQuizComponent = () => {
                 // Check if all 5 UUIDs are now available
                 if (uuids.length === 5) {
                     setIsReadyToFetch(true); // All UUIDs are available, ready to fetch the tests
+                    try {
+                        const finalResult = await predictFinalCareer({
+                            testUuids: uuids,
+                            topN: 5
+                        }).unwrap();
+
+                        const allTestUuid = finalResult?.payload?.test_uuid
+
+                        const newPath = `/${currentLocale}/test-result/all/${allTestUuid}`;
+
+                        // Ensure the new path does not contain the duplicate locale part
+                        if (!pathname.startsWith(`/${currentLocale}`)) {
+                            // If the pathname doesn't include the current locale, add it
+                            router.push(newPath);
+                        } else {
+                            // If the pathname already includes the locale, navigate to the result directly
+                            router.push(newPath);
+                        }
+
+                    } catch (err) {
+                        toast.error("Failed to submit final responses. Please try again.");
+                        console.log("error: ",err)
+                    }
+
                 }
+
+
             }
 
             toast.success("Responses submitted successfully!");

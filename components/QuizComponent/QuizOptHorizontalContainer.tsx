@@ -32,7 +32,15 @@ export const QuizOptHorizontalContainer = ({
   isLoading = false
 }: props) => {
 
+  const [currentLocale, setCurrentLocale] = useState<string>("");
   const [imageSrc, setImageSrc] = useState<string>(placeholderImage.src);
+
+  useEffect(() => {
+    const locale = localStorage.getItem('language'); // Assuming 'language' is the key
+    if (locale) {
+      setCurrentLocale(locale);
+    }
+  }, []);
 
   useEffect(() => {
     let imageUrl: string;
@@ -134,7 +142,9 @@ export const QuizOptHorizontalContainer = ({
           {isLoading ? (
             <Skeleton className="h-[40px] w-[120px] rounded-full" />
           ) : (
-            <QuizButton title={isDraft === true ? 'បន្តតេស្ត' : 'ចាប់ផ្តើមតេស្ត'} rounded='full' icon={<ArrowRight />} type='rightIcon' onClick={onClick}   />
+            <QuizButton title={isDraft
+              ? (currentLocale === "km" ? "បន្តតេស្ត" : "Continue")
+              : (currentLocale === "km" ? "ចាប់ផ្តើមតេស្ត" : "Start Test")} rounded='full' icon={<ArrowRight />} type='rightIcon' onClick={onClick}   />
 
           )}
         </div>

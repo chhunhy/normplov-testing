@@ -23,23 +23,21 @@ import { PersonalityResultComponent } from './ResultContentComponent/Personality
 import { ValueResultComponent } from './ResultContentComponent/ValueResultComponent';
 import Loading from '@/components/General/Loading';
 import { AllResultComponent } from './ResultContentComponent/AllResultComponent';
+import { useTranslations } from 'next-intl';
 
-type IntroKh = {
-    title: string;
-    highlight: string;
-    description: string;
-};
+// type IntroKh = {
+//     title: string;
+//     highlight: string;
+//     description: string;
+// };
 
-type Recommendation = {
-    jobTitle: string;
-    jobdesc: string;
-    majors: string[]; // Array of related majors
-    unis: string[];   // Array of related universities
-};
 
 type QuizData = {
-    introKh: IntroKh;              // Introductory data for the result
-    Recommendation: Recommendation; // Career recommendations
+    introKh: {
+        title: string;
+        highlight: string;
+        description: string;
+    };             // Introductory data for the result
 };
 
 const resultDataMap: Record<string, QuizData> = {
@@ -53,13 +51,14 @@ const resultDataMap: Record<string, QuizData> = {
 
 export default function ResultDynamicComponent() {
     const params = useParams();
+    const t = useTranslations();
 
     // Normalize the values
     const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
-    console.log("REs",resultType, params.resultType)
+    console.log("REs", resultType, params.resultType)
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
-    const { data} = useGetShareLinksQuery({ uuid });
-    console.log("data link share",data?.payload.shareable_link)
+    const { data } = useGetShareLinksQuery({ uuid });
+    console.log("data link share", data?.payload.shareable_link)
     // if (error || !data) {
     //     return (
     //       <div className="w-full text-center py-10">
@@ -71,7 +70,7 @@ export default function ResultDynamicComponent() {
 
     // Handle invalid or missing parameters
     if (!resultType || !uuid) {
-        return <div className=' w-full flex justify-center items-center'><Loading/></div>;
+        return <div className=' w-full flex justify-center items-center'><Loading /></div>;
     }
 
     // Ensure resultType is valid
@@ -91,34 +90,104 @@ export default function ResultDynamicComponent() {
         );
     }
 
-    if(uuid && resultType) {
+    if (uuid && resultType) {
         localStorage.setItem("resultUuid", uuid)
-        localStorage.setItem("currentType",resultType)
+        localStorage.setItem("currentType", resultType)
     }
 
-    const { introKh } = resultData;
+    
+
+    // Learning Style quiz Data
+    const learningStyleTest: QuizData = {
+
+        introKh: {
+            title: "LearningStyleTest.learningStyle_intro_title", // Translation key
+            highlight: "LearningStyleTest.learningStyle_intro_highlight", // Translation key
+            description: "LearningStyleTest.learningStyle_intro_description" // Translation key
+        }
+    };
+
+    //  Personality quiz Data
+    const PersonalityTest: QuizData = {
+
+        introKh: {
+            title: "PersonalityTest.Personality_intro_title", // Translation key
+            highlight: "PersonalityTest.Personality_intro_highlight", // Translation key
+            description: "PersonalityTest.Personality_intro_description" // Translation key
+        }
+    };
+
+    // interest quiz data
+    const InterestTest: QuizData = {
+
+        introKh: {
+            title: "InterestTest.interest_intro_title", // Translation key
+            highlight: "InterestTest.interest_intro_highlight", // Translation key
+            description: "InterestTest.interest_intro_description" // Translation key
+        }
+    };
+
+    // skill quiz data
+    const SkillTest: QuizData = {
+
+        introKh: {
+            title: "SkillTest.skill_intro_title", // Translation key
+            highlight: "SkillTest.skill_intro_highlight", // Translation key
+            description: "SkillTest.skill_intro_description" // Translation key
+        }
+    };
+
+    // value quiz data
+    const ValueTest: QuizData = {
+
+        introKh: {
+            title: "ValueTest.value_intro_title", // Translation key
+            highlight: "ValueTest.value_intro_highlight", // Translation key
+            description: "ValueTest.value_intro_description" // Translation key
+        }
+    };
+
+    const AllTest: QuizData = {
+        introKh: {
+          title: "AllTest.allTest_intro_title", // Translation key
+          highlight: "AllTest.allTest_intro_highlight", // Translation key
+          description: "AllTest.allTest_intro_description" // Translation key
+        }
+      }
+
+    const resultIntroMap: Record<string, QuizData> = {
+        personality: PersonalityTest,
+        learningStyle: learningStyleTest,
+        interest: InterestTest,
+        skill: SkillTest,
+        value: ValueTest,
+        all: AllTest
+        // Add more tests here if necessary
+    };
+
+    // const { introKh } = resultData;
 
     const renderResultContent = () => {
         switch (resultType) {
             case 'personality':
                 return (
                     <div className=''>
-                        <PersonalityResultComponent/>
+                        <PersonalityResultComponent />
                     </div>
                 );
             case 'skill':
                 return (
-                    <SkillResultComponent/>
+                    <SkillResultComponent />
                 );
             case 'interest':
                 return (
-                    <InterestResultComponent/>
-                    
+                    <InterestResultComponent />
+
                 );
             case 'value':
                 return (
                     <div className='bg-white'>
-                       <ValueResultComponent/> 
+                        <ValueResultComponent />
                     </div>
                 );
             case 'learningStyle':
@@ -127,7 +196,7 @@ export default function ResultDynamicComponent() {
                 );
             case 'all':
                 return (
-                    <AllResultComponent/>
+                    <AllResultComponent />
                 )
 
             default:
@@ -139,11 +208,11 @@ export default function ResultDynamicComponent() {
         <div className='w-full '>
 
             {/* Introduction container */}
-            
+
             <QuizResultIntroContainer
-                title={introKh.title}
-                highlight={introKh.highlight}
-                description={introKh.description}
+                title={t(resultIntroMap[resultType]?.introKh.title)}
+                highlight={t(resultIntroMap[resultType]?.introKh.highlight)}
+                description={t(resultIntroMap[resultType]?.introKh.description)}
                 size="md"
                 type="result"
             />

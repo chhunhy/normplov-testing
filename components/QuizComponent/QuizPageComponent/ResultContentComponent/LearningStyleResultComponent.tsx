@@ -75,10 +75,15 @@ export const LearningStyleResultComponent = () => {
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
-    const { data: response, isLoading, error} = useFetchAssessmentDetailsQuery({
-        testUUID: uuidString,
-        resultType: resultTypeString
+    const finalUuid = resultTypeString === "all" ? localStorage.getItem("learningStyle") || "" : uuidString;
+
+    const finalResultTypeString = resultTypeString === "all" ? "learningStyle" : resultTypeString;
+
+    const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
+        testUUID: finalUuid,
+        resultType: finalResultTypeString
     });
+    
     console.log("data from learning: ", response)
 
 

@@ -44,9 +44,13 @@ export const InterestResultComponent = () => {
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
+    const finalUuid = resultTypeString === "all" ? localStorage.getItem("interest") || "" : uuidString;
+
+  const finalResultTypeString = resultTypeString === "all" ? "interest" : resultTypeString;
+
     const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
-        testUUID: uuidString,
-        resultType: resultTypeString
+        testUUID: finalUuid,
+        resultType: finalResultTypeString
     });
     console.log("data from interest: ", response)
 

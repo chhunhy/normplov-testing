@@ -149,13 +149,17 @@ export const ValueResultComponent = () => {
     typeof params.resultType === "string" ? params.resultType : "";
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
+  const finalUuid = resultTypeString === "all" ? localStorage.getItem("value") || "" : uuidString;
+
+  const finalResultTypeString = resultTypeString === "all" ? "value" : resultTypeString;
+
   const {
     data: response,
     isLoading,
     error
   } = useFetchAssessmentDetailsQuery({
-    testUUID: uuidString,
-    resultType: resultTypeString,
+    testUUID: finalUuid,
+    resultType: finalResultTypeString,
   });
 
   // if (!resultTypeString || !uuidString) {
