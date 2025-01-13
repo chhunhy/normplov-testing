@@ -1,10 +1,10 @@
 "use client";
-import React, { useState} from "react";
+import React, {useState} from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
 import { MapPin } from "lucide-react";
 import { FiEye } from "react-icons/fi";
-import { HiOutlineCalendarDateRange } from "react-icons/hi2";
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
@@ -12,7 +12,7 @@ import { BsBookmarkCheckFill } from "react-icons/bs";
 import {
   setBookmark,
 } from "@/redux/feature/jobs/bookmarkSlice";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 type props = {
   uuid: string;
@@ -22,7 +22,7 @@ type props = {
   time?: string;
   location?: string;
   isActive?: boolean; // Optional
-  closing_date: string;
+  
   created_at_days_ago?: string;
   posted_at_days_ago?: string;
   is_scraped?: boolean;
@@ -39,7 +39,7 @@ export const JobListingCard = ({
   time,
   location,
   isActive,
-  closing_date,
+  
   created_at_days_ago,
   posted_at_days_ago,
   bookmarked,
@@ -50,11 +50,13 @@ export const JobListingCard = ({
   const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
     `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
   );
+  const { locale } = useParams(); // Extract the current locale
+
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.auth.token);
   const router = useRouter();
-
+ 
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
 
@@ -63,8 +65,8 @@ export const JobListingCard = ({
 
     if (!token) {
       // If no token, prompt user to log in
-      alert("You must log in to bookmark a job.");
-      router.push("/login"); // Redirect to login page
+      //alert("You must log in to bookmark a job.");
+      router.push(`/${locale}/login`); // Redirect to login page
       return;
     }
 
@@ -118,27 +120,13 @@ export const JobListingCard = ({
               />
             ) : (
               <BsBookmark
-                className="text-gray-500 text-lg cursor-pointer"
+                className="text-gray-400 text-lg cursor-pointer"
                 onClick={handleBookmarkClick}
               />
             )}
           </div>
         </div>
         <p className="text-sm lg:text-lg text-textprimary">{desc}</p>
-        <div className="flex space-x-6">
-          <div className="flex justify-start items-center space-x-2">
-            <MapPin className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4  text-secondary lg:mt-1 md:mt-1 -mt-0" />
-            <div className="mt-1 text-textprimary text-sm lg:text-base">
-              {location ?? "Location not available"}
-            </div>
-          </div>
-          <div className=" lg:flex md:flex hidden justify-end items-center space-x-2 ">
-            <FiEye className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4 text-primary lg:mt-1 md:mt-1 -mt-0" />
-            <div className="mt-1 text-textprimary text-sm lg:text-base">
-              {visitor_count} views
-            </div>
-          </div>
-        </div>
         {/* create at */}
         <div className="flex flex-wrap gap-2  ">
           <div className="rounded-[5px] text-primary bg-bgPrimaryLight text-opacity-80 text-xs lg:text-sm max-w-fit px-1 lg:px-3">
@@ -150,6 +138,20 @@ export const JobListingCard = ({
           <div className="lg:hidden md:hidden flex justify-end items-center space-x-2 ">
             <FiEye className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4 text-primary lg:mt-1 md:mt-1 -mt-0" />
             <div className=" text-textprimary text-sm lg:text-base">
+              {visitor_count} views
+            </div>
+          </div>
+        </div>
+        <div className="flex space-x-6">
+          <div className="flex justify-start items-center space-x-2">
+            <MapPin className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4  text-secondary lg:mt-1 md:mt-1 -mt-0" />
+            <div className="mt-1 text-textprimary text-sm lg:text-base">
+              {location ?? "Location not available"}
+            </div>
+          </div>
+          <div className=" lg:flex md:flex hidden justify-end items-center space-x-2 ">
+            <FiEye className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4 text-primary lg:mt-1 md:mt-1 -mt-0" />
+            <div className="mt-1 text-textprimary text-sm lg:text-base">
               {visitor_count} views
             </div>
           </div>
@@ -166,25 +168,12 @@ export const JobListingCard = ({
             />
           ) : (
             <BsBookmark
-              className="text-gray-500 text-xl cursor-pointer"
+              className="text-gray-400 text-xl cursor-pointer"
               onClick={handleBookmarkClick}
             />
           )}
         </div>
 
-        <div className=" justify-end lg:flex md:flex hidden">
-          <div>
-            <div className=" flex justify-start items-start space-x-2">
-              <HiOutlineCalendarDateRange className="lg:w-5   lg:h-5 md:w-5 md:h-5 w-4 h-4 text-textprimary lg:mt-1 md:mt-1 -mt-0" />
-              <div className=" flex text-textprimary mt-1 text-sm lg:text-base lg:mb-1 md:mb-2">
-                Closing Date
-              </div>
-            </div>
-            <div className="flex justify-center rounded-[5px] text-accent  text-opacity-90 text-xs lg:text-sm max-w-fit px-1 lg:px-2">
-              {closing_date || "Unavailable"}
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
