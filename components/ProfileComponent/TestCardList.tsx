@@ -6,13 +6,16 @@ import { useGetAllUserTestQuery, useDeleteUserTestMutation,useGetShareLinksQuery
 import Pagination from "./Pagination";
 import DeleteConfirmationModal from "./DeleteComfirmModal";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter,usePathname } from "next/navigation";
 import TestListSkeleton from "../SkeletonLoading/ProfileComponent/TestListSkeleton";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { useGetShareLinksQuery } from '@/redux/service/test';
+
+
 const TestList = () => {
+  const pathname = usePathname();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const [isCopyPopupOpen, setCopyPopupOpen] = useState(false);
@@ -20,7 +23,12 @@ const TestList = () => {
   const [isCopied, setIsCopied] = useState(false); // Track if the link has been copied
   const [currentTitle, setCurrentTitle] = useState<string | null>(null); // Track the current test title
   const router = useRouter(); // For navigation
+  const getCurrentLocale = () => {
 
+    const locale = pathname.split("/")[1];
+    return locale === "en" || locale === "km" ? locale : "km";
+  };
+  const currentLocale = getCurrentLocale();
   // Fetch tests
   const { data, refetch,isLoading } = useGetAllUserTestQuery({
     page: currentPage,
@@ -111,9 +119,7 @@ const handleCopyToClipboard = () => {
       onClick: (uuid: string, type: string) => {
         const routeType = mapTypeToRoute(type);
         if (routeType) {
-          router.push(`/test-result/${routeType}/${uuid}`);
-        } else {
-          console.error("Invalid test type for routing:", type);
+          router.push(`/${currentLocale}/test-result/${routeType}/${uuid}`);
         }
       },
       

@@ -5,9 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useGetUserQuery } from "@/redux/service/user";
-import { useTranslations } from 'next-intl';
-import useHandleResultUuid from '@/components/General/Hook/useHandleResultUuid'
-
+import { useTranslations } from "next-intl";
+import useHandleResultUuid from "@/components/General/Hook/useHandleResultUuid";
 
 interface NavbarTranslationKeys {
   navLinks: {
@@ -27,45 +26,47 @@ interface NavbarTranslationKeys {
 
 type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & string]: ObjectType[Key] extends object
-  ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-  : Key;
+    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+    : Key;
 }[keyof ObjectType & string];
 
-function getRandomColor(username: string) {
-  // Generate a random color based on the username
-  const colors = [
-    "bg-orange-500",
-    "bg-blue-500",
-    "bg-green-500",
-    "bg-yellow-500",
-    "bg-purple-500",
-    "bg-pink-500",
-    "bg-amber-500",
-    "bg-lime-500",
-    "bg-emerald-500",
-    "bg-teal-500",
-    "bg-cyan-500",
-    "bg-sky-500",
-    "bg-indigo-500",
-    "bg-violet-500",
-    "bg-fuchsia-500",
-    "bg-rose-500",
-  ];
-  const index = username.charCodeAt(0) % colors.length;
-  return colors[index];
-}
-
+// function getRandomColor(username: string) {
+//   // Generate a random color based on the username
+//   const colors = [
+//     "bg-orange-500",
+//     "bg-blue-500",
+//     "bg-green-500",
+//     "bg-yellow-500",
+//     "bg-purple-500",
+//     "bg-pink-500",
+//     "bg-amber-500",
+//     "bg-lime-500",
+//     "bg-emerald-500",
+//     "bg-teal-500",
+//     "bg-cyan-500",
+//     "bg-sky-500",
+//     "bg-indigo-500",
+//     "bg-violet-500",
+//     "bg-fuchsia-500",
+//     "bg-rose-500",
+//   ];
+//   const index = username.charCodeAt(0) % colors.length;
+//   return colors[index];
+// }
 
 export default function NavbarPage() {
-  const router = useRouter();  // Using Next.js router
-  const pathname = usePathname(); 
-  const [currentLocale, setCurrentLocale] = useState<string>('km')
+  const router = useRouter(); // Using Next.js router
+  const pathname = usePathname();
+  const [currentLocale, setCurrentLocale] = useState<string>("km");
   //const { i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Fetch user data
-  const { data: user } = useGetUserQuery();
-  console.log("user data", user)
-  const userData = user?.payload
+  const { data, isLoading, isError } = useGetUserQuery(); // Include loading and error sta
+  console.log("data: " + data);
+  console.log("isLoading: " + isLoading);
+  console.log("isError: " + isError);
+  console.log("user data", data);
+  const userData = data?.payload;
   const avatarUrl = userData?.avatar
     ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
     : null;
@@ -74,10 +75,9 @@ export default function NavbarPage() {
   // const currentLocale = locale || 'en'; // Default to 'en' if locale is not defined
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
 
-
   // useEffect(() => {
   //   const language = localStorage.getItem('language');
-    
+
   //   if (language) {
   //     setCurrentLocale(language); // Set the locale from localStorage
   //   } else {
@@ -89,36 +89,35 @@ export default function NavbarPage() {
 
   useEffect(() => {
     // Check if the route has /en or /km in the URL
-    const languageFromUrl = pathname.split('/')[1];
+    const languageFromUrl = pathname.split("/")[1];
 
     // If the route includes '/en' or '/km', proceed to check sessionStorage
-    if (languageFromUrl === 'en' || languageFromUrl === 'km') {
-      const language = sessionStorage.getItem('language');
+    if (languageFromUrl === "en" || languageFromUrl === "km") {
+      const language = sessionStorage.getItem("language");
 
       if (language) {
-        setCurrentLocale(language); 
+        setCurrentLocale(language);
       } else {
         // If no language in sessionStorage, set it to 'km' by default
-        sessionStorage.setItem('language', languageFromUrl); 
-        setCurrentLocale(languageFromUrl); 
+        sessionStorage.setItem("language", languageFromUrl);
+        setCurrentLocale(languageFromUrl);
       }
     } else {
       // Default to 'km' if no valid language prefix in the URL
-      sessionStorage.setItem('language', 'km');
-      setCurrentLocale('km');
+      sessionStorage.setItem("language", "km");
+      setCurrentLocale("km");
     }
 
     // Cleanup when component unmounts, which will be triggered when the page is closed or refreshed
     return () => {
-      sessionStorage.removeItem('language');
+      sessionStorage.removeItem("language");
     };
   }, [pathname]);
 
-
   const handleLanguageChange = (lang: string) => {
-    localStorage.setItem('language', lang); // Save language to localStorage
+    localStorage.setItem("language", lang); // Save language to localStorage
     setCurrentLocale(lang); // Update state to reflect the selected language
-    const updatedPathname = pathname.replace(`/${currentLocale}`, ''); // Remove old locale
+    const updatedPathname = pathname.replace(`/${currentLocale}`, ""); // Remove old locale
     router.push(`/${lang}${updatedPathname}`); // Navigate to the new language
   };
 
@@ -129,7 +128,6 @@ export default function NavbarPage() {
     { href: "/jobs", label: t("Navbar.navLinks.jobs") },
     { href: "/privacy-policy", label: t("Navbar.navLinks.privacyPolicy") },
     { href: "/about-us", label: t("Navbar.navLinks.aboutUs") },
-
   ];
 
   useHandleResultUuid();
@@ -154,17 +152,17 @@ export default function NavbarPage() {
             />
           </Link>
 
-
           {/* Navigation Links */}
           <nav className="hidden md:flex space-x-6 lg:space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={`/${currentLocale}${link.href}`}
-                className={`text-base lg:text-lg ${pathname === link.href
+                className={`text-base lg:text-lg ${
+                  pathname === link.href
                     ? "text-green-700 font-bold  border-green-700"
                     : "text-gray-800 hover:text-green-700"
-                  }`}
+                }`}
               >
                 {link.label}
               </Link>
@@ -177,40 +175,35 @@ export default function NavbarPage() {
           {/* LanguageSelector hidden on md (iPad) */}
           <LanguageSelector handleLanguageChange={handleLanguageChange} />
           {/* Sign in button */}
-          {user ? (
+          {
+            isLoading ?(
+              <Link
+              href={`/${currentLocale}/login`}
+              className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
+            >
+              {t("Navbar.buttons.signIn")}
+            </Link>
+            //   <Image
+            //   src="/auth/personplaceholder.png"
+            //   alt="Loading Avatar"
+            //   width={40}
+            //   height={40}
+            //   className="w-[35px] h-[35px] object-cover rounded-full"
+            // />
+            ):data ? (
             <div className="flex items-center space-x-4">
               <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
                 <Link href={`/${currentLocale}/profile-about-user`}>
-                  {
-                    avatarUrl ? (
-                      <Image
-                        src={avatarUrl || "/auth/personplaceholder.png"}
-                        alt="User Avatar"
-                        width={2000}
-                        height={2000}
-                        className="w-[35px] h-[35px] object-cover rounded-full"
-                      />
-                    ) : (
-                      <div
-                        className={`w-12 h-12 flex items-center justify-center rounded-full text-white ${getRandomColor(
-                          userData?.username || "U"
-                        )}`}
-                      >
-                        {userData?.username.charAt(0).toUpperCase() || "U"}
-                      </div>
-                    )
-                  }
-                  {/* <Image
-                    src={avatarUrl || "/default-avatar.png"} // Fallback to default avatar if null
-                    alt="User Avatar"
-                    width={40}
-                    height={40}
-                    className="w-12 h-12 object-cover rounded-full"
-                  /> */}
+                
+                    <Image
+                      src={avatarUrl || "/auth/personplaceholder.png"}
+                      alt="User Avatar"
+                      width={2000}
+                      height={2000}
+                      className="w-[35px] h-[35px] object-cover rounded-full"
+                    />
                 </Link>
               </div>
-
-
             </div>
           ) : (
             <Link
@@ -220,12 +213,7 @@ export default function NavbarPage() {
               {t("Navbar.buttons.signIn")}
             </Link>
           )}
-          {/* <Link
-            href="/login"
-            className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
-          >
-            Sign in
-          </Link> */}
+
         </div>
 
         {/* Hamburger Menu Button */}
@@ -245,10 +233,11 @@ export default function NavbarPage() {
               <Link
                 key={link.href}
                 href={`/${currentLocale}${link.href}`}
-                className={`text-base ${pathname === link.href
+                className={`text-base ${
+                  pathname === link.href
                     ? "text-green-700 font-bold"
                     : "text-gray-800 hover:text-green-700"
-                  }`}
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
@@ -257,10 +246,10 @@ export default function NavbarPage() {
           </nav>
           <div className="mt-4 flex items-center justify-between">
             <LanguageSelector handleLanguageChange={handleLanguageChange} />
-            {user ? (
+            {data ? (
               <div className="flex items-center space-x-4">
                 <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
-                  <Link href="/profile-quiz-history">
+                <Link href={`/${currentLocale}/profile-about-user`}>
                     <Image
                       src={avatarUrl || "/auth/personplaceholder.png"} // Fallback to default avatar if null
                       alt="User Avatar"
@@ -273,11 +262,11 @@ export default function NavbarPage() {
               </div>
             ) : (
               <Link
-                href="/login"
-                className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
-              >
-                {t("buttons.signIn")}
-              </Link>
+              href={`/${currentLocale}/login`}
+              className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
+            >
+              {t("Navbar.buttons.signIn")}
+            </Link>
             )}
           </div>
         </div>
@@ -288,20 +277,24 @@ export default function NavbarPage() {
 
 function LanguageSelector({
   handleLanguageChange,
-
 }: {
   handleLanguageChange: (lang: string) => void;
-
 }) {
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
   return (
     <div className="flex items-center space-x-4">
       <button onClick={() => handleLanguageChange("km")}>
-        <LanguageOption flag="/assets/khmer-flag.png" label={t("Navbar.buttons.khmerLanguage")} />
+        <LanguageOption
+          flag="/assets/khmer-flag.png"
+          label={t("Navbar.buttons.khmerLanguage")}
+        />
       </button>
       <div className="h-6 border-l border-slate-400"></div>
       <button onClick={() => handleLanguageChange("en")}>
-        <LanguageOption flag="/assets/english-flag.png" label={t("Navbar.buttons.englishLanguage")} />
+        <LanguageOption
+          flag="/assets/english-flag.png"
+          label={t("Navbar.buttons.englishLanguage")}
+        />
       </button>
     </div>
   );

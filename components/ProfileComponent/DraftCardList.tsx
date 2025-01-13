@@ -9,14 +9,22 @@ import {
 import Pagination from "./Pagination";
 import DeleteConfirmationModal from "./DeleteComfirmModal";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter,usePathname } from "next/navigation";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import DraftListSkeleton from "../SkeletonLoading/ProfileComponent/DraftSkeleton";
+
+
 const DraftList = () => {
+  const pathname = usePathname();
   const router =useRouter()
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
+  const getCurrentLocale = () => {
 
+    const locale = pathname.split("/")[1];
+    return locale === "en" || locale === "km" ? locale : "km";
+  };
+  const currentLocale = getCurrentLocale();
   // Fetch tests
   const { data, refetch,isLoading } = useGetAllUserDraftQuery({
     page: currentPage,
@@ -108,7 +116,7 @@ const DraftList = () => {
         // Adjusted validation pattern: Allow mapped single words or camelCase
         const routePattern = /^[a-z]+([A-Z][a-z]*)*$/;
         if (routePattern.test(formattedName)) {
-          router.push(`/draft/${formattedName}/${uuid}`);
+          router.push(`/${currentLocale}/draft/${formattedName}/${uuid}`);
         } else {
           console.error("Invalid route format:", formattedName);
           // Optionally show a message to the user or handle invalid format

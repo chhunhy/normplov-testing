@@ -73,7 +73,7 @@ export default function QuizDynamicDraftComponent() {
     .replace(/s$/, "") // Remove plural 's' (e.g., "interests" → "interest")
     .replace(" ", "") // Remove spaces (e.g., "learning style" → "learningstyle")
     .toLowerCase();
-
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const uuid = typeof params?.uuid === "string" ? params.uuid : "";
 
   const { data, isLoading, error } = useGetUserDraftDetailsQuery({ uuid });
@@ -111,9 +111,14 @@ export default function QuizDynamicDraftComponent() {
       prevResponsesRef.current = responses;
     }
   }, [data, quizData]);
-
+   useEffect(() => {
+      const savedLanguage = localStorage.getItem('language');
+      if (savedLanguage) {
+        setCurrentLocale(savedLanguage);
+      }
+    }, []);
   if (isLoading) return <Loading />;
-  if (error || !quizData) return <p>Quiz data not found.</p>;
+  if (error || !quizData) return <Loading />;
 
   const totalQuestions = quizData.questions.length;
   const progress =
@@ -243,7 +248,7 @@ export default function QuizDynamicDraftComponent() {
         console.log("Test UUID:", testUuid);
   
         try {
-          router.push(`/test-result/${normalizedAssessmentType}/${testUuid}`);
+          router.push(`/${currentLocale}/test-result/${normalizedAssessmentType}/${testUuid}`);
         } catch (err) {
           console.error("Navigation failed:", err);
           toast.error("Failed to navigate to the results page.");
@@ -277,7 +282,7 @@ export default function QuizDynamicDraftComponent() {
       } else {
         toast.error("Failed to save draft. Please try again.");
       }
-      router.push(`/test`);
+      router.push(`/${currentLocale}/test`);
     } catch (error) {
       console.error("Error while saving draft:", error);
       toast.error("An error occurred while saving the draft.");
