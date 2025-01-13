@@ -121,7 +121,7 @@ export default function FooterPage() {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-emerald-500 mt-1" />
+                  <MapPin className="w-6 h-6 text-emerald-500 mt-1" />
                   <div>
                     <a
                       href="https://www.google.com/maps/dir/11.5762226,104.9272048/11.5784119,104.90279/@11.5682273,104.900408,14z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu"

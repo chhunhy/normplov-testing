@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -26,6 +26,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
+
 
 interface CategoryOption {
   value: string;
@@ -169,6 +170,7 @@ export default function Job() {
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
   const pathname = usePathname();
   const [currentLocale, setCurrentLocale] = useState<string>('km');
+  const { locale } = useParams(); 
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');

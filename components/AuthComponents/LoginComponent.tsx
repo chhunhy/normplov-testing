@@ -94,7 +94,6 @@ const LoginComponent = () => {
   //   router.push("/");
   // };
 
-
   return (
     <section
       className=" w-full  md:p-20 lg:bg-primary/20  lg:p-12"
@@ -148,18 +147,16 @@ const LoginComponent = () => {
           </div>
           <div className="w-full  lg:w-1/2 flex mx-auto">
             <div className=" w-full  mx-auto">
-            <div className="flex flex-row-reverse ">
-                  <button
-                    className="text-2xl text-gray-500 hover:text-gray-700 px-3 pt-3"
-                       onClick={handleClose}
-                      aria-label="Close login page"
-                  >
-                    <IoCloseSharp />
-                  </button>
-                </div>
+              <div className="flex flex-row-reverse ">
+                <button
+                  className="text-2xl text-gray-500 hover:text-gray-700 px-3 pt-3"
+                  onClick={handleClose}
+                  aria-label="Close login page"
+                >
+                  <IoCloseSharp />
+                </button>
+              </div>
               <div className="lg:px-12">
-                
-
                 <div className="mt-12 md:mt-14 px-8 lg:mt-10 lg:px-12">
                   <h1 className="text-4xl font-bold text-primary">ចូលគណនី</h1>
                   <Formik

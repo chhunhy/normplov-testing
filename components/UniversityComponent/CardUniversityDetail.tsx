@@ -200,6 +200,12 @@ export default function CardUniversityDetail({
     setSelectedPage(pageNumber);
   };
 
+  const [imgSrc, setImgSrc] = useState<string>(
+    logo_url
+      ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`
+      : "/assets/placeholder.png"
+  );
+
   return (
     <div className="min-h-screen bg-bglight">
       {/* Header */}
@@ -228,6 +234,7 @@ export default function CardUniversityDetail({
               height={200}
               unoptimized // This disables Next.js image optimization (optional if needed)
               className=" object-contain lg:w-60 lg:h-60 md:w-32 md:h-32 w-10 h-10  "
+              onError={() => setImgSrc("/assets/placeholder.png")}
             />
             <div className="text-center md:text-left">
               <h1 className="lg:text-5xl md:text-2xl text-lg font-bold text-textprimary mb-3">

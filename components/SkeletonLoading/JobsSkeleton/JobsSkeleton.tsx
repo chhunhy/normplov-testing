@@ -49,6 +49,12 @@ export default function JobsSkeleton() {
               <div className="col-span-3  lg:space-y-3 md:space-y-4 space-y-2 cursor-pointer">
                 <div className="lg:w-60 md:w-60 w-[150px] lg:h-6 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                 <div className="lg:w-80 md:w-60 w-[180px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                {/* create at */}
+                <div className="flex flex-wrap gap-2  ">
+                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                </div>
                 <div className="flex space-x-6">
                   <div className="flex justify-start items-center space-x-2">
                     <div className="lg:w-6 md:w-5 w-5 lg:h-6 md:h-5 h-5 bg-slate-200 animate-pulse rounded-xl"></div>
@@ -59,25 +65,11 @@ export default function JobsSkeleton() {
                     <div className="lg:w-40 md:w-[150px] w-[200px] lg:h-4 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                   </div>
                 </div>
-                {/* create at */}
-                <div className="flex flex-wrap gap-2  ">
-                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
               </div>
               <div className="col-span-1  space-y-[65px] ">
                 {/*bookmark*/}
                 <div className="flex justify-end text-lime-300">
                   <div className="lg:w-6 md:w-6 w-6 lg:h-6 md:h-6 h-6 bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
-                <div className="lg:flex md:flex hidden justify-end ">
-                  <div className="space-y-1">
-                    <div className=" flex justify-start items-start space-y-2 ">
-                      <div className=" lg:w-32 md:w-[150px] w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                    </div>
-                    <div className=" lg:w-28 md:w-28 w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -91,6 +83,12 @@ export default function JobsSkeleton() {
               <div className="col-span-3  lg:space-y-3 md:space-y-4 space-y-2 cursor-pointer">
                 <div className="lg:w-60 md:w-60 w-[150px] lg:h-6 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                 <div className="lg:w-80 md:w-60 w-[180px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                {/* create at */}
+                <div className="flex flex-wrap gap-2  ">
+                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                </div>
                 <div className="flex space-x-6">
                   <div className="flex justify-start items-center space-x-2">
                     <div className="lg:w-6 md:w-5 w-5 lg:h-6 md:h-5 h-5 bg-slate-200 animate-pulse rounded-xl"></div>
@@ -101,25 +99,11 @@ export default function JobsSkeleton() {
                     <div className="lg:w-40 md:w-[150px] w-[200px] lg:h-4 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                   </div>
                 </div>
-                {/* create at */}
-                <div className="flex flex-wrap gap-2  ">
-                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
               </div>
               <div className="col-span-1  space-y-[65px] ">
                 {/*bookmark*/}
                 <div className="flex justify-end text-lime-300">
                   <div className="lg:w-6 md:w-6 w-6 lg:h-6 md:h-6 h-6 bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
-                <div className="lg:flex md:flex hidden justify-end ">
-                  <div className="space-y-1">
-                    <div className=" flex justify-start items-start space-y-2 ">
-                      <div className=" lg:w-32 md:w-[150px] w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                    </div>
-                    <div className=" lg:w-28 md:w-28 w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -133,6 +117,12 @@ export default function JobsSkeleton() {
               <div className="col-span-3  lg:space-y-3 md:space-y-4 space-y-2 cursor-pointer">
                 <div className="lg:w-60 md:w-60 w-[150px] lg:h-6 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                 <div className="lg:w-80 md:w-60 w-[180px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                {/* create at */}
+                <div className="flex flex-wrap gap-2  ">
+                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                </div>
                 <div className="flex space-x-6">
                   <div className="flex justify-start items-center space-x-2">
                     <div className="lg:w-6 md:w-5 w-5 lg:h-6 md:h-5 h-5 bg-slate-200 animate-pulse rounded-xl"></div>
@@ -143,28 +133,15 @@ export default function JobsSkeleton() {
                     <div className="lg:w-40 md:w-[150px] w-[200px] lg:h-4 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                   </div>
                 </div>
-                {/* create at */}
-                <div className="flex flex-wrap gap-2  ">
-                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
               </div>
               <div className="col-span-1  space-y-[65px] ">
                 {/*bookmark*/}
                 <div className="flex justify-end text-lime-300">
                   <div className="lg:w-6 md:w-6 w-6 lg:h-6 md:h-6 h-6 bg-slate-200 animate-pulse rounded-xl"></div>
                 </div>
-                <div className="lg:flex md:flex hidden justify-end ">
-                  <div className="space-y-1">
-                    <div className=" flex justify-start items-start space-y-2 ">
-                      <div className=" lg:w-32 md:w-[150px] w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                    </div>
-                    <div className=" lg:w-28 md:w-28 w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                  </div>
-                </div>
               </div>
             </div>
+
             {/* Job Listing Card Skeleton */}
             <div className="grid grid-cols-5 w-full border  border-gray-100 bg-white p-4 gap-4 rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors">
               <div className="col-span-1 lg:ml-3 md:ml-3 ml-0 flex justify-center items-center place-content-center place-items-center">
@@ -175,6 +152,12 @@ export default function JobsSkeleton() {
               <div className="col-span-3  lg:space-y-3 md:space-y-4 space-y-2 cursor-pointer">
                 <div className="lg:w-60 md:w-60 w-[150px] lg:h-6 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                 <div className="lg:w-80 md:w-60 w-[180px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                {/* create at */}
+                <div className="flex flex-wrap gap-2  ">
+                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
+                </div>
                 <div className="flex space-x-6">
                   <div className="flex justify-start items-center space-x-2">
                     <div className="lg:w-6 md:w-5 w-5 lg:h-6 md:h-5 h-5 bg-slate-200 animate-pulse rounded-xl"></div>
@@ -185,67 +168,11 @@ export default function JobsSkeleton() {
                     <div className="lg:w-40 md:w-[150px] w-[200px] lg:h-4 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
                   </div>
                 </div>
-                {/* create at */}
-                <div className="flex flex-wrap gap-2  ">
-                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
               </div>
               <div className="col-span-1  space-y-[65px] ">
                 {/*bookmark*/}
                 <div className="flex justify-end text-lime-300">
                   <div className="lg:w-6 md:w-6 w-6 lg:h-6 md:h-6 h-6 bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
-                <div className="lg:flex md:flex hidden justify-end ">
-                  <div className="space-y-1">
-                    <div className=" flex justify-start items-start space-y-2 ">
-                      <div className=" lg:w-32 md:w-[150px] w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                    </div>
-                    <div className=" lg:w-28 md:w-28 w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Job Listing Card Skeleton */}
-            <div className="grid grid-cols-5 w-full border  border-gray-100 bg-white p-4 gap-4 rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors">
-              <div className="col-span-1 lg:ml-3 md:ml-3 ml-0 flex justify-center items-center place-content-center place-items-center">
-                <div className="lg:w-[150px] md:w-32 w-full lg:h-24 md:h-24 h-10 bg-slate-200 animate-pulse rounded-xl"></div>
-              </div>
-
-              {/* Text Section */}
-              <div className="col-span-3  lg:space-y-3 md:space-y-4 space-y-2 cursor-pointer">
-                <div className="lg:w-60 md:w-60 w-[150px] lg:h-6 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
-                <div className="lg:w-80 md:w-60 w-[180px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                <div className="flex space-x-6">
-                  <div className="flex justify-start items-center space-x-2">
-                    <div className="lg:w-6 md:w-5 w-5 lg:h-6 md:h-5 h-5 bg-slate-200 animate-pulse rounded-xl"></div>
-                    <div className="lg:w-40 md:w-[150px] w-[200px] lg:h-4 md:h-5 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  </div>
-                  <div className=" justify-start items-center space-x-2 hidden lg:flex md:flex ">
-                    <div className="lg:w-6 md:w-5 w-[200px] lg:h-6 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
-                    <div className="lg:w-40 md:w-[150px] w-[200px] lg:h-4 md:h-5 h-[20px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  </div>
-                </div>
-                {/* create at */}
-                <div className="flex flex-wrap gap-2  ">
-                  <div className="lg:w-20 md:w-20 w-[60px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[70px] lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                  <div className="lg:w-32 md:w-20 w-[40px] flex lg:hidden md:hidden lg:h-5 md:h-4 h-[15px] bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
-              </div>
-              <div className="col-span-1  space-y-[65px] ">
-                {/*bookmark*/}
-                <div className="flex justify-end text-lime-300">
-                  <div className="lg:w-6 md:w-6 w-6 lg:h-6 md:h-6 h-6 bg-slate-200 animate-pulse rounded-xl"></div>
-                </div>
-                <div className="lg:flex md:flex hidden justify-end ">
-                  <div className="space-y-1">
-                    <div className=" flex justify-start items-start space-y-2 ">
-                      <div className=" lg:w-32 md:w-[150px] w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                    </div>
-                    <div className=" lg:w-28 md:w-28 w-[200px] lg:h-4 md:h-4 h-[20px] bg-slate-200 animate-pulse rounded-xl mb-1"></div>
-                  </div>
                 </div>
               </div>
             </div>

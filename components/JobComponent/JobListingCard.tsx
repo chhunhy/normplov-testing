@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
 import { MapPin } from "lucide-react";
@@ -9,10 +9,10 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
-import {
-  setBookmark,
-} from "@/redux/feature/jobs/bookmarkSlice";
+import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import { useParams, useRouter } from "next/navigation";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 type props = {
   uuid: string;
@@ -22,7 +22,7 @@ type props = {
   time?: string;
   location?: string;
   isActive?: boolean; // Optional
-  
+
   created_at_days_ago?: string;
   posted_at_days_ago?: string;
   is_scraped?: boolean;
@@ -39,7 +39,7 @@ export const JobListingCard = ({
   time,
   location,
   isActive,
-  
+
   created_at_days_ago,
   posted_at_days_ago,
   bookmarked,
@@ -56,7 +56,7 @@ export const JobListingCard = ({
   const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.auth.token);
   const router = useRouter();
- 
+
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
 
@@ -64,21 +64,50 @@ export const JobListingCard = ({
     e.stopPropagation(); // Prevent parent click handlers
 
     if (!token) {
-      // If no token, prompt user to log in
-      //alert("You must log in to bookmark a job.");
-      router.push(`/${locale}/login`); // Redirect to login page
+      // If no token, redirect to login
+      toast.error("You need to log in before you can bookmark jobs.");
+      //router.push(`/${locale}/login`);
       return;
     }
 
     try {
-      const response = await postBookmark({ uuid }).unwrap();
-      console.log("Bookmark result:", response);
+      // Attempt to bookmark
+      await postBookmark({ uuid }).unwrap();
 
-      // Update state and Redux
-      setIsBookmarked((prev) => !prev);
-      dispatch(setBookmark({ uuid, isBookmarked: !isBookmarked }));
-    } catch (error) {
-      console.error("Error toggling bookmark:", error);
+      // Toggle bookmark state
+      const newIsBookmarked = !isBookmarked;
+      setIsBookmarked(newIsBookmarked);
+      dispatch(setBookmark({ uuid, isBookmarked: newIsBookmarked }));
+
+      // Show success toast
+      toast.success(
+        newIsBookmarked
+          ? "Job successfully bookmarked!"
+          : "Job removed from bookmarks.",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
+    } catch (error: any) {
+      // Handle backend-specific error
+      const errorMessage =
+        error?.data?.detail || "Failed to update bookmark. Please try again.";
+
+      if (errorMessage.includes("Job is already bookmarked")) {
+        toast.info("This job is already bookmarked.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      } else {
+        // Generic error message
+        toast.error(errorMessage, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+
+      //console.error("Error toggling bookmark:", error);
     }
   };
 
@@ -93,12 +122,20 @@ export const JobListingCard = ({
         className="col-span-1 place-content-start place-items-start cursor-pointer"
         onClick={onClick}
       >
+        
         <Image
-          src={currentImgSrc}
-          alt="Technique Illustration"
-          width={100}
-          height={100}
+          src={
+            currentImgSrc || // Use the selected image if available
+            (image && image.startsWith("http") // Check if job.logo exists and starts with "http"
+              ? image
+              : image
+              ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend the base URL if job.logo exists
+              : "/assets/placeholder.jpg") // Fallback to placeholder image
+          }
+          alt={title || "Job Logo"}
           className="object-fill  lg:w-[150px] md:w-[150px] w-[150px]  h-auto rounded-xl"
+          width={1000}
+          height={1000}
           onError={() => setImgSrc("/assets/placeholder.png")}
         />
       </div>
@@ -109,7 +146,7 @@ export const JobListingCard = ({
         onClick={onClick}
       >
         <div className="flex justify-between">
-          <h2 className="text-lg lg:text-2xl font-semibold text-primary truncate ">
+          <h2 className="text-lg lg:text-2xl font-semibold text-slate-600 truncate ">
             {title}
           </h2>
           <div className="flex justify-end text-lime-300 lg:hidden md:hidden">
@@ -144,14 +181,14 @@ export const JobListingCard = ({
         </div>
         <div className="flex space-x-6">
           <div className="flex justify-start items-center space-x-2">
-            <MapPin className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4  text-secondary lg:mt-1 md:mt-1 -mt-0" />
-            <div className="mt-1 text-textprimary text-sm lg:text-base">
+            <MapPin className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4  text-slate-500 lg:mt-1 md:mt-1 -mt-0" />
+            <div className="mt-1 text-slate-500 text-sm lg:text-base">
               {location ?? "Location not available"}
             </div>
           </div>
           <div className=" lg:flex md:flex hidden justify-end items-center space-x-2 ">
-            <FiEye className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4 text-primary lg:mt-1 md:mt-1 -mt-0" />
-            <div className="mt-1 text-textprimary text-sm lg:text-base">
+            <FiEye className="lg:w-5 lg:h-5 md:w-5 md:h-5 w-4 h-4 text-slate-500 lg:mt-1 md:mt-1 -mt-0" />
+            <div className="mt-1 text-slate-500 text-sm lg:text-base">
               {visitor_count} views
             </div>
           </div>
@@ -173,8 +210,8 @@ export const JobListingCard = ({
             />
           )}
         </div>
-
       </div>
+      <ToastContainer />
     </div>
   );
 };
