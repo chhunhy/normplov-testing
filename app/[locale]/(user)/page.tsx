@@ -14,7 +14,7 @@ import ChartJobTrending from "@/components/ui/chartJob_trending";
 import React, { useEffect, useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";
 import {useTranslations} from 'next-intl';
-import { title } from "process";
+
 
 
 

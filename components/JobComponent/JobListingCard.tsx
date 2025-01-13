@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState} from "react";
+import React, {useState} from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
 import { MapPin } from "lucide-react";
 import { FiEye } from "react-icons/fi";
-import { HiOutlineCalendarDateRange } from "react-icons/hi2";
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
@@ -22,7 +22,7 @@ type props = {
   time?: string;
   location?: string;
   isActive?: boolean; // Optional
-  closing_date: string;
+  
   created_at_days_ago?: string;
   posted_at_days_ago?: string;
   is_scraped?: boolean;
@@ -39,7 +39,7 @@ export const JobListingCard = ({
   time,
   location,
   isActive,
-  closing_date,
+  
   created_at_days_ago,
   posted_at_days_ago,
   bookmarked,

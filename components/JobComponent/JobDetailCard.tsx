@@ -2,8 +2,8 @@
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { QuizButton } from "../QuizComponent/QuizButton";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+
+
 
 type props = {
   jobTitle: string;
@@ -60,7 +60,7 @@ export const JobDetailCard = ({
   url,
 }: props) => {
 
-  const router = useRouter();
+  //const router = useRouter();
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(
     `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
   );
