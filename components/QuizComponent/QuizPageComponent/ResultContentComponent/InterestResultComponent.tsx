@@ -13,6 +13,7 @@ import Pagination from '@/components/ProfileComponent/Pagination';
 import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
 import { Skeleton } from '@/components/ui/skeleton';
+import { useGetAllFinalTestUuidsQuery } from '@/redux/feature/assessment/quiz';
 
 type ChartDataType = {
     label: string;
@@ -44,9 +45,11 @@ export const InterestResultComponent = () => {
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
-    const finalUuid = resultTypeString === "all" ? localStorage.getItem("interest") || "" : uuidString;
+    const { data: responseUuid } = useGetAllFinalTestUuidsQuery({ testUuid: uuidString })
 
-  const finalResultTypeString = resultTypeString === "all" ? "interest" : resultTypeString;
+    const finalUuid = resultTypeString === "all" ? responseUuid?.payload?.referenced_test_uuids?.Interests?.test_uuid || "" : uuidString;
+
+    const finalResultTypeString = resultTypeString === "all" ? "interest" : resultTypeString;
 
     const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
         testUUID: finalUuid,
@@ -98,7 +101,7 @@ export const InterestResultComponent = () => {
         setCurrentPage(newPage);
     };
 
-console.log("image: " ,interestCard?.[0]?.image_url)
+    console.log("image: ", interestCard?.[0]?.image_url)
     return (
 
         <div className='space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12' >
@@ -205,7 +208,7 @@ console.log("image: " ,interestCard?.[0]?.image_url)
                 <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                
+
                     {
                         isLoading ? (
                             Array(6).fill(0).map((_, index) => (

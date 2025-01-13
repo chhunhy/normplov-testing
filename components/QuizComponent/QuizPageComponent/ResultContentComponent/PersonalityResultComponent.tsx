@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import checkIcon from "@/public/Quiz/skill-icon/check.png";
 import xIcon from "@/public/Quiz/skill-icon/x.png";
 import QuizHeader from "../../QuizHeader";
@@ -21,6 +21,7 @@ import Loading from "@/components/General/Loading";
 import PersonalityResultSkeleton from "@/components/SkeletonLoading/ProfileComponent/PersonalityResultSkeleton";
 import errorLoading from '@/public/assets/errorLoading.png'
 import Image from "next/image";
+import { useGetAllFinalTestUuidsQuery } from "@/redux/feature/assessment/quiz";
 // Define types for API response
 type PersonalityDimension = {
   dimension_name: string;
@@ -82,8 +83,8 @@ type BarProps = {
 
 export const PersonalityResultComponent = () => {
   const params = useParams();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const dimensionFullNames: { [key: string]: string } = {
     I_Score: "Introvert Score",
     E_Score: "Extrovert Score",
@@ -99,16 +100,19 @@ export const PersonalityResultComponent = () => {
   // const resultType = Array.isArray(params.resultType) ? params.resultType   : params.resultType;
   // const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
 
+
   const resultTypeString =
     typeof params.resultType === "string" ? params.resultType : "";
 
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
-  const finalUuid = resultTypeString === "all" ? localStorage.getItem("personality") || "" : uuidString;
+  const { data: responseUuid } = useGetAllFinalTestUuidsQuery({ testUuid: uuidString })
+
+  const finalUuid = resultTypeString === "all" ? responseUuid?.payload?.referenced_test_uuids?.Personality?.test_uuid || "" : uuidString;
 
   const finalResultTypeString = resultTypeString === "all" ? "personality" : resultTypeString;
 
-  const { data: response,isLoading, error } = useFetchAssessmentDetailsQuery({
+  const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
     testUUID: finalUuid,
     resultType: finalResultTypeString,
   });
@@ -120,25 +124,25 @@ export const PersonalityResultComponent = () => {
   }
 
   if (isLoading) {
-    return <PersonalityResultSkeleton/>
+    return <PersonalityResultSkeleton />
     // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
 
   if (error) {
     return (
-        <div className='bg-white w-full flex flex-col justify-center items-center py-6'>
-            < Image
-                src={errorLoading}
-                alt="Error Loading Data"
-                width={500}
-                height={500}
-                className="object-fill"
-            />
-            <p className='text-danger text-md lg:text-xl font-semibold text-center'>Sorry, we couldn&#39;t load your data right now.</p>
-            <p className='text-gray-500 text-sm lg:text-lg text-center'>Try refreshing the page or come back later.</p>
-        </div>
+      <div className='bg-white w-full flex flex-col justify-center items-center py-6'>
+        < Image
+          src={errorLoading}
+          alt="Error Loading Data"
+          width={500}
+          height={500}
+          className="object-fill"
+        />
+        <p className='text-danger text-md lg:text-xl font-semibold text-center'>Sorry, we couldn&#39;t load your data right now.</p>
+        <p className='text-gray-500 text-sm lg:text-lg text-center'>Try refreshing the page or come back later.</p>
+      </div>
     );
-}
+  }
 
 
   //   const skillCategory = response?.[0]?.categoryPercentages;
@@ -160,8 +164,8 @@ export const PersonalityResultComponent = () => {
 
     ][index % 8], // Cycle through colors
   }));
- 
-  
+
+
   const CustomBar = (props: BarProps) => {
     const { x, y, width, height } = props;
     return (
@@ -221,12 +225,12 @@ export const PersonalityResultComponent = () => {
   type Major = {
     major_name: string; // The name of the major
     schools: string[];  // An array of schools offering the major
-};
+  };
   type RecommendedCareer = {
     career_name: string;
     description: string;
     majors: Major[]; // Array of Major objects
-};
+  };
 
   const recommendedCareer = response?.careerRecommendations ?? [];
   console.log("Recommended Career: ", recommendedCareer);
@@ -241,31 +245,31 @@ export const PersonalityResultComponent = () => {
         score: number;
         color: string; // Add color property from chartData
       }; // Ensure payload structure is typed correctly
-  
+
       return (
         <div className="bg-white p-2 border rounded shadow-sm">
-      
+
           <p className="font-semibold text-slate-600">{data.label}</p>
           <p className="text-gray-500">Score: {data.score}</p>
         </div>
       );
     }
-  
+
     return null;
   };
-      // Pagination handler
-      const handlePageChange = (newPage: number) => {
-        setCurrentPage(newPage);
-      };
-    
-    // Calculate total pages for career recommendations
-    const totalPages = Math.ceil(recommendedCareer?.length / itemsPerPage);
-  
-    // Get current items for the current page
-    const currentItems = recommendedCareer.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    );
+  // Pagination handler
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  // Calculate total pages for career recommendations
+  const totalPages = Math.ceil(recommendedCareer?.length / itemsPerPage);
+
+  // Get current items for the current page
+  const currentItems = recommendedCareer.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <div className="bg-white">
       {/* Personalities Name and Description */}
@@ -306,8 +310,8 @@ export const PersonalityResultComponent = () => {
             </div>
           </div>
           {/* Legend */}
-         {/* Legend */}
-        
+          {/* Legend */}
+
         </div>
         <div className="mx-4 md:mx-0 border border-slate-50 mt-5 md:mt-14 p-6 rounded-[8px]">
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">
@@ -422,31 +426,31 @@ export const PersonalityResultComponent = () => {
           </div>
         </div>
         <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
-        <QuizHeader
-          title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
-          description="These career may suitable for you"
-          size="sm"
-          type="result"
-        />
+          <QuizHeader
+            title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
+            description="These career may suitable for you"
+            size="sm"
+            type="result"
+          />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {currentItems.map((item: RecommendedCareer, index: number) => (
-            <RecommendationCard
-              key={item.career_name || index}
-              jobTitle={item.career_name}
-              jobDesc={item.description}
-              majors={item.majors}
-            />
-          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {currentItems.map((item: RecommendedCareer, index: number) => (
+              <RecommendationCard
+                key={item.career_name || index}
+                jobTitle={item.career_name}
+                jobDesc={item.description}
+                majors={item.majors}
+              />
+            ))}
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={handlePageChange}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+          />
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={handlePageChange}
-          itemsPerPage={itemsPerPage}
-          setItemsPerPage={setItemsPerPage}
-        />
-      </div>
       </div>
     </div>
   );

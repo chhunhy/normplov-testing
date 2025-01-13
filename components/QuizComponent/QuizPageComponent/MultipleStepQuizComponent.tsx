@@ -64,9 +64,6 @@ export const MultipleStepQuizComponent = () => {
         }
     }, []);
 
-    // const pathname = usePathname();
-
-    // Get the current quiz type based on the index
 
     // Learning Style quiz Data
   const learningStyleTest: QuizData = {

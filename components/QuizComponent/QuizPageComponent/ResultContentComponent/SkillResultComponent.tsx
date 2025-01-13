@@ -155,6 +155,7 @@ import Pagination from '@/components/ProfileComponent/Pagination';
 import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
 import { Skeleton } from '@/components/ui/skeleton';
+import { useGetAllFinalTestUuidsQuery } from '@/redux/feature/assessment/quiz';
 
 type Skill = {
   skill: string;
@@ -185,7 +186,9 @@ export const SkillResultComponent = () => {
   const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
   const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
-  const finalUuid = resultTypeString === "all" ? localStorage.getItem("skill") || "" : uuidString;
+  const { data: responseUuid } = useGetAllFinalTestUuidsQuery({ testUuid: uuidString })
+
+  const finalUuid = resultTypeString === "all" ? responseUuid?.payload?.referenced_test_uuids?.Skills?.test_uuid || "" : uuidString;
 
   const finalResultTypeString = resultTypeString === "all" ? "skill" : resultTypeString;
 
@@ -260,7 +263,7 @@ export const SkillResultComponent = () => {
             <div className='space-y-4 lg:space-y-8'>
               
               <div>
-                <p className='text-md md:text-xl mb-2'>ជំនាញដែលលេចធ្លោរបស់អ្នក</p>
+                <p className='text-md md:text-xl mb-2 text-gray-700'>ជំនាញដែលលេចធ្លោរបស់អ្នក</p>
                 <p className='text-3xl md:text-4xl text-primary font-bold '>{topCategory?.name || "Category Name"}</p>
               </div>
 
@@ -386,7 +389,7 @@ export const SkillResultComponent = () => {
         averageSkill?.length > 0 && (
           <div className="bg-bgPrimaryLight">
             <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-              <QuizHeader title="ចំណុចដែលត្រូវអភិវឌ្ឍបន្ថែមរបស់អ្នក" description="Your Growth Focus" size="sm" type="result" />
+              <QuizHeader titleColor='text-secondary' title="ចំណុចដែលត្រូវអភិវឌ្ឍបន្ថែមរបស់អ្នក" description="Your Growth Focus" size="sm" type="result" />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 {averageSkill.map((skill: Skill, index: number) => (
                   <QuizResultListing
@@ -430,7 +433,7 @@ export const SkillResultComponent = () => {
         weakSkill?.length > 0 && (
           <div className="bg-bgPrimaryLight">
             <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-              <QuizHeader title="ចំណុចខ្សោយរបស់អ្នក" description="Your Weakness" size="sm" type="result" />
+              <QuizHeader titleColor='text-danger' title="ចំណុចខ្សោយរបស់អ្នក" description="Your Weakness" size="sm" type="result" />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 {weakSkill?.map((skill: Skill, index: number) => (
                   <QuizResultListing

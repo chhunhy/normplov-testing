@@ -9,13 +9,21 @@ const useHandleResultUuid = () => {
     // Check if we are on /test-result or /chat-with-ai route with a uuid parameter
     const matchTestResult = pathname.match(/\/(en|km)?\/test-result\/([^/]+)/);
     const matchChatWithAi = pathname.match(/\/(en|km)?\/chat-with-ai\/([^/]+)/);
+    const matchAllTest = pathname.match(/\/(en|km)?\/test\/all/);
 
     if (!(matchTestResult || matchChatWithAi)) {
-      // If not on /test-result or /chat-with-ai, remove the uuid and resultType from localStorage
       localStorage.removeItem("currentType");
       localStorage.removeItem("resultUuid");
     }
-  }, [pathname]); // Trigger the effect on route change
+
+    if(!(matchAllTest)) {
+      localStorage.removeItem("personality");
+      localStorage.removeItem("interest");
+      localStorage.removeItem("skill");
+      localStorage.removeItem("value");
+      localStorage.removeItem("learningStyle");
+    }
+  }, [pathname]);
 };
 
 export default useHandleResultUuid;
