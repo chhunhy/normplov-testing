@@ -10,7 +10,6 @@ import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
-import { useParams, useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -50,12 +49,12 @@ export const JobListingCard = ({
   const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
     `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
   );
-  const { locale } = useParams(); // Extract the current locale
+  //const { locale } = useParams(); // Extract the current locale
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.auth.token);
-  const router = useRouter();
+  //const router = useRouter();
 
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
@@ -89,10 +88,11 @@ export const JobListingCard = ({
           autoClose: 3000,
         }
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Handle backend-specific error
       const errorMessage =
-        error?.data?.detail || "Failed to update bookmark. Please try again.";
+      (error as { data?: { detail?: string } })?.data?.detail ||
+      "Failed to update bookmark. Please try again.";
 
       if (errorMessage.includes("Job is already bookmarked")) {
         toast.info("This job is already bookmarked.", {

@@ -16,7 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+
+
 
 type ValueTypes = {
   email: string;
@@ -46,6 +47,10 @@ const LoginComponent = () => {
 
   const handleClose = () => {
     router.push("/"); // Redirect to the referrer
+  };
+  const handleGoogleLogin = () => {
+    // Redirect to the Google login endpoint
+    window.location.href = "https://normplov-api.shinoshike.studio/api/v1/auth/google";
   };
   const handleLogin = async (user: ValueTypes) => {
     const { email, password } = user;
@@ -225,14 +230,12 @@ const LoginComponent = () => {
                           <span className="w-1/2 border-b border-gray-300"></span>
                         </div>
                         {/* Google Button */}
-                        {/* <div className="mt-4">
-                          <LoginWithGoogle />
-                        </div> */}
+
                         <div className="mt-4 text-center">
                           <Button
                             type="button"
                             text="ភ្ជាប់ជាមួយ Google"
-                            onClick={() => signIn("google")}
+                            onClick={handleGoogleLogin}
                             icon={
                               <Image
                                 src="/assets/google.png"

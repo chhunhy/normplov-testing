@@ -200,7 +200,7 @@ export default function CardUniversityDetail({
     setSelectedPage(pageNumber);
   };
 
-  const [imgSrc, setImgSrc] = useState<string>(
+  const [ , setImgSrc] = useState<string>(
     logo_url
       ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`
       : "/assets/placeholder.png"

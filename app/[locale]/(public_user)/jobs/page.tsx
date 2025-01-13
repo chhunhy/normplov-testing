@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import {  usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -170,7 +170,6 @@ export default function Job() {
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
   const pathname = usePathname();
   const [currentLocale, setCurrentLocale] = useState<string>('km');
-  const { locale } = useParams(); 
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');

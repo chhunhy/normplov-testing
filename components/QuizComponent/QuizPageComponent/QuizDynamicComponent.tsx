@@ -594,7 +594,7 @@ export default function QuizDynamicComponent() {
 
       // Notify the user of success
       toast.success("Your progress has been saved. You can continue later from your profile.");
-      router.push(`/test`);
+      router.push(`/${currentLocale}/test`);
     } catch (err) {
       // Log and notify the user of errors
       toast.error("Failed to save progress. Please try again.");
