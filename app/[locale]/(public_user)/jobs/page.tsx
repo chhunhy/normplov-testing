@@ -498,7 +498,7 @@ export default function Job() {
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
                 visitor_count={job.visitor_count ?? 0}
-                bookmarked={job.bookmarked ?? false}
+                bookmarked={job.bookmarked ?? false }
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}

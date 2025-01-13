@@ -14,17 +14,114 @@
       "englishLanguage": "English"
     }
   },
-  "HomePage":{
+  "HomePage": {
     "heading": {
       "part1": "Discover",
       "part2": "Your Specialty",
       "part3": "Today"
     },
     "description": "Discover your potential and find the specialization that aligns with your interests, strengths, and future career goals at a university that suits you.",
-    "getstart":"Get Start"
+    "getstart": "Get Start",
+    "contain": {
+      "part1": "Who is",
+      "part2": "NormPlov",
+      "part3": "for?"
+    },
+    "featureCard1": {
+      "title": "High School Students",
+      "description": "High school students can explore their interests and preferred subjects."
+    },
+    "featureCard2": {
+      "title": "University Students",
+      "description": "University students who feel like they are choosing the wrong major."
+    },
+    "featureCard3": {
+      "title": "Working Professionals",
+      "description": "Professionals who are looking to change careers but are uncertain about their current skills."
+    },
+    "ConatianFeature": {
+      "Feature": "Key Features",
+      "features": [
+        {
+          "title": "Career and Major Counseling",
+          "description": "Get tailored guidance about careers and universities that match your personality traits."
+        },
+        {
+          "title": "Discover Talents",
+          "description": "Identify your strengths and unique abilities through comprehensive testing."
+        },
+        {
+          "title": "Understanding Careers",
+          "description": "Explore how different specializations translate into real-world career opportunities."
+        },
+        {
+          "title": "Converse with AI",
+          "description": "Understand your strengths and unique abilities through engaging conversations with AI."
+        },
+        {
+          "title": "Skill Assessment Tests",
+          "description": "Uncover your strengths and unique abilities through thorough testing."
+        }
+      ]
+    },
+    "trendingJob": {
+      "title": "In-Demand Popular Jobs",
+      "moreInfo": "Learn more"
+    },
+    "PopularUniversities": {
+      "title": "Popular Universities",
+      "moreInfo": "Learn more"
+    },
+    "ExpertConsultation": {
+      "title": "Consult with our team of experts at",
+      "highlight": "Norm Plov"
+    },
+    "Process": {
+      "title": "The Process of",
+      "highlight": "Norm Plov",
+      "steps": [
+        {
+          "number": "01",
+          "description": "Register to access our website."
+        },
+        {
+          "number": "02",
+          "description": "Take all our quizzes."
+        },
+        {
+          "number": "03",
+          "description": "Receive results showing career paths suitable for you."
+        },
+        {
+          "number": "04",
+          "description": "Chat with AI to understand your results further."
+        }
+      ]
+    }
+  },
+  "Footer": {
+    "description": "Norm Plov is a website that helps you understand yourself better and effectively seize career opportunities now and in the future.",
+    "navigationTitle": {
+      "navLinks": "Content",
+      "navLinks1": "Home Page",
+      "navLinks2": "Tests",
+      "navLinks3": "University",
+      "navLinks4": "Jobs",
+      "navLinks5": "Privacy Policy",
+      "navLinks6": "About Us"
+    },
+    "contactTitle": "Contact Information",
+    "contact": {
+      "phone": "Phone Number",
+      "email": "Email",
+      "address": {
+        "text": "Beoung Kork 1, Toul Kork, Phnom Penh",
+        "label": "Address"
+      }
+    },
+    "sponsoredBy": "Sponsored By",
+    "organizedBy": "Organized By",
+    "copyright": "Copyright NormPlov by",
+    "allRightsReserved": ".All rights reserved.™"
   }
-
-
-  
-  
 }

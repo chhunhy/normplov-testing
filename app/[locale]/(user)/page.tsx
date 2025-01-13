@@ -14,6 +14,7 @@ import ChartJobTrending from "@/components/ui/chartJob_trending";
 import React, { useEffect, useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";
 import {useTranslations} from 'next-intl';
+import { title } from "process";
 
 
 
@@ -153,30 +154,29 @@ export  default function Page() {
       <section className="max-w-7xl mx-auto my-6">
         <div className="container px-4 lg:py-12 md:py-12 py-3">
           <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-center lg:mb-12 md:m-12 mb-4 text-textprimary">
-            តើ<span className="text-emerald-500">នាំផ្លូវ</span>សម្រាប់អ្នកណា?
+          {t('contain.part1')} <span className="text-emerald-500">{t('contain.part2')}</span> {t('contain.part3')}
           </h1>
-
           {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-6 gap-0">
             {/* Feature 1: Student */}
             <FeatureCard
               image="/assets/feature-01.png"
-              title="សិស្សវិទ្យាល័យ"
-              description="សិស្សវិទ្យាល័យអាចស្វែងយល់ពីចំណង់ចំណូលចិត្តរបស់ខ្លួននិងមុខវិជ្ជាដែលខ្លួនចូលចិត្ត"
+              title={t('featureCard1.title')}
+              description={t('featureCard1.description')}
             />
 
             {/* Feature 2: Undergraduate */}
             <FeatureCard
               image="/assets/feature-02.png"
-              title="សិស្សសកលវិទ្យាល័យ"
-              description="សិស្សសាកលវិទ្យាល័យដែលមានអារម្មណ៍ថាកំពុងជ្រើសរើសជំនាញខុស"
+              title={t('featureCard2.title')}
+              description={t('featureCard2.description')}
             />
 
             {/* Feature 3: Business Professional */}
             <FeatureCard
               image="/assets/feature-03.png"
-              title="បុគ្គលិកកំពុងធ្វើការងារ"
-              description="បុគ្គលិកដែលមានបំណងចង់ផ្លាស់ប្តូរការងារ ដែលមិនច្បាស់នឹងជំនាញដែលខ្លួនកំពុងធ្វើ"
+              title={t('featureCard3.title')}
+              description={t('featureCard3.description')}
             />
           </div>
         </div>
@@ -189,7 +189,7 @@ export  default function Page() {
       <section className=" bg-bglight p-6 ">
         <div className="max-w-7xl mx-auto my-4 md:my-6 flex justify-center">
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
-            ការងារដែលកំពុងមានតម្រូវការ
+            {t('trendingJob.title')}
           </h1>
         </div>
         <div className="max-w-7xl mx-auto my-4 md:my-6 h-full w-full   ">
@@ -209,7 +209,7 @@ export  default function Page() {
             href="/"
             className=" flex w-60 h-12 lg:space-x-3 md:space-x-3 space-x-1 justify-center items-center"
           >
-            <div className="text-lg  text-white">ព័ត៌មានបន្ថែម</div>
+            <div className="text-lg  text-white">{t('trendingJob.moreInfo')}</div>
             <GoArrowRight className="lg:h-6 lg:w-6 md:h-6 md:w-6 h-5 w-5 text-white" />
           </Link>
         </div>
@@ -218,14 +218,14 @@ export  default function Page() {
       <section className=" lg:p-10 md:p-10 p-4">
         <div className="max-w-7xl mx-auto my-4 md:my-6 flex lg:justify-between md:justify-between justify-center items-center">
           <h1 className="text-2xl  w-[90%] lg:w-full md:w-full md:text-4xl lg:text-5xl font-bold lg:text-start md:text-center  text-center mb-2 text-textprimary">
-            សាកលវិទ្យាល័យដែលមានប្រជាប្រិយភាព
+            {t('PopularUniversities.title')}
           </h1>
           <Link
-            href="/university"
+            href={`/${locale}/university`}
             className="text-xl  lg:flex md:hidden hidden justify-center items-center font-bold text-center mb-2 text-textprimary"
           >
             <div className="flex">
-              <div className="text-primary w-32  ">ព័ត៌មានបន្ថែម</div>
+              <div className="text-primary w-32  ">{t('trendingJob.moreInfo')}</div>
               <BiRightArrowAlt className="text-3xl  text-primary" />
             </div>
           </Link>
@@ -260,10 +260,10 @@ export  default function Page() {
           )}
 
           <Link
-            href=""
+            href={`/${locale}/university`}
             className="text-xl lg:hidden md:flex hidden justify-end mt-6 items-center font-bold text-center text-textprimary"
           >
-            <div className="text-primary">ព័ត៌មានបន្ថែម</div>
+            <div className="text-primary">{t('trendingJob.moreInfo')}</div>
             <BiRightArrowAlt className="text-3xl ml-2 text-primary" />
           </Link>
         </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Phone, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 // Button component
 const Button = React.forwardRef<
@@ -46,6 +47,7 @@ CardContent.displayName = "CardContent";
 
 // Main TeamProfiles component
 export default function TeamProfilesHomePage() {
+  const t = useTranslations('HomePage');  // Hook to access translations
   const profiles = [
     {
       name: "Jocelyn Schleifer",
@@ -80,9 +82,9 @@ export default function TeamProfilesHomePage() {
   return (
     <div className="px-4  max-w-7xl mx-auto  md:my-6 mb-6 md:mb-0 lg:mb-0">
       <div className="max-w-7xl   mx-auto my-4 md:my-6 flex  justify-center items-center">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
-        ពិគ្រោះយោបល់ជាមួយក្រុមអ្នកជំនាញរបស់<span className="text-primary">នាំផ្លូវ</span>
-        </h1>
+      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
+      {t("ExpertConsultation.title")} <span className="text-primary">{t("ExpertConsultation.highlight")}</span>
+    </h1>
       </div>
 
       <div className="grid grid-cols-1 lg:py-6 md:py-6 py-0 md:grid-cols-2 lg:grid-cols-4 gap-6 ">

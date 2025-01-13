@@ -57,6 +57,7 @@ interface Job {
   isActive?: boolean;
   bookmarked?: boolean;
   visitor_count?: number;
+  website?:string;
 }
 
 
@@ -402,6 +403,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   jobRequirement={selectedJobFromId.requirements ?? []}
                   jobResponse={selectedJobFromId.responsibilities ?? []}
                   buttonText="Apply Now"
+                  url={selectedJobFromId.website}
                 />
               ) : (
                 <div className="p-4 text-gray-600">

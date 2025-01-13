@@ -49,8 +49,9 @@ export const makeStore = () => {
     //.concat(universityApi.middleware)
   });
   // Initialize bookmarks from localStorage
-  //const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks") || "{}");
-  //store.dispatch(initializeBookmarks(storedBookmarks));
+  const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks") || "{}");
+  store.dispatch(initializeBookmarks(storedBookmarks));
+
 
   // Load locale from localStorage if available
   const savedLocale =

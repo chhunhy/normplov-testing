@@ -156,14 +156,14 @@ export default function NavbarPage() {
 
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex space-x-6 lg:space-x-8">
+          <nav className="hidden md:flex space-x-6 lg:space-x-8 ">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={`/${currentLocale}${link.href}`}
                 className={`text-base lg:text-lg ${pathname === link.href
                     ? "text-green-700 font-bold  border-green-700"
-                    : "text-gray-800 hover:text-green-700"
+                    : "text-textprimary hover:text-green-700"
                   }`}
               >
                 {link.label}
@@ -173,7 +173,7 @@ export default function NavbarPage() {
         </div>
 
         {/* Language Selector and Sign-in */}
-        <div className="hidden md:block lg:flex items-center space-x-6">
+        <div className="hidden md:flex lg:flex items-center space-x-6">
           {/* LanguageSelector hidden on md (iPad) */}
           <LanguageSelector handleLanguageChange={handleLanguageChange} />
           {/* Sign in button */}
@@ -247,7 +247,7 @@ export default function NavbarPage() {
                 href={`/${currentLocale}${link.href}`}
                 className={`text-base ${pathname === link.href
                     ? "text-green-700 font-bold"
-                    : "text-gray-800 hover:text-green-700"
+                    : "text-textprimary hover:text-green-700"
                   }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -299,7 +299,7 @@ function LanguageSelector({
       <button onClick={() => handleLanguageChange("km")}>
         <LanguageOption flag="/assets/khmer-flag.png" label={t("Navbar.buttons.khmerLanguage")} />
       </button>
-      <div className="h-6 border-l border-slate-400"></div>
+      <div className="h-6 border-l border-slate-400 "></div>
       <button onClick={() => handleLanguageChange("en")}>
         <LanguageOption flag="/assets/english-flag.png" label={t("Navbar.buttons.englishLanguage")} />
       </button>
@@ -317,7 +317,7 @@ function LanguageOption({ flag, label }: { flag: string; label: string }) {
         height={24}
         className="w-6 h-6 object-cover rounded-full"
       />
-      <span className="text-base lg:text-lg text-gray-800">{label}</span>
+      <span className="text-base lg:text-lg text-textprimary lg:block md:hidden block">{label}</span>
     </div>
   );
 }

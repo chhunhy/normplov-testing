@@ -2,6 +2,8 @@
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { QuizButton } from "../QuizComponent/QuizButton";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type props = {
   jobTitle: string;
@@ -29,6 +31,8 @@ type props = {
   jobRequirementLabel?: string;
   jobResponse?: string[];
   jobResponseLabel?: string;
+  url?: string;
+  
 };
 
 export const JobDetailCard = ({
@@ -53,10 +57,18 @@ export const JobDetailCard = ({
   jobRequirementLabel,
   jobResponse,
   jobResponseLabel,
+  url,
 }: props) => {
+
+  const router = useRouter();
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(
     `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
   );
+
+  const handleRouteClick = (urlString: string) => {
+    window.open(urlString, '_blank');
+  };
+  
 
   return (
     <div className="w-full border border-gray-100 bg-white p-4 md:p-6 space-y-6 rounded-xl ">
@@ -95,6 +107,7 @@ export const JobDetailCard = ({
               title={buttonText ? buttonText : "ដាក់ពាក្យ"}
               rounded="xl"
               type="rightIcon"
+              onClick={() => handleRouteClick(url || '/')}
             />
           </div>
         </div>
@@ -229,9 +242,9 @@ export const JobDetailCard = ({
               <p className="text-textprimary text-base  md:text-md">
                 {websiteLabel ? websiteLabel : "គេហទំព័រ"}
               </p>
-              <p className="text-primary text-sm md:text-base">
+              <a href={website} className="text-primary text-sm md:text-base">
                 {website ? website : "Unavailable"}
-              </p>
+              </a>
             </div>
 
             <div>
