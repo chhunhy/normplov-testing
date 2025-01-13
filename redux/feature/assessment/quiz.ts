@@ -61,8 +61,19 @@ export const quizApi = normPlovApi.injectEndpoints({
       },
     }),
 
+    getAllFinalTestUuids: builder.query<any, { testUuid: string }>({
+      query: ({ testUuid }) => {
+        // Construct the payload for the POST request
+        return {
+          url: `api/v1/assessment/final-test/${testUuid}`,
+          method: 'GET',
+          
+        };
+      },
+    }),
+
 
   }),
 });
 
-export const { usePredictAssessmentMutation, useFetchAllTestQuery, useLoadFiveTestQuery, useLoadCareerPredictionMutation } = quizApi;
+export const { usePredictAssessmentMutation, useFetchAllTestQuery, useLoadFiveTestQuery, useLoadCareerPredictionMutation, useGetAllFinalTestUuidsQuery } = quizApi;

@@ -115,6 +115,7 @@ import Pagination from "@/components/ProfileComponent/Pagination";
 import ValueSkeletonLoader from "@/components/SkeletonLoading/ProfileComponent/ValueSkeleton";
 import Image from "next/image";
 import errorLoading from '@/public/assets/errorLoading.png'
+import { useGetAllFinalTestUuidsQuery } from "@/redux/feature/assessment/quiz";
 // Define ChartData type
 type ChartData = {
   label: string;
@@ -149,7 +150,9 @@ export const ValueResultComponent = () => {
     typeof params.resultType === "string" ? params.resultType : "";
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
-  const finalUuid = resultTypeString === "all" ? localStorage.getItem("value") || "" : uuidString;
+  const { data: responseUuid } = useGetAllFinalTestUuidsQuery({ testUuid: uuidString })
+
+  const finalUuid = resultTypeString === "all" ? responseUuid?.payload?.referenced_test_uuids?.Values?.test_uuid || "" : uuidString;
 
   const finalResultTypeString = resultTypeString === "all" ? "value" : resultTypeString;
 

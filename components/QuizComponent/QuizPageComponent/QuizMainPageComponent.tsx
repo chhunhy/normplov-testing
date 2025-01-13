@@ -25,7 +25,6 @@ import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
 import { useTranslations } from 'next-intl'
 
 
-
 type TestAssessment = {
     draft_uuid: string | null;
     is_draft: boolean;
@@ -66,7 +65,6 @@ export default function QuizMainPageComponent() {
 
     const { data, isLoading, isSuccess } = useFetchAllTestQuery()
     const AllTestAssessment = data?.payload
-
 
     // const { typeOfQuizKh, introKh, instructKh } = t('TestMainPage')
 

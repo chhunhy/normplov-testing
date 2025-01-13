@@ -21,6 +21,7 @@ import Pagination from '@/components/ProfileComponent/Pagination';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
+import { useGetAllFinalTestUuidsQuery } from '@/redux/feature/assessment/quiz';
 
 
 type ChartData = {
@@ -75,7 +76,9 @@ export const LearningStyleResultComponent = () => {
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
-    const finalUuid = resultTypeString === "all" ? localStorage.getItem("learningStyle") || "" : uuidString;
+    const { data: responseUuid } = useGetAllFinalTestUuidsQuery({ testUuid: uuidString })
+
+    const finalUuid = resultTypeString === "all" ? responseUuid?.payload?.referenced_test_uuids?.LearningStyle?.test_uuid || "" : uuidString;
 
     const finalResultTypeString = resultTypeString === "all" ? "learningStyle" : resultTypeString;
 
@@ -83,7 +86,7 @@ export const LearningStyleResultComponent = () => {
         testUUID: finalUuid,
         resultType: finalResultTypeString
     });
-    
+
     console.log("data from learning: ", response)
 
 
