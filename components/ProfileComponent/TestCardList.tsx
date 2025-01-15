@@ -11,6 +11,7 @@ import TestListSkeleton from "../SkeletonLoading/ProfileComponent/TestListSkelet
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 // import { useGetShareLinksQuery } from '@/redux/service/test';
 
 
@@ -25,15 +26,16 @@ const TestList = () => {
   const router = useRouter(); // For navigation
   const getCurrentLocale = () => {
 
-    const locale = pathname.split("/")[1];
-    return locale === "en" || locale === "km" ? locale : "km";
-  };
+  const locale = pathname.split("/")[1];
+  return locale === "en" || locale === "km" ? locale : "km";
+};
   const currentLocale = getCurrentLocale();
   // Fetch tests
   const { data, refetch,isLoading } = useGetAllUserTestQuery({
     page: currentPage,
     page_size: itemsPerPage,
   });
+
    // Fetch shareable link for the current UUID
    const { data: shareLinkData, isFetching: isFetchingShareLink } = useGetShareLinksQuery(
     { uuid: currentUuid || "" },
@@ -188,7 +190,7 @@ const handleCopyToClipboard = () => {
 
   return (
   <div className="pt-4 lg:pt-0">
-      <h1 className="hidden lg:flex text-3xl pb-3 text-primary font-bold w-full text-left">Testing history</h1>
+      <h1 className=" text-3xl pb-3 text-primary font-bold w-full text-left">Testing history</h1>
       <div className="relative w-full">
       {data?.payload.tests && data.payload.tests.length > 0 ? (
         <>

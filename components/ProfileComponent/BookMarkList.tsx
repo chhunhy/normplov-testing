@@ -8,8 +8,8 @@ import DeleteConfirmationModal from "./DeleteComfirmModal";
 import Image from "next/image";
 import { useRouter,usePathname } from "next/navigation";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
-import DraftListSkeleton from "../SkeletonLoading/ProfileComponent/DraftSkeleton";
-import { useDeleteUserBookMarkMutation, useGetAllUserBookMarkQuery } from "@/redux/service/BookMark";
+import BookmarkListSkeleton from "../SkeletonLoading/ProfileComponent/BookmarkSkeleton";
+import { useDeleteUserBookMarkMutation, useGetAllUserBookMarkQuery } from "@/redux/service/user";
 
 
 
@@ -26,13 +26,11 @@ const BookMarkList = () => {
 };
 const currentLocale = getCurrentLocale();
   // Fetch tests
-  const { data:response, refetch,error,isLoading,isError } = useGetAllUserBookMarkQuery({
-    page: currentPage,
-    page_size: itemsPerPage,
-  });
+  const { data:response, refetch,error,isLoading,isError } = useGetAllUserBookMarkQuery({    page: currentPage,
+    page_size: itemsPerPage,});
+  console.log("response: " + response)
   if (isError) {
     console.error("API Error Details:", error);
-    console.log("API Endpoint:", `api/v1/bookmarks?page=${currentPage}&page_size=${itemsPerPage}`);
 }
   console.log("Error",isError)
   console.log("book",response?.payload.items)
@@ -137,7 +135,7 @@ console.log("pagination",{ totalItems, itemsPerPage, totalPages });
 if (isLoading) {
   return (
     <section>
-      <DraftListSkeleton />
+      <BookmarkListSkeleton />
       <PaginationSkeleton/>
     </section>
   );
@@ -193,3 +191,4 @@ if (isLoading) {
   );
 };
 export default BookMarkList;
+

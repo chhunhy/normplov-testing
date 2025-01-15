@@ -131,6 +131,21 @@ export default function NavbarPage() {
   ];
 
   useHandleResultUuid();
+//   const fetchData = async () => {
+//     try {
+//       const response = await fetch("https://normplov-apistad.co/api/v1/user/me", {
+//         method: "GET",
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//             "Content-Type": "application/json",
+//         },
+//         credentials: "include", // Include cookies if needed
+//     });
+//     } catch (error) {
+//         console.error("Error fetching data:", error);
+//     }
+// };
+
 
   // If `locale` is not available, you can set a default value
   return (

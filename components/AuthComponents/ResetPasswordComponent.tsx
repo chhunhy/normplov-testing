@@ -36,11 +36,18 @@ const validationSchema = Yup.object().shape({
 });
 
 const ResetPasswordComponent = () => {
+    const [currentLocale, setCurrentLocale] = useState<string>('km');
     const email = useAppSelector((state) => state.verify.email); // Get email from Redux
     const reset_code = useAppSelector((state) => state.verify.reset_code); // Get reset code from Redux
     const [isLoading, setIsLoading] = useState(false);
     const [resetPassword] = useResetPasswordMutation(); // API call for resetting the password
     const router = useRouter();
+    useEffect(() => {
+          const savedLanguage = localStorage.getItem('language');
+          if (savedLanguage) {
+            setCurrentLocale(savedLanguage);
+          }
+    }, []);
     console.log("Email from Redux: ", email)
     console.log("Reset code from Redux: ", reset_code)
     useEffect(() => {
@@ -48,7 +55,8 @@ const ResetPasswordComponent = () => {
           console.error("Email or reset code is missing:", { email, reset_code });
           toast.error("Missing email or reset code. Redirecting to Forgot Password.");
           setTimeout(() => {
-            router.push("/forgot-password");
+            router.push(`/${currentLocale}/forgot-password`);
+            // router.push("/forgot-password");
           }, 3000);
         }
       }, [email, reset_code, router]);
@@ -56,7 +64,7 @@ const ResetPasswordComponent = () => {
     const hanldeResetPassword = async(values:ValueTypes)=>{
         if (!email || !reset_code) {
             toast.error("Missing email or reset code. Redirecting to Forgot Password.");
-            router.push("/forgot-password");
+            router.push(`/${currentLocale}/forgot-password`);
             return;
           }
 
@@ -69,7 +77,8 @@ const ResetPasswordComponent = () => {
             console.log("Password Reset Response:", response);
             // Redirect to login page
             setTimeout(() => {
-            router.push("/login");
+                router.push(`/${currentLocale}/login`);
+            // router.push("/login");
             });
 
         }catch(error){
@@ -86,7 +95,7 @@ const ResetPasswordComponent = () => {
           }
     }
     const handleClose = () => {
-        router.push("/forgot-password"); // Redirect to the referrer
+        router.push(`/${currentLocale}/forgot-password`);
       };
 
   return (

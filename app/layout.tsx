@@ -1,6 +1,6 @@
-import "./globals.css";
-import SessionWrapper from "../SessionProvider";
-import StoreProvider from "../StoreProvider";
+import "@/app/[locale]/globals.css";
+import SessionWrapper from "./SessionProvider";
+import StoreProvider from "./StoreProvider";
 import { Inter, Suwannaphum } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";  // Optional for error handling
@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 
-export default async function LocalLayout({
+export default async function RootLayout({
   children,
   params, // This will provide the `locale`
 }: Readonly<{

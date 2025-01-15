@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useAppDispatch } from '@/redux/hooks';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -49,11 +49,17 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterComponent = () => {
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
   const router = useRouter();
-
+  useEffect(() => {
+      const savedLanguage = localStorage.getItem('language');
+      if (savedLanguage) {
+        setCurrentLocale(savedLanguage);
+      }
+    }, []);
   const handleSubmit = async (values: ValueTypes) => {
     setIsLoading(true);
     try {
@@ -67,7 +73,8 @@ const RegisterComponent = () => {
 
       // Redirect to OTP verification page
       setTimeout(() => {
-        router.push("/verify-code-register");
+        router.push(`/${currentLocale}/verify-code-register`);
+        // router.push("/verify-code-register");
       });
     } catch (error: unknown) {
       // console.error("Error during registration:", error);
@@ -89,7 +96,20 @@ const RegisterComponent = () => {
       setIsLoading(false);
     }
   };
+  const handleGoogleLogin = () => {
+    const clientId = `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`
+    // const clientId = "584934236339-5bjir3arta5iumk19q9j2vuaejp0b9bl.apps.googleusercontent.com";
+    const redirectUri = `${window.location.origin}/auth/google/callback`;
+    const scope = 'email profile';
+    
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` + 
+      `client_id=${encodeURIComponent(clientId)}&` +
+      `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+      `response_type=code&` +
+      `scope=${encodeURIComponent(scope)}`;
 
+    window.location.href = googleAuthUrl;
+  };
   const handleClose = () => {
     router.push("/"); // Redirect to the referrer
   };
@@ -228,7 +248,10 @@ const RegisterComponent = () => {
                       htmlFor="terms"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-textprimary"
                     >
-                     ខ្ញុំបានអាននិងយល់ព្រមលើ <Link href="/privacy-policy"   target="_blank" 
+                     ខ្ញុំបានអាននិងយល់ព្រមលើ <Link 
+                      href={`/${currentLocale}/privacy-policy`}
+                    //  href="/privacy-policy"  
+                      target="_blank" 
               rel="noopener noreferrer"  className="text-primary pl-2"> គោលការណ៍ឯកជនភាព</Link>
                     </label>
                     
@@ -255,26 +278,28 @@ const RegisterComponent = () => {
                             {/* Google Button */}
                             <div className="mt-4">
                         {/* <LoginWithGoogle /> */}
-                      </div>
-                            {/* <div className="mt-4">
-                                 <Button
-                                    type="button"
-                                    text="ភ្ជាប់ជាមួយ Google"  
-                                    onClick={() => console.log('Continue with Google clicked')}
-                                    icon={
-                                        <Image
-                                        src="/assets/google.png"
-                                        width={1000} height={1000}
-                                         alt="Google icon"
-                                         className="w-6"
-                                       />
-                                    }
-                                    className="w-full border-2 border-primary  text-textprimary"
-                                />
-                            </div> 
+                      </div>                       <div className="mt-4 text-center">
+                          <Button
+                            type="button"
+                            text="ភ្ជាប់ជាមួយ Google"
+                            onClick={handleGoogleLogin}
+                            icon={
+                              <Image
+                                src="/assets/google.png"
+                                width={24}
+                                height={24}
+                                alt="Google icon"
+                              />
+                            }
+                            className=" w-full border-2 border-primary  text-textprimary "
+                          />
+                        </div>
                              {/* Don't have accoun? Register */}
                              <div className='mt-4 text-center text-textprimary '>
-                                 <span>មានគណនីរួចហើយ?<Link href="/login" className='text-primary hover:underline hover:font-semibold pl-1.5'>ចូលគណនី</Link></span>
+                                 <span>មានគណនីរួចហើយ?<Link 
+                                  href={`/${currentLocale}/login`}
+                                //  href="/login" 
+                                 className='text-primary hover:underline hover:font-semibold pl-1.5'>ចូលគណនី</Link></span>
                              </div>
                 </Form>
               )}

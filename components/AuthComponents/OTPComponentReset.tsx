@@ -14,6 +14,7 @@ import { useResendCodeResetPasswordMutation } from "@/redux/service/auth";
 import { setResetCode } from "@/redux/feature/verify/verifySlice";
 
 function OTPComponentReset() {
+   const [currentLocale, setCurrentLocale] = useState<string>('km');
   const email = useAppSelector((state) => state.verify.email);
   const [otp, setOtp] = useState(""); // Store OTP
   const [resending, setResending] = useState(false); // Track resend state
@@ -23,7 +24,12 @@ function OTPComponentReset() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [timer, setTimer] = useState(90); // Countdown timer
-
+  useEffect(() => {
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+              setCurrentLocale(savedLanguage);
+            }
+      }, []);
   useEffect(() => {
     let countdown: NodeJS.Timeout;
     if (timer > 0) {
@@ -39,7 +45,8 @@ function OTPComponentReset() {
     if (!email) {
       toast.error("Email is missing. Redirecting to registration.");
       setTimeout(() => {
-        router.push("/forgot-password");
+        router.push(`/${currentLocale}/forgot-password`);
+        // router.push("/forgot-password");
       }, 3000); // Redirect after 3 seconds
     }
   }, [email, router]);
@@ -53,7 +60,7 @@ function OTPComponentReset() {
   const handleSubmit = async () => {
     if (!email) {
       toast.error("Email is missing. Redirecting to registration.");
-      router.push("/forgot-password");
+      router.push(`/${currentLocale}/forgot-password}`);
       return;
     }
   
@@ -69,7 +76,8 @@ function OTPComponentReset() {
       toast.success("OTP Verified Successfully!");
       console.log("Verification Response:", response);
       setTimeout(() => {
-        router.push("/reset-password"); // Redirect to login page
+        router.push(`/${currentLocale}/reset-password`);
+        // router.push("/reset-password"); // Redirect to login page
       }, 3000);
     } catch (error) {
       console.error("Verification Error:", error);
@@ -83,7 +91,7 @@ function OTPComponentReset() {
   const handleResendCode = async () => {
     if (!email) {
       toast.error("Email is missing. Redirecting to registration.");
-      router.push("/forgot-password");
+      router.push(`/${currentLocale}/forgot-password}`);
       return;
     }
     console.log("Resend Code Request:", { email });
@@ -102,7 +110,7 @@ function OTPComponentReset() {
     }
   };
   const handleClose = () => {
-    router.push("/forgot-password"); // Redirect to the referrer
+    router.push(`/${currentLocale}/forgot-password}`);
   };
   
 

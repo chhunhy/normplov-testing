@@ -201,7 +201,7 @@ const SideBarProfileComponent = () => {
       <div className="flex flex-col h-fit ">
       
        <div>
-       <div className="bg-white pb-4 lg:hidden flex justify-between items-center w-full p-4 text-white rounded-[8px] sticky top-14 left-0 right-0 z-50 ">
+       <div className="bg-white pb-4 h-full lg:hidden flex justify-between items-center w-full p-4 text-white rounded-[8px] sticky top-14 left-0 right-0 z-50 ">
           <button
             className="flex items-center space-x-2 text-lg font-bold p-3 rounded-[8px] bg-primary"
             onClick={() => setSidebarOpen(!isSidebarOpen)} // Toggle sidebar on click
@@ -214,9 +214,9 @@ const SideBarProfileComponent = () => {
         </div>
        </div>
         
-       <div className="lg:hidden ">
+       <div className="lg:hidden h-full">
        <aside
-          className={`w-96 xl:w-[420px] rounded-r-xl bg-white p-8 flex flex-col lg:rounded-2xl justify-between lg:flex fixed top-0 left-0 z-50 lg:translate-x-0 lg:w-[350px] transition-transform duration-300 transform ${
+          className={`w-80 xl:w-[420px] rounded-r-xl bg-white p-8 flex flex-col lg:rounded-2xl justify-between lg:flex fixed top-0 left-0 z-50 lg:translate-x-0 lg:w-[350px] transition-transform duration-300 transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -376,7 +376,7 @@ const SideBarProfileComponent = () => {
             />
           </div>
 
-          <div className="pt-6 mt-6 bg-white">
+          <div className="mt-3 bg-white">
             <ButtonProfile
               text="Logout"
               subText=""

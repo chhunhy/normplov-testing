@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
 
     // Parse the successful response
     const data = await response.json();
+    console.log("data:", data);
     const { access_token, refresh_token, ...user } = data.payload;
     console.log("Access token login api: " + access_token)
 

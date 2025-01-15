@@ -82,6 +82,7 @@ const ProfileForm = () => {
 
   return (
     <>
+    <h1 className="text-primary pt-3 text-2xl font-bold lg:hidden">Information About User</h1>
       <Formik
         initialValues={{
           username: user?.payload.username || "",

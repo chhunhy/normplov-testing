@@ -12,6 +12,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 function OTPComponent() {
+  // Fetch the email from Redux state (assuming Redux is used) and store it in a variable.
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const email = useAppSelector((state) => state.verify.email);
   const [otp, setOtp] = useState(""); // Store OTP
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +22,12 @@ function OTPComponent() {
   const [verifyCodeRegister] = useVerifyCodeRegisterMutation(); // Use the mutation hook
   const [resendCode] = useResendVerifyCodeRegisterMutation(); // Mutation hook for resending code
   const router = useRouter();
-
+   useEffect(() => {
+              const savedLanguage = localStorage.getItem('language');
+              if (savedLanguage) {
+                setCurrentLocale(savedLanguage);
+              }
+        }, []);
   // Start countdown timer
   useEffect(() => {
     let countdown: NodeJS.Timeout;
@@ -36,7 +43,8 @@ function OTPComponent() {
     if (!email) {
       toast.error("Email is missing. Redirecting to registration.");
       setTimeout(() => {
-        router.push("/register");
+        router.push(`/${currentLocale}/register`);
+        // router.push("/register");
       }, 3000);
     }
   }, [email, router]);
@@ -49,7 +57,7 @@ function OTPComponent() {
   const handleSubmit = async () => {
     if (!email) {
       toast.error("Email is missing. Redirecting to registration.");
-      router.push("/register");
+      router.push(`/${currentLocale}/register`);
       return;
     }
 
@@ -61,7 +69,8 @@ function OTPComponent() {
       toast.success("OTP Verified Successfully!");
       console.log("Verification Response:", response);
       setTimeout(() => {
-        router.push("/login"); // Redirect to login page
+        router.push(`/${currentLocale}/login`);
+        // router.push("/login"); // Redirect to login page
       }, 3000);
     } catch (error) {
       console.error("Verification Error:", error);
@@ -74,7 +83,7 @@ function OTPComponent() {
   const handleResendCode = async () => {
     if (!email) {
       toast.error("Email is missing. Redirecting to registration.");
-      router.push("/register");
+      router.push(`/${currentLocale}/register`);
       return;
     }
     console.log("Resend Code Request:", { email });
@@ -92,7 +101,7 @@ function OTPComponent() {
     }
   };
   const handleClose = () => {
-    router.push("/register"); // Redirect to the referrer
+    router.push(`/${currentLocale}/register`);
   };
   
 

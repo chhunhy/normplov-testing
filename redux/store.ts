@@ -29,7 +29,7 @@ import jobsSlice from "./feature/jobs/jobsSlice"; // Import the jobs slice
 import bookmarkReducer, { initializeBookmarks } from "./feature/jobs/bookmarkSlice";
 import localeReducer from "@/redux/feature/localeSlice/localeSlice";
 import { setLocale } from "@/redux/feature/localeSlice/localeSlice";
-
+import tokenSlice from './feature/auth/authSlice';
 
 export const makeStore = () => {
   const store = configureStore({
@@ -37,6 +37,7 @@ export const makeStore = () => {
       [normPlovApi.reducerPath]: normPlovApi.reducer,
      // [universityApi.reducerPath]: universityApi.reducer,
       auth:authSlice,
+      token:tokenSlice,
       verify: verifySlice,
       filter: filterSlice,
       jobs: jobsSlice, // Correctly add jobsSlice reducer here
