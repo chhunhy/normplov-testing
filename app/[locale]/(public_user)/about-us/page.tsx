@@ -1,9 +1,12 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import CardTeam from "@/components/About-us/CardTeam";
+import { useParams } from "next/navigation";
 
 export default function AboutUs() {
+  const { locale } = useParams();
   return (
     <div className=" bg-slate-50">
       <section className="grid grid-cols-1 bg-green-50 lg:grid-cols-2 md:grid-cols-1 gap-2 lg:px-20  md:px-20 px-10 lg:h-[650px]  md:h-auto h-[1050px]">
@@ -18,8 +21,8 @@ export default function AboutUs() {
           </p>
           <div className="py-4">
             <Link
-              href="/test"
-              className="bg-emerald-500  text-white px-6 py-2 md:px-8 md:py-2 lg:px-8 lg:py-2 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
+              href={`/${locale}/test`}
+              className="bg-emerald-500  text-white px-6 py-2 md:px-8 md:py-2 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
             >
               ចាប់ផ្តើម
             </Link>
@@ -27,12 +30,12 @@ export default function AboutUs() {
         </div>
         <div className="flex  justify-center items-start w-full h-[700px]  py-10">
           <div>
-            <div className=" absolute  lg:ml-14 md:ml-10 bg-green-100 lg:w-[600px] md:w-[580px]  h-[400px] lg:mt-20 md:mt-24 rounded-xl"></div>
+            <div className=" absolute  lg:ml-14 md:ml-4 bg-green-100 lg:w-[600px] md:w-[550px]  h-[400px] lg:mt-20 md:mt-24 rounded-xl"></div>
             <Image
               src="/assets/cover-about.jpg"
               width={200}
               height={200}
-              className="relative w-[570px] lg:h-64 md:h-65 h-40 lg:ml-40 md:ml-[100px] rounded-xl mt-8 object-fill "
+              className="relative w-[570px] lg:h-64 md:h-auto h-40 lg:ml-40 md:ml-[50px] rounded-xl mt-8 object-fill "
               alt=""
             />
             <Image
@@ -74,12 +77,12 @@ export default function AboutUs() {
       <section className="flex lg:px-20 md:px-20 px-8 max-w-full justify-center  ">
         <div className="flex max-w-7xl mx-auto my-4 md:my-6 ">
           <div className=" lg:block md:block hidden lg:w-[35%] md:w-[40%]    ">
-            <div className="flex justify-start">
+            <div className=" flex justify-start">
               <Image
                 src="/assets/Create-bro.png"
                 width={300}
                 height={300}
-                className=" relative lg:w-[400px] lg:h-[400px] md:w-[420px] md:h-[390px]  rounded-xl object-fill lg:-mt-8 md:mt-8"
+                className=" relative lg:w-[400px] lg:h-[400px] md:w-[420px] md:h-[340px]  rounded-xl object-fill lg:-mt-8 md:mt-8"
                 alt=""
               />
             </div>

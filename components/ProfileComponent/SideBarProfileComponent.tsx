@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import ButtonProfile from "./ButtonProfile";
-import { History, Archive, User, LogOut, Menu, X} from "lucide-react"; // Added X for close icon
+import { History, Archive, User, LogOut, Menu, X,BookmarkCheck} from "lucide-react"; // Added X for close icon
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { useGetUserQuery, usePostImageMutation } from "@/redux/service/user"; // Import the user API
@@ -42,18 +42,26 @@ function getRandomColor(username: string) {
 }
 
 const SideBarProfileComponent = () => {
-  const isActive = (currentPath: string) => pathname === currentPath;
+  const [currentLocale, setCurrentLocale] = useState<string>("km");
+  
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   // const [imageFile, setImageFile] = useState<File | null>(null);
-  const [activeButton, setActiveButton] = useState<string>(
-    "profile-quiz-history"
-  );
+  // const [activeButton, setActiveButton] = useState<string>();
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
+   // Load language preference from localStorage
+   useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
+  const isActive = (currentPath: string) => pathname === `/${currentLocale}${currentPath}`;
+
 
   const getPageTitle = () => {
     switch (pathname) {
@@ -61,6 +69,8 @@ const SideBarProfileComponent = () => {
         return "Test History";
       case "/profile-draft":
         return "Draft Test";
+      case "/profile-bookmark":
+        return "Draft Test";  
       case "/profile-about-user":
         return "Information";
       
@@ -68,9 +78,10 @@ const SideBarProfileComponent = () => {
   };
 
   const handleButtonClick = (buttonName: string, path: string) => {
-    setActiveButton(buttonName);
-    router.push(path);
+    // setActiveButton(buttonName);
+    router.push(`/${currentLocale}${path}`);
   };
+
 
   const closeSidebar = () => {
     setSidebarOpen(false);
@@ -220,7 +231,7 @@ const SideBarProfileComponent = () => {
           </div>
           <div
             className="flex justify-center cursor-pointer"
-            onClick={() => router.push("/profile-about-user")}
+            onClick={() => router.push(`/${currentLocale}/profile-about-user`)}
           >
             <div className="relative border-2 border-primary bg-[#fdfdfd] w-28 h-28 rounded-full p-2">
               {selectedImage || avatarUrl ? (
@@ -331,38 +342,37 @@ const SideBarProfileComponent = () => {
               text="Test History"
               subText="View your History Test"
               icon={<History className="text-white text-md" />}
-              backgroundColor="bg-white"
+              backgroundColor={isActive("/profile-quiz-history") ? "bg-[#F3FBF9]" : "bg-white"}
               iconBackgroundColor="bg-yellow-400"
-              isActive={activeButton === "profile-quiz-history"}
-              onClick={() =>
-                // {`/${locale}/profile-about-user`}
-                handleButtonClick(
-                  "profile-quiz-history",
-                  "/profile-quiz-history"
-                )
-              }
+             
+              onClick={() => handleButtonClick("profile-quiz-history", "/profile-quiz-history")}
             />
             <ButtonProfile
               text="Draft Test"
               subText="View Your Test Draft"
               icon={<Archive className="text-white text-md" />}
-              backgroundColor="bg-white"
+              backgroundColor={isActive("/profile-draft") ? "bg-[#F3FBF9]" : "bg-white"}
               iconBackgroundColor="bg-[#3AC8A0]"
-              isActive={activeButton === "profile-draft"}
-              onClick={() =>
-                handleButtonClick("profile-draft", "/profile-draft")
-              }
+              // isActive={activeButton === "profile-draft"}
+              onClick={() => handleButtonClick("profile-draft", "/profile-draft")}
+            />
+            <ButtonProfile
+              text="BookMarks"
+              subText="View Your Bookmarks"
+              icon={<History className="text-white text-md" />}
+              backgroundColor={isActive("/profile-quiz-history") ? "bg-[#F3FBF9]" : "bg-white"}
+              iconBackgroundColor="bg-yellow-400"
+             
+              onClick={() => handleButtonClick("profile-bookmark", "/profile-bookmark")}
             />
             <ButtonProfile
               text="About You"
               subText="View Your Profile"
               icon={<User className="text-white text-md" />}
-              backgroundColor="bg-white"
+              backgroundColor={isActive("/profile-about-user") ? "bg-[#F3FBF9]" : "bg-white"}
               iconBackgroundColor="bg-red-400"
-              isActive={activeButton === "profile-about-user"}
-              onClick={() =>
-                handleButtonClick("profile-about-user", "/profile-about-user")
-              }
+              // isActive={activeButton === "profile-about-user"}
+              onClick={() => handleButtonClick("profile-about-user", "/profile-about-user")}
             />
           </div>
 
@@ -396,7 +406,7 @@ const SideBarProfileComponent = () => {
           </div>
           <div
             className="flex justify-center cursor-pointer"
-            onClick={() => router.push("/profile-about-user")}
+            onClick={() => router.push(`/${currentLocale}/profile-about-user`)}
           >
             <div className="relative border-2 border-primary bg-[#fdfdfd] w-28 h-28 rounded-full p-2">
               {selectedImage || avatarUrl ? (
@@ -463,6 +473,16 @@ const SideBarProfileComponent = () => {
               iconBackgroundColor="bg-[#3AC8A0]"
               onClick={() =>
                 handleButtonClick("profile-draft", "/profile-draft")
+              }
+            />
+            <ButtonProfile
+              text="BookMarks"
+              subText="View Your Bookmarks"
+              icon={<BookmarkCheck className="text-white text-md" />}
+              backgroundColor={isActive("/profile-bookmark") ? "bg-[#F3FBF9]" : "bg-white"}
+              iconBackgroundColor="bg-[#FFA500]"
+              onClick={() =>
+                handleButtonClick("profile-bookmark", "/profile-bookmark")
               }
             />
             <ButtonProfile

@@ -34,6 +34,25 @@ type updateUserProfile = {
   gender?: string | null;
   bio?: string | null;
 };
+type Items ={
+  bookmark_uuid: string;
+  job_uuid: string;
+  job_type:string;
+  title: string;
+  company_name:string;
+  company_logo:string;
+  province_name:string;
+  closing_date:string;
+}
+
+// Define the type for pagination metadata
+type Metadata ={
+  page: number;
+  page_size: number;
+  total_items: number;
+  total_pages: number;
+}
+
 
 export const userApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -90,6 +109,7 @@ export const userApi = normPlovApi.injectEndpoints({
       }),
       invalidatesTags: ["bookmarks"],
     }),
+
 
   }),
 });

@@ -1,9 +1,14 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 export default function FooterPage() {
+  const { locale } = useParams();
+  const t = useTranslations("Footer"); // Hook to access translations
   return (
     <footer className="border-t py-4   bg-slate-50">
       <div className="container mx-auto px-4">
@@ -21,14 +26,10 @@ export default function FooterPage() {
                 ></Image>
               </Link>
               <p className="text-textprimary block md:hidden lg:block text-md leading-relaxed">
-                នាំផ្លូវ គឺជាគេហទំព័រដែលជួយឲ្យអ្នក
-                ស្គាល់ខ្លួនឯងកាន់តែច្បាស់និងមាន ប្រសិទ្ធភាពក្នុងការចាប់យកអាជីពនា
-                ពេលបច្ចុប្បន្ននិងអនាគត ។
+                {t("description")}
               </p>
               <p className="text-textprimary hidden md:block lg:hidden text-md leading-relaxed">
-                នាំផ្លូវ គឺជាគេហទំព័រដែលជួយឲ្យអ្នក
-                ស្គាល់ខ្លួនឯងកាន់តែច្បាស់និងមាន ប្រសិទ្ធភាពក្នុងការចាប់យកអាជីពនា
-                ពេលបច្ចប្បន្ននិងអនាគត ។
+                {t("description")}
               </p>
             </div>
           </div>
@@ -37,7 +38,7 @@ export default function FooterPage() {
           <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-[80px] mr-0 ">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
-                មាតិកា
+                {t("navigationTitle.navLinks")}
               </h3>
               <ul className="space-y-1">
                 <li>
@@ -45,47 +46,47 @@ export default function FooterPage() {
                     href="/"
                     className="text-textprimary hover:text-emerald-500"
                   >
-                    ទំព័រដើម
+                    {t("navigationTitle.navLinks1")}
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    href={`/${locale}/test`}
+                    className="text-textprimary hover:text-emerald-500"
+                  >
+                    {t("navigationTitle.navLinks2")}
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/test"
+                    href={`/${locale}/university`}
                     className="text-textprimary hover:text-emerald-500"
                   >
-                    តេស្ត
+                    {t("navigationTitle.navLinks3")}
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/university"
+                    href={`/${locale}/jobs`}
                     className="text-textprimary hover:text-emerald-500"
                   >
-                    គ្រឹស្ថានសិក្សា
+                    {t("navigationTitle.navLinks4")}
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/jobs"
+                    href={`/${locale}/privacy-policy`}
                     className="text-textprimary hover:text-emerald-500"
                   >
-                    ការងារ
+                    {t("navigationTitle.navLinks5")}
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/privacy-policy"
+                    href={`/${locale}/about-us`}
                     className="text-textprimary hover:text-emerald-500"
                   >
-                    ឯកជនភាព
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about-us"
-                    className="text-textprimary hover:text-emerald-500"
-                  >
-                    អំពីយើង
+                    {t("navigationTitle.navLinks6")}
                   </Link>
                 </li>
               </ul>
@@ -95,7 +96,7 @@ export default function FooterPage() {
           <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-[60px] mr-0">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
-                ព័ត៌មានទំនាក់ទំនង
+              {t("contactTitle")}
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
@@ -104,7 +105,7 @@ export default function FooterPage() {
                     <a href="tel:+855978443615" className="text-textprimary">
                       +855978443615
                     </a>
-                    <p className="text-gray-500 text-sm">លេខទូរស័ព្ទ</p>
+                    <p className="text-gray-500 text-sm">{t("contact.phone")}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -116,11 +117,11 @@ export default function FooterPage() {
                     >
                       normplov.istad@gmail.com
                     </a>
-                    <p className="text-gray-500 text-sm">អ៉ីម៉ែល</p>
+                    <p className="text-gray-500 text-sm">{t("contact.email")}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-emerald-500 mt-1" />
+                  <MapPin className="w-6 h-6 text-emerald-500 mt-1" />
                   <div>
                     <a
                       href="https://www.google.com/maps/dir/11.5762226,104.9272048/11.5784119,104.90279/@11.5682273,104.900408,14z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu"
@@ -128,9 +129,9 @@ export default function FooterPage() {
                       rel="noopener noreferrer"
                       className="text-textprimary"
                     >
-                      សង្កាត់បឹកកក់១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ
+                      {t("contact.address.text")}
                     </a>
-                    <p className="text-gray-500 text-sm">អាសយដ្ឋាន</p>
+                    <p className="text-gray-500 text-sm">{t("contact.address.label")}</p>
                   </div>
                 </div>
               </div>
@@ -141,7 +142,7 @@ export default function FooterPage() {
           <div className="flex justify-start md:justify-center lg:justify-start lg:mr-[80px] md:mr-0 mr-0  w-full">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
-                ឧបត្ថម្ភដោយ
+              {t("sponsoredBy")}
               </h3>
 
               <div className="lg:flex md:block justify-between gap-2">
@@ -162,7 +163,7 @@ export default function FooterPage() {
               </div>
               <div className="space-y-4 mt-4">
                 <h3 className="font-semibold text-2xl text-textprimary">
-                  រៀបចំដោយ
+                {t("organizedBy")}
                 </h3>
                 <Image
                   src="/assets/istad_logo.jpg"
@@ -183,11 +184,11 @@ export default function FooterPage() {
         {/* Copyright */}
         <div className="mt-8 pt-4 border-t text-center text-textprimary">
           <p>
-            2024 Copyright NormPlov by{" "}
+          {t("copyright")}{" "}
             <span className="text-green-700">
               <Link href="https://www.cstad.edu.kh/">ISTAD</Link>
             </span>
-            . All rights reserved.™
+            {" "}{t("allRightsReserved")}
           </p>
         </div>
       </div>

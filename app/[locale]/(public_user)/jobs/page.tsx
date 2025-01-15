@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import {  usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -26,6 +26,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
+
 
 interface CategoryOption {
   value: string;
@@ -492,13 +493,12 @@ export default function Job() {
                 image={job.logo}
                 time={job.job_type}
                 location={job.location}
-                closing_date={job.closing_date}
                 created_at_days_ago={job.created_at_days_ago}
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
                 isActive={false} // Default or dynamic value
                 visitor_count={job.visitor_count ?? 0}
-                bookmarked={job.bookmarked ?? false}
+                bookmarked={job.bookmarked ?? false }
                 onClick={() => handleCardClick(job.uuid)}
               />
             ))}

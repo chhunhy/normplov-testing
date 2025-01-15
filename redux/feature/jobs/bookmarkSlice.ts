@@ -1,31 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type BookmarkState = {
-  bookmarks: Record<string, boolean>;
-};
+interface BookmarkState {
+  bookmarks: Record<string, boolean>; // Dictionary of UUIDs to bookmark status
+}
 
 const initialState: BookmarkState = {
-  bookmarks: {},
+  bookmarks: {}, // Ensure it's an object
 };
 
 const bookmarkSlice = createSlice({
-  name: "bookmarks",
+  name: "bookmark",
   initialState,
   reducers: {
-    initializeBookmarks: (
-      state,
-      action: PayloadAction<Record<string, boolean>>
-    ) => {
-      state.bookmarks = action.payload; // Initialize with fetched bookmarks
-    },
     setBookmark: (
       state,
       action: PayloadAction<{ uuid: string; isBookmarked: boolean }>
     ) => {
-      state.bookmarks[action.payload.uuid] = action.payload.isBookmarked; // Toggle bookmark
+      const { uuid, isBookmarked } = action.payload;
+
+      // Ensure bookmarks object exists
+      if (!state.bookmarks) {
+        state.bookmarks = {};
+      }
+
+      // Update the bookmark status
+      state.bookmarks[uuid] = isBookmarked;
     },
   },
 });
 
-export const { initializeBookmarks, setBookmark } = bookmarkSlice.actions;
+export const { setBookmark } = bookmarkSlice.actions;
 export default bookmarkSlice.reducer;

@@ -16,7 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+
+
 
 type ValueTypes = {
   email: string;
@@ -46,6 +47,10 @@ const LoginComponent = () => {
 
   const handleClose = () => {
     router.push("/"); // Redirect to the referrer
+  };
+  const handleGoogleLogin = () => {
+    // Redirect to the Google login endpoint
+    window.location.href = "https://normplov-api.shinoshike.studio/api/v1/auth/google";
   };
   const handleLogin = async (user: ValueTypes) => {
     const { email, password } = user;
@@ -93,7 +98,6 @@ const LoginComponent = () => {
   //   // Redirect user to the homepage or another page
   //   router.push("/");
   // };
-
 
   return (
     <section
@@ -148,18 +152,16 @@ const LoginComponent = () => {
           </div>
           <div className="w-full  lg:w-1/2 flex mx-auto">
             <div className=" w-full  mx-auto">
-            <div className="flex flex-row-reverse ">
-                  <button
-                    className="text-2xl text-gray-500 hover:text-gray-700 px-3 pt-3"
-                       onClick={handleClose}
-                      aria-label="Close login page"
-                  >
-                    <IoCloseSharp />
-                  </button>
-                </div>
+              <div className="flex flex-row-reverse ">
+                <button
+                  className="text-2xl text-gray-500 hover:text-gray-700 px-3 pt-3"
+                  onClick={handleClose}
+                  aria-label="Close login page"
+                >
+                  <IoCloseSharp />
+                </button>
+              </div>
               <div className="lg:px-12">
-                
-
                 <div className="mt-12 md:mt-14 px-8 lg:mt-10 lg:px-12">
                   <h1 className="text-4xl font-bold text-primary">ចូលគណនី</h1>
                   <Formik
@@ -228,14 +230,12 @@ const LoginComponent = () => {
                           <span className="w-1/2 border-b border-gray-300"></span>
                         </div>
                         {/* Google Button */}
-                        {/* <div className="mt-4">
-                          <LoginWithGoogle />
-                        </div> */}
+
                         <div className="mt-4 text-center">
                           <Button
                             type="button"
                             text="ភ្ជាប់ជាមួយ Google"
-                            onClick={() => signIn("google")}
+                            onClick={handleGoogleLogin}
                             icon={
                               <Image
                                 src="/assets/google.png"

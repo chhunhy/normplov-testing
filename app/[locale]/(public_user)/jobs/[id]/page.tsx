@@ -57,6 +57,7 @@ interface Job {
   isActive?: boolean;
   bookmarked?: boolean;
   visitor_count?: number;
+  website?:string;
 }
 
 
@@ -365,7 +366,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 image={job.logo}
                 time={job.job_type}
                 location={job.location}
-                closing_date={job.closing_date}
+                
                 created_at_days_ago={job.created_at_days_ago}
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
@@ -402,6 +403,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   jobRequirement={selectedJobFromId.requirements ?? []}
                   jobResponse={selectedJobFromId.responsibilities ?? []}
                   buttonText="Apply Now"
+                  url={selectedJobFromId.website}
                 />
               ) : (
                 <div className="p-4 text-gray-600">
