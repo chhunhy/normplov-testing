@@ -110,6 +110,14 @@ export const userApi = normPlovApi.injectEndpoints({
       invalidatesTags: ["bookmarks"],
     }),
 
+    //getTestimonial:builder.query<Testimonial,void>({
+    //  query: () => ({
+     //   url: `api/v1/feedback/promoted`,
+     //   method: "GET",
+     // }),      
+    //})
+
+
 
   }),
 });

@@ -37,6 +37,7 @@ type UniversityType = {
   mission: string;
   majors: MajorType[];
   vision: string;
+  type:string;
   faculties: {
     uuid: string;
     name: string;
@@ -119,7 +120,9 @@ export default function CardUniversityDetail({
   majors,
   latitude,
   longitude,
+  popular_major,
   faculties,
+  type
 }: UniversityType) {
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string>("BACHELOR"); // Default to "BACHELOR"
@@ -226,7 +229,7 @@ export default function CardUniversityDetail({
         </div>
         {/* screen laptop and ipad */}
         <div className="hidden md:block lg:block  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
-          <div className="bg-white  bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-[230px] w-auto h-[200px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
+          <div className="bg-white  bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-auto w-auto h-[200px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
             <Image
               src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
               alt={kh_name}
@@ -246,9 +249,14 @@ export default function CardUniversityDetail({
               <p className="text-textprimary lg:text-2xl md:text-xl text-sm mb-4">
                 {location}
               </p>
-              <button className="bg-primary lg:text-lg md:text-lg text-sm text-white py-2 px-6 rounded-xl hover:bg-secondary transition-all">
-                ចូលទៅកាន់គេហទំព័រ
-              </button>
+              <div className="flex  space-x-2">
+              <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
+                {type} School
+              </div>
+              <div className="bg-secondary bg-opacity-10 text-secondary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
+                {popular_major} 
+              </div>
+              </div>
             </div>
           </div>
         </div>
@@ -274,13 +282,11 @@ export default function CardUniversityDetail({
                 </h1>
               </div>
             </div>
-            <div className="flex justify-between  items-center">
-              <p className="text-textprimary lg:text-2xl md:text-xl text-sm mb-4">
-                {location}
-              </p>
-              <button className="bg-primary lg:text-lg md:text-lg text-sm text-white lg:py-2 lg:px-6 md:py-2 md:px-6 py-2 px-3 rounded-xl hover:bg-secondary transition-all">
-                គេហទំព័រ
-              </button>
+            <div className="flex justify-end  items-center">
+              
+              <div className="bg-primary lg:text-lg md:text-lg text-sm text-primary lg:py-2 lg:px-6 md:py-2 md:px-6 py-1 px-2 rounded-xl bg-opacity-10">
+              {type} School
+              </div>
             </div>
           </div>
         </div>
@@ -293,7 +299,7 @@ export default function CardUniversityDetail({
           <Card>
             <CardContent>
               <h2 className="font-bold text-textprimary text-xl mb-4">
-                ទីតាំងយើងខ្ញុំ
+                ទីតាំងសាលា
               </h2>
               <div className="aspect-[4/3] rounded-xl bg-gray-100 mb-4">
                 {/* Map placeholder */}
@@ -312,8 +318,8 @@ export default function CardUniversityDetail({
               </div>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-2">
-                  <div className="flex justify-start items-end">
-                    <MapPin className="lg:w-6 lg:h-6 md:w-10 md:h-10 w-8 h-8 text-gray-400" />
+                  <div className="flex justify-start items-end  ">
+                    <MapPin className=" text-gray-400 lg:text-[16px] md:text-[10px] text-[16px]" />
                   </div>
                   <a
                     href={googleMapEmbedUrl}
@@ -325,7 +331,7 @@ export default function CardUniversityDetail({
                   </a>
                 </div>
                 <div className="flex items-center gap-2 ">
-                  <Globe className="lg:w-5 lg:h-5 md:w-4 md:h-4 w-5 h-5 text-gray-400 lg:text-[16px] md:text-[16px] text-[16px]" />
+                  <Globe className=" text-gray-400 lg:text-[16px] md:text-[10px] text-[16px]" />
                   <a
                     href={`${website}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-primary "
@@ -334,7 +340,7 @@ export default function CardUniversityDetail({
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Phone className="lg:w-5 lg:h-5 md:w-4 md:h-4 w-5 h-5 text-gray-400  lg:text-[16px] md:text-[16px] text-[16px]" />
+                  <Phone className=" text-gray-400  lg:text-[16px] md:text-[10px] text-[16px]" />
                   <a
                     href={`tel:${phone}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
@@ -343,7 +349,7 @@ export default function CardUniversityDetail({
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="lg:w-5 lg:h-5 md:w-4 md:h-4 w-5 h-5 text-gray-400" />
+                  <Mail className=" text-gray-400 lg:text-[16px] md:text-[10px] text-[1px]" />
                   <a
                     href={`mailto:${email}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
