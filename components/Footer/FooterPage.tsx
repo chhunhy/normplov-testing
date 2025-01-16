@@ -18,11 +18,11 @@ export default function FooterPage() {
             <div className="space-y-4">
               <Link href="/" className="text-emerald-500 text-xl font-semibold">
                 <Image
-                  src="/assets/logo.jpg"
+                  src="/assets/logo-text.jpg"
                   alt="Logo"
                   width={1000}
                   height={1000}
-                  className="lg:w-[60px] md:w-[50px] w-[40px] "
+                  className="lg:w-[220px] md:w-[200px] w-[200px] -ml-2 "
                 ></Image>
               </Link>
               <p className="text-textprimary block md:hidden lg:block text-md leading-relaxed">

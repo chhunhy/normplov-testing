@@ -1,839 +1,483 @@
 "use client";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Zap, Check } from 'lucide-react'
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import SocialMediaCard from "./SocialMediaCard";
+import AOS from 'aos';
+import 'aos/dist/aos.css';  // Make sure you import the CSS for animations
+
+
 
 export default function CardTeam() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [ , setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      offset: 120,
+      once: true
+      // Animation duration (in ms)
+        // Whether animation should happen only once
+    });
+  }, []);
   return (
-    <div className=" h-auto   grid w-auto auto-rows-fr grid-cols-1 lg:gap-1 md:gap-8 gap-3  lg:grid-cols-2 md:grid-cols-1">
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[250px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+    <div className=" h-auto   grid w-auto auto-rows-fr grid-cols-1 lg:gap-[120px] md:gap-[100px] gap-3  lg:grid-cols-3 md:grid-cols-2 mb-10">
+      <div className="text-center" data-aos="slide-up">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/lyminh copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Phy Lymann</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+            BACK-END DEVELOPER
+            </h1>
+          </div>
+          <div className="flex items-start   justify-center text-textprimary text-2xl ">
+            <ul className="wrapper ">
+              <li className="icon facebook">
+                <span className="tooltip">Facebook</span>
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Image
-                    src="/assets/lyminh.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Phy Lymann</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Back-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="1.2em"
+                    viewBox="0 0 320 512"
+                  >
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon twitter">
+                <span className="tooltip">Telegram</span>
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="telegram"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                    height="1.8em"
+                  >
+                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon instagram">
+                <span className="tooltip">GitHub</span>
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="1.2em"
+                    className="bi bi-github"
+                  >
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" data-aos="slide-up">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/roza copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Yeng Sokroza</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="flex items-start   justify-center text-textprimary text-2xl ">
+            <ul className="wrapper ">
+              <li className="icon facebook">
+                <span className="tooltip">Facebook</span>
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Image
-                    src="/assets/roza.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Yeng Sokroza</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="1.2em"
+                    viewBox="0 0 320 512"
+                  >
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon twitter">
+                <span className="tooltip">Telegram</span>
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="telegram"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                    height="1.8em"
+                  >
+                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon instagram">
+                <span className="tooltip">GitHub</span>
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="1.2em"
+                    className="bi bi-github"
+                  >
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" data-aos="slide-up">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/sovanarith copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Hout Sovannarith</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="flex items-start   justify-center text-textprimary text-2xl ">
+            <ul className="wrapper ">
+              <li className="icon facebook">
+                <span className="tooltip">Facebook</span>
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Image
-                    src="/assets/chhunhy.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Chhem Chhunhy</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="1.2em"
+                    viewBox="0 0 320 512"
+                  >
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon twitter">
+                <span className="tooltip">Telegram</span>
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="telegram"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                    height="1.8em"
+                  >
+                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon instagram">
+                <span className="tooltip">GitHub</span>
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="1.2em"
+                    className="bi bi-github"
+                  >
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" data-aos="slide-up">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/seavmey.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Channtha Seamey</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="flex items-start   justify-center text-textprimary text-2xl ">
+            <ul className="wrapper ">
+              <li className="icon facebook">
+                <span className="tooltip">Facebook</span>
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Image
-                    src="/assets/seamey.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Channtha Seamey</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4 items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="1.2em"
+                    viewBox="0 0 320 512"
+                  >
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon twitter">
+                <span className="tooltip">Telegram</span>
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="telegram"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                    height="1.8em"
+                  >
+                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon instagram">
+                <span className="tooltip">GitHub</span>
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="1.2em"
+                    className="bi bi-github"
+                  >
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" data-aos="slide-up">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/Chhunhy copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Chhem Chhunhy</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="flex items-start   justify-center text-textprimary text-2xl ">
+            <ul className="wrapper ">
+              <li className="icon facebook">
+                <span className="tooltip">Facebook</span>
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Image
-                    src="/assets/sovanarith.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Hout Sovannarith</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute llg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="1.2em"
+                    viewBox="0 0 320 512"
+                  >
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon twitter">
+                <span className="tooltip">Telegram</span>
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="telegram"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                    height="1.8em"
+                  >
+                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon instagram">
+                <span className="tooltip">GitHub</span>
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="1.2em"
+                    className="bi bi-github"
+                  >
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[450px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[200px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" data-aos="slide-up">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/kimla copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Chhoeurn Kimla</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="flex items-start   justify-center text-textprimary text-2xl ">
+            <ul className="wrapper ">
+              <li className="icon facebook">
+                <span className="tooltip">Facebook</span>
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Image
-                    src="/assets/kimla.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Chhoeurn Kimla</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="1.2em"
+                    viewBox="0 0 320 512"
+                  >
+                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon twitter">
+                <span className="tooltip">Telegram</span>
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="telegram"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                    height="1.8em"
+                  >
+                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
+                  </svg>
+                </a>
+              </li>
+              <li className="icon instagram">
+                <span className="tooltip">GitHub</span>
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="1.2em"
+                    className="bi bi-github"
+                  >
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

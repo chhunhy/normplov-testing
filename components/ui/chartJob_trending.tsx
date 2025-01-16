@@ -24,9 +24,10 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
       }
 
       // Prepare data for the chart
-      const labels = trendingJobs.map((job) => job.month); // X-axis labels
-      const jobCategoriesData = trendingJobs.map((job) => job.count); // Dataset
-      const jobLabels = trendingJobs.map((job) => job.label); // Labels for each point
+      const labels = trendingJobs.map((job) => job.month);
+const jobCategoriesData = trendingJobs.map((job) => job.count);
+const jobLabels = trendingJobs.map((job) => job.label);
+console.log("Labels:", labels);
 
       // Create new chart instance
       chartInstance.current = new Chart(chartRef.current, {

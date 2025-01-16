@@ -9,29 +9,12 @@ import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
 import ProcessHomePage from "@/components/ui/ProcessHomePage";
 import { useGetPopularSchoolsQuery } from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
-import { useParams,useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import ChartJobTrending from "@/components/ui/chartJob_trending";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";
-import {useTranslations} from 'next-intl';
-
-
-
-
-const mockTrendingJobs = [
-  { month: "Jan", label: "Data Scientist", count: 320 },
-  { month: "Feb", label: "Backend Developer", count: 420 },
-  { month: "Mar", label: "AI Specialist", count: 310 },
-  { month: "Apr", label: "Software Engineer", count: 290 },
-  { month: "May", label: "Cybersecurity Expert", count: 270 },
-  { month: "Jun", label: "DevOps Engineer", count: 440 },
-  { month: "Jul", label: "Frontend Developer", count: 250 },
-  { month: "Aug", label: "MIS", count: 380 },
-  { month: "Sep", label: "Financial HR", count: 340 },
-  { month: "Oct", label: "Data Analyst", count: 290 },
-  { month: "Nov", label: "Software Engineer", count: 310 },
-  { month: "Dec", label: "Backend Developer", count: 370 },
-];
+import { useTranslations } from "next-intl";
+import { useGetTrendingJobQuery } from "@/redux/service/jobs";
 
 // Define the types for the props
 interface FeatureCardProps {
@@ -51,20 +34,14 @@ type UniversityType = {
   logo_url: string | null; // Handle null value
 };
 
-//interface TrendingJob {
-// month: string;
-// label: string;
-// count: number;
-//}
 
 
-
-export  default function Page() {
-  const t = useTranslations('HomePage');  // Hook to access translations
+export default function Page() {
+  const t = useTranslations("HomePage"); // Hook to access translations
   const router = useRouter();
   //const [trendingJobs, setTrendingJobs] = useState<TrendingJob[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  //const [loading, setLoading] = useState<boolean>(true);
+  const [error, ] = useState<string | null>(null);
 
   const { search, province_uuid, page } = useAppSelector(
     (state) => state.filter
@@ -75,42 +52,17 @@ export  default function Page() {
     province_uuid,
     page,
   });
+  console.log("university",data)
 
-  // Fetch Trending Jobs Data
-  useEffect(() => {
-    const fetchTrendingJobs = async () => {
-      setLoading(true);
-      setError(null);
+  // Use the query hook to fetch trending jobs
+  const { data: trendingJobsData, isLoading: isLoadingTrendingJobs } =
+    useGetTrendingJobQuery();
 
-      try {
-        const API_URL = `https://normplov-api.shinoshike.studio/api/v1/jobs/trending-jobs`;
-        console.log("Fetching data from:", API_URL);
+    const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
+  //console.log("Trending Jobs:", trendingJobs);
+  console.log("Trending Jobs Data:", trendingJobsData);
 
-        const response = await fetch(API_URL);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        if (result.status === 200 && result.payload?.trending_jobs) {
-          // setTrendingJobs(result.payload.trending_jobs);
-        } else {
-          throw new Error(result.message || "Failed to fetch data.");
-        }
-      } catch (err: unknown) {
-        console.error("Fetch Error:", err);
-        setError(
-          err instanceof Error ? err.message : "An unexpected error occurred."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTrendingJobs();
-  }, []);
 
   const { locale } = useParams();
   const handleCardClick = (id: string) => {
@@ -125,16 +77,16 @@ export  default function Page() {
         <div className="flex justify-center ">
           <div className="container mx-auto px-4 pt-10 md:pt-16 lg:pt-16 text-center ">
             <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold lg:mb-6 md:mb-4 mb-0">
-              <span className="text-emerald-500">{t('heading.part1')}</span>
-              <span className="text-orange-400"> {t('heading.part2')}</span>
-              <span className="text-emerald-500"> {t('heading.part3')}</span>
+              <span className="text-emerald-500">{t("heading.part1")}</span>
+              <span className="text-orange-400"> {t("heading.part2")}</span>
+              <span className="text-emerald-500"> {t("heading.part3")}</span>
             </h1>
             <p className="lg:max-w-5xl md:max-w-2xl max-w-4xl mx-auto text-textprimary lg:text-2xl md:text-2xl text-md m-3">
-              {t('description')}
+              {t("description")}
             </p>
 
             <button className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors">
-            {t('getstart')}
+              {t("getstart")}
             </button>
           </div>
         </div>
@@ -154,29 +106,31 @@ export  default function Page() {
       <section className="max-w-7xl mx-auto my-6">
         <div className="container px-4 lg:py-12 md:py-12 py-3">
           <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-center lg:mb-12 md:m-12 mb-4 text-textprimary">
-          {t('contain.part1')} <span className="text-emerald-500">{t('contain.part2')}</span> {t('contain.part3')}
+            {t("contain.part1")}{" "}
+            <span className="text-emerald-500">{t("contain.part2")}</span>{" "}
+            {t("contain.part3")}
           </h1>
           {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-6 gap-0">
             {/* Feature 1: Student */}
             <FeatureCard
               image="/assets/feature-01.png"
-              title={t('featureCard1.title')}
-              description={t('featureCard1.description')}
+              title={t("featureCard1.title")}
+              description={t("featureCard1.description")}
             />
 
             {/* Feature 2: Undergraduate */}
             <FeatureCard
               image="/assets/feature-02.png"
-              title={t('featureCard2.title')}
-              description={t('featureCard2.description')}
+              title={t("featureCard2.title")}
+              description={t("featureCard2.description")}
             />
 
             {/* Feature 3: Business Professional */}
             <FeatureCard
               image="/assets/feature-03.png"
-              title={t('featureCard3.title')}
-              description={t('featureCard3.description')}
+              title={t("featureCard3.title")}
+              description={t("featureCard3.description")}
             />
           </div>
         </div>
@@ -189,27 +143,30 @@ export  default function Page() {
       <section className=" bg-bglight p-6 ">
         <div className="max-w-7xl mx-auto my-4 md:my-6 flex justify-center">
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
-            {t('trendingJob.title')}
+            {t("trendingJob.title")}
           </h1>
         </div>
         <div className="max-w-7xl mx-auto my-4 md:my-6 h-full w-full   ">
-          {loading ? (
+          {isLoadingTrendingJobs ? (
             <div>
               <div className=" animate-pulse bg-slate-200 w-full lg:h-[500px] md:h-[370px] rounded-xl mt-10"></div>
             </div>
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <ChartJobTrending trendingJobs={mockTrendingJobs} />
+            <ChartJobTrending
+            trendingJobs={trendingJobs}
+            />
           )}
         </div>
-
         <div className="  bg-primary lg:w-60 lg:h-12 md:w-60 md:h-12 w-40 h-11 flex justify-center rounded-3xl items-center max-w-7xl mx-auto my-4 md:my-6">
           <Link
             href="/"
             className=" flex w-60 h-12 lg:space-x-3 md:space-x-3 space-x-1 justify-center items-center"
           >
-            <div className="text-lg  text-white">{t('trendingJob.moreInfo')}</div>
+            <div className="text-lg  text-white">
+              {t("trendingJob.moreInfo")}
+            </div>
             <GoArrowRight className="lg:h-6 lg:w-6 md:h-6 md:w-6 h-5 w-5 text-white" />
           </Link>
         </div>
@@ -218,14 +175,16 @@ export  default function Page() {
       <section className=" lg:p-10 md:p-10 p-4">
         <div className="max-w-7xl mx-auto my-4 md:my-6 flex lg:justify-between md:justify-between justify-center items-center">
           <h1 className="text-2xl  w-[90%] lg:w-full md:w-full md:text-4xl lg:text-5xl font-bold lg:text-start md:text-center  text-center mb-2 text-textprimary">
-            {t('PopularUniversities.title')}
+            {t("PopularUniversities.title")}
           </h1>
           <Link
             href={`/${locale}/university`}
             className="text-xl  lg:flex md:hidden hidden justify-center items-center font-bold text-center mb-2 text-textprimary"
           >
             <div className="flex">
-              <div className="text-primary w-32  ">{t('trendingJob.moreInfo')}</div>
+              <div className="text-primary w-32  ">
+                {t("trendingJob.moreInfo")}
+              </div>
               <BiRightArrowAlt className="text-3xl  text-primary" />
             </div>
           </Link>
@@ -263,7 +222,7 @@ export  default function Page() {
             href={`/${locale}/university`}
             className="text-xl lg:hidden md:flex hidden justify-end mt-6 items-center font-bold text-center text-textprimary"
           >
-            <div className="text-primary">{t('trendingJob.moreInfo')}</div>
+            <div className="text-primary">{t("trendingJob.moreInfo")}</div>
             <BiRightArrowAlt className="text-3xl ml-2 text-primary" />
           </Link>
         </div>
@@ -276,6 +235,7 @@ export  default function Page() {
       <section>
         <ProcessHomePage />
       </section>
+
       {/* Feedback Section */}
       <section>{/* <FeedbackHomePage/> */} </section>
     </div>

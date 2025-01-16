@@ -54,7 +54,7 @@ export const JobListingCard = ({
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.auth.token);
-  //const router = useRouter();
+  //const router = useRouter(); 
 
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();

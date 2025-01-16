@@ -80,7 +80,7 @@ export default function Page() {
     page,
   });
 
- console.log("university",data)
+ //console.log("university",data)
   const handleNextPage = () => {
     dispatch(setPage(page + 1));
   };

@@ -40,6 +40,18 @@ export interface JobsPayload {
 export interface JobsResponse {
   payload: JobsPayload; // Added payload to match API response
 }
+interface TrendingJob {
+  month: string;
+  label: string;
+  count: number;
+}
+
+
+interface TrendingJobsResponse {
+  payload: {
+    trending_jobs: TrendingJob[];
+  };
+}
 
 export const jobsApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -60,8 +72,14 @@ export const jobsApi = normPlovApi.injectEndpoints({
         };
       },
     }),
+    getTrendingJob:builder.query<TrendingJobsResponse,void>({
+      query: () => ({
+        url: `api/v1/jobs/trending-jobs`,
+        method: "GET",
+      }),      
+    })
   }),
   overrideExisting: false,
 });
 
-export const { useGetJobsQuery } = jobsApi;
+export const { useGetJobsQuery,useGetTrendingJobQuery } = jobsApi;
