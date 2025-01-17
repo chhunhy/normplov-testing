@@ -37,14 +37,16 @@ const ReviewCard = ({
       )}
     >
       <div className="flex flex-row items-center gap-2">
+        <div className="w-8  h-8">
         <Image
-          className="rounded-full border border-slate-200 "
+          className="rounded-full border border-slate-200  object-cover w-full h-full "
           width="32"
           height="32"
           alt=""
           src={imgSrc}
           onError={() => setImgSrc("/assets/default.png")} 
         />
+        </div>
         <div className="flex flex-col">
           <figcaption className="text-md text-primary dark:text-white">
             {name}
