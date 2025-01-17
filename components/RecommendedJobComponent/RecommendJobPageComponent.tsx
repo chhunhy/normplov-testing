@@ -3,10 +3,19 @@
 import { BriefcaseBusiness, ChevronRight, GraduationCap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { JobIntroComponent } from "./JobIntroComponent";
+import { useParams } from "next/navigation";
+import { useGetCareerByUuidMutation } from "@/redux/feature/assessment/quiz";
+import { Skeleton } from "../ui/skeleton";
 
-type Job = {
-    title: string;
-    uuid: string;
+
+type JobType = {
+    category_name: string;
+    responsibilities: string[];
+}
+
+type Major = {
+    major_name: string;
+    schools: string[];
 };
 
 export default function RecommendJobPageComponent() {
@@ -20,9 +29,47 @@ export default function RecommendJobPageComponent() {
         }
     }, []);
 
+    const params = useParams();
+    const uuidString = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
+
+    console.log("uuid from job page:", uuidString);
+
+
+    // const careerUuid = localStorage.getItem('careerUuid') || ''
+
+    const careerUuid = 'b41a6ac2-092e-4134-8ea4-70fd0f146777'
+
+    const [getCareerByUuid, { isLoading, data }] = useGetCareerByUuidMutation();
+
+    useEffect(() => {
+        // Trigger the API call when the component mounts
+        if (uuidString && careerUuid) {
+            getCareerByUuid({ uuid: uuidString, career_uuid: careerUuid })
+                .unwrap()
+                .then((result) => {
+                    console.log('Career Data:', result);
+                })
+                .catch((err) => {
+                    console.error('Error fetching career data:', err);
+                });
+        } else {
+            console.error('Missing UUID or Career UUID');
+        }
+    }, [uuidString, careerUuid, getCareerByUuid]);
+
+    const jobTitle = data?.payload?.career_name;
+
+    const jobList = data?.payload?.categories;
+
+    const majors = data?.payload?.majors
+
+
+    console.log("joblist: ", jobList)
+
 
     const [activeSection, setActiveSection] = useState<'Careers' | 'Majors' | 'job'>('Careers');
-    const [selectedJob, setSelectedJob] = useState<Job | null>(null); // Selected job
+    const [selectedJob, setSelectedJob] = useState<JobType | null>(null); // Selected job
+
 
     const handleSectionChange = (section: 'Careers' | 'Majors' | 'job') => {
         setActiveSection(section); // Update active section
@@ -31,22 +78,10 @@ export default function RecommendJobPageComponent() {
     console.log('activeSection: ', activeSection)
     console.log('selectedJob: ', selectedJob)
 
-    // Sample jobs with UUID
-    const jobs = [
-        { title: 'Software Engineer', uuid: '1a2b3c4d' },
-        { title: 'Product Manager', uuid: '2b3c4d5e' },
-        { title: 'Data Scientist', uuid: '3c4d5e6f' },
-        { title: 'HR Specialist', uuid: '4d5e6f7g' },
-        { title: 'Teacher', uuid: '5e6f7g8h' },
-        { title: 'Cybersecurity Analyst', uuid: '6f7g8h9i' },
-        { title: 'Barista', uuid: '7g8h9i0j' },
-        { title: 'Nurse', uuid: '8h9i0j1k' },
-        { title: 'Tour Guide', uuid: '9i0j1k2l' },
-        { title: 'Mechanical Engineer', uuid: '0j1k2l3m' },
-    ];
+
 
     // Function to handle job click
-    const handleJobClick = (job: { title: string, uuid: string }) => {
+    const handleJobClick = (job: JobType) => {
         setSelectedJob(job); // Set selected job to state
         setActiveSection('job'); // Ensure we're in the careers section
     };
@@ -54,12 +89,12 @@ export default function RecommendJobPageComponent() {
     return (
         <div className="bg-green-50 pb-4 lg:pb-6">
             <JobIntroComponent
-                title={currentLocale === 'km' ? 'ជម្រើស' :'Recommended'}
-                highlight={currentLocale === 'km' ? 'អាជីពការងារ' :' Career'}
-                description={currentLocale === 'km' ? 'ស្វែងយល់អំពីជំនាញ និងគុណវុឌ្ឍិសំខាន់ៗដែលត្រូវការសម្រាប់ភាពជោគជ័យក្នុងតួនាទីនេះ។ លើសពីនេះ អ្នកនឹងទទួលបានមុខជំនាញសំខាន់ៗ និងសាកលវិទ្យាល័យដែលពាក់ព័ន្ធផងដែរ ដើម្បីជួយអ្នកឱ្យឈានទៅរកការអប់រំដែលត្រឹមត្រូវ។ ' :'Learn about the essential skills and qualifications needed for success in this role. You will also find recommended majors and related universities to help you pursue the right educational path. '}
+                title={currentLocale === 'km' ? 'ជម្រើស' : 'Recommended'}
+                highlight={currentLocale === 'km' ? 'អាជីពការងារ' : ' Career'}
+                description={currentLocale === 'km' ? 'ស្វែងយល់អំពីជំនាញ និងគុណវុឌ្ឍិសំខាន់ៗដែលត្រូវការសម្រាប់ភាពជោគជ័យក្នុងតួនាទីនេះ។ លើសពីនេះ អ្នកនឹងទទួលបានមុខជំនាញសំខាន់ៗ និងសាកលវិទ្យាល័យដែលពាក់ព័ន្ធផងដែរ ដើម្បីជួយអ្នកឱ្យឈានទៅរកការអប់រំដែលត្រឹមត្រូវ។ ' : 'Learn about the essential skills and qualifications needed for success in this role. You will also find recommended majors and related universities to help you pursue the right educational path. '}
                 size="md"
                 type="result"
-                selectedJobTitle={selectedJob?.title}
+                selectedJobTitle={selectedJob?.category_name}
                 activeSection={activeSection}
 
             />
@@ -99,99 +134,140 @@ export default function RecommendJobPageComponent() {
                         </div>
                     </div>
 
-                    <div className="col-span-1 lg:col-span-5 bg-white p-6 rounded-xl">
-                        {/* Career Section Content */}
-                        {activeSection === 'Careers' && (
-                            <div>
-                                <p className="text-md text-secondary">{currentLocale === 'km' ? 'វិស័យការងារ' : ' Field Of Work:'}</p>
-                                <p className="text-lg md:text-xl font-bold text-primary">Child Care and Education</p>
-                                <hr className="my-2" />
-                                <p className="text-md lg:text-md overflow-hidden text-gray-400 pt-2">
-                                    {currentLocale === 'km' ? 'នៅក្នុងវិស័យការងារនេះមានការងារជាច្រើនដូចជា៖' : ' In this field, There are jobs such as:'}
+                    {
+                        isLoading ? (
+                            <Skeleton className="h-[200px] col-span-1 lg:col-span-5 bg-bglight rounded-xl p-4 space-y-4">
 
-                                </p>
-                                <ul className="mt-2 space-y-4 text-slate-500 list-inside list-disc">
-                                    {jobs.map((job, index) => (
-                                        <div key={index} className="flex justify-between items-center gap-2 ml-2">
-                                            <div className="flex items-center ">
+                                {/* Subheader Skeleton */}
+                                <Skeleton className="h-4 w-1/5 rounded-xl" />
 
-                                                <li
-                                                    className={`hover:cursor-pointer text-md hover:underline text-gray-600`}
-                                                    onClick={() => handleJobClick(job)} // Set the clicked job
-                                                >
-                                                    {job.title}
-                                                </li>
-                                            </div>
+                                {/* Header Skeleton */}
+                                <Skeleton className="h-6 w-1/2 rounded-xl" />
 
-                                            {/* <Plus className="w-4 h-4" /> */}
-                                        </div>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                                {/* Content Skeleton */}
+                                <Skeleton className="w-full h-2/4"/>
 
-                        {activeSection === 'Majors' && (
-                            // <p className="text-md text-secondary">Majors and related universities...</p>
-                            <div>
-                                <p className="text-md text-secondary">{currentLocale === 'km' ? 'ជំនាញ' : 'Major:'}</p>
-                                <p className="text-lg md:text-xl font-bold text-primary">Child Care and Education</p>
-                                <hr className="my-2" />
-                                <p className="text-md lg:text-md overflow-hidden text-gray-400 pt-2">
-                                    {currentLocale === 'km' ? 'សាកលវិទ្យាល័យដែលអ្នកអាចជ្រើសរើសមានដូចជា៖' : 'There are universities you can choose:'}
-                                </p>
-                                <ul className="mt-4 space-y-4 text-slate-500 list-inside list-disc">
-                                    {jobs.map((job, index) => (
-                                        <div key={index} className="flex justify-between items-center gap-2 ml-2">
-                                            <div className="flex items-center ">
+                               
+                            </Skeleton>
 
-                                                <li
-                                                    className={`hover:cursor-pointer text-md hover:underline ${selectedJob?.uuid === job.uuid ? 'text-primary font-bold' : 'text-gray-600'}`}
-                                                    onClick={() => handleJobClick(job)} // Set the clicked job
-                                                >
-                                                    {job.title}
-                                                </li>
-                                            </div>
-
-                                            {/* <Plus className="w-4 h-4" /> */}
-                                        </div>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-
-                        {activeSection === 'job' && selectedJob && (
-                            <>
-                                <div className="flex gap-4">
-                                    {/* <div className='bg-slate-100 w-8 h-8 flex justify-center items-center text-gray-500  rounded-full hover:cursor-pointer '><ArrowLeft className='w-5 h-5' /></div> */}
+                        ) : (
+                            <div className="col-span-1 lg:col-span-5 bg-white p-6 rounded-xl">
+                                {/* Career Section Content */}
+                                {activeSection === 'Careers' && (
                                     <div>
-                                        <p className="text-md text-secondary">{currentLocale === 'km' ? 'ការងារ' : 'Career:'}</p>
-                                        <h3 className="text-xl font-semibold text-primary">{selectedJob.title}</h3>
+                                        <p className="text-md text-secondary">{currentLocale === 'km' ? 'វិស័យការងារ' : ' Field Of Work:'}</p>
+                                        <p className="text-lg md:text-xl font-bold text-primary">{jobTitle || "Unknown Title"}</p>
+                                        <hr className="my-2" />
+                                        <p className="text-md lg:text-md overflow-hidden text-gray-400 pt-2">
+                                            {currentLocale === 'km' ? 'នៅក្នុងវិស័យការងារនេះមានការងារជាច្រើនដូចជា៖' : ' In this field, There are jobs such as:'}
 
+                                        </p>
+                                        <ul className="mt-2 space-y-4 text-slate-500 list-inside list-disc">
+                                            {jobList?.map((job: JobType, index: string) => (
+                                                <div key={index} className="flex justify-between items-center gap-2 ml-2">
+                                                    <div className="flex items-center ">
+
+                                                        <li
+                                                            className={`hover:cursor-pointer text-md underline text-slate-600`}
+                                                            onClick={() => handleJobClick(job)}
+                                                        >
+                                                            {job.category_name}
+                                                        </li>
+                                                    </div>
+
+
+                                                </div>
+                                            ))}
+                                        </ul>
                                     </div>
+                                )}
 
-                                </div>
-
-                                <div>
-                                    <p className="text-md lg:text-md overflow-hidden text-gray-400 mt-4">
-                                    {currentLocale === 'km' ? 'តម្រូវការក្នុងការងារនេះ' : 'Job Requirements:'}
-                                    </p>
-                                    <p className="text-md text-slate-500 ">Details and responsibilities for {selectedJob.title}...</p>
-
-                                </div>
-
-                                <div>
-                                    <p className="text-md lg:text-md overflow-hidden text-gray-400 mt-4">
-                                    {currentLocale === 'km' ? 'ទំនួលខុសត្រូវក្នុងការងារនេះ' : 'Job Responsibilities:'}
-                                    </p>
-                                    <p className="text-md text-slate-500 ">Details and responsibilities for {selectedJob.title}...</p>
-
-                                </div>
+                                {activeSection === 'Majors' && (
+                                    // <p className="text-md text-secondary">Majors and related universities...</p>
+                                    <div>
+                                        <p className="text-md text-secondary">{currentLocale === 'km' ? 'ជំនាញ' : 'Major:'}</p>
 
 
-                            </>
+                                        {majors.length > 0 ? (
+                                            majors.map((major: Major, index: string) => (
+                                                <div key={index} >
+                                                    <p className="text-lg md:text-xl font-bold text-primary">{major.major_name || "Unknown Title"}</p>
+                                                    <hr className="my-2" />
+                                                    <p className="text-md lg:text-md overflow-hidden text-gray-400 pt-2 mb-2">
+                                                        {currentLocale === 'km' ? 'សាកលវិទ្យាល័យដែលអ្នកអាចជ្រើសរើសមានដូចជា៖' : 'There are universities you can choose:'}
+                                                    </p>
 
-                        )}
-                    </div>
+                                                    <div className='ml-2'>
+
+                                                        {major.schools.length > 0 ? (
+                                                            <ul className="space-y-2 text-base md:text-md list-disc pl-6">
+                                                                {major.schools.map((school, schoolIndex) => (
+                                                                    <li key={schoolIndex}>{school}</li>
+                                                                ))}
+                                                            </ul>
+                                                        ) : (
+                                                            <p className='text-gray-500'>No universities available for this major.</p>
+                                                        )}
+                                                    </div>
+
+
+                                                    {/* <span onClick={handleToggle} className="text-primary">
+                                            {isExpanded ? 'Show Less' : 'Show More'}
+                                        </span> */}
+                                                </div>
+
+                                            ))
+                                        ) : (
+                                            <p className='text-gray-500'>No recommended majors available.</p>
+                                        )}
+                                    </div>
+                                )}
+
+                                {activeSection === 'job' && selectedJob && (
+                                    <>
+                                        <div className="flex gap-4">
+
+                                            <div>
+                                                <p className="text-md text-secondary">{currentLocale === 'km' ? 'ការងារ' : 'Career:'}</p>
+                                                <h3 className="text-xl font-semibold text-primary">{selectedJob?.category_name}</h3>
+
+                                            </div>
+
+                                        </div>
+
+                                        <hr className="my-2" />
+
+                                        <div>
+                                            <p className="text-md lg:text-md overflow-hidden text-gray-400 mt-4 mb-1">
+                                                {currentLocale === 'km' ? 'ទំនួលខុសត្រូវក្នុងការងារនេះ' : 'Job Responsibilities:'}
+                                            </p>
+                                            {selectedJob.responsibilities?.map((res: string, index: number) => (
+                                                <div key={index} className="flex justify-between items-center gap-2 ml-2">
+                                                    <div className="flex items-center ">
+
+                                                        <li
+                                                            className={`hover:cursor-pointer text-md text-slate-600`}
+
+                                                        >
+                                                            {res}
+                                                        </li>
+                                                    </div>
+
+
+                                                </div>
+                                            ))}
+
+
+                                        </div>
+
+
+                                    </>
+
+                                )}
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
         </div>

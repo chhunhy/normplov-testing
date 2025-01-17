@@ -58,10 +58,17 @@ type Major = {
 };
 
 
+type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
+
 type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; // Array of Major objects
+    majors: Major[]; 
+    career_uuid: string;
+    categories: Job[];
 };
 
 
@@ -226,6 +233,8 @@ export const PublicLearningStyleResultComponent = () => {
                                 jobTitle={item.career_name}
                                 jobDesc={item.description}
                                 majors={item.majors}
+                                jobList={item.categories}
+                                jobUuid={item.career_uuid}
                             />
                         ))}
                     </div>

@@ -216,11 +216,19 @@ export const PublicValueResultComponent = () => {
     major_name: string; // The name of the major
     schools: string[]; // An array of schools offering the major
   };
-  type RecommendedCareer = {
+
+  type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
+
+type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; // Array of Major objects
-  };
+    majors: Major[]; 
+    career_uuid: string;
+    categories: Job[];
+};
 
   const recommendedCareer = response?.[0]?.careerRecommendations;
   console.log("Recommended Career: ", recommendedCareer);
@@ -413,6 +421,8 @@ export const PublicValueResultComponent = () => {
               jobTitle={item.career_name}
               jobDesc={item.description}
               majors={item.majors}
+              jobList={item.categories}
+              jobUuid={item.career_uuid}
             />
           ))}
         </div>

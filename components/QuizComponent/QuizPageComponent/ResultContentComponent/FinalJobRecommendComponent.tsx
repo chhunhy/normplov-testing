@@ -13,10 +13,17 @@ import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
 
 
+type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
+
 type RecommendedCareer = {
     career_name: string;
-    career_description: string;
-    majors: Major[]; // Array of Major objects
+    description: string;
+    majors: Major[]; 
+    career_uuid: string;
+    categories: Job[];
 };
 
 type Major = {
@@ -88,6 +95,7 @@ export const FinalJobRecommendComponent = () => {
                                 jobDesc=""
                                 majors={[]}
                                 isLoading={true}
+                                jobUuid=''
                             />
 
                         ))) : (
@@ -95,8 +103,9 @@ export const FinalJobRecommendComponent = () => {
                             <RecommendationCard
                                 key={item.career_name || index}
                                 jobTitle={item.career_name}
-                                jobDesc={item.career_description}
                                 majors={item.majors}
+                                jobList={item.categories}
+                                jobUuid={item.career_uuid}
                             />
                         ))
                        

@@ -109,20 +109,28 @@ import { Skeleton } from '../ui/skeleton';
 import { List } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 type Major = {
     major_name: string;
     schools: string[];
 };
 
+type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
+
 type props = {
     jobTitle: string;
     jobDesc?: string;
     majors: Major[];
+    jobList?: Job[];
     isLoading?: boolean;
+    jobUuid: string
 }
 
-export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: props) => {
+export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading, jobList, jobUuid }: props) => {
 
     const [isExpanded] = useState(false);
     const [currentLocale, setCurrentLocale] = useState<string>('km');
@@ -136,11 +144,11 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: pro
 
     useEffect(() => {
         const savedLanguage = localStorage.getItem('language');
-        localStorage.setItem('resultTypeString',resultType)
+        localStorage.setItem('resultTypeString', resultType)
         if (savedLanguage) {
             setCurrentLocale(savedLanguage);
         }
-      
+
     }, []);
 
 
@@ -150,16 +158,27 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: pro
 
     const handleNavigation = () => {
 
-        const newPath = `/${currentLocale}/recommend-job/${uuid}`;
+        localStorage.setItem('careerUuid', jobUuid)
 
-        // Ensure the new path does not contain the duplicate locale part
-        if (!pathname.startsWith(`/${currentLocale}`)) {
-            // If the pathname doesn't include the current locale, add it
-            router.push(newPath);
-        } else {
-            // If the pathname already includes the locale, navigate to the result directly
-            router.push(newPath);
+        const careerId = localStorage.getItem('careerUuid')
+
+        if (careerId) {
+            const newPath = `/${currentLocale}/recommend-job/${uuid}`;
+
+            // Ensure the new path does not contain the duplicate locale part
+            if (!pathname.startsWith(`/${currentLocale}`)) {
+                // If the pathname doesn't include the current locale, add it
+                router.push(newPath);
+            } else {
+                // If the pathname already includes the locale, navigate to the result directly
+                router.push(newPath);
+            }
+        }else{
+            toast.error('Something went wrong! Please try again later.')
         }
+
+
+
     };
 
     return (
@@ -208,23 +227,21 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: pro
                                     នៅក្នុងនោះមាន​ការងារដូចជា៖
                                 </p>
 
-                                <p
+                                <div
                                     className={`text-md md:text-lg overflow-hidden text-textprimary ${!isExpanded ? 'line-clamp-2' : ''}`}
                                     title={isExpanded ? '' : jobDesc}
                                 >
-                                    {majors.length > 0 ? (
-                                        majors.map((major, index) => (
+                                    {jobList && jobList.length > 0 ? (
+                                        jobList.map((job, index) => (
                                             <div key={index} className='pl-1'>
 
-                                                {major.schools.length > 0 ? (
-                                                    <ul className="space-y-2 text-base md:text-md list-disc pl-6">
-                                                        {major.schools.map((school, schoolIndex) => (
-                                                            <li key={schoolIndex}>{school}</li>
-                                                        ))}
-                                                    </ul>
-                                                ) : (
-                                                    <p className='text-gray-500'>No universities available for this major.</p>
-                                                )}
+
+                                                <ul className="space-y-2 text-base md:text-md list-disc pl-6">
+
+                                                    <li key={index}>{job.category_name}</li>
+
+                                                </ul>
+
 
                                                 {/* <span onClick={handleToggle} className="text-primary">
                                             {isExpanded ? 'Show Less' : 'Show More'}
@@ -233,9 +250,9 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: pro
 
                                         ))
                                     ) : (
-                                        <p className='text-gray-500'>No recommended majors available.</p>
+                                        <p className='text-gray-500'>No recommended job available.</p>
                                     )}
-                                </p>
+                                </div>
                             </div>
 
 
@@ -243,7 +260,7 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: pro
                             {/* Majors */}
                             <div className='pt-2'>
 
-                                <p
+                                <div
                                     className={` overflow-hidden text-textprimary ${!isExpanded ? 'line-clamp-2' : ''}`}
                                     title={isExpanded ? '' : jobDesc}
                                 >
@@ -283,62 +300,15 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading }: pro
                                     ) : (
                                         <p className='text-gray-500'>No recommended majors available.</p>
                                     )}
-                                </p>
+                                </div>
                             </div>
                         </div>
 
                     )}
 
-                    {/* Show More / Show Less Button */}
-                    {/* {isLoading ? (
-                    <Skeleton className="h-[20px] w-[100px] rounded-full mb-2" />
-                ) : (
-                    jobDesc && jobDesc.split(' ').length > 20 && (  // Ensure jobDesc is not undefined before checking
-                        
-                    )
-                )} */}
-
-                    {/* Recommended Majors */}
-                    {/* {isLoading ? (
-                    <Skeleton className="h-[150px] w-full rounded-md mb-4" />
-                ) : (
-                    <Accordion type="single" collapsible>
-                        <AccordionItem className='border-none' value="item-1">
-                            <AccordionTrigger className='text-lg md:text-xl font-semibold pb-2'>Recommended Majors</AccordionTrigger>
-                            <AccordionContent>
-                                {majors.length > 0 ? (
-                                    majors.map((major, index) => (
-                                        <div key={index} className='pl-2'>
-                                            <p className="font-semibold text-base md:text-lg mb-2 text-primary">{major.major_name}</p>
-                                            {major.schools.length > 0 ? (
-                                                <ul className="space-y-2 text-base md:text-md list-decimal pl-6">
-                                                    {major.schools.map((school, schoolIndex) => (
-                                                        <li key={schoolIndex}>{school}</li>
-                                                    ))}
-                                                </ul>
-                                            ) : (
-                                                <p className='text-gray-500'>No universities available for this major.</p>
-                                            )}
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p className='text-gray-500'>No recommended majors available.</p>
-                                )}
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                )} */}
+             
                 </div>
             </div>
-
-            {/* <div className='flex justify-between bg-slate-100 px-6 py-4 rounded-b-xl hover:cursor-pointer'>
-                <div className='flex gap-2'>
-                    <GraduationCap className='text-gray-500 mr-1' />
-                    <p className='text-gray-500 font-semibold'>Recommended Majors</p>
-                </div>
-
-                <ChevronRight className='text-gray-500' />
-            </div> */}
 
         </div>
 

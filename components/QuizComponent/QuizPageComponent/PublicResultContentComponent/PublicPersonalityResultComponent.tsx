@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import checkIcon from "@/public/Quiz/skill-icon/check.png";
 import xIcon from "@/public/Quiz/skill-icon/x.png";
 import QuizHeader from "../../QuizHeader";
@@ -80,8 +80,8 @@ type BarProps = {
 
 export const PublicPersonalityResultComponent = () => {
   const params = useParams();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const dimensionFullNames: { [key: string]: string } = {
     I_Score: "Introvert Score",
     E_Score: "Extrovert Score",
@@ -101,7 +101,7 @@ export const PublicPersonalityResultComponent = () => {
     typeof params.resultType === "string" ? params.resultType : "";
   const uuidString = typeof params.uuid === "string" ? params.uuid : "";
 
-  const { data: response,isLoading } = useFetchAssessmentDetailsQuery({
+  const { data: response, isLoading } = useFetchAssessmentDetailsQuery({
     testUUID: uuidString,
     resultType: resultTypeString,
   });
@@ -113,7 +113,7 @@ export const PublicPersonalityResultComponent = () => {
   }
 
   if (isLoading) {
-    return <PersonalityResultSkeleton/>
+    return <PersonalityResultSkeleton />
     // return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
   //   const skillCategory = response?.[0]?.categoryPercentages;
@@ -135,8 +135,8 @@ export const PublicPersonalityResultComponent = () => {
 
     ][index % 8], // Cycle through colors
   }));
- 
-  
+
+
   const CustomBar = (props: BarProps) => {
     const { x, y, width, height } = props;
     return (
@@ -196,13 +196,20 @@ export const PublicPersonalityResultComponent = () => {
   type Major = {
     major_name: string; // The name of the major
     schools: string[];  // An array of schools offering the major
-};
+  };
+
+  type Job = {
+    category_name: string;
+    responsibilities: string[];
+  }
+
   type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; // Array of Major objects
-};
-
+    majors: Major[];
+    career_uuid: string;
+    categories: Job[];
+  };
   const recommendedCareer = response?.[0]?.careerRecommendations;
   console.log("Recommended Career: ", recommendedCareer);
 
@@ -216,31 +223,31 @@ export const PublicPersonalityResultComponent = () => {
         score: number;
         color: string; // Add color property from chartData
       }; // Ensure payload structure is typed correctly
-  
+
       return (
         <div className="bg-white p-2 border rounded shadow-sm">
-      
+
           <p className="font-semibold text-slate-600">{data.label}</p>
           <p className="text-gray-500">Score: {data.score}</p>
         </div>
       );
     }
-  
+
     return null;
   };
-      // Pagination handler
-      const handlePageChange = (newPage: number) => {
-        setCurrentPage(newPage);
-      };
-    
-    // Calculate total pages for career recommendations
-    const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
-  
-    // Get current items for the current page
-    const currentItems = recommendedCareer.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    );
+  // Pagination handler
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  // Calculate total pages for career recommendations
+  const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
+
+  // Get current items for the current page
+  const currentItems = recommendedCareer.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <div className="bg-white">
       {/* Personalities Name and Description */}
@@ -281,8 +288,8 @@ export const PublicPersonalityResultComponent = () => {
             </div>
           </div>
           {/* Legend */}
-         {/* Legend */}
-        
+          {/* Legend */}
+
         </div>
         <div className="mx-4 md:mx-0 border border-slate-50 mt-5 md:mt-14 p-6 rounded-[8px]">
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">
@@ -397,31 +404,33 @@ export const PublicPersonalityResultComponent = () => {
           </div>
         </div>
         <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 ">
-        <QuizHeader
-          title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
-          description="These career may suitable for you"
-          size="sm"
-          type="result"
-        />
+          <QuizHeader
+            title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក"
+            description="These career may suitable for you"
+            size="sm"
+            type="result"
+          />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {currentItems.map((item: RecommendedCareer, index: number) => (
-            <RecommendationCard
-              key={item.career_name || index}
-              jobTitle={item.career_name}
-              jobDesc={item.description}
-              majors={item.majors}
-            />
-          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {currentItems.map((item: RecommendedCareer, index: number) => (
+              <RecommendationCard
+                key={item.career_name || index}
+                jobTitle={item.career_name}
+                jobDesc={item.description}
+                majors={item.majors}
+                jobList={item.categories}
+                jobUuid={item.career_uuid}
+              />
+            ))}
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={handlePageChange}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+          />
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={handlePageChange}
-          itemsPerPage={itemsPerPage}
-          setItemsPerPage={setItemsPerPage}
-        />
-      </div>
       </div>
     </div>
   );

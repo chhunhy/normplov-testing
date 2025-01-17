@@ -72,8 +72,15 @@ export const quizApi = normPlovApi.injectEndpoints({
       },
     }),
 
+    getCareerByUuid: builder.mutation<any, { uuid: string; career_uuid: string }>({
+      query: ({ uuid, career_uuid }) => ({
+        url: `api/v1/test/careers-data/${uuid}/${career_uuid}`,
+        method: "GET",
+      }),
+    }),
+
 
   }),
 });
 
-export const { usePredictAssessmentMutation, useFetchAllTestQuery, useLoadFiveTestQuery, useLoadCareerPredictionMutation, useGetAllFinalTestUuidsQuery } = quizApi;
+export const { usePredictAssessmentMutation, useFetchAllTestQuery, useLoadFiveTestQuery, useLoadCareerPredictionMutation, useGetAllFinalTestUuidsQuery, useGetCareerByUuidMutation } = quizApi;
