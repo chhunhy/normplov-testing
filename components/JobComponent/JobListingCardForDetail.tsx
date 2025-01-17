@@ -31,7 +31,7 @@ type props = {
   onClick?: () => void;
 };
 
-export const JobListingCard = ({
+export const JobListingCardForDetail = ({
   uuid,
   title,
   desc,
@@ -115,12 +115,11 @@ export const JobListingCard = ({
 
   return (
     <div
-      className={`grid grid-cols-4 w-full border  border-gray-100 bg-white p-6  rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
+      className={`grid grid-cols-5 w-full border  border-gray-100 bg-white p-6  rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
         isActive ? "bg-gray-200" : ""
       } `}
-
     >
-      <div className=" col-span-3 space-y-5" onClick={onClick}>
+      <div className=" col-span-4 space-y-5" onClick={onClick}>
         <div className="grid grid-cols-8  space-x-1 ">
           {/* Image Section */}
           <div
@@ -176,22 +175,7 @@ export const JobListingCard = ({
             </svg>
             <div className="">{location ?? "Location not available"}</div>
           </div>
-          <div className="   rounded-2xl flex justify-center items-center space-x-1 text-primary bg-primary bg-opacity-10  text-xs lg:text-sm py-0.5 max-w-fit px-1 lg:px-3">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div>{salary}</div>
-          </div>
+          
         </div>
       </div>
 

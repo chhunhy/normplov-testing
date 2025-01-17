@@ -134,7 +134,7 @@ export default function NavbarPage() {
 
   // If `locale` is not available, you can set a default value
   return (
-    <div className="w-full bg-slate-50">
+    <div className="w-full bg-slate-50 border-b border-b-slate-100">
       <header className="flex items-center justify-between py-3 px-2 md:px-6 lg:px-8  mx-auto">
         {/* Logo and Navigation Links */}
         <div className="flex items-center space-x-6 lg:space-x-8">

@@ -110,12 +110,12 @@ export const userApi = normPlovApi.injectEndpoints({
       invalidatesTags: ["bookmarks"],
     }),
 
-    //getTestimonial:builder.query<Testimonial,void>({
-    //  query: () => ({
-     //   url: `api/v1/feedback/promoted`,
-     //   method: "GET",
-     // }),      
-    //})
+    getTestimonial: builder.query({
+      query: () => ({
+        url: 'api/v1/feedback/promoted',
+        method: 'GET',
+      }),
+    }),
 
 
 
@@ -128,4 +128,5 @@ export const {
   useUpdateProfileUserMutation,
   usePostImageMutation,
   usePostBookmarkMutation,
+  useGetTestimonialQuery
 } = userApi;

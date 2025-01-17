@@ -72,6 +72,7 @@ export default function Page() {
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
       <section className="relative ">
+      
         {/* Text Content */}
         <div className="flex justify-center ">
           <div className="container mx-auto px-4 pt-10 md:pt-16 lg:pt-16 text-center ">
@@ -243,20 +244,19 @@ export default function Page() {
           cy={1}
           cr={1}
           className={cn(
-            "  w-full h-full z-0 opacity-50 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]"
+            "  w-full h-full z-0 opacity-70 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]"
           )}
         />
 
         {/* Content */}
         <div className=" text-center space-y-4 z-10">
           <div className="text-textprimary text-2xl md:text-4xl lg:text-5xl font-bold">
-            មាតិយោបល
+            មាតិយោបល់
           </div>
           <div className="text-gray-600 text-2xl">
             មាតិយោបលរបស់អ្នកប្រើប្រាស់ក្រោយពីការធ្វើតេស្ត
           </div>
         </div>
-
         {/* Testimonial Section */}
         <Testimonial />
       </section>
