@@ -27,10 +27,11 @@ const ReviewCard = ({
       ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${img}`
       : "/assets/default.png"
   );
+
   return (
     <figure
       className={cn(
-        "relative w-[300px]  cursor-pointer overflow-hidden rounded-xl  border p-4",
+        "relative w-[300px]  cursor-pointer overflow-hidden rounded-xl  border border-slate-50 p-4",
         // light styles
         "border-gray-950/[.1] bg-slate-50 hover:bg-gray-950/[.05]",
         // dark styles

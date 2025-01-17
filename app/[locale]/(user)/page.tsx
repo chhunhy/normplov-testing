@@ -254,7 +254,7 @@ export default function Page() {
             មាតិយោបល់
           </div>
           <div className="text-gray-600 text-2xl">
-            មាតិយោបលរបស់អ្នកប្រើប្រាស់ក្រោយពីការធ្វើតេស្ត
+            មាតិយោបល់របស់អ្នកប្រើប្រាស់ក្រោយពីការធ្វើតេស្ត
           </div>
         </div>
         {/* Testimonial Section */}
