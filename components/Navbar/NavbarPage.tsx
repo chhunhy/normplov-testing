@@ -258,7 +258,7 @@ export default function NavbarPage() {
                 alt="Loading"
                 width={35}
                 height={35}
-                className="rounded-full animate-pulse"
+                className="w-full h-full rounded-full animate-pulse"
               />
                 
               )
@@ -276,14 +276,14 @@ export default function NavbarPage() {
           ) : (
             // If the user is logged in, show their profile
             <div className="flex items-center space-x-4">
-              <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
+              <div className="w-12 h-12 border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
                 <Link href={`/${currentLocale}/profile-about-user`}>
                   <Image
                     src={avatarUrl}
                     alt="User Avatar"
                     width={35}
                     height={35}
-                    className="rounded-full"
+                      className="object-cover rounded-full w-full h-full"
                   />
                 </Link>
               </div>

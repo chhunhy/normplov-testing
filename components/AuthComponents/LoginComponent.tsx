@@ -116,6 +116,155 @@ const LoginComponent = () => {
   // };
 
   return (
+  //   <section
+  //   className=" w-full h-screen bg-red-400">
+  //   <div className="h-full w-full bg-transparent bg-white m-auto md:mt-24 lg:mt-0">
+  //     <div className="lg:flex justify-between bg-blue-300">
+  //       <div className="hidden md:flex lg:block lg:h-screen max-w-3xl bg-primary ">
+  //         <div className="text-center pt-10">
+  //           <h1 className="text-4xl text-white font-bold pb-4">
+  //             សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ
+  //           </h1>
+  //           <p className="text-white md:pt-5 lg:pt-0 md:px-20 lg:px-14 pb-11 text-lg">
+  //             រកឃើញសក្តានុពលរបស់អ្នក និងស្វែងរកជំនាញឯកទេស
+  //             នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង
+  //             និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។
+  //           </p>
+  //         </div>
+  //         <div className="md:hidden lg:block ">
+  //           <Image
+  //             src="/auth/login.png"
+  //             width={1000}
+  //             height={1000}
+  //             alt="Login Image"
+  //             className="max-w-2xl "
+  //           />
+  //         </div>
+  //       </div>
+  //       <div className="w-full  lg:w-1/2 flex mx-auto">
+  //         <div className=" w-full  mx-auto">
+  //           <div className="flex flex-row-reverse ">
+  //             <button
+  //               className="text-2xl text-gray-500 hover:text-gray-700 px-3 pt-3"
+  //               onClick={handleClose}
+  //               aria-label="Close login page"
+  //             >
+  //               <IoCloseSharp />
+  //             </button>
+  //           </div>
+  //           <div className="lg:px-12">
+  //             <div className="mt-12 md:mt-14 px-8 lg:mt-10 lg:px-12">
+  //               <h1 className="text-4xl font-bold text-primary">ចូលគណនី</h1>
+  //               <Formik
+  //                 initialValues={initialValues}
+  //                 validationSchema={validationSchema}
+  //                 onSubmit={(values, { setSubmitting }) => {
+  //                   console.log("Form Submitted:", values);
+  //                   handleLogin(values);
+  //                   setSubmitting(false); // Simulate a submission delay
+  //                 }}
+  //               >
+  //                 {() => (
+  //                   <Form className="py-4 mt-4 ">
+  //                     <div className="space-y-4 ">
+  //                       {/* Email Field */}
+  //                       <div>
+  //                         <Label htmlFor="email" text="អ៉ីម៉ែល" required />
+  //                         <DynamicField
+  //                           type="text"
+  //                           name="email"
+  //                           id="email"
+  //                           placeholder="បញ្ចូលអ៉ីម៉ែលរបស់អ្នក"
+  //                         />
+  //                         <ErrorDynamic name="email" component="div" />
+  //                       </div>
+
+  //                       {/* Password Field */}
+  //                       <div>
+  //                         <Label
+  //                           htmlFor="password"
+  //                           text="ពាក្យសម្ងាត់"
+  //                           required
+  //                         />
+  //                         <PasswordField
+  //                           name="password"
+  //                           id="password"
+  //                           placeholder="បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
+  //                           className="custom-class mt-1"
+  //                         />
+  //                         <ErrorDynamic name="password" component="div" />
+  //                       </div>
+  //                     </div>
+
+  //                     {/* Forgot Password Link */}
+  //                     <div className="mt-2 text-right">
+  //                       <Link 
+  //                        href={`/${currentLocale}/forgot-password`}
+  //                       // href="/forgot-password"
+  //                       >
+  //                         <span className="text-sm text-primary hover:underline hover:font-semibold ">
+  //                           ភេ្លចលេខសម្ងាត់?
+  //                         </span>
+  //                       </Link>
+  //                     </div>
+
+  //                     {/* Submit Button */}
+  //                     <div className="mt-6">
+  //                       <Button
+  //                         type="submit"
+  //                         text="ចូលគណនី"
+  //                         isLoading={isLoading} // Show loading spinner when the form is submitting
+  //                         className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"
+  //                       />
+  //                     </div>
+  //                     {/* OR Divider */}
+  //                     <div className="flex items-center justify-center space-x-4 my-4">
+  //                       <span className="w-1/2 border-b border-gray-300"></span>
+  //                       <span className="text-sm text-gray-500">ឬ</span>
+  //                       <span className="w-1/2 border-b border-gray-300"></span>
+  //                     </div>
+  //                     {/* Google Button */}
+
+  //                     <div className="mt-4 text-center">
+  //                       <Button
+  //                         type="button"
+  //                         text="ភ្ជាប់ជាមួយ Google"
+  //                         onClick={handleGoogleLogin}
+  //                         icon={
+  //                           <Image
+  //                             src="/assets/google.png"
+  //                             width={24}
+  //                             height={24}
+  //                             alt="Google icon"
+  //                           />
+  //                         }
+  //                         className=" w-full border-2 border-primary  text-textprimary "
+  //                       />
+  //                     </div>
+  //                     {/* Don't have accoun? Register */}
+  //                     <div className="mt-4 text-center text-textprimary ">
+  //                       <span>
+  //                         មិនទាន់មានគណនីមែនទេ?{" "}
+  //                         <Link
+  //                          href={`/${currentLocale}/register`}
+  //                           // href="/register"
+  //                           className="text-primary hover:underline hover:font-semibold pl-1.5"
+  //                         >
+  //                           បង្កើតគណនី
+  //                         </Link>
+  //                       </span>
+  //                     </div>
+  //                   </Form>
+  //                 )}
+  //               </Formik>
+  //               <ToastContainer />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // </section>
     <section
       className=" w-full  md:p-20 lg:bg-primary/20  lg:p-12"
       // style={{
@@ -145,7 +294,7 @@ const LoginComponent = () => {
           </div>
         </div> */}
         <div className="lg:flex justify-between ">
-          <div className="hidden md:flex lg:block lg:max-h-screen w-full pb-8 lg:w-7/12 lg:pb-5 bg-primary/80 md:rounded-xl lg:rounded-none lg:rounded-l-xl">
+          <div className="hidden md:flex lg:block lg:h-screen w-full pb-8 lg:w-7/12 lg:pb-5 bg-primary/80 md:rounded-xl lg:rounded-none lg:rounded-l-xl">
             <div className="text-center pt-10">
               <h1 className="text-4xl text-white font-bold pb-4">
                 សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ
@@ -289,141 +438,8 @@ const LoginComponent = () => {
           </div>
         </div>
       </div>
-    </section>
-    // <section className="w-full h-full flex justify-between items-center ">
-    //   <div className="h-auto bg-primary max-w-5xl hidden lg:block">
-    //               <div className="w-full h-auto bg-primary text-center px-28 mt-7 ">
-    //               <h1 className="text-4xl font-bold text-white">សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ</h1>
-    //               <p className="text-lg font-normal pt-3 text-white">រកឃើញសក្តានុពលរបស់អ្នក និងស្វែងរកជំនាញឯកទេស នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។</p>
-    //               </div>
-    //               <div className="h-3/4 mt-4 ml-14">
-    //                 <div className="h-full">
-    //                 <Image
-    //                       src="/auth/login.png"
-    //                       width={680}
-    //                       height={680}
-    //                       alt="Login Image"
-    //                       className=""
-    //                   />
-    //                 </div>
-    //               </div>
-    //   </div>
-    //     <div className='bg-red-100 w-full '>
-    //     <div className="max-w-md mr-0">
-    //       <div className=" flex justify-between flex-end items-center">
-    //          <Link href="/">
-    //          <Image
-    //                   src="/assets/logo.jpg"
-    //                   width={200} height={200}
-    //                     alt="Logo Image"
-    //                     className="w-[70px] h-[70px"
-    //                   />
-    //          </Link>
-    //             <div className="">
-    //             <button
-    //                 className="text-2xl text-gray-500 hover:text-gray-700"
-    //                 onClick={() => console.log('Close button clicked')}
-    //             >
-    //                 <IoCloseSharp />
-    //             </button>
-    //             </div>
-    //       </div>
-
-    //     <div className="mt-20">
-    //       <h1 className="text-4xl font-bold text-primary">ចូលគណនី</h1>
-    //       <Formik
-    //         initialValues={initialValues}
-    //         validationSchema={validationSchema}
-    //         onSubmit={(values, { setSubmitting }) => {
-    //           console.log('Form Submitted:', values);
-    //           handleLogin(values);
-    //           setSubmitting(false); // Simulate a submission delay
-    //         }}
-    //       >
-    //         {() => (
-    //           <Form>
-    //             <div className="space-y-4 mt-5">
-    //               {/* Email Field */}
-    //               <div>
-    //                 <Label htmlFor="email" text="អ៉ីម៉ែល" required />
-    //                 <DynamicField
-    //                   type="text"
-    //                   name="email"
-    //                   id="email"
-    //                   placeholder="បញ្ចូលអ៉ីម៉ែលរបស់អ្នក"
-    //                 />
-    //                 <ErrorDynamic name="email" component="div" />
-    //               </div>
-
-    //               {/* Password Field */}
-    //               <div>
-    //                 <Label htmlFor="password" text="ពាក្យសម្ងាត់" required />
-    //                 <PasswordField
-    //                   name="password"
-    //                   id="password"
-    //                   placeholder="បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
-    //                   className="custom-class mt-1"
-    //                 />
-    //                 <ErrorDynamic name="password" component="div" />
-    //               </div>
-    //             </div>
-
-    //             {/* Forgot Password Link */}
-    //             <div className="mt-2 text-right">
-    //               <Link href="/forgot-password">
-    //                 <span className="text-sm text-primary hover:underline hover:font-semibold ">
-    //                 ភេ្លចលេខសម្ងាត់?
-    //                 </span>
-    //               </Link>
-    //             </div>
-
-    //             {/* Submit Button */}
-    //             <div className="mt-6">
-    //               <Button
-    //                 type="submit"
-    //                 text="ចូលគណនី"
-    //                 isLoading={isLoading} // Show loading spinner when the form is submitting
-    //                 className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"
-    //               />
-    //             </div>
-    //             {/* OR Divider */}
-    //             <div className="flex items-center justify-center space-x-4 my-4">
-    //                 <span className="w-1/2 border-b border-gray-300"></span>
-    //                 <span className="text-sm text-gray-500">ឬ</span>
-    //                 <span className="w-1/2 border-b border-gray-300"></span>
-    //             </div>
-    //              {/* Google Button */}
-    //             <div className="mt-4 text-center">
-    //                 <Button
-
-    //                 type="button"
-    //                 text="ភ្ជាប់ជាមួយ Google"
-    //                 onClick={() => signIn('google')}
-    //                 icon={
-    //                 <Image
-    //                src="/assets/google.png"
-    //                width={24} height={24}
-    //                 alt="Google icon"
-    //               />
-    //                 }
-    //                 className=" w-full border-2 border-primary  text-textprimary "
-    //                 />
-    //             </div>
-    //             {/* Don't have accoun? Register */}
-    //             <div className='mt-4 text-center text-textprimary '>
-    //                 <span>មិនទាន់មានគណនីមែនទេ? <Link href="/register" className='text-primary hover:underline hover:font-semibold pl-1.5'>បង្កើតគណនី</Link></span>
-    //             </div>
-    //           </Form>
-
-    //         )}
-
-    //       </Formik>
-    //       <ToastContainer />
-    //     </div>
-    //   </div>
-    //     </div>
-
-    // </section>
+     </section>
+    
   );
 };
 
