@@ -1,5 +1,5 @@
 import "./globals.css";
-import SessionWrapper from "../SessionProvider";
+// import SessionWrapper from "../SessionProvider";
 import StoreProvider from "../StoreProvider";
 import { Inter, Suwannaphum } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
@@ -46,9 +46,9 @@ export default async function LocalLayout({
             className={`${suwannaphum.variable} ${inter.variable}`}
             suppressHydrationWarning
           >
-            <SessionWrapper>
+            {/* <SessionWrapper> */}
               <StoreProvider>{children}</StoreProvider>
-            </SessionWrapper>
+            {/* </SessionWrapper> */}
           </body>
         </html>
       </NextIntlClientProvider>

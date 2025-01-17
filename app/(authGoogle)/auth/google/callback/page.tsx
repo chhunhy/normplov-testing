@@ -4,8 +4,8 @@ import React from "react";
 
 export default function page() {
   return (
- <div>
-   <CallbackHandler/>
+ <div className="mx-auto h-screen">
+     <CallbackHandler/>
  </div>
 
   );

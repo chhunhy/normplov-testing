@@ -1,5 +1,5 @@
-import "@/app/[locale]/globals.css";
-import SessionWrapper from "./SessionProvider";
+import "./globalsGoogle.css";
+// import SessionWrapper from "./SessionProvider";
 import StoreProvider from "./StoreProvider";
 import { Inter, Suwannaphum } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
@@ -46,9 +46,9 @@ export default async function RootLayout({
             className={`${suwannaphum.variable} ${inter.variable}`}
             suppressHydrationWarning
           >
-            <SessionWrapper>
+            {/* <SessionWrapper> */}
               <StoreProvider>{children}</StoreProvider>
-            </SessionWrapper>
+            {/* </SessionWrapper> */}
           </body>
         </html>
       </NextIntlClientProvider>

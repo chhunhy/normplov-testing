@@ -178,7 +178,7 @@ const RegisterComponent = () => {
             <div className="lg:px-12 lg:py-6 h-full">
               
 
-            <div className="h-fit mt-10 md:mt-11 xl:mt-0 px-12">
+            <div className="h-fit mt-10 md:mt-11 xl:mt-0 mx-6">
             <h1 className="text-4xl font-bold text-primary">បង្កើតគណនីថ្មី</h1>
             <Formik
               initialValues={initialValues}
@@ -195,7 +195,7 @@ const RegisterComponent = () => {
             >
               {({ errors, touched }) => (
                 <Form>
-                  <div className="space-y-3 mt-3">
+                  <div className="space-y-3 md:space-y-3 mt-3">
                     <div>
                       <Label htmlFor="username" text="ឈ្មោះ" required />
                       <DynamicField
@@ -286,9 +286,10 @@ const RegisterComponent = () => {
                             icon={
                               <Image
                                 src="/assets/google.png"
-                                width={24}
-                                height={24}
+                                width={1000}
+                                height={1000}
                                 alt="Google icon"
+                                className="w-5 h-5"
                               />
                             }
                             className=" w-full border-2 border-primary  text-textprimary "

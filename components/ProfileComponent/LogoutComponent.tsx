@@ -9,7 +9,7 @@ type LogoutComponentProps = {
 
 const LogoutComponent: React.FC<LogoutComponentProps> = ({ onClose, onConfirm }) => {
   return (
-    <section className="w-1/2 lg:w-2/6  bg-white  rounded-xl">
+    <section className="w-full mx-5 lg:mx-0 lg:w-2/6  bg-white  rounded-xl">
       <div className="p-6">
         {/* <button className="text-3xl"><IoMdClose /></button> */}
         <h1 className="text-2xl lg:text-2xl text-primary font-bold ">បញ្ចាក់ការចាកចេញ</h1>

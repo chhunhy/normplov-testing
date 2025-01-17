@@ -66,10 +66,17 @@ export default function NavbarPage() {
   console.log("isLoading: " + isLoading);
   console.log("isError: " + isError);
   console.log("user data", data);
+  console.log("user avatar1",data?.payload.avatar)
   const userData = data?.payload;
+  // const avatarUrl = userData?.avatar
+  //   ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
+  //   : null;
+
   const avatarUrl = userData?.avatar
-    ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
-    : null;
+  ? userData.avatar.startsWith("http")
+    ? userData.avatar // Use full URL as-is
+    : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}` // Prepend base URL for relative path
+  : "/auth/personplaceholder.png"; // Fallback to placeholder
 
   // const { locale } = useParams();
   // const currentLocale = locale || 'en'; // Default to 'en' if locale is not defined
@@ -190,7 +197,7 @@ export default function NavbarPage() {
           {/* LanguageSelector hidden on md (iPad) */}
           <LanguageSelector handleLanguageChange={handleLanguageChange} />
           {/* Sign in button */}
-          {
+          {/* {
             isLoading ?(
               <Link
               href={`/${currentLocale}/login`}
@@ -227,6 +234,53 @@ export default function NavbarPage() {
             >
               {t("Navbar.buttons.signIn")}
             </Link>
+          )} */}
+          {isLoading ? (
+            // Show loading state while fetching user data
+            <div className="flex items-center">
+              {isLoading ? (
+                <Link
+              href={`/${currentLocale}/login`}
+              className="bg-emerald-500 text-white rounded-xl px-5 py-2"
+            >
+              {t("Navbar.buttons.signIn")}
+            </Link>
+              ):(
+                <Image
+                src="/auth/personplaceholder.png"
+                alt="Loading"
+                width={35}
+                height={35}
+                className="rounded-full animate-pulse"
+              />
+                
+              )
+                
+              }
+            </div>
+          ) : isLoading || !data ? (
+            // If the user is not logged in or an error occurs, show the Login button
+            <Link
+              href={`/${currentLocale}/login`}
+              className="bg-emerald-500 text-white rounded-xl px-5 py-2"
+            >
+              {t("Navbar.buttons.signIn")}
+            </Link>
+          ) : (
+            // If the user is logged in, show their profile
+            <div className="flex items-center space-x-4">
+              <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
+                <Link href={`/${currentLocale}/profile-about-user`}>
+                  <Image
+                    src={avatarUrl}
+                    alt="User Avatar"
+                    width={35}
+                    height={35}
+                    className="rounded-full"
+                  />
+                </Link>
+              </div>
+            </div>
           )}
 
         </div>

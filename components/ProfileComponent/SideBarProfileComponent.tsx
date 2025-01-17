@@ -93,9 +93,10 @@ const SideBarProfileComponent = () => {
   const userData = user?.payload;
   const uuid = userData?.uuid;
   const avatarUrl = userData?.avatar
-    ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
-    : null;
-
+  ? userData.avatar.startsWith("http")
+    ? userData.avatar // Use full URL as-is
+    : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}` // Prepend base URL for relative path
+  : "/auth/personplaceholder.png"; // Fallback to placeholder
   const username = userData?.username || "User";
   const email = userData?.email;
   // if(isUpadintProfile){

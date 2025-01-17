@@ -48,7 +48,7 @@ const ForgotPasswordComponent = () => {
       dispatch(setEmail(email));
       // Optionally, navigate to a confirmation page
       setTimeout(() => {
-        router.push(`/${currentLocale}/verify-code-forgot}`);
+        router.push(`/${currentLocale}/verify-code-forgot`);
         // router.push("/verify-code-forgot"); // Update the path to your actual confirmation page
       });
     }catch(error:unknown){
@@ -73,7 +73,7 @@ const ForgotPasswordComponent = () => {
   }
   const handleClose = () => {
     //  href={`/${currentLocale}/login`}
-     router.push(`/${currentLocale}/login}`); // Redirect to the referrer
+     router.push(`/${currentLocale}/login`); // Redirect to the referrer
   };
 
   return (

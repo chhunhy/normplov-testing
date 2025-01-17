@@ -55,8 +55,8 @@ const LoginComponent = () => {
     router.push("/"); // Redirect to the referrer
   };
   const handleGoogleLogin = () => {
-    const clientId = `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`
-    // const clientId = "584934236339-5bjir3arta5iumk19q9j2vuaejp0b9bl.apps.googleusercontent.com";
+    // const clientId = `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`
+    const clientId = "584934236339-5bjir3arta5iumk19q9j2vuaejp0b9bl.apps.googleusercontent.com";
     const redirectUri = `${window.location.origin}/auth/google/callback`;
     const scope = 'email profile';
     
