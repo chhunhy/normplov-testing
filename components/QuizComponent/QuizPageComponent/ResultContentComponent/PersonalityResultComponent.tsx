@@ -41,6 +41,25 @@ type BarProps = {
   height?: number;
   payload?: { color?: string };
 };
+
+
+type Major = {
+  major_name: string; // The name of the major
+  schools: string[];  // An array of schools offering the major
+};
+type Job = {
+  category_name: string;
+  responsibilities: string[];
+}
+
+type RecommendedCareer = {
+  career_name: string;
+  description: string;
+  majors: Major[]; 
+  career_uuid: string;
+  categories: Job[];
+};
+
 // type PersonalityTraits = {
 //   positive: string[];
 //   negative: string[];
@@ -222,15 +241,6 @@ export const PersonalityResultComponent = () => {
   //   console.log("PersonailitiesTrait", personailitiesTrait)
   //   const averageSkill = response?.[0]?.skillsGrouped["Average"];
   //   const weakSkill = response?.[0]?.skillsGrouped["Weak"];
-  type Major = {
-    major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
-  };
-  type RecommendedCareer = {
-    career_name: string;
-    description: string;
-    majors: Major[]; // Array of Major objects
-  };
 
   const recommendedCareer = response?.careerRecommendations ?? [];
   console.log("Recommended Career: ", recommendedCareer);
@@ -440,6 +450,8 @@ export const PersonalityResultComponent = () => {
                 jobTitle={item.career_name}
                 jobDesc={item.description}
                 majors={item.majors}
+                jobList={item.categories}
+                jobUuid={item.career_uuid}
               />
             ))}
           </div>

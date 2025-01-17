@@ -14,9 +14,10 @@ import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.jso
 
 // import allTestJson from '@/app/(user)/json/allTest.json';
 import { usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
-import Loading from '@/components/General/Loading';
+// import Loading from '@/components/General/Loading';
 import { useDraftAssessmentMutation } from '@/redux/service/draft';
 import { useTranslations } from 'next-intl';
+import confetti from "canvas-confetti";
 
 
 
@@ -444,7 +445,8 @@ export default function QuizDynamicComponent() {
   // Always call hooks
   const [userResponses, setUserResponses] = useState<QuizResponse>({});
   const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPageDisabled, setIsPageDisabled] = useState(false);
 
   // Get the quiz data and total questions
   const quizData = Array.isArray(testType) ? null : quizDataMap[testType];
@@ -491,18 +493,45 @@ export default function QuizDynamicComponent() {
     return;
   }
 
+  const handleClick = () => {
+    const end = Date.now() + 3 * 1000; // 3 seconds
+    const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+ 
+    const frame = () => {
+      if (Date.now() > end) return;
+ 
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 0, y: 0.5 },
+        colors: colors,
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 1, y: 0.5 },
+        colors: colors,
+      });
+ 
+      requestAnimationFrame(frame);
+    };
+ 
+    frame();
+  };
+
   const assessmentType = Array.isArray(testType) ? testType[0] : testType;
   // const draftType = Array.isArray(testType) ? testType[1] : testType;
   console.log("Assessment type: " + assessmentType)
-  const showLoading = () => {
-    setTimeout(() => setIsLoading(true), 200); // Only show spinner after 200ms
-  };
-  const hideLoading = () => {
-    setIsLoading(false); // Hide immediately
-  };
+
 
   const handleResultClick = async () => {
-    showLoading();
+    setIsPageDisabled(true);
+    setIsSubmitting(true);
+   
     if (completedQuestions.length < totalQuestions) {
       toast.error("Please answer all the questions to see the result.");
       return;
@@ -526,8 +555,10 @@ export default function QuizDynamicComponent() {
 
       const testUuid = result.payload.test_uuid
 
+      
       toast.success("Responses submitted successfully!");
 
+      handleClick()
       // const newPath = `${currentLocale}/test-result/${assessmentType}/${testUuid}`;
 
       // // Check if the pathname already contains the locale to avoid duplication
@@ -552,8 +583,9 @@ export default function QuizDynamicComponent() {
     } catch (err) {
       toast.error("Failed to submit responses. Please try again.");
       console.log(err)
-    } finally {
-      hideLoading(); // Stop loading spinner
+    }finally {
+      setIsSubmitting(false);
+      setIsPageDisabled(true);
     }
   };
 
@@ -580,7 +612,7 @@ export default function QuizDynamicComponent() {
   // };
 
   const handleDraftClick = async () => {
-    showLoading();
+  
 
     // Filter only the answered questions
     const processedResponses = processResponsesForDraft(userResponses, quizData.questions);
@@ -599,10 +631,7 @@ export default function QuizDynamicComponent() {
       // Log and notify the user of errors
       toast.error("Failed to save progress. Please try again.");
       console.error("Error saving draft:", err);
-    } finally {
-      // Hide the loading spinner
-      hideLoading();
-    }
+    } 
   };
 
   const { quizButtonKh } = generalTestJson;
@@ -626,34 +655,19 @@ export default function QuizDynamicComponent() {
 
 
   return (
-    <div className="w-full relative">
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-50">
-          <Loading />
-        </div>
-      )}
+    <div className={`w-full relative ${isPageDisabled ? 'pointer-events-none opacity-50' : ''}`}>
+     
 
       {/* Intro Section */}
       <div className="bg-bgPrimaryLight">
-        {/* <QuizIntroContainer
-          introTitle={introKh.title}
-          introHightlight={introKh.highlight}
-          introDesc={introKh.description}
-          instructLabel={instructKh.instructionLabel}
-          howItWorkTitle={instructKh.howItWorksTitle}
-          howItWorkStep={instructKh.howItWorksSteps}
-          emojiLabels={instructKh.emojiLabels}
-          RepresentedImageTitle={instructKh.representedImageTitle}
-        /> */}
-
 
         <QuizIntroContainer
-          introTitle={t(quizData.introKh.title)} // Translated title
-          introHightlight={t(quizData.introKh.highlight)} // Translated highlight
-          introDesc={t(quizData.introKh.description)} // Translated description
+          introTitle={t(quizData.introKh.title)} 
+          introHightlight={t(quizData.introKh.highlight)} 
+          introDesc={t(quizData.introKh.description)} 
           instructLabel={t('TestMainPage.instructKh.instructionLabel')}
           howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
-          howItWorkStep={howItWorksSteps} // Map over questions and fetch their translations
+          howItWorkStep={howItWorksSteps} 
           emojiLabels={emojiLabels}
           RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
         />
@@ -673,7 +687,7 @@ export default function QuizDynamicComponent() {
           <QuizQuestionContainer
             key={index}
             question={questionData.question}
-            questionIndex={index} // Dynamically add index as questionIndex
+            questionIndex={index} 
             updateCompletedQuestions={(index: number) => {
               if (!completedQuestions.includes(index)) {
                 setCompletedQuestions((prev) => [...prev, index]);
@@ -696,6 +710,7 @@ export default function QuizDynamicComponent() {
           type="leftIcon"
           outline="true"
           onClick={handleDraftClick}
+          isDisable={isSubmitting}
 
         />
         <QuizButton
@@ -704,7 +719,7 @@ export default function QuizDynamicComponent() {
           icon={<ArrowRight />}
           type="rightIcon"
           onClick={handleResultClick}
-          isDisable={(completedQuestions.length < totalQuestions) ? true : false}
+          isDisable={(completedQuestions.length < totalQuestions)}
           outline='false'
         />
       </div>

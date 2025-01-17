@@ -165,10 +165,17 @@ type Major = {
 };
 
 
+type Job = {
+  category_name: string;
+  responsibilities: string[];
+}
+
 type RecommendedCareer = {
   career_name: string;
   description: string;
-  majors: Major[];
+  majors: Major[]; 
+  career_uuid: string;
+  categories: Job[];
 };
 
 export const PublicSkillResultComponent = () => {
@@ -348,6 +355,8 @@ export const PublicSkillResultComponent = () => {
               jobTitle={item.career_name}
               jobDesc={item.description}
               majors={item.majors}
+              jobList={item.categories}
+              jobUuid={item.career_uuid}
             />
           ))}
         </div>

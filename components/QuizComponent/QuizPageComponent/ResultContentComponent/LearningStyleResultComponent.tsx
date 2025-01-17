@@ -60,11 +60,17 @@ type Major = {
     schools: string[];  // An array of schools offering the major
 };
 
+type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
 
 type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; // Array of Major objects
+    majors: Major[]; 
+    career_uuid: string;
+    categories: Job[];
 };
 
 
@@ -110,6 +116,7 @@ export const LearningStyleResultComponent = () => {
     const recommendedTechniques = response?.recommendedTechniques ?? [];
     const learningStyles = response?.dimensions ?? [];
     const recommendedCareer = response?.relatedCareers ?? [];
+
 
 
     // const { Recommendation } = learningStyleJson;
@@ -321,15 +328,19 @@ export const LearningStyleResultComponent = () => {
                                     jobDesc=""
                                     majors={[]}
                                     isLoading={true}
+                                    jobUuid=''
                                 />
                             ))
                         ) : (
-                            currentItems.map((item: RecommendedCareer, index: number) => (
+                            currentItems.map((item: RecommendedCareer) => (
                                 <RecommendationCard
-                                    key={item.career_name || index}
+                                    key={item.career_uuid}
                                     jobTitle={item.career_name}
                                     jobDesc={item.description}
                                     majors={item.majors}
+                                    jobList={item.categories}
+                                    jobUuid={item.career_uuid}
+                                    
                                 />
                             ))
                         )}

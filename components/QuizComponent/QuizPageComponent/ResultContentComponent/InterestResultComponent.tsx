@@ -26,10 +26,17 @@ type InterestCardItem = {
     image_url: string;
 };
 
+type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
+
 type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; // Array of Major objects
+    majors: Major[]; 
+    career_uuid: string;
+    categories: Job[];
 };
 
 type Major = {
@@ -219,6 +226,7 @@ export const InterestResultComponent = () => {
                                     jobDesc=""
                                     majors={[]}
                                     isLoading={true}
+                                    jobUuid=''
                                 />
 
                             ))) : (
@@ -228,6 +236,8 @@ export const InterestResultComponent = () => {
                                     jobTitle={item.career_name}
                                     jobDesc={item.description}
                                     majors={item.majors}
+                                    jobList={item.categories}
+                                    jobUuid={item.career_uuid}
                                 />
                             ))
                         )
