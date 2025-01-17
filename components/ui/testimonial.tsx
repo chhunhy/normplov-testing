@@ -14,12 +14,10 @@ interface Review {
 const ReviewCard = ({
   img,
   name,
-  username,
   body,
 }: {
   img: string | null;
   name: string;
-  username: string;
   body: string;
 }) => {
   const [imgSrc, setImgSrc] = useState<string>(
@@ -76,7 +74,6 @@ export default function Testimonial() {
             key={review.feedback_uuid}
             img={review.avatar}
             name={review.username}
-            username={review.username}
             body={review.feedback}
           />
         ))}
@@ -87,7 +84,6 @@ export default function Testimonial() {
             key={review.feedback_uuid}
             img={review.avatar }
             name={review.username}
-            username={review.username}
             body={review.feedback}
           />
         ))}

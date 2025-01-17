@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
-import { MapPin } from "lucide-react";
-import { FiEye } from "react-icons/fi";
+
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
@@ -44,7 +43,6 @@ export const JobListingCardForDetail = ({
   created_at_days_ago,
   posted_at_days_ago,
   bookmarked,
-  visitor_count,
   is_scraped,
   onClick,
 }: props) => {

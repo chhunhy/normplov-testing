@@ -1,5 +1,4 @@
 "use client";
-import { JobListingCard } from "@/components/JobComponent/JobListingCard";
 import { JobMainContainer } from "@/components/JobComponent/JobMainContainer";
 import React, { useState, useEffect } from "react";
 import {
