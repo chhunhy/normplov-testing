@@ -136,6 +136,14 @@ export const userApi = normPlovApi.injectEndpoints({
       // invalidatesTags:["bookmarks"]
     }),
   }),
+    getTestimonial: builder.query({
+      query: () => ({
+        url: 'api/v1/feedback/promoted',
+        method: 'GET',
+      }),
+    }),
+
+
 
   }),
 });
@@ -148,4 +156,5 @@ export const {
   usePostBookmarkMutation,
   useGetAllUserBookMarkQuery,
   useDeleteUserBookMarkMutation,
+  useGetTestimonialQuery
 } = userApi;

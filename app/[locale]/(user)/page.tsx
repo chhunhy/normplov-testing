@@ -11,10 +11,13 @@ import { useGetPopularSchoolsQuery } from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
 import { useParams, useRouter } from "next/navigation";
 import ChartJobTrending from "@/components/ui/chartJob_trending";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import CardUniversitySkeletonHomePage from "@/components/SkeletonLoading/UniversitySkeleton/CardUniversitySkeletonHomePage";
 import { useTranslations } from "next-intl";
 import { useGetTrendingJobQuery } from "@/redux/service/jobs";
+import Testimonial from "@/components/ui/testimonial";
+import { cn } from "@/lib/utils";
+import { DotPattern } from "../../../components/ui/dot-pattern";
 
 // Define the types for the props
 interface FeatureCardProps {
@@ -34,14 +37,12 @@ type UniversityType = {
   logo_url: string | null; // Handle null value
 };
 
-
-
 export default function Page() {
   const t = useTranslations("HomePage"); // Hook to access translations
   const router = useRouter();
   //const [trendingJobs, setTrendingJobs] = useState<TrendingJob[]>([]);
   //const [loading, setLoading] = useState<boolean>(true);
-  const [error, ] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   const { search, province_uuid, page } = useAppSelector(
     (state) => state.filter
@@ -52,17 +53,15 @@ export default function Page() {
     province_uuid,
     page,
   });
-  console.log("university",data)
+  console.log("university", data);
 
   // Use the query hook to fetch trending jobs
   const { data: trendingJobsData, isLoading: isLoadingTrendingJobs } =
     useGetTrendingJobQuery();
 
-    const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
+  const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
   //console.log("Trending Jobs:", trendingJobs);
   console.log("Trending Jobs Data:", trendingJobsData);
-
-
 
   const { locale } = useParams();
   const handleCardClick = (id: string) => {
@@ -73,13 +72,14 @@ export default function Page() {
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
       <section className="relative ">
+      
         {/* Text Content */}
         <div className="flex justify-center ">
           <div className="container mx-auto px-4 pt-10 md:pt-16 lg:pt-16 text-center ">
             <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold lg:mb-6 md:mb-4 mb-0">
               <span className="text-emerald-500">{t("heading.part1")}</span>
-              <span className="text-orange-400"> {t("heading.part2")}</span>
-              <span className="text-emerald-500"> {t("heading.part3")}</span>
+              <span className="text-orange-400">{t("heading.part2")}</span>
+              <span className="text-emerald-500">{t("heading.part3")}</span>
             </h1>
             <p className="lg:max-w-5xl md:max-w-2xl max-w-4xl mx-auto text-textprimary lg:text-2xl md:text-2xl text-md m-3">
               {t("description")}
@@ -154,9 +154,7 @@ export default function Page() {
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <ChartJobTrending
-            trendingJobs={trendingJobs}
-            />
+            <ChartJobTrending trendingJobs={trendingJobs} />
           )}
         </div>
         <div className="  bg-primary lg:w-60 lg:h-12 md:w-60 md:h-12 w-40 h-11 flex justify-center rounded-3xl items-center max-w-7xl mx-auto my-4 md:my-6">
@@ -237,7 +235,31 @@ export default function Page() {
       </section>
 
       {/* Feedback Section */}
-      <section>{/* <FeedbackHomePage/> */} </section>
+      <section className="relative size-full p-20 items-center justify-center rounded-lg bg-background">
+        {/* Background DotPattern */}
+        <DotPattern
+          width={20}
+          height={20}
+          cx={1}
+          cy={1}
+          cr={1}
+          className={cn(
+            "  w-full h-full z-0 opacity-70 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]"
+          )}
+        />
+
+        {/* Content */}
+        <div className=" text-center space-y-4 z-10">
+          <div className="text-textprimary text-2xl md:text-4xl lg:text-5xl font-bold">
+            មាតិយោបល់
+          </div>
+          <div className="text-gray-600 text-2xl">
+            មាតិយោបល់របស់អ្នកប្រើប្រាស់ក្រោយពីការធ្វើតេស្ត
+          </div>
+        </div>
+        {/* Testimonial Section */}
+        <Testimonial />
+      </section>
     </div>
   );
 }

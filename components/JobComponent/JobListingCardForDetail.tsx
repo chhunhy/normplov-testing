@@ -4,7 +4,6 @@ import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
 
 
-
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
@@ -31,7 +30,7 @@ type props = {
   onClick?: () => void;
 };
 
-export const JobListingCard = ({
+export const JobListingCardForDetail = ({
   uuid,
   title,
   desc,
@@ -114,16 +113,15 @@ export const JobListingCard = ({
 
   return (
     <div
-      className={`grid grid-cols-4 w-full border  border-gray-100 bg-white lg:p-6 md:p-6 p-3  rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
+      className={`grid lg:grid-cols-5 md:grid-cols-5 grid-cols-7 w-full border  border-gray-100 bg-white lg:p-4 md:p-4 p-3  rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
         isActive ? "bg-gray-200" : ""
       } `}
-
     >
-      <div className=" col-span-3 space-y-5" onClick={onClick}>
-        <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9  lg:space-x-1 md:space-x-3  ">
+      <div className=" lg:col-span-4 md:col-span-4 col-span-5 space-y-5" onClick={onClick}>
+        <div className="grid lg:grid-cols-10 md:grid-cols-8 grid-cols-9  lg:space-x-1 md:space-x-1 ">
           {/* Image Section */}
           <div
-            className=" place-content-start lg:col-span-1 md:col-span-1 col-span-2  place-items-start cursor-pointer "
+            className=" place-content-start lg:col-span-2 md:col-span-1 col-span-2  place-items-start cursor-pointer "
             
           >
             <Image
@@ -142,7 +140,7 @@ export const JobListingCard = ({
               onError={() => setImgSrc("/assets/placeholder.png")}
             />
           </div>
-          <div className="lg:col-span-7 md:col-span-7 col-span-7">
+          <div className="lg:col-span-8 md:col-span-7 col-span-7">
             <h2 className="text-lg lg:text-[22px] font-semibold text-slate-700 truncate ">
               {title}
             </h2>
@@ -175,7 +173,7 @@ export const JobListingCard = ({
             </svg>
             <div className="">{location ?? "Location not available"}</div>
           </div>
-          <div className=" lg:flex md:flex hidden  rounded-2xl  justify-center items-center space-x-1 text-primary bg-primary bg-opacity-10  text-xs lg:text-sm py-0.5 max-w-fit px-1 lg:px-3">
+          <div className=" lg:hidden md:flex hidden  rounded-2xl  justify-center items-center space-x-1 text-primary bg-primary bg-opacity-10  text-xs lg:text-sm py-0.5 max-w-fit px-1 lg:px-3">
             <svg
               className="w-4 h-4"
               fill="none"
@@ -194,7 +192,7 @@ export const JobListingCard = ({
         </div>
       </div>
 
-      <div className="col-span-1  lg:space-y-[60px] md:space-y-[60px] space-y-[50px]  ">
+      <div className="lg:col-span-1 md:col-span-1 col-span-2  space-y-[60px]   ">
         {/*bookmark*/}
         <div className="flex justify-end text-lime-300">
           {isBookmarked ? (
@@ -209,7 +207,7 @@ export const JobListingCard = ({
             />
           )}
         </div>
-        <div className="flex justify-end text-gray-600 text-sm">
+        <div className="flex justify-end text-gray-600 text-sm " >
           {is_scraped ? `${created_at_days_ago}` : `${posted_at_days_ago}`}
         </div>
       </div>

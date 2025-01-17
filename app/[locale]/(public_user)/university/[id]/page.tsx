@@ -58,6 +58,7 @@ type UniversityType = {
   description: string;
   mission: string;
   vision: string;
+  type:string;
   majors: MajorType[]; // Handle empty array
   faculties: FacultyType[]; // Faculties with the correct structure
 };
@@ -160,6 +161,7 @@ export default function Page({ params }: { params: { id: string } }) {
             description={university.description}
             mission={university.mission}
             vision={university.vision}
+            type={university.type}
             majors={
               filteredMajors.length > 0 ? filteredMajors : [fallbackMajor]
             }

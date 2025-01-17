@@ -1,5 +1,4 @@
 "use client";
-import { JobListingCard } from "@/components/JobComponent/JobListingCard";
 import { JobMainContainer } from "@/components/JobComponent/JobMainContainer";
 import React, { useState, useEffect } from "react";
 import {
@@ -25,6 +24,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { JobDetailCard } from "@/components/JobComponent/JobDetailCard";
 import JobDetailSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobDetailSkeleton";
+import { JobListingCardForDetail } from "@/components/JobComponent/JobListingCardForDetail";
 
 interface CategoryOption {
   value: string;
@@ -52,12 +52,12 @@ interface Job {
   is_scraped?: boolean;
   created_at_days_ago?: string;
   logo?: string;
+  salary?:string;
   created_at: string;
   closing_date: string;
   isActive?: boolean;
-  bookmarked?: boolean;
   visitor_count?: number;
-  website?:string;
+  bookmarked?: boolean;
 }
 
 
@@ -210,7 +210,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="w-full bg-bgPrimaryLight">
+    <div className="w-full bg-gray-50">
       <JobMainContainer
         title="ជាមួយការងារដែលមានតម្រូវការខ្ពស់ក្នុងទីផ្សារ"
         desc="តាមដានទីផ្សារការងារដោយប្រើឧបករណ៍ឆ្លាតវៃរបស់យើងជាមួយនឹងការវិភាគទិន្នន័យដើម្បីស្វែងរកការងារដែលកំពុងពេញនិយម។ យើងនាំមកជូនអ្នកនូវឱកាសការងារដែលមានតម្រូវការខ្ពស់បំផុត ដើម្បីជួយអ្នករៀបចំផែនការសម្រាប់អនាគតដ៏ជោគជ័យ។"
@@ -358,23 +358,24 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
           <div className="lg:col-span-5 space-y-4">
             {jobs.map((job: Job) => (
-              <JobListingCard
-                key={job.uuid}
-                uuid={job.uuid}
-                title={job.title}
-                desc={job.company_name}
-                image={job.logo}
-                time={job.job_type}
-                location={job.location}
-                
-                created_at_days_ago={job.created_at_days_ago}
-                posted_at_days_ago={job.posted_at_days_ago}
-                is_scraped={job.is_scraped}
-                isActive={false} // Default or dynamic value
-                bookmarked={job.bookmarked ?? false}
-                visitor_count={job.visitor_count ?? 0}
-                onClick={() => handleCardClick(job.uuid)}
-              />
+              <JobListingCardForDetail
+              key={job.uuid}
+              uuid={job.uuid}
+              title={job.title}
+              desc={job.company_name}
+              image={job.logo}
+              time={job.job_type}
+              salary={job.salary}
+              location={job.location}
+              category={job.category || " " }
+              created_at_days_ago={job.created_at_days_ago}
+              posted_at_days_ago={job.posted_at_days_ago}
+              is_scraped={job.is_scraped}
+              isActive={false} // Default or dynamic value
+              visitor_count={job.visitor_count ?? 0}
+              bookmarked={job.bookmarked ?? false }
+              onClick={() => handleCardClick(job.uuid)}
+            />
             ))}
             <div>
               <Pagination

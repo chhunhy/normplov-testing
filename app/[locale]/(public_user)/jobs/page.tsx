@@ -152,6 +152,7 @@ interface Job {
   is_scraped?: boolean;
   created_at_days_ago?: string;
   logo?: string;
+  salary?:string;
   created_at: string;
   closing_date: string;
   isActive?: boolean;
@@ -336,7 +337,7 @@ export default function Job() {
   };
 
   return (
-    <div className="w-full bg-bgPrimaryLight">
+    <div className="w-full bg-slate-50">
       <JobMainContainer
         title="ជាមួយការងារដែលមានតម្រូវការខ្ពស់ក្នុងទីផ្សារ"
         desc="តាមដានទីផ្សារការងារដោយប្រើឧបករណ៍ឆ្លាតវៃរបស់យើងជាមួយនឹងការវិភាគទិន្នន័យដើម្បីស្វែងរកការងារដែលកំពុងពេញនិយម។ យើងនាំមកជូនអ្នកនូវឱកាសការងារដែលមានតម្រូវការខ្ពស់បំផុត ដើម្បីជួយអ្នករៀបចំផែនការសម្រាប់អនាគតដ៏ជោគជ័យ។"
@@ -492,7 +493,9 @@ export default function Job() {
                 desc={job.company_name}
                 image={job.logo}
                 time={job.job_type}
+                salary={job.salary}
                 location={job.location}
+                category={job.category || " " }
                 created_at_days_ago={job.created_at_days_ago}
                 posted_at_days_ago={job.posted_at_days_ago}
                 is_scraped={job.is_scraped}
