@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 // import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
@@ -39,18 +39,34 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginComponent = () => {
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(selectToken);
   const router = useRouter();
   console.log("Access token: from Redux store", accessToken);
-
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
   const handleClose = () => {
     router.push("/"); // Redirect to the referrer
   };
   const handleGoogleLogin = () => {
-    // Redirect to the Google login endpoint
-    window.location.href = "https://normplov-api.shinoshike.studio/api/v1/auth/google";
+    // const clientId = `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`
+    const clientId = "584934236339-5bjir3arta5iumk19q9j2vuaejp0b9bl.apps.googleusercontent.com";
+    const redirectUri = `${window.location.origin}/auth/google/callback`;
+    const scope = 'email profile';
+    
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` + 
+      `client_id=${encodeURIComponent(clientId)}&` +
+      `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+      `response_type=code&` +
+      `scope=${encodeURIComponent(scope)}`;
+
+    window.location.href = googleAuthUrl;
   };
   const handleLogin = async (user: ValueTypes) => {
     const { email, password } = user;
@@ -207,7 +223,10 @@ const LoginComponent = () => {
 
                         {/* Forgot Password Link */}
                         <div className="mt-2 text-right">
-                          <Link href="/forgot-password">
+                          <Link 
+                           href={`/${currentLocale}/forgot-password`}
+                          // href="/forgot-password"
+                          >
                             <span className="text-sm text-primary hover:underline hover:font-semibold ">
                               ភេ្លចលេខសម្ងាត់?
                             </span>
@@ -252,7 +271,8 @@ const LoginComponent = () => {
                           <span>
                             មិនទាន់មានគណនីមែនទេ?{" "}
                             <Link
-                              href="/register"
+                             href={`/${currentLocale}/register`}
+                              // href="/register"
                               className="text-primary hover:underline hover:font-semibold pl-1.5"
                             >
                               បង្កើតគណនី

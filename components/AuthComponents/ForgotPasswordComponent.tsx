@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { IoCloseSharp } from 'react-icons/io5';
@@ -28,10 +28,17 @@ const validationSchema = Yup.object().shape({
 });
 
 const ForgotPasswordComponent = () => {
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [forgotPassword]=useForgotPasswordMutation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
+  useEffect(() => {
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage) {
+          setCurrentLocale(savedLanguage);
+        }
+      }, []);
   const handleForgotPassword = async (values:ValueTypes)=>{
     setIsLoading(true);
     const { email } = values;
@@ -41,7 +48,8 @@ const ForgotPasswordComponent = () => {
       dispatch(setEmail(email));
       // Optionally, navigate to a confirmation page
       setTimeout(() => {
-        router.push("/verify-code-forgot"); // Update the path to your actual confirmation page
+        router.push(`/${currentLocale}/verify-code-forgot`);
+        // router.push("/verify-code-forgot"); // Update the path to your actual confirmation page
       });
     }catch(error:unknown){
       console.error("Forgot Password Error:", error);
@@ -64,7 +72,8 @@ const ForgotPasswordComponent = () => {
     
   }
   const handleClose = () => {
-    router.push("/login"); // Redirect to the referrer
+    //  href={`/${currentLocale}/login`}
+     router.push(`/${currentLocale}/login`); // Redirect to the referrer
   };
 
   return (

@@ -33,9 +33,9 @@ export default function ProfileLayout({
       >
         <NavbarPage/>
        
-       <section className="w-full bg-[#F7FDFB]">
-       <section className="lg:container lg:mx-auto ">
-       <div className=" lg:flex p-6 lg:p-8 gap-6 lg:gap-12">
+       <section className=" bg-[#F7FDFB]">
+       <section className="lg:mx-20">
+       <div className=" lg:flex p-6  gap-6 lg:gap-14">
           {/* Sidebar */}
           <SideBarProfileComponent />
            

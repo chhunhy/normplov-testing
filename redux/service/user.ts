@@ -53,7 +53,20 @@ type Metadata ={
   total_pages: number;
 }
 
-
+// Define the response structure for the API
+type UserBookMarkResponse ={
+  date: string;
+  status: number;
+  payload: {
+    items: Items[];  // Array of test items
+    metadata: Metadata;  // Pagination metadata
+  }
+  message: string;
+}
+type UserBookMarkDeleteResponse={
+status: number;
+message: string;
+}
 export const userApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<UserResponse, void>({
@@ -109,7 +122,20 @@ export const userApi = normPlovApi.injectEndpoints({
       }),
       invalidatesTags: ["bookmarks"],
     }),
-
+    getAllUserBookMark: builder.query<UserBookMarkResponse,{ page: number; page_size: number }>({
+      query: ({ page = 1, page_size= 10 }) =>({
+          url: `api/v1/bookmarks/?page=${page}&page_size=${page_size}`,
+          method: "GET",
+      })
+       
+  }),
+  deleteUserBookMark: builder.mutation<UserBookMarkDeleteResponse, {uuid: string}>({
+    query: ({uuid})=>({
+      url:`api/v1/bookmarks/${uuid}`,
+      method:"DELETE",
+      // invalidatesTags:["bookmarks"]
+    }),
+  }),
 
   }),
 });
@@ -120,4 +146,6 @@ export const {
   useUpdateProfileUserMutation,
   usePostImageMutation,
   usePostBookmarkMutation,
+  useGetAllUserBookMarkQuery,
+  useDeleteUserBookMarkMutation,
 } = userApi;
