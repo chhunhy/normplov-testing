@@ -67,6 +67,9 @@ export default function Page() {
   const handleCardClick = (id: string) => {
     router.push(`${locale}/university/${id}`);
   };
+  const handleTest = () => {
+    router.push(`${locale}/test`);
+  };
 
   return (
     <div className="w-full h-auto bg-white ">
@@ -85,7 +88,7 @@ export default function Page() {
               {t("description")}
             </p>
 
-            <button className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors">
+            <button onClick={() => handleTest()}  className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors">
               {t("getstart")}
             </button>
           </div>
@@ -159,7 +162,7 @@ export default function Page() {
         </div>
         <div className="  bg-primary lg:w-60 lg:h-12 md:w-60 md:h-12 w-40 h-11 flex justify-center rounded-3xl items-center max-w-7xl mx-auto my-4 md:my-6">
           <Link
-            href="/"
+            href={`${locale}/jobs`}
             className=" flex w-60 h-12 lg:space-x-3 md:space-x-3 space-x-1 justify-center items-center"
           >
             <div className="text-lg  text-white">
@@ -235,7 +238,7 @@ export default function Page() {
       </section>
 
       {/* Feedback Section */}
-      <section className="relative size-full p-20 items-center justify-center rounded-lg bg-background">
+      <section className="relative size-full lg:p-20 md:p-10 p-4 items-center justify-center rounded-lg bg-background">
         {/* Background DotPattern */}
         <DotPattern
           width={20}

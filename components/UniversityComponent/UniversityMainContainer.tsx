@@ -127,7 +127,7 @@ export default function UniversityMainContainer({
               placeholder="សាកលវិទ្យាល័យទាំងអស់"
               value={selectedUniversity}
               onChange={handleUniversityChange}
-              className="rounded-full text-sm md:text-md lg:text-base  "
+              className="rounded-[8px] text-sm md:text-md lg:text-base  "
               isClearable
             />
             <Select

@@ -42,7 +42,7 @@ export default function CardUniversity({
 
         <div className="flex  w-[73%] flex-col justify-between  lg:p-2 md:p-2 p-0 leading-normal truncate">
           <h1 className="lg:mb-2 md:mbb-2 mb-1 text-lg md:text-2xl lg:text-2xl  font-bold tracking-tight text-textprimary dark:text-white truncate">
-            {kh_name}
+            {kh_name ? kh_name : "No name available"}
           </h1>
           <h2 className="lg:mb-2 md:mbb-2 mb-1 text-sm  md:text-xl lg:text-xl  text-gray-600 truncate">
             {en_name}

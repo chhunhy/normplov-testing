@@ -1,6 +1,6 @@
 import React from "react";
-import NavbarPage from "../../../components/Navbar/NavbarPage";
-import FooterPage from "../../../components/Footer/FooterPage";
+import NavbarPage from "../components/Navbar/NavbarPage";
+import FooterPage from "../components/Footer/FooterPage";
 import Image from "next/image";
 import { BiArrowBack } from "react-icons/bi";
 import Link from "next/link";
@@ -24,7 +24,7 @@ const NotFound = () => {
             />
           </div>
           <div className="space-y-4 text-white lg:ml-0 md:ml-10 ml-2 lg:mt-20 md:mt-20 mt-3">
-            <div className="lg:text-6xl md:text-4xl text-2xl text-red-600">រកមិនឃើញទំព័រ</div>
+            <div className="lg:text-6xl md:text-4xl text-2xl font-semibold text-red-600">រកមិនឃើញទំព័រ</div>
             <div className="lg:text-2xl md:text-2xl text-lg  text-textprimary">
               សុំទោស! សូមចូលទៅកាន់គេហទំព័រដើមដើម្បីទទួលបាន កន្លែងដែលអ្នកចង់ទៅ។
             </div>

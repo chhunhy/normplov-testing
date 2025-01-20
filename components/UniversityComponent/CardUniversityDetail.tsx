@@ -37,7 +37,7 @@ type UniversityType = {
   mission: string;
   majors: MajorType[];
   vision: string;
-  type:string;
+  type: string;
   faculties: {
     uuid: string;
     name: string;
@@ -122,7 +122,7 @@ export default function CardUniversityDetail({
   longitude,
   popular_major,
   faculties,
-  type
+  type,
 }: UniversityType) {
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string>("BACHELOR"); // Default to "BACHELOR"
@@ -203,7 +203,7 @@ export default function CardUniversityDetail({
     setSelectedPage(pageNumber);
   };
 
-  const [ , setImgSrc] = useState<string>(
+  const [ImgSrc, setImgSrc] = useState<string>(
     logo_url
       ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`
       : "/assets/placeholder.png"
@@ -221,8 +221,8 @@ export default function CardUniversityDetail({
                 : "/assets/default-image.png" // Path to your default image
             }
             alt={kh_name || "Default Image"}
-            width={200}
-            height={200}
+            width={1000}
+            height={1000}
             unoptimized // Optional, depending on your optimization needs
             className="w-full h-full object-cover"
           />
@@ -231,17 +231,17 @@ export default function CardUniversityDetail({
         <div className="hidden md:block lg:block  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
           <div className="bg-white  bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-auto w-auto h-[200px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
             <Image
-              src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
+              src={ImgSrc}
               alt={kh_name}
-              width={200}
-              height={200}
+              width={1000}
+              height={1000}
               unoptimized // This disables Next.js image optimization (optional if needed)
               className=" object-contain lg:w-60 lg:h-60 md:w-32 md:h-32 w-10 h-10  "
               onError={() => setImgSrc("/assets/placeholder.png")}
             />
             <div className="text-center md:text-left">
               <h1 className="lg:text-5xl md:text-2xl text-lg font-bold text-textprimary mb-3">
-                {kh_name}
+                {kh_name ? kh_name : "unknown"}
               </h1>
               <p className="text-gray-600 lg:text-3xl md:text-xl text-sm mb-2">
                 {en_name}
@@ -250,12 +250,14 @@ export default function CardUniversityDetail({
                 {location}
               </p>
               <div className="flex  space-x-2">
-              <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
-                {type} School
-              </div>
-              <div className="bg-secondary bg-opacity-10 text-secondary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
-                {popular_major} 
-              </div>
+                <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
+                  {type} School
+                </div>
+                {popular_major && (
+                  <div className="bg-secondary bg-opacity-10 text-secondary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
+                    {popular_major}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -275,7 +277,7 @@ export default function CardUniversityDetail({
               />
               <div className="text-start md:text-left">
                 <h1 className="lg:text-5xl  md:text-2xl ml-4 text-lg font-bold text-textprimary mb-0">
-                  {kh_name}
+                  {kh_name ? kh_name : "unknown"}
                 </h1>
                 <h1 className="lg:text-5xl md:text-2xl ml-4 text-md font-bold text-textprimary mb-3">
                   {en_name}
@@ -283,9 +285,8 @@ export default function CardUniversityDetail({
               </div>
             </div>
             <div className="flex justify-end  items-center">
-              
               <div className="bg-primary lg:text-lg md:text-lg text-sm text-primary lg:py-2 lg:px-6 md:py-2 md:px-6 py-1 px-2 rounded-xl bg-opacity-10">
-              {type} School
+                {type} School
               </div>
             </div>
           </div>
@@ -327,7 +328,7 @@ export default function CardUniversityDetail({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {location}
+                    {location ? location: "unknown"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2 ">

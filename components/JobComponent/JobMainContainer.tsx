@@ -26,7 +26,7 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
 
   return (
     <div
-      className="relative w-full h-[600px] bg-cover bg-center"
+      className="relative w-full bg-white h-[600px] bg-cover bg-center"
       style={{ backgroundImage: `url(${cover.src})` }}
     >
       <div className="max-w-7xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">

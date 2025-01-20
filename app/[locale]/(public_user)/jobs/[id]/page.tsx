@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -30,7 +30,6 @@ interface CategoryOption {
   value: string;
   label: string;
 }
-
 
 type OptionType = {
   value: string;
@@ -52,14 +51,13 @@ interface Job {
   is_scraped?: boolean;
   created_at_days_ago?: string;
   logo?: string;
-  salary?:string;
+  salary?: string;
   created_at: string;
   closing_date: string;
   isActive?: boolean;
   visitor_count?: number;
   bookmarked?: boolean;
 }
-
 
 export default function Page({ params }: { params: { id: string } }) {
   const dispatch = useAppDispatch();
@@ -69,10 +67,12 @@ export default function Page({ params }: { params: { id: string } }) {
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
-  const [currentLocale, setCurrentLocale] = useState<string>('km');
+  const [currentLocale, setCurrentLocale] = useState<string>("km");
+
+  const { locale } = useParams();
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language');
+    const savedLanguage = localStorage.getItem("language");
     if (savedLanguage) {
       setCurrentLocale(savedLanguage);
     }
@@ -156,7 +156,22 @@ export default function Page({ params }: { params: { id: string } }) {
     fetchCategoriesAndLocations();
   }, []);
 
-
+  // Auto-scroll to the JobDetailCard when the route changes
+  useEffect(() => {
+    if (params.id) {
+      const targetElement = document.getElementById("jobDetails");
+      if (targetElement) {
+        const elementPosition =
+          targetElement.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: elementPosition - 80, // Offset for any fixed headers
+          behavior: "smooth", // Smooth scrolling
+        });
+      } else {
+        console.error("Target element with ID 'jobDetails' not found.");
+      }
+    }
+  }, [params.id]); // Re-run when `params.id` changes
 
   if (!data) {
     return <JobDetailSkeleton />;
@@ -165,7 +180,7 @@ export default function Page({ params }: { params: { id: string } }) {
   //console.log("data: ", data);
 
   const handleCardClick = (id: string) => {
-    const newPath = `/${currentLocale}/jobs/${id}`;
+    const newPath = `/${locale}/jobs/${id}`;
 
     // Ensure the new path does not contain the duplicate locale part
     if (!pathname.startsWith(`/${currentLocale}`)) {
@@ -180,25 +195,24 @@ export default function Page({ params }: { params: { id: string } }) {
   const jobs = data?.payload?.items || [];
   const totalPages = data?.payload?.metadata?.total_pages || 1;
 
-
   const handleSearchChange = (query: string) => {
     dispatch(setSearch(query));
-    router.push(`/jobs?search=${query}`); // Update URL for search
+    router.push(`/${locale}/jobs?search=${query}`); // Update URL for search
   };
 
   const handleCategoryChange = (category: OptionType | null) => {
     dispatch(setSelectedCategory(category));
-    router.push(`/jobs?category=${category?.value}`); // Update URL for category
+    router.push(`/${locale}/jobs?category=${category?.value}`); // Update URL for category
   };
 
   const handleLocationChange = (location: OptionType | null) => {
     dispatch(setSelectedLocation(location));
-    router.push(`/jobs?location=${location?.value}`); // Update URL for location
+    router.push(`/${locale}/jobs?location=${location?.value}`); // Update URL for location
   };
 
   const handleJobTypeChange = (jobType: OptionType | null) => {
     dispatch(setSelectedJobType(jobType));
-    router.push(`/jobs?job_type=${jobType?.value}`); // Update URL for job type
+    router.push(`/${locale}/jobs?job_type=${jobType?.value}`); // Update URL for job type
   };
 
   // Check if a job is selected based on the id parameter
@@ -207,6 +221,7 @@ export default function Page({ params }: { params: { id: string } }) {
   // Pagination handlers
   const handlePageChange = (newPage: number) => {
     dispatch(setPage(newPage));
+    router.push(`/${locale}/jobs/`);
   };
 
   return (
@@ -359,23 +374,23 @@ export default function Page({ params }: { params: { id: string } }) {
           <div className="lg:col-span-5 space-y-4">
             {jobs.map((job: Job) => (
               <JobListingCardForDetail
-              key={job.uuid}
-              uuid={job.uuid}
-              title={job.title}
-              desc={job.company_name}
-              image={job.logo}
-              time={job.job_type}
-              salary={job.salary}
-              location={job.location}
-              category={job.category || " " }
-              created_at_days_ago={job.created_at_days_ago}
-              posted_at_days_ago={job.posted_at_days_ago}
-              is_scraped={job.is_scraped}
-              isActive={false} // Default or dynamic value
-              visitor_count={job.visitor_count ?? 0}
-              bookmarked={job.bookmarked ?? false }
-              onClick={() => handleCardClick(job.uuid)}
-            />
+                key={job.uuid}
+                uuid={job.uuid}
+                title={job.title}
+                desc={job.company_name}
+                image={job.logo}
+                time={job.job_type}
+                salary={job.salary}
+                location={job.location}
+                category={job.category || " "}
+                created_at_days_ago={job.created_at_days_ago}
+                posted_at_days_ago={job.posted_at_days_ago}
+                is_scraped={job.is_scraped}
+                isActive={false} // Default or dynamic value
+                visitor_count={job.visitor_count ?? 0}
+                bookmarked={job.bookmarked ?? false}
+                onClick={() => handleCardClick(job.uuid)}
+              />
             ))}
             <div>
               <Pagination
@@ -388,13 +403,15 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
           {/* Right Section: Job Details */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7" id="jobDetails">
             <div className="lg:sticky lg:top-0">
               {selectedJobFromId ? (
                 <JobDetailCard
                   jobTitle={selectedJobFromId.title}
                   jobCompany={selectedJobFromId.company_name}
-                  image={selectedJobFromId.logo || '/path/to/fallback/image.jpg'}
+                  image={
+                    selectedJobFromId.logo || "/path/to/fallback/image.jpg"
+                  }
                   time={selectedJobFromId.job_type}
                   location={selectedJobFromId.location}
                   // category={selectedJobFromId.}
@@ -407,9 +424,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   url={selectedJobFromId.website}
                 />
               ) : (
-                <div className="p-4 text-gray-600">
-                  Please select a job to see the details.
-                </div>
+                <div></div>
               )}
             </div>
           </div>

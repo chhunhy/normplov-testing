@@ -11,7 +11,7 @@ import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 type props = {
   uuid: string;
@@ -57,6 +57,8 @@ export const JobListingCard = ({
   const token = useAppSelector((state: RootState) => state.auth.token);
   //const router = useRouter();
 
+  //const toggleState = useAppSelector((state) => state.bookmarks.toggle);
+
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
 
@@ -89,6 +91,7 @@ export const JobListingCard = ({
           autoClose: 3000,
         }
       );
+      
     } catch (error: unknown) {
       // Handle backend-specific error
       const errorMessage =
@@ -142,11 +145,11 @@ export const JobListingCard = ({
               onError={() => setImgSrc("/assets/placeholder.png")}
             />
           </div>
-          <div className="lg:col-span-7 md:col-span-7 col-span-7">
+          <div className="lg:col-span-7 md:col-span-7 col-span-7 space-y-1">
             <h2 className="text-lg lg:text-[22px] font-semibold text-slate-700 truncate ">
               {title}
             </h2>
-            <p className="text-sm lg:text-lg text-textprimary  line-clamp-1">by <span className=" text-primary">{desc}</span> in <span className=" text-textprimary">{category}</span></p>
+            <p className="text-sm lg:text-[16px] text-textprimary  line-clamp-1"><span className=" text-primary">{desc}</span> in <span className=" text-textprimary">{category}</span></p>
           </div>
         </div>
         <div className="flex space-x-2">
@@ -213,7 +216,6 @@ export const JobListingCard = ({
           {is_scraped ? `${created_at_days_ago}` : `${posted_at_days_ago}`}
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

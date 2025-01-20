@@ -10,7 +10,7 @@ import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 
 type props = {
   uuid: string;
@@ -211,7 +211,6 @@ export const JobListingCardForDetail = ({
           {is_scraped ? `${created_at_days_ago}` : `${posted_at_days_ago}`}
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

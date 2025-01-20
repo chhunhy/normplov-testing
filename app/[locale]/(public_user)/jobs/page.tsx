@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import {  usePathname, useRouter } from "next/navigation";
+import {  useParams, usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -170,14 +170,8 @@ export default function Job() {
   const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
   const pathname = usePathname();
-  const [currentLocale, setCurrentLocale] = useState<string>('km');
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage) {
-      setCurrentLocale(savedLanguage);
-    }
-  }, []);
+  const { locale } = useParams();
+  
 
 
   const { search, selectedCategory, selectedLocation, selectedJobType, page } =
@@ -282,10 +276,10 @@ export default function Job() {
   const handleCardClick = async (id: string) => {
     try {
 
-      const newPath = `/${currentLocale}/jobs/${id}`;
+      const newPath = `/${locale}/jobs/${id}`;
 
       // Ensure the new path does not contain the duplicate locale part
-      if (!pathname.startsWith(`/${currentLocale}`)) {
+      if (!pathname.startsWith(`/${locale}`)) {
         // If the pathname doesn't include the current locale, add it
         router.push(newPath);
       } else {
