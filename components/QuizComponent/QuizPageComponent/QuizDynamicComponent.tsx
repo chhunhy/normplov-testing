@@ -17,7 +17,7 @@ import { usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
 // import Loading from '@/components/General/Loading';
 import { useDraftAssessmentMutation } from '@/redux/service/draft';
 import { useTranslations } from 'next-intl';
-import confetti from "canvas-confetti";
+import { LoadingTest } from '@/components/General/LoadingTest';
 
 
 
@@ -413,7 +413,6 @@ export default function QuizDynamicComponent() {
   };
 
 
-
   const howItWorksSteps = [
     t('TestMainPage.instructKh.howItWorksSteps.step1'),
     t('TestMainPage.instructKh.howItWorksSteps.step2'),
@@ -434,7 +433,7 @@ export default function QuizDynamicComponent() {
     interest: InterestTest,
     skill: SkillTest,
     value: ValueTest
-    
+
 
     // Add more tests here if necessary
   };
@@ -446,7 +445,6 @@ export default function QuizDynamicComponent() {
   const [userResponses, setUserResponses] = useState<QuizResponse>({});
   const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isPageDisabled, setIsPageDisabled] = useState(false);
 
   // Get the quiz data and total questions
   const quizData = Array.isArray(testType) ? null : quizDataMap[testType];
@@ -493,35 +491,7 @@ export default function QuizDynamicComponent() {
     return;
   }
 
-  const handleClick = () => {
-    const end = Date.now() + 3 * 1000; // 3 seconds
-    const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
- 
-    const frame = () => {
-      if (Date.now() > end) return;
- 
-      confetti({
-        particleCount: 2,
-        angle: 60,
-        spread: 55,
-        startVelocity: 60,
-        origin: { x: 0, y: 0.5 },
-        colors: colors,
-      });
-      confetti({
-        particleCount: 2,
-        angle: 120,
-        spread: 55,
-        startVelocity: 60,
-        origin: { x: 1, y: 0.5 },
-        colors: colors,
-      });
- 
-      requestAnimationFrame(frame);
-    };
- 
-    frame();
-  };
+
 
   const assessmentType = Array.isArray(testType) ? testType[0] : testType;
   // const draftType = Array.isArray(testType) ? testType[1] : testType;
@@ -529,9 +499,8 @@ export default function QuizDynamicComponent() {
 
 
   const handleResultClick = async () => {
-    setIsPageDisabled(true);
     setIsSubmitting(true);
-   
+
     if (completedQuestions.length < totalQuestions) {
       toast.error("Please answer all the questions to see the result.");
       return;
@@ -555,10 +524,9 @@ export default function QuizDynamicComponent() {
 
       const testUuid = result.payload.test_uuid
 
-      
+
       toast.success("Responses submitted successfully!");
 
-      handleClick()
       // const newPath = `${currentLocale}/test-result/${assessmentType}/${testUuid}`;
 
       // // Check if the pathname already contains the locale to avoid duplication
@@ -580,13 +548,12 @@ export default function QuizDynamicComponent() {
         router.push(newPath);
       }
 
+      // setIsSubmitting(false);
+
     } catch (err) {
       toast.error("Failed to submit responses. Please try again.");
       console.log(err)
-    }finally {
-      setIsSubmitting(false);
-      setIsPageDisabled(true);
-    }
+    } 
   };
 
 
@@ -612,7 +579,7 @@ export default function QuizDynamicComponent() {
   // };
 
   const handleDraftClick = async () => {
-  
+
 
     // Filter only the answered questions
     const processedResponses = processResponsesForDraft(userResponses, quizData.questions);
@@ -631,7 +598,7 @@ export default function QuizDynamicComponent() {
       // Log and notify the user of errors
       toast.error("Failed to save progress. Please try again.");
       console.error("Error saving draft:", err);
-    } 
+    }
   };
 
   const { quizButtonKh } = generalTestJson;
@@ -655,74 +622,95 @@ export default function QuizDynamicComponent() {
 
 
   return (
-    <div className={`w-full relative ${isPageDisabled ? 'pointer-events-none opacity-50' : ''}`}>
-     
+    <div className={`w-full relative`}>
 
-      {/* Intro Section */}
-      <div className="bg-bgPrimaryLight">
+      {
+        isSubmitting ? (
+          <div className='max-w-7xl mx-auto p-6 lg:py-10'>
+            <div className='max-w-2xl mx-auto lg:mb-2'>
+              <LoadingTest />
+            </div>
 
-        <QuizIntroContainer
-          introTitle={t(quizData.introKh.title)} 
-          introHightlight={t(quizData.introKh.highlight)} 
-          introDesc={t(quizData.introKh.description)} 
-          instructLabel={t('TestMainPage.instructKh.instructionLabel')}
-          howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
-          howItWorkStep={howItWorksSteps} 
-          emojiLabels={emojiLabels}
-          RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
-        />
+            <div className='max-w-2xl mx-auto'>
+              <p className='font-bold text-center text-primary text-base lg:text-xl'>Hang Tight! Your Results Are On the Way!</p>
+              <p className='text-center text-slate-500  '>Please wait while we process your test results.</p>
+            </div>
 
-      </div>
+          </div>
 
-      <div className="sticky top-0 z-10 bg-white pt-4 ">
-        <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
-          <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">{progress} %</span>
-          <Progress value={progress} className="h-4" />
-        </div>
-      </div>
+        ) : (
+          <div>
+            {/* Intro Section */}
+            <div className="bg-bgPrimaryLight">
 
-      {/* Questions Section */}
-      <div className="max-w-7xl mx-auto my-4 md:my-6 px-4">
-        {questions.map((questionData, index) => (
-          <QuizQuestionContainer
-            key={index}
-            question={questionData.question}
-            questionIndex={index} 
-            updateCompletedQuestions={(index: number) => {
-              if (!completedQuestions.includes(index)) {
-                setCompletedQuestions((prev) => [...prev, index]);
-              }
-            }}
-            handleAnswer={handleAnswer}
-            lang='kh'
-          />
-        ))}
+              <QuizIntroContainer
+                introTitle={t(quizData.introKh.title)}
+                introHightlight={t(quizData.introKh.highlight)}
+                introDesc={t(quizData.introKh.description)}
+                instructLabel={t('TestMainPage.instructKh.instructionLabel')}
+                howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
+                howItWorkStep={howItWorksSteps}
+                emojiLabels={emojiLabels}
+                RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
+              />
+
+            </div>
+
+            <div className="sticky top-0 z-10 bg-white pt-4 ">
+              <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
+                <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">{progress} %</span>
+                <Progress value={progress} className="h-4" />
+              </div>
+            </div>
+
+            {/* Questions Section */}
+            <div className="max-w-7xl mx-auto my-4 md:my-6 px-4">
+              {questions.map((questionData, index) => (
+                <QuizQuestionContainer
+                  key={index}
+                  question={questionData.question}
+                  questionIndex={index}
+                  updateCompletedQuestions={(index: number) => {
+                    if (!completedQuestions.includes(index)) {
+                      setCompletedQuestions((prev) => [...prev, index]);
+                    }
+                  }}
+                  handleAnswer={handleAnswer}
+                  lang='kh'
+                />
+              ))}
 
 
-      </div>
+            </div>
 
-      {/* Footer Buttons */}
-      <div className="max-w-7xl mx-auto px-4 py-6 flex gap-2 justify-end">
-        <QuizButton
-          title={quizButtonKh.draft}
-          rounded="xl"
-          icon={<ArchiveRestore />}
-          type="leftIcon"
-          outline="true"
-          onClick={handleDraftClick}
-          isDisable={isSubmitting}
+            {/* Footer Buttons */}
+            <div className="max-w-7xl mx-auto px-4 py-6 flex gap-2 justify-end">
+              <QuizButton
+                title={quizButtonKh.draft}
+                rounded="xl"
+                icon={<ArchiveRestore />}
+                type="leftIcon"
+                outline="true"
+                onClick={handleDraftClick}
+                isDisable={isSubmitting}
 
-        />
-        <QuizButton
-          title={quizButtonKh.result}
-          rounded="xl"
-          icon={<ArrowRight />}
-          type="rightIcon"
-          onClick={handleResultClick}
-          isDisable={(completedQuestions.length < totalQuestions)}
-          outline='false'
-        />
-      </div>
+              />
+              <QuizButton
+                title={quizButtonKh.result}
+                rounded="xl"
+                icon={<ArrowRight />}
+                type="rightIcon"
+                onClick={handleResultClick}
+                isDisable={(completedQuestions.length < totalQuestions)}
+                outline='false'
+              />
+            </div>
+          </div>
+        )
+      }
+
+
+
     </div>
   );
 }

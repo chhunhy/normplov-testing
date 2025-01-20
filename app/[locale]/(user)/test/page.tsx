@@ -1,3 +1,4 @@
+
 import QuizMainPageComponent from "@/components/QuizComponent/QuizPageComponent/QuizMainPageComponent";
 import React from "react";
 
@@ -23,7 +24,7 @@ export const metadata = {
       "Discover your ideal career path through engaging assessments at NormPlov, including Personality, Interest, Value, Learning Style, and Skill test.",
     images: [
       {
-        url: "/Quiz/stepup.png", 
+        url: "/Quiz/stepup.png",
         width: 1000,
         height: 1000,
         alt: "NormPlov Quiz Thumbnail",
@@ -44,6 +45,9 @@ export const metadata = {
 export default function page() {
 
   return (
-    <QuizMainPageComponent/>
+    <>
+      <QuizMainPageComponent />
+    </>
+
   )
 }

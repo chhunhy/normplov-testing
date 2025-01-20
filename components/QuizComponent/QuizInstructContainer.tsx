@@ -19,7 +19,7 @@ export const QuizInstructContainer = ({
   return (
 
     <div className='grid grid-cols-1 lg:grid-cols-6 lg:gap-4'>
-      <div className="grid col-span-4 rounded-xl bg-[#FDFDFB] w-full h-auto mt-10 relative text-textprimary">
+      <div className="grid col-span-4 rounded-xl bg-white w-full h-auto mt-10 relative text-textprimary">
         {/* Instruction Label */}
         <span className="absolute left-4 -top-4 inline-flex items-center bg-secondary px-4 py-1 text-md md:text-xl font-semibold text-white rounded-xl">
           {instructionLabel}
@@ -42,7 +42,7 @@ export const QuizInstructContainer = ({
 
       </div>
 
-      <div className="grid col-span-2 rounded-xl bg-[#FDFDFB] w-full h-auto mt-10 relative text-textprimary">
+      <div className="grid col-span-2 rounded-xl bg-white w-full h-auto mt-10 relative text-textprimary">
         {/* Instruction Label */}
         <span className="absolute left-4 -top-4 inline-flex items-center bg-secondary px-4 py-1 text-md md:text-xl font-semibold text-white rounded-xl">
           {representedImageTitle}

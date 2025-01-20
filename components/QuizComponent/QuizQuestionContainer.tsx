@@ -177,7 +177,7 @@ export const QuizQuestionContainer = ({
         <div
             ref={questionRef}
             className={`flex flex-col items-center gap-2 lg:gap-4 px-2 py-6 lg:px-6 lg:py-12 rounded-lg space-y-6 border-b border-gray-200
-        ${selected !== null ? 'bg-[#fdfdfd92] text-gray-500' : 'bg-white text-textprimary'} 
+        ${selected !== null ? ' text-gray-500' : 'bg-white text-textprimary'} 
         transition-all duration-300 ease-in-out`}
         >
             {/* Question */}

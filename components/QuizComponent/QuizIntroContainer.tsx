@@ -17,9 +17,9 @@ export const QuizIntroContainer = ({introTitle, introHightlight, introDesc, inst
 
   return (
     <div className='w-full h-auto'>
-      <div className='h-auto p-4 md:p-10 lg:p-12 w-full bg-primary rounded-b-4 md:rounded-b-[24px] overflow-hidden overflow-y-scroll'>
+      <div className='h-auto p-4 md:p-10 lg:p-12 w-full bg-bglight rounded-b-4 md:rounded-b-[24px] overflow-hidden '>
         <div className='max-w-7xl mx-auto'>
-          <QuizHeader title={introTitle} highlight={introHightlight} description={introDesc} size='md' />
+          <QuizHeader title={introTitle} highlight={introHightlight} description={introDesc} size='md' type='result'/>
           <QuizInstructContainer
             instructionLabel={instructLabel}
             howItWorksTitle={howItWorkTitle}
