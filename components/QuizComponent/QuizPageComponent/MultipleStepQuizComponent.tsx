@@ -46,7 +46,6 @@ export const MultipleStepQuizComponent = () => {
   const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [predictAssessment,] = usePredictAssessmentMutation();
   const [predictFinalCareer] = useLoadCareerPredictionMutation();
-  const [isPageDisabled, setIsPageDisabled] = useState(false);
 
 
   // Use `useLoadFiveTestQuery` with a condition
@@ -548,8 +547,16 @@ export const MultipleStepQuizComponent = () => {
     frame();
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handleResultClick = async () => {
-    setIsPageDisabled(true);
+
+    scrollToTop();
 
     const assessmentType = currentQuizType;
 
@@ -612,12 +619,14 @@ export const MultipleStepQuizComponent = () => {
               router.push(newPath);
             }
 
+
           } catch (err) {
             toast.error("Failed to submit final responses. Please try again.");
             console.log("error: ", err)
           }
 
         }
+
 
 
       }
@@ -629,8 +638,6 @@ export const MultipleStepQuizComponent = () => {
     } catch (err) {
       toast.error("Failed to submit responses. Please try again.");
       console.log(err)
-    } finally {
-      setIsPageDisabled(true);
     }
 
   };
@@ -660,7 +667,7 @@ export const MultipleStepQuizComponent = () => {
   };
 
   return (
-    <div className={`w-full relative ${isPageDisabled ? 'pointer-events-none opacity-50' : ''} `}>
+    <div className={`w-full relative `}>
       {/* Intro Section */}
       <div className="bg-bgPrimaryLight">
         <QuizIntroContainer
@@ -676,10 +683,18 @@ export const MultipleStepQuizComponent = () => {
       </div>
 
       <div className="sticky top-0 z-10 bg-white pt-4 ">
-        <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
-          <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">{progress} %</span>
-          <Progress value={progress} className="h-4" />
+
+        <div className="max-w-7xl mx-auto py-4 px-4 ">
+          <p className='mb-3 text-center flex items-center gap-2 text-primary'><span className='font-semibold text-slate-500 text-based md:text-lg capitalize'>{currentQuizType === 'learningStyle' ? 'Learning Style' : currentQuizType} Test Assessment -</span><span className="text-based md:text-lg font-semibold  ">{progress} %</span> </p>
+
+          <div className='flex gap-4 items-baseline'>
+
+            <Progress value={progress} className="h-4" />
+
+          </div>
+
         </div>
+
       </div>
 
       {/* Questions Section */}
