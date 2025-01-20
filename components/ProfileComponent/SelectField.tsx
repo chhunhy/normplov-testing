@@ -10,12 +10,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { useTranslations } from "next-intl";
 type SelectDemoProps = {
   selectedGender: string | null;
   onGenderChange: (gender: string) => void;
 };
 
 export function SelectDemo({ selectedGender, onGenderChange }: SelectDemoProps) {
+  const t = useTranslations();
   return (
     <Select
       value={selectedGender || undefined} // Pass undefined when no gender is selected
@@ -29,7 +31,7 @@ export function SelectDemo({ selectedGender, onGenderChange }: SelectDemoProps) 
       </SelectTrigger>
       <SelectContent className="text-slate-600 ">
         <SelectGroup>
-          <SelectLabel>ភេទ</SelectLabel>
+          <SelectLabel>{t("ProfileAboutUser.form.fields.gender.label")}</SelectLabel>
           <SelectItem value="Female">ស្រី</SelectItem>
           <SelectItem value="Male">ប្រុស</SelectItem>
           <SelectItem value="Other">ផ្សេងៗ</SelectItem>

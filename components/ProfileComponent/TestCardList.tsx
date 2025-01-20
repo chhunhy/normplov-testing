@@ -11,11 +11,13 @@ import TestListSkeleton from "../SkeletonLoading/ProfileComponent/TestListSkelet
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslations } from "next-intl";
 
 // import { useGetShareLinksQuery } from '@/redux/service/test';
 
 
 const TestList = () => {
+  const t = useTranslations()
   const pathname = usePathname();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -49,10 +51,9 @@ const TestList = () => {
   // State for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTest, setSelectedTest] = useState<{ uuid: string; title: string } | null>(null);
-
   const mapTypeToRoute = (type: string) => {
-    // Normalize type by removing spaces, converting to lowercase, and removing trailing 's'
-    const normalizedType = type.trim().toLowerCase().replace(/s$/, "");
+    // Normalize type by trimming and converting to lowercase
+    const normalizedType = type.trim().toLowerCase();
   
     switch (normalizedType) {
       case "personality":
@@ -66,11 +67,37 @@ const TestList = () => {
       case "learning style":
       case "learningstyle":
         return "learningStyle";
+      case "all tests": // Handle "All Tests" here
+        return "all";
       default:
         console.warn(`Unknown test type: ${type}`);
         return null;
     }
   };
+  
+  // const mapTypeToRoute = (type: string) => {
+  //   // Normalize type by removing spaces, converting to lowercase, and removing trailing 's'
+  //   const normalizedType = type.trim().toLowerCase().replace(/s$/, "");
+  
+  //   switch (normalizedType) {
+  //     case "personality":
+  //       return "personality";
+  //     case "skill":
+  //       return "skill";
+  //     case "interest":
+  //       return "interest";
+  //     case "value":
+  //       return "value";
+  //     case "learning style":
+  //     case "learningstyle":
+  //       return "learningStyle";
+  //     case "alltests": // Handle "All Tests"
+  //       return "all";
+  //     default:
+  //       console.warn(`Unknown test type: ${type}`);
+  //       return null;
+  //   }
+  // };
   
 
   // Open modal when delete is triggered
@@ -115,25 +142,47 @@ const handleCopyToClipboard = () => {
 
   const actions = [
     {
-      label: "View",
+      label: t("TestHistoryUser.TestAction.view"),
       icon: <Eye className="w-4 h-4 text-green-600" />,
       actionKey: "view",
       onClick: (uuid: string, type: string) => {
+        console.log("Original test type:", type);
         const routeType = mapTypeToRoute(type);
+        console.log("Mapped route type:", routeType);
+        console.log("Test UUID:", uuid);
+  
         if (routeType) {
           router.push(`/${currentLocale}/test-result/${routeType}/${uuid}`);
+        } else {
+          console.error(`Failed to resolve route for test type: ${type}`);
         }
       },
-      
     },
+    // {
+    //   label: "View",
+    //   icon: <Eye className="w-4 h-4 text-green-600" />,
+    //   actionKey: "view",
+    //   onClick: (uuid: string, type: string) => {
+    //     const routeType = mapTypeToRoute(type);
+    //     console.log("Clicked test type:", type); // Debug: Log test type
+    //     console.log("Mapped route type:", routeType); // Debug: Log route type
+    //     console.log("Test UUID:", uuid); // Debug: Log UUID
+    //     if (routeType) {
+    //       router.push(`/${currentLocale}/test-result/${routeType}/${uuid}`);
+    //     }else{
+    //       console.error(`Failed to resolve route for test type: ${type}`);
+    //     }
+    //   },
+      
+    // },
     {
-      label: "Copy",
+      label:t("TestHistoryUser.TestAction.copy"),
       icon: <Copy className="w-4 h-4 text-blue-600" />,
       actionKey: "copy",
       onClick: (uuid: string, title: string) => handleCopyClick(uuid, title),
     },
     {
-      label: "Delete",
+      label:t("TestHistoryUser.TestAction.delete"),
       icon: <Trash className="w-4 h-4 text-red-600" />,
       actionKey: "delete",
       onClick: (uuid: string, title: string) => openDeleteModal(uuid, title),
@@ -190,7 +239,7 @@ const handleCopyToClipboard = () => {
 
   return (
   <div className="pt-4 lg:pt-0">
-      <h1 className=" text-3xl pb-3 text-primary font-bold w-full text-left">Testing history</h1>
+      <h1 className=" text-3xl pb-3 text-primary font-bold w-full text-left">{t("TestHistoryUser.title")}</h1>
       <div className="relative w-full">
       {data?.payload.tests && data.payload.tests.length > 0 ? (
         <>

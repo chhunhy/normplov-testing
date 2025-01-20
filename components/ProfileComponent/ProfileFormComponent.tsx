@@ -15,7 +15,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileFormSkeleton from "../SkeletonLoading/ProfileComponent/ProfileFormSkeleton";
-
+import { useTranslations } from "next-intl";
 type ProfileFormValues = {
   username: string;
   date_of_birth: Date | null;
@@ -30,6 +30,7 @@ const ProfileForm = () => {
     const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false); // State for modal visibility
   const [updateProfileUser, { isLoading: isUpdating }] =
     useUpdateProfileUserMutation();
+     const t = useTranslations();
   console.log("data user data :",user?.payload.gender)
   if (isLoading) {
     return <div>
@@ -82,7 +83,7 @@ const ProfileForm = () => {
 
   return (
     <>
-    <h1 className="text-primary pt-3 text-2xl font-bold lg:hidden">Information About User</h1>
+    <h1 className="text-primary pb-3 text-2xl font-bold">{t("ProfileAboutUser.title")}</h1>
       <Formik
         initialValues={{
           username: user?.payload.username || "",
@@ -103,19 +104,19 @@ const ProfileForm = () => {
             <div className="w-full space-y-8">
               {/* Username */}
               <div>
-                <Label htmlFor="username" text="ឈ្មោះ" />
+                <Label htmlFor="username" text={t("ProfileAboutUser.form.fields.username.label")} />
                 <FieldProfile
                   type="text"
                   name="username"
                   id="username"
-                  placeholder="Enter your name"
+                  placeholder={t("ProfileAboutUser.form.fields.username.placeholder")}
                 />
               </div>
 
                             {/* Password */}
               <div className="flex w-full justify-between gap-4 sm:gap-5">
                 <div className="w-full sm:w-4/5">
-                   <Label htmlFor="password" text="ពាក្យសម្ងាត់" />
+                   <Label htmlFor="password" text={t("ProfileAboutUser.form.fields.password.label")} />
                    <PasswordFieldUser
                     name="password"
                     id="password"
@@ -128,7 +129,7 @@ const ProfileForm = () => {
                 <div className="w-2/5 md:w-1/5">
                   <Button
                     type="button"
-                    text="ផ្លាស់ប្តូរ"
+                    text={t("ProfileAboutUser.form.fields.password.button")}
                     onClick={toggleChangePasswordModal} // Trigger the modal on click
                     className="w-full mt-7 bg-primary hover:bg-primary text-white font-medium border-collapse"
                   />
@@ -138,7 +139,7 @@ const ProfileForm = () => {
               {/* Date of Birth and Gender */}
               <div className="block md:flex w-full justify-between gap-5">
                 <div className="w-full md:w-1/2 pb-5 md:pb-0">
-                  <Label htmlFor="date_of_birth" text="ថ្ងៃ ខែ ឆ្នាំ កំណើត" />
+                  <Label htmlFor="date_of_birth" text={t("ProfileAboutUser.form.fields.date_of_birth.label")} />
                   <DatePickerDemo
                     selectedDate={values.date_of_birth?.toISOString() || null}
                     onDateChange={(date) =>
@@ -147,7 +148,7 @@ const ProfileForm = () => {
                   />
                 </div>
                 <div className="w-full md:w-1/2">
-                  <Label htmlFor="gender" text="ភេទ" />
+                  <Label htmlFor="gender" text={t("ProfileAboutUser.form.fields.gender.label")} />
                   <SelectDemo
                     
                     selectedGender={values.gender}
@@ -158,43 +159,43 @@ const ProfileForm = () => {
               <div className="block md:flex justify-between w-full gap-5">
                 {/* Phone Number */}
                 <div className="w-full md:w-1/2 pb-5 md:pb-0">
-                  <Label htmlFor="phone_number" text="លេខទូរស័ព្ទ" />
+                  <Label htmlFor="phone_number"  text={t("ProfileAboutUser.form.fields.phone_number.label")} />
                   <FieldProfile
                     type="text"
                     name="phone_number"
                     id="phone_number"
-                    placeholder="បញ្ជូលលេខទូរស័ព្ទរបស់អ្នក"
+                    placeholder={t("ProfileAboutUser.form.fields.phone_number.placeholder")}
                   />
                 </div>
                 {/* Address */}
                 <div className="w-full md:w-1/2">
-                  <Label htmlFor="address" text="អាសយដ្ឋាន" />
+                  <Label htmlFor="address" text={t("ProfileAboutUser.form.fields.address.label")} />
                   <FieldProfile
                     type="text"
                     name="address"
                     id="address"
-                    placeholder="Enter your address"
+                    placeholder={t("ProfileAboutUser.form.fields.address.placeholder")}
                   />
                 </div>
               </div>
               {/* Bio */}
               <div>
-                <Label htmlFor="bio" text="អំពីអ្នក" />
+                <Label htmlFor="bio"  text={t("ProfileAboutUser.form.fields.bio.label")} />
                 <FieldProfile
                   type="textarea"
                   name="bio"
                   id="bio"
-                  placeholder="Tell us about yourself"
+                  placeholder={t("ProfileAboutUser.form.fields.bio.placeholder")}
                   className="mt-1"
                 />
               </div>
             </div>
 
             {/* Submit Button */}
-            <div className="mt-6 w-32">
+            <div className="mt-6 w-36">
               <Button
                 type="submit"
-                text={isUpdating ? "Updating..." : "កែប្រូហ្វាល"}
+                text={isUpdating ? t("ProfileAboutUser.form.buttons.submit.loading") :  t("ProfileAboutUser.form.buttons.submit.default")}
                 disabled={isUpdating}
                 className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"
               />

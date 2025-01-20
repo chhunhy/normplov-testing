@@ -9,6 +9,8 @@ import Button from "../AuthComponents/ButtonComponentForAuth"; // Adjust the imp
 import { useChangePasswordMutation } from "@/redux/service/user";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslations } from "next-intl"; // Import the translation hook
+
 type ValueTypes = {
   old_password: string;
   new_password: string;
@@ -46,7 +48,7 @@ type ChangePasswordFormProps = {
 const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [changePassword] = useChangePasswordMutation();
-  
+    const t = useTranslations(); // Specify the translation namespace
   const handleChangePassword = async (values: ValueTypes) => {
     setIsLoading(true);
     try {
@@ -90,7 +92,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
       <div className="m-auto w-full">
         <div className="">
           <div className="mt-10 md:mt-11 xl:mt-10">
-            <h1 className="text-3xl font-bold text-primary">ផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មី</h1>
+            <h1 className="text-3xl font-bold text-primary">{t("ProfileAboutUser.ChangePassword.heading")}</h1>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -104,22 +106,22 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                   <div className="space-y-6 mt-10">
                     {/* Old Password */}
                     <div>
-                      <Label htmlFor="old_password" text="ពាក្យសម្ងាត់ចាស់" required />
+                      <Label htmlFor="old_password" text={t("ProfileAboutUser.ChangePassword.form.fields.old_password.label")} required />
                       <PasswordField
                         name="old_password"
                         id="old_password"
-                        placeholder="បញ្ចូលពាក្យសម្ងាត់ចាស់"
+                        placeholder={t("ProfileAboutUser.ChangePassword.form.fields.old_password.placeholder")}
                         className="custom-class mt-1"
                       />
                       <ErrorDynamic name="old_password" component="div" />
                     </div>
                     {/* New Password */}
                     <div>
-                      <Label htmlFor="new_password" text="ពាក្យសម្ងាត់ថ្មី" required />
+                      <Label htmlFor="new_password" text={t("ProfileAboutUser.ChangePassword.form.fields.new_password.label")} required />
                       <PasswordField
                         name="new_password"
                         id="new_password"
-                        placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី"
+                        placeholder={t("ProfileAboutUser.ChangePassword.form.fields.new_password.placeholder")}
                         className="custom-class mt-1"
                       />
                       <ErrorDynamic name="new_password" component="div" />
@@ -128,13 +130,13 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                     <div>
                       <Label
                         htmlFor="confirm_new_password"
-                        text="បញ្ជាក់ពាក្យសម្ងាត់ថ្មី"
+                        text={t("ProfileAboutUser.ChangePassword.form.fields.confirm_new_password.label")}
                         required
                       />
                       <PasswordField
                         name="confirm_new_password"
                         id="confirm_new_password"
-                        placeholder="បញ្ចូលបញ្ជាក់ពាក្យសម្ងាត់ថ្មី"
+                        placeholder={t("ProfileAboutUser.ChangePassword.form.fields.confirm_new_password.placeholder")}
                         className="custom-class mt-1"
                       />
                       <ErrorDynamic name="confirm_new_password" component="div" />
@@ -144,7 +146,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                     <div className="">
                       <Button
                         type="submit"
-                        text="ផ្លាស់ប្តូរ"
+                        text={t("ProfileAboutUser.ChangePassword.form.buttons.submit.text")}
                         isLoading={isLoading}
                         className="w-24 bg-primary hover:bg-primary text-white font-medium border-collapse"
                       />
@@ -152,7 +154,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                     <div className="">
                       <Button
                         type="button" // Ensure it doesn't submit the form
-                        text="cancel"
+                        text={t("ProfileAboutUser.ChangePassword.form.buttons.cancel.text")}
                         onClick={onClose} // Call the onClose function to close the modal
                         className="w-24 bg-red-500 hover:bg-red-600 text-white font-medium border-collapse"
                       />

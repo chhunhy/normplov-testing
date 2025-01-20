@@ -46,7 +46,7 @@ export const MultipleStepQuizComponent = () => {
   const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [predictAssessment,] = usePredictAssessmentMutation();
   const [predictFinalCareer] = useLoadCareerPredictionMutation();
-  const [isPageDisabled, setIsPageDisabled] = useState(false);
+
 
 
   // Use `useLoadFiveTestQuery` with a condition
@@ -549,7 +549,6 @@ export const MultipleStepQuizComponent = () => {
   };
 
   const handleResultClick = async () => {
-    setIsPageDisabled(true);
 
     const assessmentType = currentQuizType;
 
@@ -630,7 +629,7 @@ export const MultipleStepQuizComponent = () => {
       toast.error("Failed to submit responses. Please try again.");
       console.log(err)
     } finally {
-      setIsPageDisabled(true);
+     
     }
 
   };
@@ -660,7 +659,7 @@ export const MultipleStepQuizComponent = () => {
   };
 
   return (
-    <div className={`w-full relative ${isPageDisabled ? 'pointer-events-none opacity-50' : ''} `}>
+    <div className={`w-full relative `}>
       {/* Intro Section */}
       <div className="bg-bgPrimaryLight">
         <QuizIntroContainer
