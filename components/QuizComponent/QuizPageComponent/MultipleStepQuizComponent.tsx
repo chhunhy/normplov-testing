@@ -669,7 +669,7 @@ export const MultipleStepQuizComponent = () => {
   return (
     <div className={`w-full relative `}>
       {/* Intro Section */}
-      <div className="bg-bgPrimaryLight">
+      <div >
         <QuizIntroContainer
           introTitle={t(quizDataMap[currentQuizType]?.introKh.title)}
           introHightlight={t(quizDataMap[currentQuizType]?.introKh.highlight)}
@@ -682,7 +682,7 @@ export const MultipleStepQuizComponent = () => {
         />
       </div>
 
-      <div className="sticky top-0 z-10 bg-white pt-4 ">
+      <div className="sticky top-0 z-50 bg-white pt-4 ">
 
         <div className="max-w-7xl mx-auto py-4 px-4 ">
           <p className='mb-3 text-center flex items-center gap-2 text-primary'><span className='font-semibold text-slate-500 text-based md:text-lg capitalize'>{currentQuizType === 'learningStyle' ? 'Learning Style' : currentQuizType} Test Assessment -</span><span className="text-based md:text-lg font-semibold  ">{progress} %</span> </p>

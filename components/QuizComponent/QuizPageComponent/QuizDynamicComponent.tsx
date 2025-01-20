@@ -553,7 +553,7 @@ export default function QuizDynamicComponent() {
     } catch (err) {
       toast.error("Failed to submit responses. Please try again.");
       console.log(err)
-    } 
+    }
   };
 
 
@@ -622,95 +622,197 @@ export default function QuizDynamicComponent() {
 
 
   return (
-    <div className={`w-full relative`}>
+    // <div>
 
-      {
-        isSubmitting ? (
-          <div className='max-w-7xl mx-auto p-6 lg:py-10'>
-            <div className='max-w-2xl mx-auto lg:mb-2'>
+    //   {
+    //     isSubmitting ? (
+    //       <div className='max-w-7xl mx-auto p-6 lg:py-10'>
+    //         <div className='max-w-2xl mx-auto lg:mb-2'>
+    //           <LoadingTest />
+    //         </div>
+
+    //         <div className='max-w-2xl mx-auto'>
+    //           <p className='font-bold text-center text-primary text-base lg:text-xl'>Hang Tight! Your Results Are On the Way!</p>
+    //           <p className='text-center text-slate-500  '>Please wait while we process your test results.</p>
+    //         </div>
+
+    //       </div>
+
+    //     ) : (
+    //       <div className='w-full relative'>
+    //         {/* Intro Section */}
+    //         <div className="bg-bgPrimaryLight">
+
+    //           <QuizIntroContainer
+    //             introTitle={t(quizData.introKh.title)}
+    //             introHightlight={t(quizData.introKh.highlight)}
+    //             introDesc={t(quizData.introKh.description)}
+    //             instructLabel={t('TestMainPage.instructKh.instructionLabel')}
+    //             howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
+    //             howItWorkStep={howItWorksSteps}
+    //             emojiLabels={emojiLabels}
+    //             RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
+    //           />
+
+    //         </div>
+
+    //         <div className="sticky top-0 z-10 bg-white pt-4 ">
+    //           <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
+    //             <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">{progress} %</span>
+    //             <Progress value={progress} className="h-4" />
+    //           </div>
+    //         </div>
+
+    //         {/* Questions Section */}
+    //         <div className="max-w-7xl mx-auto my-4 md:my-6 px-4">
+    //           {questions.map((questionData, index) => (
+    //             <QuizQuestionContainer
+    //               key={index}
+    //               question={questionData.question}
+    //               questionIndex={index}
+    //               updateCompletedQuestions={(index: number) => {
+    //                 if (!completedQuestions.includes(index)) {
+    //                   setCompletedQuestions((prev) => [...prev, index]);
+    //                 }
+    //               }}
+    //               handleAnswer={handleAnswer}
+    //               lang='kh'
+    //             />
+    //           ))}
+
+
+    //         </div>
+
+    //         {/* Footer Buttons */}
+    //         <div className="max-w-7xl mx-auto px-4 py-6 flex gap-2 justify-end">
+    //           <QuizButton
+    //             title={quizButtonKh.draft}
+    //             rounded="xl"
+    //             icon={<ArchiveRestore />}
+    //             type="leftIcon"
+    //             outline="true"
+    //             onClick={handleDraftClick}
+    //             isDisable={isSubmitting}
+
+    //           />
+    //           <QuizButton
+    //             title={quizButtonKh.result}
+    //             rounded="xl"
+    //             icon={<ArrowRight />}
+    //             type="rightIcon"
+    //             onClick={handleResultClick}
+    //             isDisable={(completedQuestions.length < totalQuestions)}
+    //             outline='false'
+    //           />
+    //         </div>
+    //       </div>
+    //     )
+    //   }
+
+
+
+    // </div>
+
+    <div className="w-full relative">
+      {!isSubmitting && (
+        <>
+          {/* Intro Section */}
+          <div >
+            <QuizIntroContainer
+              introTitle={t(quizData.introKh.title)}
+              introHightlight={t(quizData.introKh.highlight)}
+              introDesc={t(quizData.introKh.description)}
+              instructLabel={t('TestMainPage.instructKh.instructionLabel')}
+              howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
+              howItWorkStep={howItWorksSteps}
+              emojiLabels={emojiLabels}
+              RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
+            />
+          </div>
+
+          {/* Sticky Header */}
+          <div className="sticky top-0 z-50 bg-white pt-4">
+            {/* <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
+              <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">
+                {progress} %
+              </span>
+              <Progress value={progress} className="h-4" />
+            </div> */}
+            <div className="max-w-7xl mx-auto py-4 px-4 ">
+              <p className='mb-3 text-center flex items-center gap-2 text-primary'><span className='font-semibold text-slate-500 text-based md:text-lg capitalize'>{assessmentType === 'learningStyle' ? 'Learning Style' : assessmentType} Test Assessment -</span><span className="text-based md:text-lg font-semibold  ">{progress} %</span> </p>
+
+              <div className='flex gap-4 items-baseline'>
+
+                <Progress value={progress} className="h-4" />
+
+              </div>
+
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Content Section */}
+      <div >
+        {isSubmitting ? (
+          <div className="max-w-7xl mx-auto p-6 lg:py-10">
+            <div className="max-w-2xl mx-auto lg:mb-2">
               <LoadingTest />
             </div>
-
-            <div className='max-w-2xl mx-auto'>
-              <p className='font-bold text-center text-primary text-base lg:text-xl'>Hang Tight! Your Results Are On the Way!</p>
-              <p className='text-center text-slate-500  '>Please wait while we process your test results.</p>
+            <div className="max-w-2xl mx-auto">
+              <p className="font-bold text-center text-primary text-base lg:text-xl">
+                Hang Tight! Your Results Are On the Way!
+              </p>
+              <p className="text-center text-slate-500">
+                Please wait while we process your test results.
+              </p>
             </div>
-
           </div>
-
         ) : (
-          <div>
-            {/* Intro Section */}
-            <div className="bg-bgPrimaryLight">
-
-              <QuizIntroContainer
-                introTitle={t(quizData.introKh.title)}
-                introHightlight={t(quizData.introKh.highlight)}
-                introDesc={t(quizData.introKh.description)}
-                instructLabel={t('TestMainPage.instructKh.instructionLabel')}
-                howItWorkTitle={t('TestMainPage.instructKh.howItWorksTitle')}
-                howItWorkStep={howItWorksSteps}
-                emojiLabels={emojiLabels}
-                RepresentedImageTitle={t('TestMainPage.instructKh.representedImageTitle')}
+          <div className="max-w-7xl mx-auto my-4 md:my-6 px-4">
+            {questions.map((questionData, index) => (
+              <QuizQuestionContainer
+                key={index}
+                question={questionData.question}
+                questionIndex={index}
+                updateCompletedQuestions={(index: number) => {
+                  if (!completedQuestions.includes(index)) {
+                    setCompletedQuestions((prev) => [...prev, index]);
+                  }
+                }}
+                handleAnswer={handleAnswer}
+                lang="kh"
               />
-
-            </div>
-
-            <div className="sticky top-0 z-10 bg-white pt-4 ">
-              <div className="max-w-7xl mx-auto py-4 px-4 flex gap-4 items-baseline">
-                <span className="flex items-center flex-shrink-0 font-semibold mb-2 text-based md:text-lg">{progress} %</span>
-                <Progress value={progress} className="h-4" />
-              </div>
-            </div>
-
-            {/* Questions Section */}
-            <div className="max-w-7xl mx-auto my-4 md:my-6 px-4">
-              {questions.map((questionData, index) => (
-                <QuizQuestionContainer
-                  key={index}
-                  question={questionData.question}
-                  questionIndex={index}
-                  updateCompletedQuestions={(index: number) => {
-                    if (!completedQuestions.includes(index)) {
-                      setCompletedQuestions((prev) => [...prev, index]);
-                    }
-                  }}
-                  handleAnswer={handleAnswer}
-                  lang='kh'
-                />
-              ))}
-
-
-            </div>
-
-            {/* Footer Buttons */}
-            <div className="max-w-7xl mx-auto px-4 py-6 flex gap-2 justify-end">
-              <QuizButton
-                title={quizButtonKh.draft}
-                rounded="xl"
-                icon={<ArchiveRestore />}
-                type="leftIcon"
-                outline="true"
-                onClick={handleDraftClick}
-                isDisable={isSubmitting}
-
-              />
-              <QuizButton
-                title={quizButtonKh.result}
-                rounded="xl"
-                icon={<ArrowRight />}
-                type="rightIcon"
-                onClick={handleResultClick}
-                isDisable={(completedQuestions.length < totalQuestions)}
-                outline='false'
-              />
-            </div>
+            ))}
           </div>
-        )
-      }
 
+        )}
+      </div>
 
-
+      {/* Footer Buttons */}
+      {!isSubmitting && (
+        <div className="max-w-7xl mx-auto px-4 py-6 flex gap-2 justify-end">
+          <QuizButton
+            title={quizButtonKh.draft}
+            rounded="xl"
+            icon={<ArchiveRestore />}
+            type="leftIcon"
+            outline="true"
+            onClick={handleDraftClick}
+          />
+          <QuizButton
+            title={quizButtonKh.result}
+            rounded="xl"
+            icon={<ArrowRight />}
+            type="rightIcon"
+            onClick={handleResultClick}
+            isDisable={completedQuestions.length < totalQuestions}
+            outline="false"
+          />
+        </div>
+      )}
     </div>
+
+
   );
 }

@@ -98,7 +98,7 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
                             value={formik.values.feedback}
                             onChange={formik.handleChange}
                             className={`bg-white border ${formik.errors.feedback && formik.touched.feedback  ? "border-red-500" : "border-gray-200"
-                                } pl-2 rounded-xl outline-none focus:border-gray-300 text-sm text-textprimary h-24 mb-4`}
+                                } pl-2 rounded-xl outline-none focus:border-gray-300 text-sm text-gray-400 h-24 mb-4`}
                             placeholder={placeholder}
                         />
                         
