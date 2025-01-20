@@ -20,24 +20,30 @@ import { PublicSkillResultComponent } from './PublicResultContentComponent/Publi
 import { PublicInterestResultComponent } from './PublicResultContentComponent/PublicInterestResultComponent';
 import { PublicValueResultComponent } from './PublicResultContentComponent/PublicValueResultComponent';
 import { PublicLearningStyleResultComponent } from './PublicResultContentComponent/PublicLearningStyleResultComponent';
+import { useTranslations } from 'next-intl';
+import { useGetShareLinksQuery } from '@/redux/service/test';
+import { PublicAllResultComponent } from './PublicResultContentComponent/PublicAllResultComponent';
+// type IntroKh = {
+//     title: string;
+//     highlight: string;
+//     description: string;
+// };
 
-type IntroKh = {
-    title: string;
-    highlight: string;
-    description: string;
-};
-
-type Recommendation = {
-    jobTitle: string;
-    jobdesc: string;
-    majors: string[]; // Array of related majors
-    unis: string[];   // Array of related universities
-};
+// type Recommendation = {
+//     jobTitle: string;
+//     jobdesc: string;
+//     majors: string[]; // Array of related majors
+//     unis: string[];   // Array of related universities
+// };
 
 type QuizData = {
-    introKh: IntroKh;              // Introductory data for the result
-    Recommendation: Recommendation; // Career recommendations
+    introKh: {
+        title: string;
+        highlight: string;
+        description: string;
+    };             // Introductory data for the result
 };
+
 
 const resultDataMap: Record<string, QuizData> = {
     'personality': personalityJson,
@@ -50,11 +56,13 @@ const resultDataMap: Record<string, QuizData> = {
 
 export default function ResultShareDynamicComponent() {
     const params = useParams();
-
-    // Normalize the values
+     const t = useTranslations();
+   // Normalize the values
     const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
-    console.log("REs",resultType, params.resultType)
+    console.log("REs", resultType, params.resultType)
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
+    const { data } = useGetShareLinksQuery({ uuid });
+    console.log("data link share", data?.payload.shareable_link)
 
     // Handle invalid or missing parameters
     if (!resultType || !uuid) {
@@ -77,8 +85,78 @@ export default function ResultShareDynamicComponent() {
             </div>
         );
     }
+    if (uuid && resultType) {
+        localStorage.setItem("resultUuid", uuid)
+        localStorage.setItem("currentType", resultType)
+    }
+// Learning Style quiz Data
+const learningStyleTest: QuizData = {
 
-    const { introKh } = resultData;
+    introKh: {
+        title: "LearningStyleTest.learningStyle_intro_title", // Translation key
+        highlight: "LearningStyleTest.learningStyle_intro_highlight", // Translation key
+        description: "LearningStyleTest.learningStyle_intro_description" // Translation key
+    }
+};
+
+//  Personality quiz Data
+const PersonalityTest: QuizData = {
+
+    introKh: {
+        title: "PersonalityTest.Personality_intro_title", // Translation key
+        highlight: "PersonalityTest.Personality_intro_highlight", // Translation key
+        description: "PersonalityTest.Personality_intro_description" // Translation key
+    }
+};
+
+// interest quiz data
+const InterestTest: QuizData = {
+
+    introKh: {
+        title: "InterestTest.interest_intro_title", // Translation key
+        highlight: "InterestTest.interest_intro_highlight", // Translation key
+        description: "InterestTest.interest_intro_description" // Translation key
+    }
+};
+
+// skill quiz data
+const SkillTest: QuizData = {
+
+    introKh: {
+        title: "SkillTest.skill_intro_title", // Translation key
+        highlight: "SkillTest.skill_intro_highlight", // Translation key
+        description: "SkillTest.skill_intro_description" // Translation key
+    }
+};
+
+// value quiz data
+const ValueTest: QuizData = {
+
+    introKh: {
+        title: "ValueTest.value_intro_title", // Translation key
+        highlight: "ValueTest.value_intro_highlight", // Translation key
+        description: "ValueTest.value_intro_description" // Translation key
+    }
+};
+
+
+const AllTest: QuizData = {
+    introKh: {
+      title: "AllTest.allTest_intro_title", // Translation key
+      highlight: "AllTest.allTest_intro_highlight", // Translation key
+      description: "AllTest.allTest_intro_description" // Translation key
+    }
+  }
+
+const resultIntroMap: Record<string, QuizData> = {
+    personality: PersonalityTest,
+    learningStyle: learningStyleTest,
+    interest: InterestTest,
+    skill: SkillTest,
+    value: ValueTest,
+    all: AllTest
+    // Add more tests here if necessary
+};
 
     const renderResultContent = () => {
         switch (resultType) {
@@ -109,7 +187,7 @@ export default function ResultShareDynamicComponent() {
                 );
             case 'all':
                 return (
-                    <div>We havent finished the result.</div>
+                    < PublicAllResultComponent />
                 )
 
             default:
@@ -122,12 +200,12 @@ export default function ResultShareDynamicComponent() {
 
             {/* Introduction container */}
             <QuizResultIntroContainer
-                title={introKh.title}
-                highlight={introKh.highlight}
-                description={introKh.description}
-                size="md"
-                type="result"
-            />
+                            title={t(resultIntroMap[resultType]?.introKh.title)}
+                            highlight={t(resultIntroMap[resultType]?.introKh.highlight)}
+                            description={t(resultIntroMap[resultType]?.introKh.description)}
+                            size="md"
+                            type="result"
+                        />
 
             <div >
                 {renderResultContent()}

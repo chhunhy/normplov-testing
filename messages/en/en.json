@@ -169,22 +169,22 @@
     "Personality_intro_title": "Personality",
     "Personality_intro_highlight": " Test",
     "Personality_intro_description": "Based on this type of test, you will get the results of your personality type through the MBTI (Myers-Briggs Type Indicator) developed by Carl Jung and guidance on which career path to choose.",
-    "question_1": "When faced with a challenging problem, I find multiple ways to approach a solution.",
-    "question_2": "I often prefer working alone rather than in a team.",
-    "question_3": "I enjoy problem-solving activities.",
-    "question_4": "I prefer to plan things in advance rather than leaving them to the last minute.",
-    "question_5": "I often analyze situations from multiple perspectives before making decisions.",
-    "question_6": "I like to break down complex tasks into smaller, manageable steps.",
-    "question_7": "I prefer to follow clear instructions rather than figuring things out on my own.",
-    "question_8": "I enjoy exploring creative ways to solve problems.",
-    "question_9": "I am comfortable adapting to changes in plans or schedules.",
-    "question_10": "I often evaluate the outcomes of my actions to improve in the future.",
-    "question_11": "I feel confident explaining complex ideas to others.",
-    "question_12": "I enjoy learning new skills that can help me in everyday life.",
-    "question_13": "I can effectively prioritize tasks based on their importance and deadlines.",
-    "question_14": "I actively seek feedback from others to improve my work.",
-    "question_15": "I can remain focused on a task even when facing distractions.",
-    "question_16": "I enjoy collaborating with others to achieve common goals."
+    "question_1": "I enjoy spending time alone to recharge my energy.",
+    "question_2": "I feel more comfortable in small, intimate gatherings than in large social events.",
+    "question_3": "I feel energized and motivated after interacting with a group of people.",
+    "question_4": "I prefer socializing and engaging with others over spending time alone.",
+    "question_5": "I focus on concrete facts and details rather than abstract ideas.",
+    "question_6": "I prefer practical solutions to problems rather than relying on theories or concepts.",
+    "question_7": "I often think about the future and imagine possibilities that don't yet exist.",
+    "question_8": "I rely on my gut feelings or hunches when making decisions.",
+    "question_9": "I prioritize logical reasoning and objective analysis when solving problems.",
+    "question_10": "I find it more important to focus on fairness and consistency than on people's feelings.",
+    "question_11": "I value harmony and seek to maintain positive relationships with those around me.",
+    "question_12": "I consider the emotional impact of decisions on others before acting.",
+    "question_13": "I prefer to have a structured plan and stick to a schedule in my daily life.",
+    "question_14": "I like to make decisions quickly and avoid last-minute changes to plans.",
+    "question_15": "I enjoy being flexible and spontaneous rather than following a strict plan.",
+    "question_16": "I adapt easily to changes and prefer keeping my options open for as long as possible."
   },
   "InterestTest": {
     "interest_intro_title": "Interest",
@@ -227,32 +227,210 @@
     "value_intro_title": "Value",
     "value_intro_highlight": " Test",
     "value_intro_description": "Based on this type of test, you will get results from your values ​​through Schwartz Value Theory developed by Shalom Schwartz and guidance on which career path to choose better.",
-    "question_1": "When faced with a challenging problem, I find multiple ways to approach a solution.",
-    "question_2": "I always evaluate different perspectives before making a decision.",
-    "question_3": "I can easily apply mathematical concepts to everyday situations.",
-    "question_4": "I enjoy solving scientific problems through experimentation and research.",
-    "question_5": "I can adjust my study methods based on the subject or task at hand.",
-    "question_6": "I frequently track my progress when working on a task or project.",
-    "question_7": "I listen carefully to others and fully understand their point of view before responding.",
-    "question_8": "I can easily recognize the emotional state of others based on their actions or words.",
-    "question_9": "I often consider multiple factors before making an important decision.",
-    "question_10": "I feel comfortable teaching or guiding others when they need help learning something new.",
-    "question_11": "I actively seek new knowledge and skills to improve myself.",
-    "question_12": "I am able to organize my time effectively to meet deadlines.",
-    "question_13": "I am able to organize my thoughts clearly and logically in writing.",
-    "question_14": "I feel confident speaking in front of groups or audiences.",
-    "question_15": "I can understand complex reading material and summarize key points effectively.",
-    "question_16": "I enjoy collaborating with others to achieve common goals.",
-    "question_17": "I can identify and overcome obstacles that hinder progress.",
-    "question_18": "I am capable of resolving conflicts in a constructive manner.",
-    "question_19": "I adapt quickly to new environments or situations.",
-    "question_20": "I am confident in making decisions even under pressure.",
-    "question_21": "I enjoy learning about different cultures and perspectives.",
-    "question_22": "I regularly reflect on my actions to improve future outcomes."
+    "question_1": "I value having a flexible work schedule.",
+    "question_2": "Maintaining a clear boundary between work and personal life is important to me.",
+    "question_3": "Earning a high salary is a top priority for me.",
+    "question_4": "I am willing to prioritize job security over job satisfaction.",
+    "question_5": "I value roles that encourage innovative ideas.",
+    "question_6": "I find routine tasks unfulfilling and prefer work that challenges my creativity.",
+    "question_7": "I feel fulfilled when I can positively impact others' lives.",
+    "question_8": "I prefer a job that allows me to help individuals or communities in need.",
+    "question_9": "Continuous learning and skill development are essential to my career satisfaction.",
+    "question_10": "I seek out challenges that allow me to grow and expand my abilities.",
+    "question_11": "Receiving recognition for my work is important to me.",
+    "question_12": "Achieving measurable success in my career motivates me.",
+    "question_13": "I want my work to contribute positively to society or the environment.",
+    "question_14": "Making a difference in the world is a key motivator for me.",
+    "question_15": "I value the ability to make my own decisions in my work.",
+    "question_16": "Having control over my work schedule is essential to me.",
+    "question_17": "I prefer a stable job with predictable responsibilities.",
+    "question_18": "Job security is more important to me than rapid career growth.",
+    "question_19": "I enjoy working as part of a team to achieve common goals.",
+    "question_20": "Building strong professional relationships is important to me.",
+    "question_21": "I enjoy taking on leadership roles in group settings.",
+    "question_22": "I value opportunities to guide and mentor others."
   },
   "AllTest": {
     "allTest_intro_title": "All Test",
     "allTest_intro_highlight": " Assessments",
     "allTest_intro_description": "Based on this type of test, you will get results from your personality type, interest, strengths and weaknesses, values, Learning Style, and career guidance, majors to choose better."
+  },
+  "SideBarProfile": {
+    "menuItems": {
+      "testHistory": {
+        "title": "Test History",
+        "description": "View your History Test"
+      },
+      "draftTest": {
+        "title": "Draft Test",
+        "description": "View Your Test Draft"
+      },
+      "bookmarks": {
+        "title": "Bookmarks",
+        "description": "View Your Bookmarks"
+      },
+      "aboutYou": {
+        "title": "About You",
+        "description": "View Your Profile"
+      },
+      "logout": {
+        "title": "Logout",
+        "description": "Sign out from your account"
+      }
+    },
+    "modalLogout": {
+      "title": "Confirm to Logout",
+      "description": "Are you sure you want to logout?",
+      "confirm": "Yes",
+      "cancel": "No"
+    },
+    "toastMessages": {
+      "profileImage": {
+        "success": "Profile image updated successfully!",
+        "error": "Failed to upload the profile image. Please try again.",
+        "sizeError": "File size exceeds the 5MB limit!"
+      },
+      "logout": {
+        "success": "Logged out successfully!",
+        "error": "Failed to log out. Please try again.",
+        "genericError": "An error occurred during logout."
+      }
+    }
+  },
+  "ProfileAboutUser": {
+    "form": {
+      "fields": {
+        "username": {
+          "label": "Name",
+          "placeholder": "Enter your name"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "••••••••",
+          "button": "Change"
+        },
+        "date_of_birth": {
+          "label": "Date of Birth"
+          
+        },
+        "gender": {
+          "label": "Gender",
+          "placeholder": "Select your gender",
+          "selectFemale":"Female",
+          "male":"Male"
+        },
+        "phone_number": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
+        "bio": {
+          "label": "About You",
+          "placeholder": "Tell us about yourself"
+        }
+      },
+      "buttons": {
+        "submit": {
+          "default": "Update Profile",
+          "loading": "Updating..."
+        }
+      }
+    },
+    "ChangePassword": {
+      "heading": "Change Your New Password",
+      "form": {
+        "fields": {
+          "old_password": {
+            "label": "Old Password",
+            "placeholder": "Enter your old password",
+            "error": "Old password is required"
+          },
+          "new_password": {
+            "label": "New Password",
+            "placeholder": "Enter your new password",
+            "error": "New password is required"
+          },
+          "confirm_new_password": {
+            "label": "Confirm New Password",
+            "placeholder": "Enter your new password confirmation",
+            "error": "Password confirmation does not match"
+          }
+        },
+        "buttons": {
+          "submit": {
+            "text": "Change",
+            "loading": "Changing..."
+          },
+          "cancel": {
+            "text": "Cancel"
+          }
+        }
+      },
+      "notifications": {
+        "success": "Your password has been successfully changed.",
+        "error": "Failed to change your password. Please try again."
+      }
+    },
+    "title":"Information About User"
+  },
+  "TestHistoryUser": {
+    "title": "Test History",
+    "TestAction": {
+      "view": "View",
+      "copy": "Copy",
+      "delete": "Delete"
+    },
+    "test-placehoder":{
+      "title":"No History Test Yet.",
+      "description":"Please Try to test."
+    },
+    "DeleteTestModal":{
+      "heading": " Confirm Deletion Test",
+      "description": "Are you sure you want to delete ",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "ShareResultPopup": {
+      "heading": "Share the results of your test",
+      "subHeading": "Allow your family and friends to view your results by sharing this link.",
+      "loadingMessage": "Loading...",
+      "inputPlaceholder": "http://example.com/link/to/document",
+      "buttons": {
+        "cancel": "No",
+        "share": {
+          "default": "Share",
+          "shared": "Shared"
+        }
+      }
+    }
+  },
+  "DraftHistory":{
+    "title": "Draft Test",
+    "DraftAction": {
+      "view": "View",
+      "delete": "Delete"
+    },
+    "DeleteDraftModal":{
+      "heading": "Delete Draft",
+      "description": "Are you sure you want to delete this Daft?",
+      "confirm": "Yes",
+      "cancel": "No"
+    }
+  },
+  "BookmarkHistory":{
+    "title": "Bookmarks",
+    "BookmarkAction": {
+      "view": "View",
+      "delete": "Delete"
+    },
+    "DeleteBookmarkModal":{
+      "heading": "Delete Bookmark",
+      "description": "Are you sure you want to delete this bookmark?",
+      "confirm": "Yes",
+      "cancel": "No"
+    }
   }
 }

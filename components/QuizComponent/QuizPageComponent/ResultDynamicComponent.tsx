@@ -147,6 +147,7 @@ export default function ResultDynamicComponent() {
         }
     };
 
+    
     const AllTest: QuizData = {
         introKh: {
           title: "AllTest.allTest_intro_title", // Translation key
