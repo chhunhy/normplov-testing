@@ -16,7 +16,7 @@ import generalTestJson from '../../../app/[locale]/(user)/json/testGeneralKh.jso
 import { usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
 // import Loading from '@/components/General/Loading';
 import { useDraftAssessmentMutation } from '@/redux/service/draft';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { LoadingTest } from '@/components/General/LoadingTest';
 
 
@@ -42,6 +42,10 @@ export default function QuizDynamicComponent() {
   const { testType } = useParams(); // Get the dynamic route parameter
   const [currentLocale, setCurrentLocale] = useState<string>('km');
 
+  const locale = useLocale();
+
+  
+
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
@@ -49,9 +53,28 @@ export default function QuizDynamicComponent() {
     }
   }, []);
 
-  console.log("lang: ", currentLocale)
+
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = ""; 
+    };
+
+    // Attach the event listener
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  
 
   const t = useTranslations();
+
+
 
   // const quizDataMap: Record<string, QuizData> = {
   //   'personality': personalityJson,
@@ -619,7 +642,7 @@ export default function QuizDynamicComponent() {
   //   }
   // };
 
-
+  console.log("lang: ",locale)
 
   return (
     // <div>
@@ -781,7 +804,6 @@ export default function QuizDynamicComponent() {
                   }
                 }}
                 handleAnswer={handleAnswer}
-                lang="kh"
               />
             ))}
           </div>
@@ -816,3 +838,6 @@ export default function QuizDynamicComponent() {
 
   );
 }
+
+
+

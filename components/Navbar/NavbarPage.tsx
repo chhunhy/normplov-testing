@@ -26,8 +26,8 @@ interface NavbarTranslationKeys {
 
 type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & string]: ObjectType[Key] extends object
-    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-    : Key;
+  ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+  : Key;
 }[keyof ObjectType & string];
 
 // function getRandomColor(username: string) {
@@ -66,33 +66,21 @@ export default function NavbarPage() {
   console.log("isLoading: " + isLoading);
   console.log("isError: " + isError);
   console.log("user data", data);
-  console.log("user avatar1",data?.payload.avatar)
+  console.log("user avatar1", data?.payload.avatar)
   const userData = data?.payload;
   // const avatarUrl = userData?.avatar
   //   ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
   //   : null;
 
   const avatarUrl = userData?.avatar
-  ? userData.avatar.startsWith("http")
-    ? userData.avatar // Use full URL as-is
-    : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}` // Prepend base URL for relative path
-  : "/auth/personplaceholder.png"; // Fallback to placeholder
+    ? userData.avatar.startsWith("http")
+      ? userData.avatar // Use full URL as-is
+      : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}` // Prepend base URL for relative path
+    : "/auth/personplaceholder.png"; // Fallback to placeholder
 
   // const { locale } = useParams();
   // const currentLocale = locale || 'en'; // Default to 'en' if locale is not defined
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
-
-  // useEffect(() => {
-  //   const language = localStorage.getItem('language');
-
-  //   if (language) {
-  //     setCurrentLocale(language); // Set the locale from localStorage
-  //   } else {
-  //     // If no language in localStorage, set it to 'km' by default
-  //     localStorage.setItem('language', 'km'); // Set default language to 'km'
-  //     setCurrentLocale('km');
-  //   }
-  // }, []);
 
   useEffect(() => {
     // Check if the route has /en or /km in the URL
@@ -138,21 +126,7 @@ export default function NavbarPage() {
   ];
 
   useHandleResultUuid();
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch("https://normplov-apistad.co/api/v1/user/me", {
-//         method: "GET",
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//             "Content-Type": "application/json",
-//         },
-//         credentials: "include", // Include cookies if needed
-//     });
-//     } catch (error) {
-//         console.error("Error fetching data:", error);
-//     }
-// };
-
+ 
 
   // If `locale` is not available, you can set a default value
   return (
@@ -173,12 +147,12 @@ export default function NavbarPage() {
               className="object-contain lg:w-[50px] md:w-[50px] w-[40px] lg:block md:block hidden "
             />
             <Image
-                  src="/assets/logo-text.jpg"
-                  alt="Logo"
-                  width={1000}
-                  height={1000}
-                  className="w-[140px] lg:hidden md:hidden block "
-                ></Image>
+              src="/assets/logo-text.jpg"
+              alt="Logo"
+              width={1000}
+              height={1000}
+              className="w-[140px] lg:hidden md:hidden block "
+            ></Image>
           </Link>
 
           {/* Navigation Links */}
@@ -187,8 +161,7 @@ export default function NavbarPage() {
               <Link
                 key={link.href}
                 href={`/${currentLocale}${link.href}`}
-                className={`text-base lg:text-lg ${
-                  pathname === link.href
+                className={`text-base lg:text-lg ${pathname === link.href
                     ? "text-green-700 font-bold  border-green-700"
                     : "text-textprimary hover:text-green-700"
                   }`}
@@ -247,22 +220,22 @@ export default function NavbarPage() {
             <div className="flex items-center">
               {isLoading ? (
                 <Link
-              href={`/${currentLocale}/login`}
-              className="bg-emerald-500 text-white rounded-xl px-5 py-2"
-            >
-              {t("Navbar.buttons.signIn")}
-            </Link>
-              ):(
+                  href={`/${currentLocale}/login`}
+                  className="bg-emerald-500 text-white rounded-xl px-5 py-2"
+                >
+                  {t("Navbar.buttons.signIn")}
+                </Link>
+              ) : (
                 <Image
-                src="/auth/personplaceholder.png"
-                alt="Loading"
-                width={35}
-                height={35}
-                className="w-full h-full rounded-full animate-pulse"
-              />
-                
+                  src="/auth/personplaceholder.png"
+                  alt="Loading"
+                  width={35}
+                  height={35}
+                  className="w-full h-full rounded-full animate-pulse"
+                />
+
               )
-                
+
               }
             </div>
           ) : isLoading || !data ? (
@@ -283,7 +256,7 @@ export default function NavbarPage() {
                     alt="User Avatar"
                     width={35}
                     height={35}
-                      className="object-cover rounded-full w-full h-full"
+                    className="object-cover rounded-full w-full h-full"
                   />
                 </Link>
               </div>
@@ -309,8 +282,7 @@ export default function NavbarPage() {
               <Link
                 key={link.href}
                 href={`/${currentLocale}${link.href}`}
-                className={`text-base ${
-                  pathname === link.href
+                className={`text-base ${pathname === link.href
                     ? "text-green-700 font-bold"
                     : "text-textprimary hover:text-green-700"
                   }`}
@@ -325,7 +297,7 @@ export default function NavbarPage() {
             {data ? (
               <div className="flex items-center space-x-4">
                 <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
-                <Link href={`/${currentLocale}/profile-about-user`}>
+                  <Link href={`/${currentLocale}/profile-about-user`}>
                     <Image
                       src={avatarUrl || "/auth/personplaceholder.png"} // Fallback to default avatar if null
                       alt="User Avatar"
@@ -338,11 +310,11 @@ export default function NavbarPage() {
               </div>
             ) : (
               <Link
-              href={`/${currentLocale}/login`}
-              className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
-            >
-              {t("Navbar.buttons.signIn")}
-            </Link>
+                href={`/${currentLocale}/login`}
+                className="bg-emerald-500 text-white text-base lg:text-lg rounded-xl px-5 py-2"
+              >
+                {t("Navbar.buttons.signIn")}
+              </Link>
             )}
           </div>
         </div>

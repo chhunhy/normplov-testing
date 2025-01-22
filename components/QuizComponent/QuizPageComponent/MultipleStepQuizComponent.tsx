@@ -57,13 +57,28 @@ export const MultipleStepQuizComponent = () => {
   console.log("data: ", data)
 
 
-
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
       setCurrentLocale(savedLanguage);
     }
   }, []);
+
+
+  useEffect(() => {
+      const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+        event.preventDefault();
+        event.returnValue = ""; // Modern browsers show a default message, custom messages are ignored
+      };
+  
+      // Attach the event listener
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      // Cleanup the event listener
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }, []);
 
 
   // Learning Style quiz Data

@@ -71,9 +71,9 @@ export const QuizOptHorizontalContainer = ({
 
 
   return (
-    <div className={`flex flex-col sm:flex-row w-full bg-white p-4 gap-4 rounded-xl ${type === 'learninigStyle' ? 'justify-center items-center " ' : ''} `}>
+    <div className={`flex flex-col sm:flex-row w-full bg-white hover:bg-green-50 p-4 gap-4 rounded-xl ${type === 'learninigStyle' ? 'justify-center items-center " ' : ''} `}>
       {/* Image Section */}
-      <div className="flex-none flex justify-center items-center overflow-hidden">
+      <div className="flex-none flex justify-center items-center overflow-hidden rounded-xl">
         {/* Display Skeleton if data is loading */}
         {isLoading ? (
           <Skeleton className={` ${type === 'learninigStyle' ? 'h-[100px] w-[100px] rounded-xl' : 'h-[200px] w-[200px] rounded-xl'} `} />
