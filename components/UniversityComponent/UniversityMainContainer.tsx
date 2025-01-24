@@ -107,14 +107,14 @@ export default function UniversityMainContainer({
             <input
               type="text"
               placeholder="ស្វែងរកទីនេះ....."
-              className="flex-1 lg:px-5 text-sm border border-gray-300 md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[36px] md:h-auto lg:h-auto lg:rounded-xl md:rounded-xl  rounded-full  border-1 lg:border-gray-100 md:border-gray-100 focus:border-primary"
+              className="flex-1 lg:px-5  text-sm lg:border-2 md:border-2 border  md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[40px] md:h-auto lg:h-auto lg:rounded-[5px] md:rounded-[5px]  rounded-[5px] border-gray-300 lg:border-slate-200 md:border-gray-100 focus:border-primary"
               value={search}
               onChange={handleSearchChange}
             />
-            <div className="rounded-r-lg px-0.5 lg:py-1 md:py-1 py-0.5 lg:-ml-11 md:-ml-11 -ml-9">
+            <div className="  absolute rounded-r-lg ml-[360px] md:ml-[635px]   lg:py-1.5 md:py-1 py-1 lg:ml-[852px] ">
               <button
                 type="button"
-                className="px-2 py-4 mr-2 flex justify-center items-center  bg-primary rounded-full lg:w-9 lg:h-9 md:w-9 md:h-9 w-8 h-8 text-white transition-colors"
+                className="px-2 py-4 mr-2 flex justify-center items-center  bg-primary rounded-full lg:w-9 lg:h-9 md:w-8 md:h-8 w-8 h-7 text-white transition-colors"
               >
                 <FaSearch />
               </button>

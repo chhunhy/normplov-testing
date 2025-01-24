@@ -6,7 +6,6 @@ import Link from "next/link";
 import { GoArrowRight } from "react-icons/go";
 import { BiRightArrowAlt } from "react-icons/bi";
 import TeamProfilesHomePage from "@/components/ui/TeamProfilesHomePaage";
-import ProcessHomePage from "@/components/ui/ProcessHomePage";
 import { useGetPopularSchoolsQuery } from "@/redux/service/university";
 import { useAppSelector } from "@/redux/hooks";
 import { useParams, useRouter } from "next/navigation";
@@ -18,13 +17,31 @@ import { useGetTrendingJobQuery } from "@/redux/service/jobs";
 import Testimonial from "@/components/ui/testimonial";
 import { cn } from "@/lib/utils";
 import { DotPattern } from "../../../components/ui/dot-pattern";
+import { TimelineDemo } from "@/components/ui/TimelineDemo";
+import NromplovFor from "@/components/ui/NromplovFor";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+import GridPattern from "@/components/ui/GridPattern";
+
+
+const mockTrendingJobs = [
+  { month: "Jan", label: "Data Scientist", count: 320 },
+  { month: "Feb", label: "Backend Developer", count: 420 },
+  { month: "Mar", label: "AI Specialist", count: 310 },
+  { month: "Aug", label: "MIS", count: 380 },
+  { month: "Sep", label: "Financial HR", count: 340 },
+  { month: "Oct", label: "Data Analyst", count: 290 },
+  { month: "Nov", label: "Software Engineer", count: 310 },
+  { month: "Dec", label: "Backend Developer", count: 370 },
+];
 
 // Define the types for the props
-interface FeatureCardProps {
-  image: string; // Path to the image
-  title: string; // Title of the feature
-  description: string; // Description of the feature
-}
+//interface FeatureCardProps {
+//  image: string; // Path to the image
+ // title: string; // Title of the feature
+//  description: string; // Description of the feature
+//}
 
 // Type definition for universities
 type UniversityType = {
@@ -59,7 +76,7 @@ export default function Page() {
   const { data: trendingJobsData, isLoading: isLoadingTrendingJobs } =
     useGetTrendingJobQuery();
 
-  const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
+  //const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
   //console.log("Trending Jobs:", trendingJobs);
   console.log("Trending Jobs Data:", trendingJobsData);
 
@@ -71,13 +88,26 @@ export default function Page() {
     router.push(`${locale}/test`);
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      offset: 120,
+      once: true,
+      // Animation duration (in ms)
+      // Whether animation should happen only once
+    });
+  }, []);
+
   return (
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
+
+      <div className="absolute p-10 inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
+          <GridPattern />
+        </div>
       <section className="relative ">
-      
         {/* Text Content */}
-        <div className="flex justify-center ">
+        <div className="flex justify-center z-20">
           <div className="container mx-auto px-4 pt-10 md:pt-16 lg:pt-16 text-center ">
             <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold lg:mb-6 md:mb-4 mb-0">
               <span className="text-emerald-500">{t("heading.part1")}</span>
@@ -88,66 +118,46 @@ export default function Page() {
               {t("description")}
             </p>
 
-            <button onClick={() => handleTest()}  className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors">
+            <button
+              onClick={() => handleTest()}
+              className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
+            >
               {t("getstart")}
             </button>
           </div>
         </div>
         {/* Background Image */}
-        <div>
-          <Image
-            src="/assets/background-home-page.png"
-            alt="Background Home Page"
-            width={2000}
-            height={2000}
-            className="object-cover w-full h-[50%]"
-          />
-        </div>
+        <Image
+          src="/assets/background-home-page.png"
+          alt="Background Home Page"
+          width={2000}
+          height={2000}
+          className="object-cover w-full h-[50%]"
+        />
       </section>
 
       {/* Who is Norm Plov for?   */}
-      <section className="max-w-7xl mx-auto my-6">
-        <div className="container px-4 lg:py-12 md:py-12 py-3">
-          <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-center lg:mb-12 md:m-12 mb-4 text-textprimary">
-            {t("contain.part1")}{" "}
-            <span className="text-emerald-500">{t("contain.part2")}</span>{" "}
-            {t("contain.part3")}
-          </h1>
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-6 gap-0">
-            {/* Feature 1: Student */}
-            <FeatureCard
-              image="/assets/feature-01.png"
-              title={t("featureCard1.title")}
-              description={t("featureCard1.description")}
-            />
-
-            {/* Feature 2: Undergraduate */}
-            <FeatureCard
-              image="/assets/feature-02.png"
-              title={t("featureCard2.title")}
-              description={t("featureCard2.description")}
-            />
-
-            {/* Feature 3: Business Professional */}
-            <FeatureCard
-              image="/assets/feature-03.png"
-              title={t("featureCard3.title")}
-              description={t("featureCard3.description")}
-            />
-          </div>
+      <section
+        data-aos="zooom-in-left"
+        className=" flex justify-center   relative"
+      >
+        <div className="absolute p-10 inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
+          <GridPattern />
+        </div>
+        <div className="container relative  max-w-7xl mx-auto   lg:px-4 px-8 lg:py-12 md:py-12 py-3">
+          <NromplovFor />
         </div>
       </section>
       {/* Feature Section */}
       <section>
         <FeatureGrid />
       </section>
-      {/* ការងារដែលកំពុងមានតម្រូវការ Section */}
+      {/* Trending job Section */}
       <section className=" bg-bglight p-6 ">
         <div className="max-w-7xl mx-auto my-4 md:my-6 flex justify-center">
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
+          <div className="text-2xl md:text-4xl lg:text-4xl font-bold text-center mb-2 text-textprimary">
             {t("trendingJob.title")}
-          </h1>
+          </div>
         </div>
         <div className="max-w-7xl mx-auto my-4 md:my-6 h-full w-full   ">
           {isLoadingTrendingJobs ? (
@@ -157,7 +167,7 @@ export default function Page() {
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <ChartJobTrending trendingJobs={trendingJobs} />
+            <ChartJobTrending trendingJobs={mockTrendingJobs} />
           )}
         </div>
         <div className="  bg-primary lg:w-60 lg:h-12 md:w-60 md:h-12 w-40 h-11 flex justify-center rounded-3xl items-center max-w-7xl mx-auto my-4 md:my-6">
@@ -174,10 +184,10 @@ export default function Page() {
       </section>
       {/* University card Section */}
       <section className=" lg:p-10 md:p-10 p-4">
-        <div className="max-w-7xl mx-auto my-4 md:my-6 flex lg:justify-between md:justify-between justify-center items-center">
-          <h1 className="text-2xl  w-[90%] lg:w-full md:w-full md:text-4xl lg:text-5xl font-bold lg:text-start md:text-center  text-center mb-2 text-textprimary">
+        <div className="max-w-7xl px-4 mx-auto my-4 md:my-6 flex lg:justify-between md:justify-start justify-center items-center">
+          <div className="text-2xl  w-full lg:w-full md:w-full md:text-4xl lg:text-4xl font-bold lg:text-start md:text-start  text-center mb-2 text-textprimary">
             {t("PopularUniversities.title")}
-          </h1>
+          </div>
           <Link
             href={`/${locale}/university`}
             className="text-xl  lg:flex md:hidden hidden justify-center items-center font-bold text-center mb-2 text-textprimary"
@@ -229,12 +239,12 @@ export default function Page() {
         </div>
       </section>
       {/* Team Profiles card Section */}
-      <section>
+      <section className="bg-slate-50 p-10">
         <TeamProfilesHomePage />
       </section>
       {/* Process card Section */}
       <section>
-        <ProcessHomePage />
+        <TimelineDemo />
       </section>
 
       {/* Feedback Section */}
@@ -252,44 +262,25 @@ export default function Page() {
         />
 
         {/* Content */}
-        <div className=" text-center space-y-4 z-10">
-          <div className="text-textprimary text-2xl md:text-4xl lg:text-5xl font-bold">
+        <div className=" text-center space-y-4  ">
+          <div className="text-textprimary text-2xl md:text-4xl lg:text-4xl font-bold">
             មាតិយោបល់
           </div>
-          <div className="text-gray-600 text-2xl">
-            មាតិយោបល់របស់អ្នកប្រើប្រាស់ក្រោយពីការធ្វើតេស្ត
+          <div className="text-gray-600 lg:text-2xl md:text-xl text-lg">
+            នេះជាអ្វីដែលអ្នកប្រើមួយចំនួនរបស់យើងនិយាយអំពី{" "}
+            <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1">
+              NormPlov
+            </span>{" "}
+            ក្រោយពីការធ្វើតេស្ត
           </div>
         </div>
         {/* Testimonial Section */}
-        <Testimonial />
+        <div className=" max-w-7xl mx-auto mt-[50px]   ">
+          <Testimonial />
+        </div>
       </section>
     </div>
   );
 }
 
-// Reusable FeatureCard Component
-function FeatureCard({ image, title, description }: FeatureCardProps) {
-  return (
-    <div className="flex flex-col items-center text-center p-4 rounded-lg ">
-      {/* Fixed-size Image Container */}
-      <div className="w-[180px] h-[180px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px]  mb-2">
-        <Image
-          src={image}
-          alt={title}
-          width={200}
-          height={200}
-          className="object-contain w-full h-full"
-        />
-      </div>
-      {/* Content */}
-      <div className="lg:p-4 md:p-0 p-2 rounded-lg lg:w-90 md:w-78 w-90">
-        <h2 className="lg:text-3xl  md:text-2xl text-xl font-semibold mb-3 text-textprimary">
-          {title}
-        </h2>
-        <p className="text-gray-600 lg:text-xl md:text-xl text-md leading-relaxed">
-          {description}
-        </p>
-      </div>
-    </div>
-  );
-}
+

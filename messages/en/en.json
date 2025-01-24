@@ -24,8 +24,8 @@
     "getstart": "Get Start",
     "contain": {
       "part1": "Who is",
-      "part2": "NormPlov",
-      "part3": "for?"
+      "part2": " NormPlov",
+      "part3": " for?"
     },
     "featureCard1": {
       "title": "High School Students",
@@ -431,6 +431,35 @@
       "description": "Are you sure you want to delete this bookmark?",
       "confirm": "Yes",
       "cancel": "No"
+    }
+  },
+  "Login":{
+    "left":{
+      "title":"Welcome to Normplov Official Website",
+      "description":"Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
+    },
+    "form":{
+      "title":"Login",
+      "fields":{
+        "email":{
+          "label":"Email",
+          "placeholder":"Enter your email",
+          "error":"Email is required."
+        },
+        "password":{
+          "label":"Password",
+          "placeholder":"Enter your password",
+          "error":"Password is required."
+        },
+        "googleaccount":{
+          "label":"Sign in with Google",
+          "textOr":"OR"
+        }
+      },
+      "forgotpassword":"Forgot Password",
+      "buttons":"Login",
+      "text":"Don't have account yet?",
+      "signup":"Sign up"  
     }
   }
 }

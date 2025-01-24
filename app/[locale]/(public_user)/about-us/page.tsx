@@ -4,31 +4,29 @@ import Image from "next/image";
 import Link from "next/link";
 import CardTeam from "@/components/About-us/CardTeam";
 import { useParams } from "next/navigation";
-import AOS from 'aos';
-import 'aos/dist/aos.css';  // Make sure you import the CSS for animations
-import { useEffect } from 'react';
-
-
+import AOS from "aos";
+import "aos/dist/aos.css"; // Make sure you import the CSS for animations
+import { useEffect } from "react";
 
 export default function AboutUs() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
       offset: 120,
-      once: true
+      once: true,
       // Animation duration (in ms)
-        // Whether animation should happen only once
+      // Whether animation should happen only once
     });
   }, []);
   const { locale } = useParams();
   return (
     <div className=" bg-slate-50">
-
-      <section className="grid grid-cols-1 bg-green-50 lg:grid-cols-2 md:grid-cols-1 gap-2 lg:px-[100px]  md:px-20 px-10 lg:h-[650px]  md:h-auto h-[1050px]">
+      <section className="grid grid-cols-1 bg-white lg:grid-cols-2 md:grid-cols-1 gap-2 lg:px-[100px]  md:px-20 px-10 lg:h-[650px]  md:h-auto h-[1050px]">
         <div className="max-w-7xl mx-auto my-4 md:my-6 space-y-6 py-10 ">
-          
-
-          <h1 data-aos="zooom-in-left" className="text-primary lg:text-4xl md:text-4xl text-3xl font-semibold">
+          <h1
+            data-aos="zooom-in-left"
+            className="text-primary lg:text-4xl md:text-4xl text-3xl font-semibold"
+          >
             <span className="text-secondary">ការណែនាំអំពី</span>
             នាំផ្លូវ
           </h1>
@@ -60,9 +58,8 @@ export default function AboutUs() {
               alt=""
               data-aos="flip-left"
             />
-            
-            
-              <Image
+
+            <Image
               src="/assets/cover-about.jpg"
               width={1000}
               height={1000}
@@ -70,13 +67,14 @@ export default function AboutUs() {
               alt=""
               data-aos="flip-left"
             />
-          
-            
           </div>
         </div>
       </section>
       <section>
-        <section className="flex bg-pr lg:px-20  md:px-0 px-0 mt-10  max-w-full justify-center  " data-aos="slide-up">
+        <section
+          className="flex bg-pr lg:px-20  md:px-0 px-0 mt-10  max-w-full justify-center  "
+          data-aos="slide-up"
+        >
           <div className="flex max-w-[92%] mx-auto  my-4 md:my-6 bg-white bg-opacity-90 lg:p-10 md:p-10 p-4 rounded-2xl ">
             <div className=" space-y-4 lg:w-[65%] md:w-[60%] h-auto">
               <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold">
@@ -104,7 +102,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="lg:px-20 md:px-0 px-0 max-w-full justify-center  hidden md:flex lg:flex " data-aos="slide-up">
+        <section
+          className="lg:px-20 md:px-0 px-0 max-w-full justify-center  hidden md:flex lg:flex "
+          data-aos="slide-up"
+        >
           <div className="flex max-w-[92%] mx-auto my-4 md:my-6 bg-primary bg-opacity-5 p-10 rounded-2xl ">
             <div className=" lg:block md:block hidden lg:w-[35%] md:w-[40%]    ">
               <div className=" flex justify-start">
@@ -129,17 +130,19 @@ export default function AboutUs() {
                 និងក្តីស្រមៃរបស់អ្នក។
               </p>
             </div>
-            
           </div>
         </section>
-        <section className="flex bg-pr lg:px-20  md:px-0 px-0   max-w-full justify-center md:hidden lg:hidden " data-aos="slide-up">
+        <section
+          className="flex bg-pr lg:px-20  md:px-0 px-0   max-w-full justify-center md:hidden lg:hidden "
+          data-aos="slide-up"
+        >
           <div className="flex max-w-[92%] mx-auto  my-4 md:my-6 bg-primary bg-opacity-5 lg:p-10 md:p-10 p-4 rounded-2xl ">
             <div className=" space-y-4 lg:w-[65%] md:w-[60%] h-auto">
               <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold">
-              ចក្ខុវិស័យ
+                ចក្ខុវិស័យ
               </div>
               <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed">
-              ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
+                ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
                 និងការគាំទ្រដែលអ្នកត្រូវការដើម្បីធ្វើការសម្រេចចិត្តដោយមានព័ត៌មានគ្រប់គ្រាន់អំពីអនាគតរបស់អ្នក។
                 ជាមួយនឹងឧបករណ៍ និងការណែនាំរបស់យើង
                 អ្នកនឹងមានទំនុកចិត្តក្នុងការជ្រើសរើសផ្លូវការសិក្សាដែលត្រូវនឹងគោលដៅ
@@ -160,7 +163,10 @@ export default function AboutUs() {
           </div>
         </section>
       </section>
-      <section className="max-w-7xl mt-4  mx-auto my-4 md:my-6 flex justify-center ">
+      <section
+        data-aos="slide-up"
+        className="max-w-7xl mt-4  mx-auto my-4 md:my-6 flex justify-center "
+      >
         <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">
           អ្នកណែនាំ
         </div>
@@ -178,62 +184,62 @@ export default function AboutUs() {
             <div className="flex mr-6 justify-center text-textprimary text-2xl mt-[10px]">
               អ្នកគ្រូ មុំ រស្មី
             </div>
-            <div className="flex mr-6  justify-center text-textprimary text-2xl mt-4">
-              <ul className="wrapper">
-                <li className="icon facebook">
-                  <span className="tooltip">Facebook</span>
-                  <a
-                    href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                    target="_blank"
-                    rel="noopener noreferrer"
+            <div className="  flex justify-center mr-6 items-center p-4 space-x-4">
+              <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-facebook"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      height="1.2em"
-                      viewBox="0 0 320 512"
-                    >
-                      <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                    </svg>
-                  </a>
-                </li>
-                <li className="icon twitter">
-                  <span className="tooltip">Telegram</span>
-                  <a
-                    href="https://t.me/reksmey_mom"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
+                </a>
+              </div>
+              <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-linkedin"
                   >
-                    <svg
-                      className="telegram"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 48 48"
-                      fill="currentColor"
-                      height="1.8em"
-                    >
-                      <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                    </svg>
-                  </a>
-                </li>
-                <li className="icon instagram">
-                  <span className="tooltip">GitHub</span>
-                  <a
-                    href="https://github.com/Reksmeys"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      height="1.2em"
-                      className="bi bi-github"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect width="4" height="12" x="2" y="9" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
+              </div>
+              <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
+                <a
+                  href="https://github.com/Reksmeys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </a>
+              </div>
             </div>
           </div>
           <div className=" " data-aos="slide-up">
@@ -247,72 +253,75 @@ export default function AboutUs() {
             <div className="flex mr-6 justify-center text-textprimary text-2xl mt-[10px]">
               លោកគ្រូ​ អ៉ឹង មួយលាង
             </div>
-            <div className="flex mr-6 justify-center text-textprimary text-2xl mt-4">
-              <ul className="wrapper">
-                <li className="icon facebook">
-                  <span className="tooltip">Facebook</span>
-                  <a
-                    href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                    target="_blank"
-                    rel="noopener noreferrer"
+            <div className="  flex justify-center mr-6 items-center p-4 space-x-4">
+              <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
+                <a
+                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-facebook"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      height="1.2em"
-                      viewBox="0 0 320 512"
-                    >
-                      <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                    </svg>
-                  </a>
-                </li>
-                <li className="icon twitter">
-                  <span className="tooltip">Telegram</span>
-                  <a
-                    href="https://t.me/reksmey_mom"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
+                </a>
+              </div>
+              <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-linkedin"
                   >
-                    <svg
-                      className="telegram"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 48 48"
-                      fill="currentColor"
-                      height="1.8em"
-                    >
-                      <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                    </svg>
-                  </a>
-                </li>
-                <li className="icon instagram">
-                  <span className="tooltip">GitHub</span>
-                  <a
-                    href="https://github.com/Reksmeys"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      height="1.2em"
-                      className="bi bi-github"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect width="4" height="12" x="2" y="9" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
+              </div>
+              <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
+                <a
+                  href="https://t.me/reksmey_mom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
-      <section className="max-w-full h-[200px] lg:mt-0 md:-mt-[20px] mt-[190px]  items-center  bg-white mx-auto   flex justify-center ">
+      <section
+        data-aos="slide-up"
+        className="max-w-full h-[200px] lg:mt-0 md:-mt-[20px] mt-[190px]  items-center  bg-white mx-auto   flex justify-center "
+      >
         <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">
           សមាជិកក្រុម
         </div>
       </section>
-      <section className=" bg-white flex  justify-center">
+      <section className="flex  bg-white justify-center">
         <CardTeam />
       </section>
     </div>

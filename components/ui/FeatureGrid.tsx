@@ -73,7 +73,7 @@ export default function FeatureGrid() {
   return (
     <div className="container  p-8 max-w-7xl mx-auto my-4 md:my-6 ">
       <div>
-        <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-center mb-12 text-textprimary">
+        <h1 className="lg:text-4xl md:text-4xl text-2xl font-bold text-center mb-12 text-textprimary">
           {t('ConatianFeature.Feature')}
         </h1>
       </div>

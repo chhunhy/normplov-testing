@@ -24,7 +24,7 @@ export default function SliderUniversity() {
   }, [images.length]);
 
   return (
-    <div id="gallery" className="relative w-full z-10 bg-gray-900" data-carousel="slide">
+    <div id="gallery" className=" w-full  bg-gray-900" data-carousel="slide">
       {/* Carousel wrapper */}
       <div className="relative w-full lg:h-96 md:w-full md:h-[310px] h-[240px] overflow-hidden">
         {images.map((image, index) => (

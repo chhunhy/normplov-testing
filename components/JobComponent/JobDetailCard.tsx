@@ -72,9 +72,9 @@ export const JobDetailCard = ({
 
   return (
     <div className="w-full border border-gray-100 bg-white p-4 md:p-6 space-y-6 rounded-xl ">
-      <div className="grid md:grid-cols-4  w-full md:gap-4 rounded-xl ">
+      <div className="grid md:grid-cols-5   w-full md:gap-4 rounded-xl ">
         {/* Image Section */}
-        <div className="col-span-1 h-[100px] flex items-start justify-between md:col-span-1  md:place-items-center">
+        <div className="col-span-1 h-[100px]  flex items-start justify-between md:col-span-1  md:place-items-center">
           <Image
             src={imgSrc}
             alt="Technique Illustration"
@@ -93,7 +93,7 @@ export const JobDetailCard = ({
         </div>
 
         {/* Text Section */}
-        <div className="pl-2 md:pl-0 col-span-1 md:col-span-3 space-y-2 md:flex md:justify-between md:place-items-center ">
+        <div className="pl-2  md:pl-0 col-span- md:col-span-4 space-y-2 md:flex md:justify-between md:place-items-center ">
           <div>
             <h2 className="text-lg lg:text-2xl font-semibold text-primary ">
               {jobTitle ? jobTitle : "Job Title"}
@@ -147,7 +147,7 @@ export const JobDetailCard = ({
             </div> */}
 
       <div className="space-y-8">
-        <div className=" rounded-xl bg-secondary bg-opacity-10 w-full h-auto  relative text-textprimary">
+        <div className=" rounded-xl bg-secondary bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-secondary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
             {jobDescLabel ? jobDescLabel : "ការណែនាំពីការងារ"}
           </span>
@@ -162,7 +162,7 @@ export const JobDetailCard = ({
         </div>
 
         {/* Job requirement */}
-        <div className=" rounded-xl bg-primary  bg-opacity-10 w-full h-auto  relative text-textprimary">
+        <div className=" rounded-xl bg-primary  bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-primary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
             {jobRequirementLabel ? jobRequirementLabel : "តម្រូវការការងារ"}
           </span>
@@ -193,7 +193,7 @@ export const JobDetailCard = ({
         </div>
 
         {/* Job Responsible */}
-        <div className=" rounded-xl  bg-secondary bg-opacity-10 w-full h-auto  relative text-textprimary">
+        <div className=" rounded-xl  bg-secondary bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-secondary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
             {jobResponseLabel ? jobResponseLabel : "តួនាទីការងារ"}
           </span>
@@ -223,7 +223,7 @@ export const JobDetailCard = ({
           </div>
         </div>
 
-        <div className=" rounded-xl bg-accent bg-opacity-10 w-full h-auto  relative text-textprimary">
+        <div className=" rounded-xl bg-accent bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-accent px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
             {aboutCompanyLabel ? aboutCompanyLabel : "អំពីក្រុមហ៊ុន"}
           </span>
@@ -238,11 +238,11 @@ export const JobDetailCard = ({
               </p>
             </div>
 
-            <div>
-              <p className="text-textprimary text-base  md:text-md">
+            <div className="">
+              <p className="text-textprimary text-base  md:text-md  ">
                 {websiteLabel ? websiteLabel : "គេហទំព័រ"}
               </p>
-              <a href={website} className="text-primary text-sm md:text-base">
+              <a href={website} className="text-primary text-sm md:text-base  ">
                 {website ? website : "Unavailable"}
               </a>
             </div>

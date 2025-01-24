@@ -328,7 +328,7 @@ export default function CardUniversityDetail({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {location ? location: "unknown"}
+                    {location ? location : "unknown"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2 ">
@@ -486,17 +486,19 @@ export default function CardUniversityDetail({
                 ))
               ) : (
                 <div className=" items-center h-auto lg:w-[990px] md:w-[485px] justify-center ">
-                  <div className="flex justify-center">
-                    <Image
-                      src="/assets/No data-rafiki.png"
-                      width={1000}
-                      height={1000}
-                      alt=""
-                      className="lg:w-[400px] lg:h-[400px] md:w-[250px] md:h-[250px] w-[200px] h-[200px] flex justify-center"
-                    ></Image>
+                  <div className=" flex  justify-center items-center w-full lg:h-[400px] md:[300px]  ">
+                    <div className="  lg:w-[500px] lg:h-[300px] md:w-[300px] w-[300px]  p-4">
+                      <Image
+                        src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
+                        width={1000}
+                        height={1000}
+                        alt=""
+                        className="lg:w-full lg:h-full opacity-80 "
+                      ></Image>
+                    </div>
                   </div>
                   <div>
-                    <p className="text-center -mt-4 mb-8 text-gray-500">
+                    <p className="text-center lg:-mt-8 mb-8 text-gray-500">
                       No majors found for the selected degree and faculty.
                     </p>
                   </div>
