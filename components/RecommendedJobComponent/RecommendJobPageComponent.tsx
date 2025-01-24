@@ -35,13 +35,13 @@ export default function RecommendJobPageComponent() {
     console.log("uuid from job page:", uuidString);
 
 
-    // const careerUuid = localStorage.getItem('careerUuid') || ''
-
-    const careerUuid = 'b41a6ac2-092e-4134-8ea4-70fd0f146777'
+    
 
     const [getCareerByUuid, { isLoading, data }] = useGetCareerByUuidMutation();
 
     useEffect(() => {
+
+        const careerUuid = localStorage.getItem('careerUuid') || ''
         // Trigger the API call when the component mounts
         if (uuidString && careerUuid) {
             getCareerByUuid({ uuid: uuidString, career_uuid: careerUuid })
@@ -55,7 +55,7 @@ export default function RecommendJobPageComponent() {
         } else {
             console.error('Missing UUID or Career UUID');
         }
-    }, [uuidString, careerUuid, getCareerByUuid]);
+    }, [uuidString, getCareerByUuid]);
 
     const jobTitle = data?.payload?.career_name;
 
