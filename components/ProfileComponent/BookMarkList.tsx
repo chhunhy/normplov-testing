@@ -10,10 +10,12 @@ import { useRouter,usePathname } from "next/navigation";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import BookmarkListSkeleton from "../SkeletonLoading/ProfileComponent/BookmarkSkeleton";
 import { useDeleteUserBookMarkMutation, useGetAllUserBookMarkQuery } from "@/redux/service/user";
-
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 
 const BookMarkList = () => {
+  const t = useTranslations()
   const router =useRouter()
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -143,7 +145,7 @@ if (isLoading) {
 
   return ( 
     <div className="pt-4 lg:pt-0">
-      <h1 className=" text-3xl pb-3 text-primary font-bold w-full text-left">BookMark history</h1>
+      <h1 className=" text-3xl pb-3 hidden lg:block text-primary font-bold w-full text-left">{t("BookmarkHistory.title")}</h1>
       <div className="relative">
       {response?.payload.items && response.payload.items.length > 0 ? (
         <>
@@ -162,18 +164,27 @@ if (isLoading) {
         </>
       ) : (
         // Fallback content when there are no tests
-        <div className="flex h-full mt-8 flex-col items-center text-center">
+        <div className="flex h-full mt-8 lg:mt-16 flex-col items-center text-center">
           <Image
             src="/auth/DraftandTest.png" // Replace with the correct image path
             alt="No Tests Available"
-            width={500}
-            height={500}
+            width={1000}
+            height={1000}
+            className="w-80 lg:w-1/2"
           />
-          <h2 className="text-3xl font-bold text-primary mt-4">
-            អ្នកមិនទាន់មានការតេស្តពេលក្រោយនោះទេ
+          <h2 className="text-xl lg:text-2xl font-bold text-primary mt-4 lg:mt-12">
+            {t("BookmarkHistory.BookMarkHolder.title")}
           </h2>
-          <p className="text-gray-600 mt-2">
-            សាកល្បងធ្វើការតេស្តពេលក្រោយ។
+          <p className="text-md lg:text-lg text-gray-600 mt-2">
+          {t("BookmarkHistory.BookMarkHolder.description")}
+          <Link 
+                           href={`/${currentLocale}/jobs`}
+                          // href="/forgot-password"
+                          >
+                            <span className="text-lg px-3 text-primary hover:underline hover:font-semibold ">
+                              {t("BookmarkHistory.BookMarkHolder.now")}
+                            </span>
+                          </Link>
           </p>
         </div>
       )}

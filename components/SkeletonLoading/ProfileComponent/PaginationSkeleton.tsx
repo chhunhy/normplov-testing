@@ -2,9 +2,9 @@ import React from "react";
 
 const PaginationSkeleton = () => {
   return (
-    <div className="flex items-center justify-end mt-4 animate-pulse">
+    <div className="flex gap-3 items-center justify-end mt-4 animate-pulse">
       {/* Page Info Skeleton */}
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex items-center space-x-6 lg:space-x-8 ">
         <div className="flex w-[100px] h-5 bg-gray-300 rounded text-gray-500 items-center justify-center"></div>
       </div>
 

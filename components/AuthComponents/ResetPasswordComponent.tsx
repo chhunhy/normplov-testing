@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {useAppSelector } from '@/redux/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from "next-intl";
 
 type ValueTypes = {
     new_password: string;
@@ -36,6 +37,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ResetPasswordComponent = () => {
+    const t = useTranslations()
     const [currentLocale, setCurrentLocale] = useState<string>('km');
     const email = useAppSelector((state) => state.verify.email); // Get email from Redux
     const reset_code = useAppSelector((state) => state.verify.reset_code); // Get reset code from Redux
@@ -104,9 +106,9 @@ const ResetPasswordComponent = () => {
             <div className="">
                 {/* <div className='flex justify-end mt-3'> */}
                 <div className="flex justify-between items-center pb-5">
-            <Link href="/">
-              <Image src="/auth/logoFile.jpg" width={1000} height={1000} alt="Logo Image"
-              className="w-20 md:w-24" />
+            <Link href={`/${currentLocale}/`}>
+              <Image src="/assets/logo-text.jpg" width={1000} height={1000} alt="Logo Image"
+              className="w-20 md:w-48" />
             </Link>
             <div>
               <button
@@ -118,7 +120,7 @@ const ResetPasswordComponent = () => {
             </div>
           </div>
                 <div className="">
-                    <h1 className="text-2xl md:text-3xl font-bold text-primary">បង្កើតពាក្យសម្ងាត់ថ្មី</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-primary">{t("ResetPassword.title")}</h1>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
@@ -134,11 +136,11 @@ const ResetPasswordComponent = () => {
                             <div className="space-y-6 mt-4 lg:mt-6">
                                 {/* Password Field */}
                                 <div>
-                                    <Label htmlFor="new_password" text="ពាក្យសម្ងាត់ថ្មី" required />
+                                    <Label htmlFor="new_password" text={t("ResetPassword.fields.password.label")} required />
                                     <PasswordField
                                         name="new_password"
                                         id="new_password"
-                                        placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី"
+                                        placeholder={t("ResetPassword.fields.password.placeholder")}
                                         className="custom-class mt-1"
                                     />
                                     <ErrorDynamic  name="new_password" component="div" />
@@ -146,11 +148,11 @@ const ResetPasswordComponent = () => {
 
                                 {/* Confirm Password Field */}
                                 <div>
-                                    <Label htmlFor="confirm_password" text="បញ្ជាក់ពាក្យសម្ងាត់ថ្មី" required />
+                                    <Label htmlFor="confirm_password" text={t("ResetPassword.fields.confirmPassword.label")} required />
                                     <PasswordField
                                         name="confirm_password"
                                         id="confirm_password"
-                                        placeholder="បញ្ចូលបញ្ជាក់ពាក្យសម្ងាត់ថ្មី"
+                                        placeholder={t("ResetPassword.fields.confirmPassword.placeholder")}
                                         className="custom-class mt-1"
                                     />
                                     <ErrorDynamic  name="confirm_password" component="div" />
@@ -162,7 +164,7 @@ const ResetPasswordComponent = () => {
                             <div className="mt-8">
                                 <Button
                                     type="submit"
-                                    text="រួចរាល់"
+                                    text={t("ResetPassword.buttons")}
                                     isLoading={isLoading}
                                     className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"
                                 />

@@ -184,8 +184,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useVerifyCodeResetPasswordMutation, useResendCodeResetPasswordMutation } from "@/redux/service/auth";
 import { setResetCode } from "@/redux/feature/verify/verifySlice";
-
+import { useTranslations } from "next-intl";
 function OTPComponentReset() {
+  const t = useTranslations()
   const [currentLocale, setCurrentLocale] = useState<string>("km");
   const emailFromRedux = useAppSelector((state) => state.verify.email);
   const [email, setEmail] = useState<string | null>(null); // Store email
@@ -296,13 +297,13 @@ function OTPComponentReset() {
       <div className="md:m-auto md:border-1 md:border md:border-slate-100 rounded-xl py-7">
         <div className="px-6 sm:px-8 md:px-6 xl:px-10">
           <div className="flex justify-between items-center">
-            <Link href="/">
+            <Link href={`/${currentLocale}/`}>
               <Image
-                src="/auth/logoFile.jpg"
+                src="/assets/logo-text.jpg"
                 width={1000}
                 height={1000}
                 alt="Logo Image"
-                className="w-20 md:w-24"
+                className="w-20 md:w-48"
               />
             </Link>
             <button
@@ -314,12 +315,12 @@ function OTPComponentReset() {
           </div>
           <div className="h-fit w-fit pt-9 pb-5">
             <h1 className="text-2xl md:text-3xl font-bold text-primary">
-              ផ្ទៀងផ្ទាត់លេខកូដសម្ងាត់
+              {t("VerifyCodeForgot.title")}
             </h1>
             <p className="pt-4 text-slate-500">
-              យើងបានផ្ញើលេខកូដ 6 ខ្ទង់ទៅកាន់អ៊ីមែលរបស់អ្នក។​ អ្នកមានពេល{" "}
+              {t("VerifyCodeForgot.description")}{" "}
               <span className="font-bold text-primary">{` ${timer}s`}</span>{" "}
-              វិនាទី
+              {t("VerifyCodeForgot.time")}
             </p>
             <div className="mt-6">
               <OTPValidation length={6} onComplete={handleOTPComplete} />
@@ -331,14 +332,14 @@ function OTPComponentReset() {
                 >
                   {resending
                     ? "កំពុងផ្ញើរលេខសម្ងាត់ទៅអ្នក..."
-                    : "ផ្ញើរលេខកូដសម្ងាត់ម្តងទៀត"}
+                    : t("VerifyCodeForgot.buttonVerifyAgain")}
                 </button>
               </div>
             </div>
             <div className="mt-6">
               <Button
                 type="submit"
-                text="ផ្ទៀងផ្ទាត់"
+                text={t("VerifyCodeForgot.buttons")}
                 onClick={handleSubmit}
                 isLoading={isLoading}
                 className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"

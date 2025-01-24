@@ -71,15 +71,19 @@ const SideBarProfileComponent = () => {
     pathname === `/${currentLocale}${currentPath}`;
 
   const getPageTitle = () => {
-    switch (pathname) {
+    const pathWithoutLocale = pathname.replace(`/${currentLocale}`, "");
+    switch (pathWithoutLocale) {
       case "/profile-quiz-history":
-        return "Test History";
-      case "/profile-draft":
-        return "Draft Test";
-      case "/profile-bookmark":
-        return "Draft Test";
-      case "/profile-about-user":
-        return "Information";
+        case "/profile-quiz-history":
+          return t("TestHistoryUser.title");
+        case "/profile-draft":
+          return t("DraftHistory.title");
+        case "/profile-bookmark":
+          return t("BookmarkHistory.title");
+        case "/profile-about-user":
+          return t("ProfileAboutUser.title");
+        default:
+          return ""; // Default title if no match
     }
   };
 
@@ -160,7 +164,7 @@ const SideBarProfileComponent = () => {
 
       if (res.ok) {
         toast.success(data.message || (t("SideBarProfile.toastMessages.logout.success")));
-        router.push("/");
+        router.push(`/${currentLocale}/`);
         window.location.reload();
       } else {
         toast.error(data.message ||  (t("SideBarProfile.toastMessages.logout.error")));
@@ -202,26 +206,26 @@ const SideBarProfileComponent = () => {
       {/* <SideBarSkeleton isSidebarOpen={isSidebarOpen} /> */}
       <div className="flex flex-col h-fit ">
         <div>
-          <div className="bg-white pb-4 h-full lg:hidden flex justify-between items-center w-full p-4 text-white rounded-[8px] sticky top-14 left-0 right-0 z-50 ">
+          <div className="bg-white pb-4 h-full lg:hidden flex justify-between items-center w-full p-4 text-white rounded-[8px] top-14 left-0 right-0 z-50 ">
             <button
               className="flex items-center space-x-2 text-lg font-bold p-3 rounded-[8px] bg-primary"
               onClick={() => setSidebarOpen(!isSidebarOpen)} // Toggle sidebar on click
             >
               <Menu className="w-6 h-6" /> {/* Hamburger Icon */}
             </button>
-            <h1 className="text-3xl  text-primary font-bold w-full text-center">
+            <h1 className="text-2xl  text-primary font-bold w-full text-center">
               {getPageTitle()}
             </h1>
           </div>
         </div>
         <div className="lg:hidden bg-blue-300">
           <aside
-            className={`w-3/4 xl:w-[420px] rounded-r-xl bg-white p-6 flex flex-col lg:rounded-2xl justify-between lg:flex fixed top-0 left-0 z-50 lg:translate-x-0 lg:w-[350px] transition-transform duration-300 transform ${
+            className={`w-[370px] xl:w-[420px] rounded-r-xl bg-white p-6 flex flex-col lg:rounded-2xl justify-between lg:flex fixed top-16 bottom-1   left-0 z-50 lg:translate-x-0 lg:w-[350px] transition-transform duration-300 transform ${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             } overflow-y-auto max-h-screen`}
           >
             {/* Close Icon for Mobile View */}
-            <div className="lg:hidden flex justify-end">
+            <div className="lg:hidden flex justify-end ">
               <button
                 onClick={closeSidebar} // Close the sidebar when close button is clicked
                 className="text-gray-700"

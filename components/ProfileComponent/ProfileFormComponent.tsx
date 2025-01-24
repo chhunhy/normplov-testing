@@ -26,7 +26,7 @@ type ProfileFormValues = {
 };
 
 const ProfileForm = () => {
-  const { data: user, error, isLoading } = useGetUserQuery();
+  const { data: user, isLoading } = useGetUserQuery();
     const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false); // State for modal visibility
   const [updateProfileUser, { isLoading: isUpdating }] =
     useUpdateProfileUserMutation();
@@ -38,9 +38,9 @@ const ProfileForm = () => {
     </div>
   }
 
-  if (error) {
-    return <div>Error fetching user data.</div>;
-  }
+  // if (error) {
+  //   return <div>Error fetching user data.</div>;
+  // }
     const toggleChangePasswordModal = () => {
     setChangePasswordModalOpen(!isChangePasswordModalOpen);
   };
@@ -83,7 +83,7 @@ const ProfileForm = () => {
 
   return (
     <>
-    <h1 className="text-primary pb-3 text-2xl font-bold">{t("ProfileAboutUser.title")}</h1>
+    <h1 className="text-primary hidden lg:block pt-5 lg:pt-0 lg:pb-3 text-2xl font-bold">{t("ProfileAboutUser.title")}</h1>
       <Formik
         initialValues={{
           username: user?.payload.username || "",
@@ -207,7 +207,7 @@ const ProfileForm = () => {
             {/* Change Password Modal */}
       {isChangePasswordModalOpen && (
         <div className="fixed inset-0 px-5 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white border-1 border border-slate-200 rounded-xl px-4 w-full sm:w-2/3 md:w-2/3 lg:px-8 lg:w-2/5 relative">
+          <div className="bg-white border-1 border border-slate-200 rounded-xl px-4 w-full sm:w-2/3 md:w-2/3 lg:px-8 lg:w-1/3 relative">
             <button
               className="absolute top-3 right-3 text-gray-600"
               onClick={toggleChangePasswordModal}

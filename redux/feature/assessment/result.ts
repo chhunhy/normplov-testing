@@ -46,7 +46,7 @@ interface SkillResult {
 interface PersonalityResult extends AssessmentResult {
   personalityType: { name: string; title: string; description: string };
   dimensions: { dimension_name: string; score: number }[];
-  traits: { positive: string[]; negative: string[] };
+  traits: [];
   strengths: string[];
   weaknesses: string[];
   careerRecommendations: { career_name: string; description: string; majors: string[] }[];
@@ -165,7 +165,7 @@ export const resultApi = normPlovApi.injectEndpoints({
               createdAt: responseData.created_at,
               personalityType: parsedData.personality_type || {},
               dimensions: parsedData.dimensions || [],
-              traits: parsedData.traits || {},
+              traits: parsedData.traits || [],
               strengths: parsedData.strengths || [],
               weaknesses: parsedData.weaknesses || [],
               careerRecommendations: parsedData.career_recommendations || []

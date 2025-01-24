@@ -12,9 +12,10 @@ import Image from "next/image";
 import { useRouter,usePathname } from "next/navigation";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import DraftListSkeleton from "../SkeletonLoading/ProfileComponent/DraftSkeleton";
-
+import { useTranslations } from "next-intl";
 
 const DraftList = () => {
+  const t = useTranslations()
   const pathname = usePathname();
   const router =useRouter()
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,31 +56,7 @@ const DraftList = () => {
       refetch(); // Refresh the test list after delete
     }
   };
-  // const formatToCustomCamelCase = (input: string): string => {
-  //   // Custom mappings for specific cases
-  //   const customMappings: Record<string, string> = {
-  //     Skills: "skill",
-  //     Interests: "interest",
-  //     Personality: "personality",
-  //     Values: "value",
-  //   };
-  
-  //   // Check if input matches a custom mapping
-  //   if (customMappings[input]) {
-  //     return customMappings[input];
-  //   }
-  
-  //   // Default camelCase conversion
-  //   return input
-  //     .split(" ")
-  //     .map((word, index) =>
-  //       index === 0
-  //         ? word.toLowerCase()
-  //         : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-  //     )
-  //     .join("");
-  // };
-  
+
   const formatToCustomCamelCase = (input: string): string => {
     // Custom mappings for specific cases
     const customMappings: Record<string, string> = {
@@ -87,6 +64,7 @@ const DraftList = () => {
       Interests: "interest",
       Personality: "personality",
       Values: "value",
+      "Learning Style": "learningStyle",
     };
   
     // Check if input matches a custom mapping
@@ -107,7 +85,7 @@ const DraftList = () => {
   
   const actions = [
     {
-      label: "View",
+      label: t("DraftHistory.DraftAction.view"),
       icon: <Eye className="w-4 h-4 text-green-600" />,
       actionKey: "view",
       onClick: (assessment_name: string, uuid: string) => {
@@ -138,7 +116,7 @@ const DraftList = () => {
       //   ), // Navigate dynamically
     },
     {
-      label: "Delete",
+      label: t("DraftHistory.DraftAction.delete"),
       icon: <Trash className="w-4 h-4 text-red-600" />,
       actionKey: "delete",
       onClick: (uuid: string, title: string) => openDeleteModal(uuid, title),
@@ -198,7 +176,7 @@ if (isLoading) {
 
   return ( 
     <div className="pt-4 lg:pt-0">
-      <h1 className="hidden lg:flex text-3xl pb-3 text-primary font-bold w-full text-left">Draft history</h1>
+      <h1 className=" text-3xl hidden lg:block pb-3 text-primary font-bold w-full text-left">{t("DraftHistory.title")}</h1>
       <div className="relative">
       {data?.payload.items && data.payload.items.length > 0 ? (
         <>
@@ -217,18 +195,19 @@ if (isLoading) {
         </>
       ) : (
         // Fallback content when there are no tests
-        <div className="flex h-full mt-8 flex-col items-center text-center">
+        <div className="flex h-full mt-8  lg:mt-16 flex-col items-center text-center">
           <Image
             src="/auth/DraftandTest.png" // Replace with the correct image path
             alt="No Tests Available"
-            width={500}
-            height={500}
+            width={1000}
+            height={1000}
+            className="w-80 md:w-1/2"
           />
-          <h2 className="text-3xl font-bold text-primary mt-4">
-            អ្នកមិនទាន់មានការតេស្តពេលក្រោយនោះទេ
+          <h2 className="text-xl md:text-2xl font-bold text-primary mt-4">
+            {t("DraftHistory.draft-placehoder.title")}
           </h2>
           <p className="text-gray-600 mt-2">
-            សាកល្បងធ្វើការតេស្តពេលក្រោយ។
+          {t("DraftHistory.draft-placehoder.description")}
           </p>
         </div>
       )}
