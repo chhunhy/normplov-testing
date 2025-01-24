@@ -130,9 +130,8 @@ type props = {
     jobUuid: string
 }
 
-export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading, jobList, jobUuid }: props) => {
+export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUuid }: props) => {
 
-    const [isExpanded] = useState(false);
     const [currentLocale, setCurrentLocale] = useState<string>('km');
     const pathname = usePathname();
     const router = useRouter();
@@ -228,8 +227,7 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading, jobLi
                                 </p>
 
                                 <div
-                                    className={`text-md md:text-lg overflow-hidden text-textprimary ${!isExpanded ? 'line-clamp-2' : ''}`}
-                                    title={isExpanded ? '' : jobDesc}
+                                    className={`text-md md:text-lg overflow-hidden text-textprimary line-clamp-2`}
                                 >
                                     {jobList && jobList.length > 0 ? (
                                         jobList.map((job, index) => (
@@ -261,8 +259,8 @@ export const RecommendationCard = ({ jobTitle, jobDesc, majors, isLoading, jobLi
                             <div className='pt-2'>
 
                                 <div
-                                    className={` overflow-hidden text-textprimary ${!isExpanded ? 'line-clamp-2' : ''}`}
-                                    title={isExpanded ? '' : jobDesc}
+                                    className={` overflow-hidden text-textprimary line-clamp-3`}
+                                
                                 >
 
                                     {majors.length > 0 ? (

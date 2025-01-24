@@ -26,8 +26,8 @@ interface NavbarTranslationKeys {
 
 type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & string]: ObjectType[Key] extends object
-    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-    : Key;
+  ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+  : Key;
 }[keyof ObjectType & string];
 
 // function getRandomColor(username: string) {
@@ -77,22 +77,11 @@ export default function NavbarPage() {
       ? userData.avatar // Use full URL as-is
       : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}` // Prepend base URL for relative path
     : "/auth/personplaceholder.png"; // Fallback to placeholder
+   
 
   // const { locale } = useParams();
   // const currentLocale = locale || 'en'; // Default to 'en' if locale is not defined
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
-
-  // useEffect(() => {
-  //   const language = localStorage.getItem('language');
-
-  //   if (language) {
-  //     setCurrentLocale(language); // Set the locale from localStorage
-  //   } else {
-  //     // If no language in localStorage, set it to 'km' by default
-  //     localStorage.setItem('language', 'km'); // Set default language to 'km'
-  //     setCurrentLocale('km');
-  //   }
-  // }, []);
 
   useEffect(() => {
     // Check if the route has /en or /km in the URL
@@ -255,6 +244,7 @@ export default function NavbarPage() {
                   {t("Navbar.buttons.signIn")}
                 </Link>
               ) : (
+                  
                 <Image
                   src="/auth/personplaceholder.png"
                   alt="Loading"
@@ -283,6 +273,7 @@ export default function NavbarPage() {
                     width={35}
                     height={35}
                     className="object-cover rounded-full w-full h-full"
+                   
                   />
                 </Link>
               </div>
@@ -307,8 +298,7 @@ export default function NavbarPage() {
               <Link
                 key={link.href}
                 href={`/${currentLocale}${link.href}`}
-                className={`text-base ${
-                  pathname === link.href
+                className={`text-base ${pathname === link.href
                     ? "text-green-700 font-bold"
                     : "text-textprimary hover:text-green-700"
                 }`}
@@ -324,6 +314,7 @@ export default function NavbarPage() {
               <div className="flex items-center space-x-4">
                 <div className="border-2 border-primary bg-[#fdfdfd] rounded-full p-1">
                   <Link href={`/${currentLocale}/profile-about-user`}>
+                  
                     <Image
                       src={avatarUrl || "/auth/personplaceholder.png"} // Fallback to default avatar if null
                       alt="User Avatar"
@@ -341,6 +332,7 @@ export default function NavbarPage() {
               >
                 {t("Navbar.buttons.signIn")}
               </Link>
+                
             )}
           </div>
         </div>

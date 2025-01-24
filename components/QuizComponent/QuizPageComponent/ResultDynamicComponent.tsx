@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
 // Import Components
@@ -53,6 +53,16 @@ const resultDataMap: Record<string, QuizData> = {
 export default function ResultDynamicComponent() {
     const params = useParams();
     const t = useTranslations();
+
+    const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage) {
+            setCurrentLocale(savedLanguage);
+        }
+    }, []);
 
     useEffect(() => {
         handleClick();
@@ -132,7 +142,7 @@ export default function ResultDynamicComponent() {
         frame();
     };
 
- 
+
 
 
 
@@ -186,7 +196,7 @@ export default function ResultDynamicComponent() {
         }
     };
 
-    
+
     const AllTest: QuizData = {
         introKh: {
             title: "AllTest.allTest_intro_title", // Translation key
@@ -207,7 +217,7 @@ export default function ResultDynamicComponent() {
 
     // const { introKh } = resultData;
 
-  
+
 
     const renderResultContent = () => {
         switch (resultType) {
@@ -262,10 +272,10 @@ export default function ResultDynamicComponent() {
             </div>
 
             {/* Share Link and chat with ai section */}
-            <QuizLinkAndChatContainer chatTitle='សន្ទនាជាមួយ AI' chatDesc='ស្វែងយល់បន្ថែមពីលទ្ធផលរបស់អ្នក' chatButton='សន្ទនាឥឡូវនេះ' linkTitle='ចែករំលែកលទ្ធផលតេស្តរបស់អ្នក' linkDesc='អនុញ្ញាតឱ្យគ្រួសារនិងមិត្តភក្តិរបស់អ្នកអាចមើលឃើញពីលទ្ធផលរបស់អ្នកដោយការចែករំលែកតំណភ្ជាប់នេះ' linkValue={data?.payload.shareable_link || 'Unvailable'} />
+            <QuizLinkAndChatContainer chatTitle={currentLocale === 'km' ? 'សន្ទនាជាមួយ AI' : 'Chat With AI'} chatDesc={currentLocale === 'km' ? 'ស្វែងយល់បន្ថែមពីលទ្ធផលរបស់អ្នក' : 'To get to know more about your result.'} chatButton={currentLocale === 'km' ? 'សន្ទនាឥឡូវនេះ' : 'Chat Now'} linkTitle={currentLocale === 'km' ? 'ចែករំលែកលទ្ធផលតេស្តរបស់អ្នក' : 'Share Your Test Result'} linkDesc={currentLocale === 'km' ? 'អនុញ្ញាតឱ្យគ្រួសារនិងមិត្តភក្តិរបស់អ្នកអាចមើលឃើញពីលទ្ធផលរបស់អ្នកដោយការចែករំលែកតំណភ្ជាប់នេះ' : 'To allow your family and friends to see your test result through this link.'} linkValue={data?.payload.shareable_link || 'Unvailable'} />
 
             {/* Feedback section */}
-            <Feedback title='មតិកែលម្អអ្នក, ជាការរីកចម្រើនយើង' desc='អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយនាំផ្លូវ សូមចែករំលែកគំនិតរបស់អ្នកលើលទ្ធផលសំណួរ និងអ្វីដែលយើងអាចកែលម្អបាន។' highlight='ពួកយើងរីករាយនឹងការផ្តល់មតិរបស់អ្នក' buttonTitle='ផ្ញើ' placeholder='សំណូមពរណាមួយសម្រាប់ការកែលម្អ' />
+            <Feedback title={currentLocale === 'km' ? 'មតិកែលម្អអ្នក, ជាការរីកចម្រើនយើង' : 'Your Feedback, Our Growth'} desc={currentLocale === 'km' ? 'អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយនាំផ្លូវ សូមចែករំលែកគំនិតរបស់អ្នកលើលទ្ធផលសំណួរ និងអ្វីដែលយើងអាចកែលម្អបាន។' : 'Thank you for completing the quiz! Please share your thoughts on the quiz results and how we can improve.'}  highlight={currentLocale === 'km' ? 'ពួកយើងរីករាយនឹងការផ្តល់មតិរបស់អ្នក' : 'We’d Love to Hear Your Thoughts'}  buttonTitle={currentLocale === 'km' ? 'ផ្ញើ' : 'Send'} placeholder={currentLocale === 'km' ? 'សំណូមពរណាមួយសម្រាប់ការកែលម្អ' : 'Any suggestions for improvement'} />
 
         </div>
     );

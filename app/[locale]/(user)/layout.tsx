@@ -65,7 +65,7 @@ export default async function UserLayout({
     return notFound(); // Handle missing locale case
   }
     return (
-      <NextIntlClientProvider messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages}>
         <html lang={locale}>
           <body
             className={`${suwannaphum.variable} ${inter.variable}`}
