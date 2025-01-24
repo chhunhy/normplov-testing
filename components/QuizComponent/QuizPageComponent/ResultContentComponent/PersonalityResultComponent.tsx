@@ -28,6 +28,11 @@ type PersonalityDimension = {
   score: number;
 };
 
+type Personailities = {
+  name: string;
+  description: string;
+};
+
 type ChartData = {
   label: string;
   score: number;
@@ -327,57 +332,25 @@ export const PersonalityResultComponent = () => {
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">
             លក្ខណៈសំខាន់ៗរបស់ {personalities?.name}
           </h2>
-          {/* Positive Traits */}
-          <div className="">
-            <div className="text-primary space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-              <QuizHeader
-                title="ចំណុចវិជ្ជមានរបស់អ្នក"
-                description="Positive Traits"
-                size="sm"
-                type="result"
-                titleColor="text-success"
-              />
-
+          <div className="bg-bgPrimaryLight">
+            <div className="space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
+              <QuizHeader title="ចំណុចខ្លាំងរបស់អ្នក" description="Your Strength" size="sm" type="result" />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                {personailitiesTrait?.positive.map(
-                  (trait: string, index: number) => (
-                    <QuizResultListing
-                      key={index}
-                      title=""
-                      desc={trait}
-                      image={checkIcon}
-                    />
-                  )
-                )}
+                {personailitiesTrait.map((personality: Personailities, index: number) => (
+                  <QuizResultListing
+                    key={index}
+                    title={personality.name}
+                    desc={personality.description}
+                    image={checkIcon}
+                  />
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Negative Traits */}
-          <div className="">
-            <div className="space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12">
-              <QuizHeader
-                title="ចំណុចអវិជ្ជមានរបស់អ្នក"
-                description="Negative Traits"
-                size="sm"
-                type="result"
-                titleColor="text-danger"
-              />
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                {personailitiesTrait?.negative.map(
-                  (trait: string, index: number) => (
-                    <QuizResultListing
-                      key={index}
-                      title=""
-                      desc={trait}
-                      image={xIcon}
-                    />
-                  )
-                )}
-              </div>
-            </div>
-          </div>
+
+
         </div>
         <div className="mx-4 md:mx-0 border border-slate-50 mt-5 md:mt-14 p-6 rounded-[8px]">
           <h2 className="bg-secondary inline-block text-white text-lg md:text-2xl px-4 py-2 rounded-[8px] mb-6">

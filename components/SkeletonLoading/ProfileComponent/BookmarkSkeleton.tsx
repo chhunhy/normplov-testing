@@ -6,7 +6,7 @@ const BookmarkListSkeleton = () => {
   return (
     <div className="pt-4 lg:pt-0">
       <h1 className="hidden lg:flex text-3xl pb-3 text-primary font-bold w-full text-left">
-        Bookmark History
+      <div className="w-32 h-8 bg-gray-300 rounded-[8px]"></div>
       </h1>
       <div className="grid gap-5 lg:gap-6 grid-cols-1 mb-5">
         {skeletonItems.map((_, index) => (

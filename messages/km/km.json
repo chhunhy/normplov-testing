@@ -164,27 +164,27 @@
     "question_7": "ខ្ញុំរៀនបានល្អបំផុតដោយធ្វើសកម្មភាពដោយដៃ ឬពិសោធន៍។",
     "question_8": "ការអនុវត្តន៍ឧទាហរណ៍ក្នុងជីវិតពិត ឬការធ្វើអន្តរកម្មរាងកាយជាមួយសម្ភារៈជួយឱ្យខ្ញុំយល់កាន់តែច្បាស់។"
   },
-  "PersonalityTest": {
-    "Personality_intro_title": "តេស្តវាយតម្លៃតាម",
-    "Personality_intro_highlight": "បុគ្គលិកលក្ខណៈ",
-    "Personality_intro_description": "ដោយផ្អែកលើប្រភេទតេស្តនេះ អ្នកនឹងទទួលបានលទ្ធផលពីប្រភេទបុគ្គលិកលក្ខណៈរបស់អ្នកតាមរយះ MBTI (Myers-Briggs Type Indicator) បង្កើតឡើងដោយលោក Carl Jung និងការណែនាំពីអាជីពការងារ ជំនាញដែលគួរជ្រើសរើសកាន់តែប្រសើរជាងមុន។",
-    "question_1": "ខ្ញុំចូលចិត្តចំណាយពេលនៅឯងដើម្បីស្ដារថាមពលវិញ។",
-    "question_2": "ខ្ញុំមានអារម្មណ៍កាន់តែមានផាសុខភាពនៅក្នុងការជួបជុំតូចៗជាងនៅក្នុងព្រឹត្តិការណ៍សង្គមធំៗ។",
-    "question_3": "ខ្ញុំមានថាមពលនិងការចង់ធ្វើការក្រោយពីទាក់ទងជាមួយក្រុមមនុស្ស។",
-    "question_4": "ខ្ញុំចូលចិត្តសង្គមនិងចូលរួមជាមួយអ្នកដទៃជាងចំណាយពេលនៅឯង។",
-    "question_5": "ខ្ញុំផ្តោតលើការពិតច្បាស់លាស់និងលម្អិតជាងគំនិតមិនច្បាស់លាស់។",
-    "question_6": "ខ្ញុំចូលចិត្តដោះស្រាយបញ្ហាដោយប្រើប្រាស់បច្ចេកទេសជាក់ស្តែងជាងការពឹងផ្អែកលើទ្រឹស្ដីឬគំនិត។",
-    "question_7": "ខ្ញុំច្រើនគិតអំពីអនាគតនិងស្រមើលស្រមៃពីលទ្ធភាពដែលមិនទាន់មាន។",
-    "question_8": "ខ្ញុំពឹងផ្អែកលើអារម្មណ៍ឬការសន្មត់ខ្លួនឯងនៅពេលធ្វើការសម្រេចចិត្ត។",
-    "question_9": "ខ្ញុំផ្តល់អាទិភាពដល់ការគិតដោះស្រាយតាមតុល្យភាពនិងការវិភាគជាគោលការណ៍នៅពេលដោះស្រាយបញ្ហា។",
-    "question_10": "ខ្ញុំចាត់ទុកថាដំណើរការត្រឹមត្រូវនិងការរក្សាតុល្យភាពមានសារៈសំខាន់ជាងអារម្មណ៍របស់មនុស្ស។",
-    "question_11": "ខ្ញុំមានតម្លៃការរក្សាសុភមង្គលនិងស្វែងរកដើម្បីរក្សាទំនាក់ទំនងវិជ្ជមានជាមួយអ្នកដែលនៅជុំវិញខ្ញុំ។",
-    "question_12": "ខ្ញុំពិចារណាអំពីផលប៉ះពាល់ផ្លូវចិត្តរបស់ការសម្រេចចិត្តលើអ្នកដទៃមុននឹងសកម្ម។",
-    "question_13": "ខ្ញុំចូលចិត្តមានផែនការដែលមានរចនាសម្ព័ន្ធនិងដាក់ចូលទៅក្នុងកាលវិភាគនៅក្នុងជីវិតប្រចាំថ្ងៃ។",
-    "question_14": "ខ្ញុំចូលចិត្តធ្វើសេចក្តីសម្រេចចិត្តយ៉ាងឆាប់រហ័សនិងជៀសវាងការផ្លាស់ប្តូរកាលវិភាគលើវិនាទីចុងក្រោយ។",
-    "question_15": "ខ្ញុំចូលចិត្តមានភាពបត់បែននិងភាពឆាប់រហ័សជាងការធ្វើតាមផែនការដាច់ខាត។",
-    "question_16": "ខ្ញុំអាចសម្របខ្លួនបានយ៉ាងងាយស្រួលទៅនឹងការផ្លាស់ប្តូរនិងចូលចិត្តរក្សាជម្រើសរបស់ខ្ញុំដើម្បីបើកចំហយ៉ាងយូរបំផុត។"
-  },
+    "PersonalityTest": {
+      "Personality_intro_title": "តេស្តវាយតម្លៃតាម",
+      "Personality_intro_highlight": "បុគ្គលិកលក្ខណៈ",
+      "Personality_intro_description": "ដោយផ្អែកលើប្រភេទតេស្តនេះ អ្នកនឹងទទួលបានលទ្ធផលពីប្រភេទបុគ្គលិកលក្ខណៈរបស់អ្នកតាមរយះ MBTI (Myers-Briggs Type Indicator) បង្កើតឡើងដោយលោក Carl Jung និងការណែនាំពីអាជីពការងារ ជំនាញដែលគួរជ្រើសរើសកាន់តែប្រសើរជាងមុន។",
+      "question_1": "ខ្ញុំចូលចិត្តចំណាយពេលនៅឯងដើម្បីស្ដារថាមពលវិញ។",
+      "question_2": "ខ្ញុំមានអារម្មណ៍កាន់តែមានផាសុខភាពនៅក្នុងការជួបជុំតូចៗជាងនៅក្នុងព្រឹត្តិការណ៍សង្គមធំៗ។",
+      "question_3": "ខ្ញុំមានថាមពលនិងការចង់ធ្វើការក្រោយពីទាក់ទងជាមួយក្រុមមនុស្ស។",
+      "question_4": "ខ្ញុំចូលចិត្តសង្គមនិងចូលរួមជាមួយអ្នកដទៃជាងចំណាយពេលនៅឯង។",
+      "question_5": "ខ្ញុំផ្តោតលើការពិតច្បាស់លាស់និងលម្អិតជាងគំនិតមិនច្បាស់លាស់។",
+      "question_6": "ខ្ញុំចូលចិត្តដោះស្រាយបញ្ហាដោយប្រើប្រាស់បច្ចេកទេសជាក់ស្តែងជាងការពឹងផ្អែកលើទ្រឹស្ដីឬគំនិត។",
+      "question_7": "ខ្ញុំច្រើនគិតអំពីអនាគតនិងស្រមើលស្រមៃពីលទ្ធភាពដែលមិនទាន់មាន។",
+      "question_8": "ខ្ញុំពឹងផ្អែកលើអារម្មណ៍ឬការសន្មត់ខ្លួនឯងនៅពេលធ្វើការសម្រេចចិត្ត។",
+      "question_9": "ខ្ញុំផ្តល់អាទិភាពដល់ការគិតដោះស្រាយតាមតុល្យភាពនិងការវិភាគជាគោលការណ៍នៅពេលដោះស្រាយបញ្ហា។",
+      "question_10": "ខ្ញុំចាត់ទុកថាដំណើរការត្រឹមត្រូវនិងការរក្សាតុល្យភាពមានសារៈសំខាន់ជាងអារម្មណ៍របស់មនុស្ស។",
+      "question_11": "ខ្ញុំមានតម្លៃការរក្សាសុភមង្គលនិងស្វែងរកដើម្បីរក្សាទំនាក់ទំនងវិជ្ជមានជាមួយអ្នកដែលនៅជុំវិញខ្ញុំ។",
+      "question_12": "ខ្ញុំពិចារណាអំពីផលប៉ះពាល់ផ្លូវចិត្តរបស់ការសម្រេចចិត្តលើអ្នកដទៃមុននឹងសកម្ម។",
+      "question_13": "ខ្ញុំចូលចិត្តមានផែនការដែលមានរចនាសម្ព័ន្ធនិងដាក់ចូលទៅក្នុងកាលវិភាគនៅក្នុងជីវិតប្រចាំថ្ងៃ។",
+      "question_14": "ខ្ញុំចូលចិត្តធ្វើសេចក្តីសម្រេចចិត្តយ៉ាងឆាប់រហ័សនិងជៀសវាងការផ្លាស់ប្តូរកាលវិភាគលើវិនាទីចុងក្រោយ។",
+      "question_15": "ខ្ញុំចូលចិត្តមានភាពបត់បែននិងភាពឆាប់រហ័សជាងការធ្វើតាមផែនការដាច់ខាត។",
+      "question_16": "ខ្ញុំអាចសម្របខ្លួនបានយ៉ាងងាយស្រួលទៅនឹងការផ្លាស់ប្តូរនិងចូលចិត្តរក្សាជម្រើសរបស់ខ្ញុំដើម្បីបើកចំហយ៉ាងយូរបំផុត។"
+    },
   "InterestTest": {
     "interest_intro_title": "តេស្តវាយតម្លៃតាម",
     "interest_intro_highlight": "ចំណាប់អារម្មណ៍",
@@ -254,43 +254,43 @@
     "allTest_intro_highlight": "តម្លៃទាំងអស់",
     "allTest_intro_description": "ដោយផ្អែកលើប្រភេទតេស្តនេះ អ្នកនឹងទទួលបានលទ្ធផលពីប្រភេទបុគ្គលិកលក្ខណៈ ចំណាំអារម្មណ៍ ភាពខ្លាំងខ្សោយ​ គុណតម្លៃ  របៀបនៃការសិក្សរបស់អ្នក​ និងការណែនាំពីអាជីពការងារ ជំនាញដែលគួរជ្រើសរើសកាន់តែប្រសើរជាងមុន។"
   },
-  "SideBarProfile": {
+ "SideBarProfile": {
     "menuItems": {
       "testHistory": {
-        "title": "Test History",
-        "description": "View your History Test"
+        "title": "ប្រវត្តិតេស្ត",
+        "description": "ចូលមើលប្រវតិ្តនៃការតេស្តរបស់អ្នក"
       },
       "draftTest": {
-        "title": "Draft Test",
-        "description": "View Your Test Draft"
+        "title": "តេស្តពេលក្រោយ",
+        "description": "ចូលមើលតេស្តសម្រាប់ធ្វើពេលក្រោយ"
       },
       "bookmarks": {
-        "title": "Bookmarks",
-        "description": "View Your Bookmarks"
+        "title": "ការរក្សាទុក",
+        "description": "ចូលមើលការរក្សាទុករបស់អ្នក"
       },
       "aboutYou": {
-        "title": "About You",
-        "description": "View Your Profile"
+        "title": "អំពីអ្នក",
+        "description": "ចូលកែប្រែប្រូហ្វាល់របស់អ្នក"
       },
       "logout": {
-        "title": "Logout",
-        "description": "Sign out from your account"
+        "title": "ចាកចេញ",
+        "description": "ចាកចេញពីគណនីរបស់អ្នក"
       }
     },
     "modalLogout": {
       "title": "បញ្ចាក់ការចាកចេញ",
       "description": "តើអ្នកពិតជាចង់ចាកចេញមែនទេ?",
       "confirm": "ចាកចេញ",
-      "cancel": "មិនចាកចេញ"
+      "cancel": "មិនចាកចេញទេ"
     },
     "toastMessages": {
       "profileImage": {
-        "success": "Profile image updated successfully!",
-        "error": "Failed to upload the profile image. Please try again.",
-        "sizeError": "File size exceeds the 5MB limit!"
+        "success": "រូបប្រូហ្វាល់របស់អ្នកត្រូវបានកែប្រែជោគជ័យ",
+        "error": "បរាជ័យក្នុងការកែប្រែរូបភាព។ សាកល្បងម្តងទៀត។",
+        "sizeError": "ទំហំរូបភាពត្រឹមតែ 5 MB ទេ។"
       },
       "logout": {
-        "success": "Logged out successfully!",
+        "success": "បានចាកចេញជោគជ័យ។",
         "error": "Failed to log out. Please try again.",
         "genericError": "An error occurred during logout."
       }
@@ -300,128 +300,264 @@
     "form": {
       "fields": {
         "username": {
-          "label": "Name",
-          "placeholder": "Enter your name"
+          "label": "ឈ្មោះ",
+          "placeholder": "បញ្ជូលឈ្មោះរបស់អ្នក"
         },
         "password": {
-          "label": "Password",
+          "label": "ពាក្យសម្ងាត់",
           "placeholder": "••••••••",
-          "button": "Change"
+          "button": "ផ្លាស់ប្តូរ"
         },
         "date_of_birth": {
-          "label": "Date of Birth"
+          "label": "ថ្ងៃ ខែ ឆ្នាំ​ កំណើត"
+          
         },
         "gender": {
-          "label": "Gender"
+          "label": "ភេទ",
+          "placeholder": "ជ្រើសរើសភេទ",
+          "selectFemale":"Female",
+          "male":"Male"
         },
         "phone_number": {
-          "label": "Phone Number",
-          "placeholder": "Enter your phone number"
+          "label": "លេខទូរស័ព្ទ",
+          "placeholder": "បញ្ជូលលេខទូរស័ព្ទរបស់អ្នក"
         },
         "address": {
-          "label": "Address",
-          "placeholder": "Enter your address"
+          "label": "អាសយដ្ឋាន",
+          "placeholder": "បញ្ជូលអាសយដ្ឋានរបស់អ្នក"
         },
         "bio": {
-          "label": "About You",
-          "placeholder": "Tell us about yourself"
+          "label": "អំពីអ្នក",
+          "placeholder": "ព័ត៌មានរបស់អ្នក"
         }
       },
       "buttons": {
         "submit": {
-          "default": "Update Profile",
-          "loading": "Updating..."
+          "default": "កែប្រែប្រូហ្វាល់",
+          "loading": "កំពុងកែប្រែប្រូហ្វាល់"
         }
       }
     },
     "ChangePassword": {
-      "heading": "Change Your Password",
+      "heading": "បង្កើតពាក្យសម្ងាត់ថ្មី",
       "form": {
         "fields": {
           "old_password": {
-            "label": "Old Password",
-            "placeholder": "Enter your old password",
-            "error": "Old password is required"
+            "label": "ពាក្យសម្ងាត់ចាស់",
+            "placeholder": "បញ្ជូលពាក្យសម្ងាត់ចាស់របស់អ្នក",
+            "error": "អ្នកត្រូវបញ្ជូលពាក្យសម្ងាត់ចាស់"
           },
           "new_password": {
-            "label": "New Password",
-            "placeholder": "Enter your new password",
-            "error": "New password is required"
+            "label": "ពាក្យសម្ងាត់ថ្មី",
+            "placeholder": "បញ្ជូលពាក្យសម្ងាត់ថ្មីរបស់អ្នក",
+            "min": "ពាក្យសម្ងាត់ថ្មីគឺខ្លីពេក, សូមបញ្ជូលអោយបាន 8 តួរ",
+            "error": "អ្នកត្រូវបញ្ជូលពាក្យសម្ងាត់ថ្មី",
+            "pattern": "ពាក្យសម្ងាត់របស់អ្នកត្រូវតែមានអក្សរធំ អក្សរតូច និង​និមិត្តសញ្ញាពិសេស",
+            "required": "ពាក្យសម្ងាត់ថ្មីត្រូវតែបញ្ជូល"
           },
           "confirm_new_password": {
-            "label": "Confirm New Password",
-            "placeholder": "Enter your new password confirmation",
-            "error": "Password confirmation does not match"
+            "label": "បញ្ជាក់ពាក្យសម្ងាត់ថ្មី",
+            "placeholder": "បញ្ជាក់ពាក្យសម្ងាត់ថ្មីរបស់អ្នក",
+            "error": "បញ្ជាក់ពាក្យសម្ងាត់ថ្មីរបស់អ្នកមិនត្រឹមត្រូវ",
+            "match": "ពាក្យសម្ងាត់ថ្មីត្រូវតែដូចជាមួយការបញ្ជាក់ពាក្យសម្ងាត់",
+            "required": "អ្នកត្រូវបញ្ជូលបញ្ជាក់ពាក្យសម្ងាត់របស់អ្នក"
           }
         },
         "buttons": {
           "submit": {
-            "text": "Change",
-            "loading": "Changing..."
+            "text": "ផ្លាស់ប្តូរ",
+            "loading": "ផ្លាស់ប្តូរ..."
           },
           "cancel": {
-            "text": "Cancel"
+            "text": "មិនផ្លាស់ប្តូរ"
           }
         }
       },
       "notifications": {
-        "success": "Your password has been successfully changed.",
+        "success": "ពាក្យសម្ងាត់ថ្មីរបស់អ្នកត្រូវបានផ្លាស់ប្តូរេជោគជ័យ។",
         "error": "Failed to change your password. Please try again."
       }
     },
-     "title":"Information About User"
+    "title":"ព័ត៌មានទូទៅ"
   },
   "TestHistoryUser": {
-    "title": "Test History",
+    "title": "ប្រវត្តិនៃការតេស្ត",
     "TestAction": {
-      "view": "View",
-      "copy": "Copy",
-      "delete": "Delete"
+      "view": "ចូលមើលលំអិត",
+      "copy": "ចម្លង",
+      "delete": "លុប"
+    },
+    "test-placehoder":{
+      "title":"គ្មានប្រវត្តិតេស្ត",
+      "description":"សាកល្បងធ្វើតេស្តដើម្បីចាប់ផ្តើមតាមដានលទ្ធផលរបស់អ្នក",
+      "now":"ឥឡូវនេះ"
     },
     "DeleteTestModal":{
-      "heading": "Delete Test",
-      "description": "Are you sure you want to delete this test?",
-      "confirm": "Yes",
-      "cancel": "No"
+      "heading": "បញ្ជាក់ការលុបនេះ",
+      "description": "សូមធ្វើការបញ្ជាក់តើអ្នកពិតជាចង់លុប",
+      "confirm": "លុប",
+      "cancel": "ទេ"
     },
     "ShareResultPopup": {
-      "heading": "Share the results of your test",
-      "subHeading": "Allow your family and friends to view your results by sharing this link.",
+      "heading": "ចែករំលែកលទ្ធផល",
+      "colorHeading":"តេស្តរបស់អ្នក",
+      "subHeading": "អនុញ្ញាតឱ្យគ្រួសារនិងមិត្តភក្តិរបស់អ្នកអាចមើលឃើញពីលទ្ធផលរបស់អ្នកដោយការចែករំលែកតំណភ្ជាប់នេះ",
       "loadingMessage": "Loading...",
       "inputPlaceholder": "http://example.com/link/to/document",
       "buttons": {
-        "cancel": "No",
+        "cancel": "ទេ",
         "share": {
-          "default": "Share",
-          "shared": "Shared"
+          "default": "ចែករំលែក",
+          "shared": "បានចែករំលែក"
         }
       }
     }
   },
   "DraftHistory":{
-    "title": "Draft Test",
+    "title": "ប្រវត្តិនៃការតេស្តពេលក្រោយ",
     "DraftAction": {
-      "view": "View",
-      "delete": "Delete"
+      "view": "ចូលមើលលំអិត",
+      "delete": "លុប"
     },
     "DeleteDraftModal":{
-      "heading": "Delete Draft",
-      "description": "Are you sure you want to delete this Daft?",
-      "confirm": "Yes",
-      "cancel": "No"
-    }
+      "heading": "បញ្ជាក់ការលុបនៃតេស្តពេលក្រោយរបស់អ្នក",
+      "description": "តើអ្នកពិតជាចង់លុបតេស្តពេលក្រោយនេះ",
+      "confirm": "លុប",
+      "cancel": "ទេ"
+    },
+    "draft-placehoder":{
+      "title":"គ្មានប្រវត្តិនៃការតេស្តពេលក្រោយទេ",
+      "description":"សាកល្បងធ្វើតេស្តដើម្បីចាប់ផ្តើមតាមដានលទ្ធផលរបស់អ្នក"
+    }	
   },
   "BookmarkHistory":{
-    "title": "Bookmarks",
+    "title": "ប្រវត្តិនៃការរក្សាទុកការងាររបស់អ្នក",
     "BookmarkAction": {
-      "view": "View",
-      "delete": "Delete"
+      "view": "ចូលមើលលំអិត",
+      "delete": "លុប"
     },
     "DeleteBookmarkModal":{
-      "heading": "Delete Bookmark",
-      "description": "Are you sure you want to delete this bookmark?",
-      "confirm": "Yes",
-      "cancel": "No"
+      "heading": "បញ្ជាក់ការលុបនៃការរក្សាទុកការងាររបស់អ្នក",
+      "description": "តើអ្នកពិតជាចង់លុបការរក្សាទុកការងារនេះ",
+      "confirm": "លុប",
+      "cancel": "ទេ"
+    },
+    "BookMarkHolder":{
+      "title":"មិនមានការរក្សាទុកការងារនោះទេ",
+      "description":"សាកល្បងធ្វើការរក្សាទុកការងារដែលអ្នកចាប់អារម្មណ៏",
+      "now":"ឥឡូវនេះ"
     }
+  },
+  "Pagination": {
+    "page":"ទំព័រទី"
+  },
+  "Login":{
+    "left":{
+      "title":"សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ",
+      "description":"រកឃើញសក្តានុពល និងស្វែងរកជំនាញឯកទេស នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។"
+    },
+    "form":{
+      "title":"ចូលគណនី",
+      "fields":{
+        "email":{
+          "label":"អ៉ីម៉ែល",
+          "placeholder":"បញ្ចូលអ៉ីម៉ែលរបស់អ្នក",
+          "error":"អ៉ីម៉ែលរបស់អ្នកមិនត្រឹមត្រូវ"
+        },
+        "password":{
+          "label":"ពាក្យសម្ងាត់",
+          "placeholder":"បញ្ចូលពាក្យសម្ងាត់របស់អ្នក",
+          "error":"បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
+        },
+        "googleaccount":{
+          "label":"ភ្ជាប់ជាមួយ Google",
+          "textOr":"ឬ"
+        }
+      },
+      "forgotpassword":"ភេ្លចលេខសម្ងាត់?",
+      "buttons":"ចូលគណនី",
+      "text":"មិនទាន់មានគណនីមែនទេ? ",
+      "signup":"បង្កើតគណនី"	
+    }
+  },
+  "Register":{
+    "left":{
+      "title":"សូមស្វាគមន៍មកកាន់គេហទំព័រនាំផ្លូវ",
+      "description":"រកឃើញសក្តានុពល និងស្វែងរកជំនាញឯកទេស នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។"
+    },
+    "form":{
+      "title":"បង្កើតគណនីថ្មី",
+      "fields":{
+        "username":{
+          "label":"ឈ្មោះ",
+          "placeholder":"Enter your name",
+          "error":"Name is required."
+        },
+        "email":{
+          "label":"អ៉ីម៉ែល",
+          "placeholder":"បញ្ចូលអ៉ីម៉ែលរបស់អ្នក",
+          "error":"Email is required."
+        },
+        "password":{
+          "label":"ពាក្យសម្ងាត់",
+          "placeholder":"បញ្ចូលពាក្យសម្ងាត់ថ្មី",
+          "error":"Password is required."
+        },
+        "confirmPassword":{
+          "label":"បញ្ជាក់ពាក្យសម្ងាត់ ",
+          "placeholder":"បញ្ចូលបញ្ជាក់ពាក្យសម្ងាត់ថ្មី",
+          "error":"Password confirmation does not match."
+        }
+      },
+     "policyPage":"គោលការណ៍ឯកជនភាព",
+      "Or":"ឬ",
+      "ContinuewithGoogle":"Continue With Google",
+      "agree":"ខ្ញុំបានអាននិងយល់ព្រមលើ",
+      "buttons":"បង្កើតគណនី",
+      "text":"មានគណនីរួចហើយ?",
+      "login":"ចូលគណនី"  
+    }
+  },
+  "ForgotPassword":{
+    "title":"ភ្លេចពាក្យសម្ងាត់",
+    "description":"សូមបញ្ចូលអ៉ីម៉ែល ដើម្បីទទួលបានលេខកូដផ្ទៀងផ្ទាត់",
+    "fields":{
+      "email":{
+        "label":"អ៉ីម៉ែល",
+        "placeholder":"បញ្ចូលអ៉ីម៉ែលរបស់អ្នក",
+        "error":"Email is required."
+      }
+    },
+    "buttons":"ផ្ញើរលេខសម្ងាត់"
+  },
+  "ResetPassword":{
+    "title":"បង្កើតពាក្យសម្ងាត់ថ្មី",
+    "description":"Please input your new password.",
+    "fields":{
+      "password":{
+        "label":"ពាក្យសម្ងាត់ថ្មី",
+        "placeholder":"បញ្ចូលពាក្យសម្ងាត់ថ្មី",
+        "error":"New Password is required."
+      },
+      "confirmPassword":{
+        "label":"បញ្ជាក់ពាក្យសម្ងាត់ថ្មី",
+        "placeholder":"បញ្ចូលបញ្ជាក់ពាក្យសម្ងាត់ថ្មី",
+        "error":"Password confirmation does not match."
+      }
+    },
+    "buttons":"រួចរាល់"
+  },
+  "VerifyCodeForgot":{
+    "title":"ផ្ទៀងផ្ទាត់លេខកូដសម្ងាត់",
+    "description":"យើងបានផ្ញើលេខកូដ 6 ខ្ទង់ទៅកាន់អ៊ីមែលរបស់អ្នក។​ អ្នកមានពេល",
+    "buttons":"ផ្ទៀងផ្ទាត់",
+    "time":"វិនាទី",
+    "buttonVerifyAgain":"ផ្ញើរលេខកូដសម្ងាត់ម្តងទៀត"
+  },
+  "VerifyCodeRegister":{
+    "title":"ផ្ទៀងផ្ទាត់លេខកូដសម្ងាត់",
+    "description":"យើងបានផ្ញើលេខកូដ 6 ខ្ទង់ទៅកាន់អ៊ីមែលរបស់អ្នក។​ អ្នកមានពេល",
+    "buttons":"ផ្ទៀងផ្ទាត់",
+    "buttonVerifyAgain":"ផ្ញើរលេខកូដសម្ងាត់ម្តងទៀត"
   }
 }

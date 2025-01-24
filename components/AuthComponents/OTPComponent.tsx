@@ -174,8 +174,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from "next-intl";
 
 function OTPComponent() {
+    const t = useTranslations()
   const [currentLocale, setCurrentLocale] = useState<string>('km');
   const emailFromRedux = useAppSelector((state) => state.verify.email);
   const [email, setEmail] = useState<string | null>(null);
@@ -306,8 +308,8 @@ function OTPComponent() {
       <div className="m-auto border-1 md:border border-slate-100 rounded-xl py-7">
         <div className="px-6 sm:px-8 md:px-6 xl:px-10">
           <div className="flex justify-between items-center">
-            <Link href="/">
-              <Image src="/auth/logoFile.jpg" width={1000} height={1000} alt="Logo Image" className="w-20 md:w-24" />
+            <Link href={`/${currentLocale}/`}>
+              <Image src="/assets/logo-text.jpg" width={1000} height={1000} alt="Logo Image" className="w-20 md:w-48" />
             </Link>
             <button
               className="text-2xl text-gray-500 hover:text-gray-700"
@@ -317,9 +319,9 @@ function OTPComponent() {
             </button>
           </div>
           <div className="h-fit w-fit pt-9 pb-5">
-            <h1 className="text-2xl md:text-3xl font-bold text-primary">ផ្ទៀងផ្ទាត់លេខកូដសម្ងាត់</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-primary">{t("VerifyCodeRegister.title")}</h1>
             <p className="pt-4 text-slate-500">
-              យើងបានផ្ញើលេខកូដ 6 ខ្ទង់ទៅកាន់អ៊ីមែលរបស់អ្នក។​ អ្នកមានពេល <span className="font-bold text-primary">{` ${timer}s`}</span> វិនាទី
+              {t("VerifyCodeRegister.description")} <span className="font-bold text-primary">{` ${timer}s`}</span>
             </p>
             <div className="mt-6">
               <OTPValidation length={6} onComplete={handleOTPComplete} />
@@ -329,14 +331,14 @@ function OTPComponent() {
                   onClick={handleResendCode}
                   disabled={resending}
                 >
-                  {resending ? "កំពុងផ្ញើរលេខសម្ងាត់ទៅអ្នក..." : "ផ្ញើរលេខកូដសម្ងាត់ម្តងទៀត"}
+                  {resending ? "កំពុងផ្ញើរលេខសម្ងាត់ទៅអ្នក..." : t("VerifyCodeRegister.buttonVerifyAgain")}
                 </button>
               </div>
             </div>
             <div className="mt-6">
               <Button
                 type="submit"
-                text="ផ្ទៀងផ្ទាត់"
+                text={t("VerifyCodeRegister.buttons")}
                 onClick={handleSubmit}
                 isLoading={isLoading}
                 className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"

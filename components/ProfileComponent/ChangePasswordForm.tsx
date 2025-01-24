@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import Label from "../AuthComponents/LabelComponent";
@@ -10,6 +10,7 @@ import { useChangePasswordMutation } from "@/redux/service/user";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslations } from "next-intl"; // Import the translation hook
+import Link from "next/link";
 
 type ValueTypes = {
   old_password: string;
@@ -46,6 +47,7 @@ type ChangePasswordFormProps = {
 };
 
 const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [isLoading, setIsLoading] = useState(false);
   const [changePassword] = useChangePasswordMutation();
     const t = useTranslations(); // Specify the translation namespace
@@ -86,13 +88,30 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
       setIsLoading(false);
     }
   };
-
+ useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
   return (
     <section className="w-full h-auto flex justify-center items-center">
       <div className="m-auto w-full">
-        <div className="">
-          <div className="mt-10 md:mt-11 xl:mt-10">
-            <h1 className="text-3xl font-bold text-primary">{t("ProfileAboutUser.ChangePassword.heading")}</h1>
+        <div className="p-4">
+          <div className="mt-5 lg:mt-10 md:mt-11 xl:mt-10">
+            <h1 className="text-2xl lg:text-3xl font-bold text-primary pb-3">{t("ProfileAboutUser.ChangePassword.heading")}</h1>
+           <div className="">
+           <p className="text-md text-gray-500">ប្រសិនបើអ្នកមិនចាំពាក្យសម្ងាត់ចាស់អ្នកអាចធ្វើការផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មីបាន   <Link 
+                  href={`/${currentLocale}/forgot-password`}
+                            // href="/forgot-password"
+                            >
+                              <span className="text-lg text-primary hover:underline hover:font-semibold ">
+                                ភេ្លចលេខសម្ងាត់?
+                              </span>
+              </Link></p>
+          
+           </div>
+
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -103,7 +122,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
             >
               {() => (
                 <Form>
-                  <div className="space-y-6 mt-10">
+                  <div className="space-y-6 mt-8">
                     {/* Old Password */}
                     <div>
                       <Label htmlFor="old_password" text={t("ProfileAboutUser.ChangePassword.form.fields.old_password.label")} required />
@@ -142,7 +161,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                       <ErrorDynamic name="confirm_new_password" component="div" />
                     </div>
                   </div>
-                  <div className="flex gap-5 mt-5 mb-10">
+                  <div className="flex gap-5 mt-5 mb-4 lg:mb-10">
                     <div className="">
                       <Button
                         type="submit"

@@ -270,8 +270,8 @@
         "description": "View Your Bookmarks"
       },
       "aboutYou": {
-        "title": "About You",
-        "description": "View Your Profile"
+        "title": "User Information",
+        "description": "View Your Information"
       },
       "logout": {
         "title": "Logout",
@@ -281,7 +281,7 @@
     "modalLogout": {
       "title": "Confirm to Logout",
       "description": "Are you sure you want to logout?",
-      "confirm": "Yes",
+      "confirm": "Logout",
       "cancel": "No"
     },
     "toastMessages": {
@@ -350,13 +350,18 @@
           },
           "new_password": {
             "label": "New Password",
+            "min": "New Password must be at least 8 characters",
             "placeholder": "Enter your new password",
-            "error": "New password is required"
+            "error": "New password is required",
+            "pattern": "New Password must be have alphanumeric characters, numbers and underscores.",
+            "required": "New password is required"
           },
           "confirm_new_password": {
             "label": "Confirm New Password",
             "placeholder": "Enter your new password confirmation",
-            "error": "Password confirmation does not match"
+            "error": "Password confirmation does not match",
+            "match": "ពាក្យសម្ងាត់ថ្មីត្រូវតែដូចជាមួយការបញ្ជាក់ពាក្យសម្ងាត់",
+            "required": "អ្នកត្រូវបញ្ជូលបញ្ជាក់ពាក្យសម្ងាត់របស់អ្នក"
           }
         },
         "buttons": {
@@ -374,7 +379,7 @@
         "error": "Failed to change your password. Please try again."
       }
     },
-    "title":"Information About User"
+    "title":"User Information"
   },
   "TestHistoryUser": {
     "title": "Test History",
@@ -385,7 +390,8 @@
     },
     "test-placehoder":{
       "title":"No History Test Yet.",
-      "description":"Please Try to test."
+      "description":"Please Try to test.",
+      "now":"Test Now"
     },
     "DeleteTestModal":{
       "heading": " Confirm Deletion Test",
@@ -394,7 +400,8 @@
       "cancel": "Cancel"
     },
     "ShareResultPopup": {
-      "heading": "Share the results of your test",
+      "heading": "Share the results ",
+      "colorHeading":"of your test",
       "subHeading": "Allow your family and friends to view your results by sharing this link.",
       "loadingMessage": "Loading...",
       "inputPlaceholder": "http://example.com/link/to/document",
@@ -418,10 +425,14 @@
       "description": "Are you sure you want to delete this Daft?",
       "confirm": "Yes",
       "cancel": "No"
-    }
+    },
+    "draft-placehoder":{
+      "title":"No Draft Test Yet.",
+      "description":"Please Try to draft your test."
+    }	
   },
   "BookmarkHistory":{
-    "title": "Bookmarks",
+    "title": "Bookmarks History",
     "BookmarkAction": {
       "view": "View",
       "delete": "Delete"
@@ -431,6 +442,123 @@
       "description": "Are you sure you want to delete this bookmark?",
       "confirm": "Yes",
       "cancel": "No"
+    },
+    "BookMarkHolder":{
+      "title":"No Bookmarked Jobs Yet.",
+      "description":"Please Try to bookmark your jobs.",
+       "now":"Now"
     }
+  },
+  "Pagination": {
+    "page":"Page"
+  },
+  "Login":{
+    "left":{
+      "title":"Welcome to Normplov Official Website",
+      "description":"Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
+    },
+    "form":{
+      "title":"Login",
+      "fields":{
+        "email":{
+          "label":"Email",
+          "placeholder":"Enter your email",
+          "error":"Email is required."
+        },
+        "password":{
+          "label":"Password",
+          "placeholder":"Enter your password",
+          "error":"Password is required."
+        },
+        "googleaccount":{
+          "label":"Sign in with Google",
+          "textOr":"OR"
+        }
+      },
+      "forgotpassword":"Forgot Password",
+      "buttons":"Login",
+      "text":"Don't have account yet?",
+      "signup":"Sign up"	
+    }
+  },
+  "Register":{
+    "left":{
+      "title":"Welcome to Normplov Official Website",
+    "description":"Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
+    },
+    "form":{
+      "title":"Register",
+      "fields":{
+        "username":{
+          "label":"Name",
+          "placeholder":"Enter your name",
+          "error":"Name is required."
+        },
+        "email":{
+          "label":"Email",
+          "placeholder":"Enter your email",
+          "error":"Email is required."
+        },
+        "password":{
+          "label":"Password",
+          "placeholder":"Enter your password",
+          "error":"Password is required."
+        },
+        "confirmPassword":{
+          "label":"Confirm Password",
+          "placeholder":"Enter your confirm password",
+          "error":"Password confirmation does not match."
+        }
+      },
+     "policyPage":"Policy and Privacy",
+      "Or":"OR",
+      "ContinuewithGoogle":"Continue With Google",
+      "agree":"I agree to Privacy Policy",
+      "buttons":"Register",
+      "text":"Already have account?",
+      "login":"Login"  
+    }
+  },
+  "ForgotPassword":{
+    "title":"Forgot Password",
+    "description":"Please input your email for get your code.",
+    "fields":{
+      "email":{
+        "label":"Email",
+        "placeholder":"Enter your email",
+        "error":"Email is required."
+      }
+    },
+    "buttons":"Send"
+  },
+  "ResetPassword":{
+    "title":"Reset Password",
+    "description":"Please input your new password.",
+    "fields":{
+      "password":{
+        "label":"New Password",
+        "placeholder":"Enter your new password",
+        "error":"New Password is required."
+      },
+      "confirmPassword":{
+        "label":"Confirm New Password",
+        "placeholder":"Enter your confirm new password",
+        "error":"Password confirmation does not match."
+      }
+    },
+    "buttons":"Reset Password"
+  },
+  "VerifyCodeForgot":{
+    "title":"Verify Code",
+    "description":"Please input your verification code.",
+    "time":"s",
+    "buttons":"Verify Code",
+    "buttonVerifyAgain":"Recent Verify Code"
+  },
+  "VerifyCodeRegister":{
+    "title":"Verify Code",
+    "description":"Please input your verification code.",
+    "buttons":"Verify Code",
+    "buttonVerifyAgain":"Recent Verify Code"
   }
 }

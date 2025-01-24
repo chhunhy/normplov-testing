@@ -59,21 +59,48 @@ const TestList = () => {
       case "personality":
         return "personality";
       case "skill":
+      case "skills": // Add support for "Skills"
         return "skill";
       case "interest":
+      case "interests": // Add support for "Interests"
         return "interest";
       case "value":
+      case "values": // Add support for "Values"
         return "value";
       case "learning style":
       case "learningstyle":
         return "learningStyle";
-      case "all tests": // Handle "All Tests" here
+      case "all tests": // Handle "All Tests"
         return "all";
       default:
         console.warn(`Unknown test type: ${type}`);
         return null;
     }
   };
+  
+  // const mapTypeToRoute = (type: string) => {
+  //   // Normalize type by trimming and converting to lowercase
+  //   const normalizedType = type.trim().toLowerCase();
+  
+  //   switch (normalizedType) {
+  //     case "personality":
+  //       return "personality";
+  //     case "skill":
+  //       return "skill";
+  //     case "interest":
+  //       return "interest";
+  //     case "value":
+  //       return "value";
+  //     case "learning style":
+  //     case "learningstyle":
+  //       return "learningStyle";
+  //     case "all tests": // Handle "All Tests" here
+  //       return "all";
+  //     default:
+  //       console.warn(`Unknown test type: ${type}`);
+  //       return null;
+  //   }
+  // };
   
   // const mapTypeToRoute = (type: string) => {
   //   // Normalize type by removing spaces, converting to lowercase, and removing trailing 's'
@@ -239,7 +266,7 @@ const handleCopyToClipboard = () => {
 
   return (
   <div className="pt-4 lg:pt-0">
-      <h1 className=" text-3xl pb-3 text-primary font-bold w-full text-left">{t("TestHistoryUser.title")}</h1>
+      <h1 className=" text-3xl pb-3 hidden lg:flex text-primary font-bold w-full text-left">{t("TestHistoryUser.title")}</h1>
       <div className="relative w-full">
       {data?.payload.tests && data.payload.tests.length > 0 ? (
         <>
@@ -263,12 +290,18 @@ const handleCopyToClipboard = () => {
           <Image
             src="/auth/DraftandTest.png"
             alt="No Tests Available"
-            width={500}
-            height={500}
+            width={1000}
+            height={1000}
+            className="w-80 md:w-1/2"
           />
-          <h2 className="text-3xl font-bold text-primary mt-4">គ្មានប្រវត្តិធ្វើតេស្ត</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-primary mt-4">{t("TestHistoryUser.test-placehoder.title")}</h2>
           <p className="text-gray-600 mt-2">
-            សាកល្បងធ្វើតេស្តដើម្បីជម្រើសអាជីពរបស់អ្នកដោយចាប់ផ្តើមធ្វើតេស្តថ្មី។
+            {t("TestHistoryUser.test-placehoder.description")}
+            <Link href={`/${currentLocale}/tests`}>
+              <span className="text-primary hover:text-primary-dark">
+                {t("TestHistoryUser.test-placehoder.now")}
+              </span>
+            </Link>
           </p>
         </div>
       )}
@@ -283,10 +316,10 @@ const handleCopyToClipboard = () => {
       {isCopyPopupOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="mx-3 md:mx-0 bg-white p-6 rounded-xl shadow-sm lg:w-1/3">
-              <h2 className="text-primary text-xl pb-4 font-bold">ចែករំលែកលទ្ធផល   <span className="text-secondary"> {currentTitle}</span> តេស្តរបស់អ្នក
+              <h2 className="text-primary text-xl pb-4 font-bold">{t("TestHistoryUser.ShareResultPopup.heading")}<span className="text-secondary"> {currentTitle}</span> {t("TestHistoryUser.ShareResultPopup.colorHeading")}
              
                 </h2>
-                <p className="text-textprimary pb-3">អនុញ្ញាតឱ្យគ្រួសារនិងមិត្តភក្តិរបស់អ្នកអាចមើលឃើញពីលទ្ធផលរបស់អ្នកដោយការចែករំលែកតំណភ្ជាប់នេះ</p>
+                <p className="text-textprimary pb-3">{t("TestHistoryUser.ShareResultPopup.subHeading")}</p>
               {isFetchingShareLink ? (
                 <p>Loading...</p>
               ) : (
@@ -318,7 +351,7 @@ const handleCopyToClipboard = () => {
                     setCurrentUuid(null);
                   }}
                 >
-                  ទេ
+                  { t("TestHistoryUser.ShareResultPopup.buttons.cancel")}
                 </button>
                 <button
                   className={`px-4 py-2 rounded ${
@@ -329,7 +362,7 @@ const handleCopyToClipboard = () => {
                   onClick={handleCopyToClipboard}
                   disabled={isFetchingShareLink || isCopied}
                 >
-                  {isCopied ? "បានចែករំលែក" : "ចែករំលែក"}
+                  {isCopied ? t("TestHistoryUser.ShareResultPopup.buttons.share.shared") : t("TestHistoryUser.ShareResultPopup.buttons.share.default")}
                 </button>
               </div>
             </div>
