@@ -499,13 +499,13 @@ export default function Job() {
             ) : (
               <div className="text-center py-0 ">
                 <div className="lg:w-full md:w-[700px] items-center flex justify-center text-xl  h-[600px]">
-                  <div>
+                  <div className="w-[400px]">
                     <Image
                       src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
                       alt=""
                       width={1000}
                       height={1000}
-                      className="w-full h-full opacity-70"
+                      className="w-full h-full opacity-60"
                     />
                     <p className="text-xl text-textprimary font-semibold">
                       មិនមានការងារដែលសាកសមនៅពេលនេះ

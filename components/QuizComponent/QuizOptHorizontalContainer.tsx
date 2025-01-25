@@ -71,7 +71,7 @@ export const QuizOptHorizontalContainer = ({
 
 
   return (
-    <div className={`flex flex-col sm:flex-row w-full bg-white hover:bg-slate-50 p-4 gap-4 rounded-xl ${type === 'learninigStyle' ? 'justify-center items-center " ' : ''} `}>
+    <div className={`flex flex-col sm:flex-row w-full shadow-sm bg-white hover:bg-slate-50 p-4 gap-4 rounded-xl ${type === 'learninigStyle' ? 'justify-center items-center " ' : ''} `}>
       {/* Image Section */}
       <div className="flex-none flex justify-center items-center overflow-hidden rounded-xl">
         {/* Display Skeleton if data is loading */}
