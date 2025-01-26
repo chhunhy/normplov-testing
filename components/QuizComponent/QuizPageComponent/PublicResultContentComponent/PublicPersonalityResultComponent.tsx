@@ -193,9 +193,15 @@ export const PublicPersonalityResultComponent = () => {
   //   console.log("PersonailitiesTrait", personailitiesTrait)
   //   const averageSkill = response?.[0]?.skillsGrouped["Average"];
   //   const weakSkill = response?.[0]?.skillsGrouped["Weak"];
+
+  type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+}
+
   type Major = {
     major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
+    schools: SchoolType[];  // An array of schools offering the major
   };
 
   type Job = {

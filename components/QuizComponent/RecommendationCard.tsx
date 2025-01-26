@@ -111,9 +111,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
+type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+}
+
 type Major = {
     major_name: string;
-    schools: string[];
+    schools: SchoolType[];
 };
 
 type Job = {
@@ -140,6 +145,7 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
 
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
     const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
+    const finalUuid = resultType === 'all' ? localStorage.getItem('currentTestUuid') : uuid;
 
     useEffect(() => {
         const savedLanguage = localStorage.getItem('language');
@@ -159,10 +165,10 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
 
         localStorage.setItem('careerUuid', jobUuid)
 
-        const careerId = localStorage.getItem('careerUuid')
+        localStorage.setItem('backToTestUuid',uuid)
 
-        if (careerId) {
-            const newPath = `/${currentLocale}/recommend-job/${uuid}`;
+        if (jobUuid) {
+            const newPath = `/${currentLocale}/recommend-job/${finalUuid}`;
 
             // Ensure the new path does not contain the duplicate locale part
             if (!pathname.startsWith(`/${currentLocale}`)) {
@@ -263,7 +269,7 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
                                 
                                 >
 
-                                    {majors.length > 0 ? (
+                                    {majors ? (
                                         majors.map((major, index) => (
                                             <div key={index} className='pl-1'>
                                                 <p
@@ -280,7 +286,7 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
                                                     {major.schools.length > 0 ? (
                                                         <ul className="space-y-2 text-base md:text-md list-disc pl-6">
                                                             {major.schools.map((school, schoolIndex) => (
-                                                                <li key={schoolIndex}>{school}</li>
+                                                                <li key={schoolIndex}>{school.school_name}</li>
                                                             ))}
                                                         </ul>
                                                     ) : (

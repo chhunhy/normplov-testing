@@ -27,6 +27,7 @@ export const JobIntroComponent = ({ title, highlight, description, size, type = 
 
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
     const resultTypeString = localStorage.getItem('resultTypeString')
+    const backTestUuid = localStorage.getItem('backToTestUuid')
 
     useEffect(() => {
         const savedLanguage = localStorage.getItem('language');
@@ -55,7 +56,7 @@ export const JobIntroComponent = ({ title, highlight, description, size, type = 
                 <Breadcrumb className='my-4 lg:my-6'>
                     <BreadcrumbList>
                         <BreadcrumbItem>
-                            <BreadcrumbLink href={`/${currentLocale}/test-result/${resultTypeString}/${uuid}`} className="text-gray-400 font-semibold ">Test Result</BreadcrumbLink>
+                            <BreadcrumbLink href={`/${currentLocale}/test-result/${resultTypeString}/${backTestUuid}`} className="text-gray-400 font-semibold ">Test Result</BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         {

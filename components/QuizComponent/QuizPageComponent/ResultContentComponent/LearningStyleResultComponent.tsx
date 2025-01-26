@@ -55,9 +55,14 @@ type BarProps = {
     };
 }
 
+type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+}
+
 type Major = {
     major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
+    schools: SchoolType[];  // An array of schools offering the major
 };
 
 type Job = {
@@ -68,7 +73,7 @@ type Job = {
 type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; 
+    majors: Major[];
     career_uuid: string;
     categories: Job[];
 };
@@ -92,6 +97,10 @@ export const LearningStyleResultComponent = () => {
         testUUID: finalUuid,
         resultType: finalResultTypeString
     });
+
+    if (resultTypeString === 'all') {
+        localStorage.setItem('currentTestUuid', finalUuid)
+    }
 
     console.log("data from learning: ", response)
 
@@ -340,7 +349,7 @@ export const LearningStyleResultComponent = () => {
                                     majors={item.majors}
                                     jobList={item.categories}
                                     jobUuid={item.career_uuid}
-                                    
+
                                 />
                             ))
                         )}

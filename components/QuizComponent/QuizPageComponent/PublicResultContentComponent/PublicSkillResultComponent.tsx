@@ -159,9 +159,14 @@ type Skill = {
   description: string;
 };
 
+type SchoolType = {
+  school_uuid: string;
+  school_name: string;
+}
+
 type Major = {
   major_name: string;
-  schools: string[];
+  schools: SchoolType[];
 };
 
 

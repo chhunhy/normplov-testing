@@ -47,10 +47,14 @@ type BarProps = {
   payload?: { color?: string };
 };
 
+type SchoolType = {
+  school_uuid: string;
+  school_name: string;
+}
 
 type Major = {
   major_name: string; // The name of the major
-  schools: string[];  // An array of schools offering the major
+  schools: SchoolType[];  // An array of schools offering the major
 };
 type Job = {
   category_name: string;
@@ -140,6 +144,10 @@ export const PersonalityResultComponent = () => {
     testUUID: finalUuid,
     resultType: finalResultTypeString,
   });
+
+  if(resultTypeString === 'all'){
+    localStorage.setItem('currentTestUuid',finalUuid)
+  }
 
   console.log(`result: ${resultTypeString} id: ${uuidString}`);
 

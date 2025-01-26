@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import QuizHeader from '../../QuizHeader'
 
 
@@ -8,7 +8,6 @@ import QuizHeader from '../../QuizHeader'
 import { useParams } from 'next/navigation';
 import { useGetTestDetailQuery } from '@/redux/feature/assessment/result';
 import { RecommendationCard } from '../../RecommendationCard';
-import Pagination from '@/components/ProfileComponent/Pagination';
 import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
 
@@ -26,15 +25,18 @@ type RecommendedCareer = {
     categories: Job[];
 };
 
+type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+}
+
 type Major = {
     major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
+    schools: SchoolType[];  // An array of schools offering the major
 };
 
 export const FinalJobRecommendComponent = () => {
     const params = useParams();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(6);
 
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
@@ -67,13 +69,8 @@ export const FinalJobRecommendComponent = () => {
 
     // Use the correct career data for pagination
     const recommendedCareer = response?.payload?.[0]?.user_response_data.recommendations ?? [];
-    const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
-   
 
-    // Pagination handler
-    const handlePageChange = (newPage: number) => {
-        setCurrentPage(newPage);
-    };
+   
 
    
     return (
@@ -112,14 +109,7 @@ export const FinalJobRecommendComponent = () => {
                     )
                 }
             </div>
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                setCurrentPage={handlePageChange}
-                itemsPerPage={itemsPerPage}
-                setItemsPerPage={setItemsPerPage}
-            />
-
+            
 
         </div>
 

@@ -143,9 +143,14 @@ type BarProps = {
   };
 };
 
+type SchoolType = {
+  school_uuid: string;
+  school_name: string;
+}
+
 type Major = {
   major_name: string; // The name of the major
-  schools: string[]; // An array of schools offering the major
+  schools: SchoolType[]; // An array of schools offering the major
 };
 type Job = {
   category_name: string;
@@ -181,6 +186,10 @@ export const ValueResultComponent = () => {
     testUUID: finalUuid,
     resultType: finalResultTypeString,
   });
+
+  if(resultTypeString === 'all'){
+    localStorage.setItem('currentTestUuid',finalUuid)
+  }
 
   // if (!resultTypeString || !uuidString) {
   //   return <div className=' w-full flex justify-center items-center'><Loading /></div>;

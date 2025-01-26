@@ -12,6 +12,9 @@ import { useLoadCareerPredictionMutation, useLoadFiveTestQuery, usePredictAssess
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import confetti from 'canvas-confetti';
+import { Dialog } from '@radix-ui/react-dialog';
+import { DialogContent } from '@/components/ui/dialog';
+import { LoadingTest } from '@/components/General/LoadingTest';
 
 // Define quiz data types
 type QuizData = {
@@ -46,6 +49,7 @@ export const MultipleStepQuizComponent = () => {
   const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [predictAssessment,] = usePredictAssessmentMutation();
   const [predictFinalCareer] = useLoadCareerPredictionMutation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
   // Use `useLoadFiveTestQuery` with a condition
@@ -66,19 +70,19 @@ export const MultipleStepQuizComponent = () => {
 
 
   useEffect(() => {
-      const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-        event.preventDefault();
-        event.returnValue = ""; // Modern browsers show a default message, custom messages are ignored
-      };
-  
-      // Attach the event listener
-      window.addEventListener("beforeunload", handleBeforeUnload);
-  
-      // Cleanup the event listener
-      return () => {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
-      };
-    }, []);
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = ""; // Modern browsers show a default message, custom messages are ignored
+    };
+
+    // Attach the event listener
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
 
   // Learning Style quiz Data
@@ -532,7 +536,7 @@ export const MultipleStepQuizComponent = () => {
     return { responses };
   };
 
-  const handleClick = () => {
+  const handleConfettiClick = () => {
     const end = Date.now() + 3 * 1000; // 3 seconds
     const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
 
@@ -561,6 +565,8 @@ export const MultipleStepQuizComponent = () => {
 
     frame();
   };
+
+
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -613,6 +619,7 @@ export const MultipleStepQuizComponent = () => {
         // Check if all 5 UUIDs are now available
         if (uuids.length === 5) {
           setIsReadyToFetch(true); // All UUIDs are available, ready to fetch the tests
+          setIsSubmitting(true)
           try {
             const finalResult = await predictFinalCareer({
               testUuids: uuids,
@@ -620,8 +627,6 @@ export const MultipleStepQuizComponent = () => {
             }).unwrap();
 
             const allTestUuid = finalResult?.payload?.test_uuid
-
-            handleClick()
 
             const newPath = `/${currentLocale}/test-result/all/${allTestUuid}`;
 
@@ -638,6 +643,7 @@ export const MultipleStepQuizComponent = () => {
           } catch (err) {
             toast.error("Failed to submit final responses. Please try again.");
             console.log("error: ", err)
+            setIsSubmitting(false)
           }
 
         }
@@ -657,7 +663,11 @@ export const MultipleStepQuizComponent = () => {
 
   };
 
-
+  useEffect(() => {
+    if (isSubmitting) {
+      handleConfettiClick();
+    }
+  }, [isSubmitting]);
 
   const handleNextClick = () => {
     // Save the completed questions from the current quiz
@@ -683,6 +693,20 @@ export const MultipleStepQuizComponent = () => {
 
   return (
     <div className={`w-full relative `}>
+      <Dialog open={isSubmitting}  >
+        <DialogContent className=' max-w-80 lg:max-w-lg bg-white border-none flex justify-center items-center flex-col text-center' showCloseButton={false}  >
+
+          <div className="w-3/4 md:w-1/2">
+            <LoadingTest />
+          </div>
+
+          <div className='-mt-4 lg:-mt-6 w-3/4 md:w-3/4'>
+            <p className='text-slate-600 font-semibold text-md lg:text-lg'>លទ្ធផលសង្ខេបរបស់អ្នកនឹងរួចរាល់នៅបន្តិចទៀតនេះ</p>
+            <p className='text-slate-500 text-sm lg:text-base' >អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយនាំផ្លូវ</p>
+          </div>
+
+        </DialogContent>
+      </Dialog>
       {/* Intro Section */}
       <div >
         <QuizIntroContainer

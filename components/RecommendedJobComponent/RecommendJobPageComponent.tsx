@@ -6,6 +6,7 @@ import { JobIntroComponent } from "./JobIntroComponent";
 import { useParams } from "next/navigation";
 import { useGetCareerByUuidMutation } from "@/redux/feature/assessment/quiz";
 import { Skeleton } from "../ui/skeleton";
+import Link from "next/link";
 
 
 type JobType = {
@@ -13,9 +14,14 @@ type JobType = {
     responsibilities: string[];
 }
 
+type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+  }
+
 type Major = {
     major_name: string;
-    schools: string[];
+    schools: SchoolType[];
 };
 
 export default function RecommendJobPageComponent() {
@@ -162,12 +168,13 @@ export default function RecommendJobPageComponent() {
                                             {currentLocale === 'km' ? 'នៅក្នុងវិស័យការងារនេះមានការងារជាច្រើនដូចជា៖' : ' In this field, There are jobs such as:'}
 
                                         </p>
-                                        <ul className="mt-2 space-y-4 text-slate-500 list-inside list-disc">
+                                        <ul className="mt-2 space-y-2 text-slate-500 list-inside list-disc">
                                             {jobList?.map((job: JobType, index: string) => (
                                                 <div key={index} className="flex justify-between items-center gap-2 ml-2">
                                                     <div className="flex items-center ">
 
                                                         <li
+                                                            key={index}
                                                             className={`hover:cursor-pointer text-md underline text-slate-600`}
                                                             onClick={() => handleJobClick(job)}
                                                         >
@@ -188,7 +195,7 @@ export default function RecommendJobPageComponent() {
                                         <p className="text-md text-secondary">{currentLocale === 'km' ? 'ជំនាញ' : 'Major:'}</p>
 
 
-                                        {majors.length > 0 ? (
+                                        {majors?.length > 0 ? (
                                             majors.map((major: Major, index: string) => (
                                                 <div key={index} >
                                                     <p className="text-lg md:text-xl font-bold text-primary">{major.major_name || "Unknown Title"}</p>
@@ -200,9 +207,9 @@ export default function RecommendJobPageComponent() {
                                                     <div className='ml-2'>
 
                                                         {major.schools.length > 0 ? (
-                                                            <ul className="space-y-2 text-base md:text-md list-disc pl-6">
+                                                            <ul className=" text-base md:text-md list-disc pl-6 ">
                                                                 {major.schools.map((school, schoolIndex) => (
-                                                                    <li key={schoolIndex}>{school}</li>
+                                                                   <Link key={schoolIndex} href={`/${currentLocale}/university/${school.school_uuid}`}><li  className="underline mb-2">{school.school_name}</li></Link> 
                                                                 ))}
                                                             </ul>
                                                         ) : (

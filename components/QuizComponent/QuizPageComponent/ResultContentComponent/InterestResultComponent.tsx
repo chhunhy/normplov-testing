@@ -34,14 +34,19 @@ type Job = {
 type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; 
+    majors: Major[];
     career_uuid: string;
     categories: Job[];
 };
 
+type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+}
+
 type Major = {
     major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
+    schools: SchoolType[];  // An array of schools offering the major
 };
 
 export const InterestResultComponent = () => {
@@ -63,7 +68,10 @@ export const InterestResultComponent = () => {
         resultType: finalResultTypeString
     });
     console.log("data from interest: ", response)
-
+    
+    if(resultTypeString === 'all'){
+        localStorage.setItem('currentTestUuid',finalUuid)
+      }
 
 
     if (error) {
@@ -97,16 +105,22 @@ export const InterestResultComponent = () => {
 
     // Use the correct career data for pagination
     const recommendedCareer = response?.careerPath ?? [];
-    const totalPages = Math.ceil(recommendedCareer.length / itemsPerPage);
-    // const currentItems = recommendedCareer.slice(
-    //     (currentPage - 1) * itemsPerPage,
-    //     currentPage * itemsPerPage
-    // );
+
+
 
     // Pagination handler
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
     };
+
+    // Calculate total pages for career recommendations
+    const totalPages = Math.ceil(recommendedCareer?.length / itemsPerPage);
+
+    // Get current items for the current page
+    const currentItems = recommendedCareer.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     console.log("image: ", interestCard?.[0]?.image_url)
     return (
@@ -230,7 +244,7 @@ export const InterestResultComponent = () => {
                                 />
 
                             ))) : (
-                            recommendedCareer.map((item: RecommendedCareer, index: number) => (
+                                currentItems.map((item: RecommendedCareer, index: number) => (
                                 <RecommendationCard
                                     key={item.career_name || index}
                                     jobTitle={item.career_name}

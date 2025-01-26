@@ -162,9 +162,14 @@ type Skill = {
   description: string;
 };
 
+type SchoolType = {
+  school_uuid: string;
+  school_name: string;
+}
+
 type Major = {
   major_name: string;
-  schools: string[];
+  schools: SchoolType[];
 };
 
 
@@ -203,6 +208,10 @@ export const SkillResultComponent = () => {
     testUUID: finalUuid,
     resultType: finalResultTypeString
   });
+
+  if(resultTypeString === 'all'){
+    localStorage.setItem('currentTestUuid',finalUuid)
+  }
 
   console.log(`result: ${resultTypeString} id: ${uuidString}`)
 
