@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { LayoutTemplate, MapPin, Clock } from "lucide-react";
-import {  useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
 import { useGetJobsQuery } from "@/redux/service/jobs";
 import {
@@ -26,7 +26,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
-
+import Image from "next/image";
 
 interface CategoryOption {
   value: string;
@@ -152,15 +152,13 @@ interface Job {
   is_scraped?: boolean;
   created_at_days_ago?: string;
   logo?: string;
-  salary?:string;
+  salary?: string;
   created_at: string;
   closing_date: string;
   isActive?: boolean;
   visitor_count?: number;
   bookmarked?: boolean;
 }
-
-
 
 export default function Job() {
   const dispatch = useAppDispatch();
@@ -171,8 +169,6 @@ export default function Job() {
   const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
   const pathname = usePathname();
   const { locale } = useParams();
-  
-
 
   const { search, selectedCategory, selectedLocation, selectedJobType, page } =
     useAppSelector((state: RootState) => state.jobs);
@@ -221,7 +217,6 @@ export default function Job() {
           }
         }
 
-
         // Extract unique categories, locations, and job types
         const categories = allJobs.reduce((acc: string[], job: Job) => {
           if (job.category && !acc.includes(job.category)) {
@@ -266,7 +261,6 @@ export default function Job() {
     fetchCategoriesAndLocations();
   }, []);
 
-
   if (!data) {
     return <JobsSkeleton />;
   }
@@ -275,7 +269,6 @@ export default function Job() {
 
   const handleCardClick = async (id: string) => {
     try {
-
       const newPath = `/${locale}/jobs/${id}`;
 
       // Ensure the new path does not contain the duplicate locale part
@@ -288,22 +281,26 @@ export default function Job() {
       }
 
       // router.push(`/jobs/${id}`);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs/${id}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs/${id}`
+      );
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch job details. Status: ${response.status}`);
+        throw new Error(
+          `Failed to fetch job details. Status: ${response.status}`
+        );
       }
 
       const jobDetail = await response.json();
       console.log("Job Details: ", jobDetail);
-
     } catch (error) {
       console.error("Failed to fetch job details:", error);
       // Optionally, you can display an error message to the user here
-      alert("Sorry, there was an error fetching the job details. Please try again.");
+      alert(
+        "Sorry, there was an error fetching the job details. Please try again."
+      );
     }
   };
-
 
   const jobs = data?.payload?.items || [];
   const totalPages = data?.payload?.metadata?.total_pages || 1;
@@ -352,7 +349,7 @@ export default function Job() {
               handleCategoryChange({ value, label: value } as CategoryOption)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
                 <SelectValue className=" w-full bg-red-200 truncate">
@@ -380,7 +377,6 @@ export default function Job() {
             </SelectContent>
           </Select>
 
-
           {/* Location Filter */}
           {/* Location Filter */}
           <Select
@@ -391,7 +387,7 @@ export default function Job() {
               handleLocationChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <MapPin size={18} color="#0BBB8A" />
                 <SelectValue className="w-full">
@@ -430,7 +426,7 @@ export default function Job() {
               handleJobTypeChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <Clock size={18} color="#0BBB8A" />
                 <SelectValue>
@@ -479,38 +475,62 @@ export default function Job() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
           <div className="lg:col-span-8 space-y-4">
-            {jobs.map((job: Job) => (
-              <JobListingCard
-                key={job.uuid}
-                uuid={job.uuid}
-                title={job.title}
-                desc={job.company_name}
-                image={job.logo}
-                time={job.job_type}
-                salary={job.salary}
-                location={job.location}
-                category={job.category || " " }
-                created_at_days_ago={job.created_at_days_ago}
-                posted_at_days_ago={job.posted_at_days_ago}
-                is_scraped={job.is_scraped}
-                isActive={false} // Default or dynamic value
-                visitor_count={job.visitor_count ?? 0}
-                bookmarked={job.bookmarked ?? false }
-                onClick={() => handleCardClick(job.uuid)}
-              />
-            ))}
-            <div>
-              <Pagination
-                currentPage={page}
-                totalPages={totalPages}
-                setCurrentPage={handlePageChange}
-                itemsPerPage={itemsPerPage}
-                setItemsPerPage={setItemsPerPage}
-              />
-            </div>
+            {jobs.length > 0 ? (
+              jobs.map((job: Job) => (
+                <JobListingCard
+                  key={job.uuid}
+                  uuid={job.uuid}
+                  title={job.title}
+                  desc={job.company_name}
+                  image={job.logo}
+                  time={job.job_type}
+                  salary={job.salary}
+                  location={job.location}
+                  category={job.category || " "}
+                  created_at_days_ago={job.created_at_days_ago}
+                  posted_at_days_ago={job.posted_at_days_ago}
+                  is_scraped={job.is_scraped}
+                  isActive={false} // Default or dynamic value
+                  visitor_count={job.visitor_count ?? 0}
+                  bookmarked={job.bookmarked ?? false}
+                  onClick={() => handleCardClick(job.uuid)}
+                />
+              ))
+            ) : (
+              <div className="text-center py-0 ">
+                <div className="lg:w-full md:w-[700px] items-center flex justify-center text-xl  h-[600px]">
+                  <div className="w-[400px]">
+                    <Image
+                      src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
+                      alt=""
+                      width={1000}
+                      height={1000}
+                      className="w-full h-full opacity-60"
+                    />
+                    <p className="text-xl text-textprimary font-semibold">
+                      មិនមានការងារដែលសាកសមនៅពេលនេះ
+                    </p>
+                    <p className="text-base text-gray-500">
+                      សូមព្យាយាមមើលម្តងទៀតនៅពេលក្រោយ
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            {jobs.length > 0 && (
+              <div>
+                <Pagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  setCurrentPage={handlePageChange}
+                  itemsPerPage={itemsPerPage}
+                  setItemsPerPage={setItemsPerPage}
+                />
+              </div>
+            )}
           </div>
-          <div className="lg:col-span-4 ">
-            <div className="lg:sticky lg:top-0">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-20">
               <JobBannerCard
                 title="មិនទាន់ដឹងថាការងារមួយណាសាកសមនឹងអ្នក?"
                 desc="សាកល្បងតេស្តវាយតម្លៃរបស់យើង និងស្វែងរកអាជីព ការងារដ៏មានសក្តានុពលនៅថ្ងៃនេះ"

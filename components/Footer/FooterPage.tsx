@@ -10,7 +10,7 @@ export default function FooterPage() {
   const { locale } = useParams();
   const t = useTranslations("Footer"); // Hook to access translations
   return (
-    <footer className="border-t py-4   bg-slate-50">
+    <footer className="border-t py-4   bg-slate-100">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4 ">
           {/* Logo and Description */}
@@ -25,7 +25,7 @@ export default function FooterPage() {
                   className="lg:w-[220px] md:w-[200px] w-[200px] -ml-2 "
                 ></Image>
               </Link>
-              <p className="text-textprimary block md:hidden lg:block text-md leading-relaxed">
+              <p className="text-textprimary block md:hidden lg:block text-base leading-relaxed">
                 {t("description")}
               </p>
               <p className="text-textprimary hidden md:block lg:hidden text-md leading-relaxed">

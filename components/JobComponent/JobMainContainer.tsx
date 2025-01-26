@@ -24,6 +24,12 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && query.trim()) {
+      handleSearchClick(); // Trigger search on Enter key press
+    }
+  };
+
   return (
     <div
       className="relative w-full bg-white h-[600px] bg-cover bg-center"
@@ -44,18 +50,19 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
         </div>
 
         {/* Search Bar Section */}
-        <div className="flex gap-2 w-full items-center">
-          <div className="w-full md:flex md:justify-center">
-            <div className="relative">
+        <div className="flex gap-2 w-full items-center ">
+          <div className="w-full md:flex md:justify-center ">
+            <div className="relative bg-primary p-1 rounded-full bg-opacity-10">
               <input
                 type="text"
                 placeholder="Search job title..."
                 value={query}
                 onChange={handleInputChange} // Handle input changes
+                onKeyDown={handleKeyDown} // Trigger search on Enter key press
                 className="w-full md:w-[600px] lg:w-[700px] pl-4 py-2 lg:py-3 border border-gray-300 rounded-full focus:outline-none text-textprimary text-[12px] lg:text-base"
               />
               <div
-                className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-primary py-1 px-1 lg:py-3 lg:px-3 rounded-full cursor-pointer"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary py-1 px-1 lg:py-3 lg:px-3 rounded-full cursor-pointer"
                 onClick={handleSearchClick} // Trigger the search
               >
                 <Search

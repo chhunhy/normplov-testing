@@ -3,9 +3,6 @@ import OTPComponentReset from "@/components/AuthComponents/OTPComponentReset";
 
 export default function page() {
   return (
-
-            <OTPComponentReset/>
-
-
+    <OTPComponentReset/>
   );
 }

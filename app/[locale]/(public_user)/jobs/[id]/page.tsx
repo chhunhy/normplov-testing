@@ -246,7 +246,7 @@ export default function Page({ params }: { params: { id: string } }) {
               handleCategoryChange({ value, label: value } as CategoryOption)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
                 <SelectValue className=" w-full bg-red-200 truncate">
@@ -284,7 +284,7 @@ export default function Page({ params }: { params: { id: string } }) {
               handleLocationChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <MapPin size={18} color="#0BBB8A" />
                 <SelectValue className="w-full">
@@ -323,7 +323,7 @@ export default function Page({ params }: { params: { id: string } }) {
               handleJobTypeChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <Clock size={18} color="#0BBB8A" />
                 <SelectValue>
@@ -404,7 +404,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
           {/* Right Section: Job Details */}
           <div className="lg:col-span-7" id="jobDetails">
-            <div className="lg:sticky lg:top-0">
+            <div className="lg:sticky lg:top-20">
               {selectedJobFromId ? (
                 <JobDetailCard
                   jobTitle={selectedJobFromId.title}

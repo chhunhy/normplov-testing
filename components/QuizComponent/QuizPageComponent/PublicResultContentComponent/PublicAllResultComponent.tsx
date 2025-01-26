@@ -6,8 +6,8 @@ import { PublicInterestResultComponent } from './PublicInterestResultComponent';
 import { PublicLearningStyleResultComponent } from './PublicLearningStyleResultComponent';
 import { PublicValueResultComponent } from './PublicValueResultComponent';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FinalJobRecommendComponent } from '../ResultContentComponent/FinalJobRecommendComponent';
-
+// import { FinalJobRecommendComponent } from '../ResultContentComponent/FinalJobRecommendComponent';
+import { PublicFinalJobRecommendComponent } from './PublicFinalJobComponent';
 export const PublicAllResultComponent = () => {
 
     const [selectedTab, setSelectedTab] = useState('personality');
@@ -40,7 +40,7 @@ export const PublicAllResultComponent = () => {
                             <TabsContent value="interest"><PublicInterestResultComponent /></TabsContent>
                             <TabsContent value="value"><PublicValueResultComponent /></TabsContent>
                             <TabsContent value="learningStyle"><PublicLearningStyleResultComponent /></TabsContent>
-                            <TabsContent value="career"><FinalJobRecommendComponent /></TabsContent>
+                            <TabsContent value="career"><PublicFinalJobRecommendComponent /></TabsContent>
                         </Tabs>
                     </div>
 
@@ -69,7 +69,7 @@ export const PublicAllResultComponent = () => {
                         {selectedTab === 'interest' && <PublicInterestResultComponent />}
                         {selectedTab === 'value' && <PublicValueResultComponent />}
                         {selectedTab === 'learningStyle' && <PublicLearningStyleResultComponent />}
-                        {selectedTab === 'career' && <FinalJobRecommendComponent />}
+                        {selectedTab === 'career' && <PublicFinalJobRecommendComponent />}
 
 
                     </div>

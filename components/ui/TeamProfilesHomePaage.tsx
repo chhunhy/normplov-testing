@@ -47,56 +47,59 @@ CardContent.displayName = "CardContent";
 
 // Main TeamProfiles component
 export default function TeamProfilesHomePage() {
-  const t = useTranslations('HomePage');  // Hook to access translations
+  const t = useTranslations("HomePage"); // Hook to access translations
   const profiles = [
     {
-      name: "Jocelyn Schleifer",
-      role: "Software Engineer",
+      name: "ចិន ភីរម្យ",
+      role: "នាយករបស់វិទ្យាស្ថាន ISTAD",
       description:
         "I have over 4 years of experience as a Software Engineer across various industries.",
-      image: "/assets/team-test-01.png",
+      image: "/home/derector.png",
     },
     {
-      name: "Jocelyn Schleifer",
-      role: "Cyber Security",
+      name: "មុំ រស្មី",
+      role: "ប្រធានការិយាល័យសិក្សា",
       description:
         "As an experienced Cybersecurity professional, I'm more than happy to guide you on the right path.",
-      image: "/assets/team-test-02.png",
+      image: "/home/cher-smey.jpg",
     },
     {
-      name: "Jocelyn Schleifer",
-      role: "Data Analyst",
+      name: "ចាន់ ឆៃយ៉ា",
+      role: "គ្រូបង្គោល",
       description:
         "In addition to being a Data Analyst, I'm open to answering any questions related to data science.",
-      image: "/assets/team-test-03.png",
+      image: "/home/cher-chhaya-chan.png",
     },
     {
-      name: "Jocelyn Schleifer",
-      role: "Software Engineer",
+      name: "កាយ កែវ",
+      role: "គ្រូបង្គោល",
       description:
         "With my 5 years of experience in this field, I'm confident that I can guide you to the best roadmap.",
-      image: "/assets/team-test-04.png",
+      image: "/home/cher-kavkeo.jpg",
     },
   ];
 
   return (
     <div className="px-4  max-w-7xl mx-auto  md:my-6 mb-6 md:mb-0 lg:mb-0">
-      <div className="max-w-7xl   mx-auto my-4 md:my-6 flex  justify-center items-center">
-      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
-      {t("ExpertConsultation.title")} <span className="text-primary">{t("ExpertConsultation.highlight")}</span>
-    </h1>
+      <div className="max-w-7xl   mx-auto my-4 md:my-6 flex  justify-start items-center">
+        <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-center mb-2 text-textprimary">
+          {t("ExpertConsultation.title")}
+          <span className="text-primary">
+            {t("ExpertConsultation.highlight")}
+          </span>
+        </h1>
       </div>
 
       <div className="grid grid-cols-1 lg:py-6 md:py-6 py-0 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {profiles.map((profile, index) => (
           <Card key={index}>
-            <div className="relative ">
+            <div className="relative w-full h-[250px] ">
               <Image
                 src={profile.image}
                 alt={`${profile.name} - ${profile.role}`}
                 width={200}
                 height={200}
-                className="object-cover w-full "
+                className="object-cover w-full h-full "
               />
             </div>
             <CardContent className="">
@@ -104,7 +107,7 @@ export default function TeamProfilesHomePage() {
                 <h2 className="font-semibold text-xl">{profile.name}</h2>
                 <p className="text-gray-600 py-2">{profile.role}</p>
               </div>
-              <p className="text-sm text-gray-600">{profile.description}</p>
+              
               <div className="flex items-center justify-between pt-4">
                 <div className="flex gap-4">
                   <button
@@ -120,7 +123,12 @@ export default function TeamProfilesHomePage() {
                     <Mail className="w-5 h-5 text-primary " />
                   </button>
                 </div>
-                <Link  href="/" className=" rounded-full border border-primary text-primary w-24 h-9 flex justify-center items-center">ណាត់ជួប</Link>
+                <Link
+                  href="/"
+                  className=" rounded-full border border-primary text-primary w-32 h-9 flex justify-center items-center"
+                >
+                  សន្ទនាឥឡូវនេះ
+                </Link>
               </div>
             </CardContent>
           </Card>

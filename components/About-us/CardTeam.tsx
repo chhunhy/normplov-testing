@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import AOS from 'aos';
-import 'aos/dist/aos.css';  // Make sure you import the CSS for animations
-
-
+import AOS from "aos";
+import "aos/dist/aos.css"; // Make sure you import the CSS for animations
 
 export default function CardTeam() {
-  const [ , setIsVisible] = useState(false);
+  const [, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -17,9 +15,9 @@ export default function CardTeam() {
     AOS.init({
       duration: 1000,
       offset: 120,
-      once: true
+      once: true,
       // Animation duration (in ms)
-        // Whether animation should happen only once
+      // Whether animation should happen only once
     });
   }, []);
   return (
@@ -38,65 +36,79 @@ export default function CardTeam() {
           <div className="text-2xl text-textprimary -mt-3">Phy Lymann</div>
           <div className="text-lg text-primary   flex justify-center ">
             <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
-            BACK-END DEVELOPER
+              BACK-END DEVELOPER
             </h1>
           </div>
-          <div className="flex items-start   justify-center text-textprimary text-2xl ">
-            <ul className="wrapper ">
-              <li className="icon facebook">
-                <span className="tooltip">Facebook</span>
-                <a
-                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/phy.lymann"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="1.2em"
-                    viewBox="0 0 320 512"
-                  >
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon twitter">
-                <span className="tooltip">Telegram</span>
-                <a
-                  href="https://t.me/reksmey_mom"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/phy-lymann-6b072a281/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
                 >
-                  <svg
-                    className="telegram"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    fill="currentColor"
-                    height="1.8em"
-                  >
-                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon instagram">
-                <span className="tooltip">GitHub</span>
-                <a
-                  href="https://github.com/Reksmeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/LymannPhy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    height="1.2em"
-                    className="bi bi-github"
-                  >
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -117,62 +129,76 @@ export default function CardTeam() {
               FRONT-END DEVELOPER
             </h1>
           </div>
-          <div className="flex items-start   justify-center text-textprimary text-2xl ">
-            <ul className="wrapper ">
-              <li className="icon facebook">
-                <span className="tooltip">Facebook</span>
-                <a
-                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/chori.chan/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="1.2em"
-                    viewBox="0 0 320 512"
-                  >
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon twitter">
-                <span className="tooltip">Telegram</span>
-                <a
-                  href="https://t.me/reksmey_mom"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/sokroza-yeng-a92223289/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
                 >
-                  <svg
-                    className="telegram"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    fill="currentColor"
-                    height="1.8em"
-                  >
-                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon instagram">
-                <span className="tooltip">GitHub</span>
-                <a
-                  href="https://github.com/Reksmeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/YengSokroza"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    height="1.2em"
-                    className="bi bi-github"
-                  >
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -187,68 +213,84 @@ export default function CardTeam() {
           />
         </div>
         <div className=" space-y-2">
-          <div className="text-2xl text-textprimary -mt-3">Hout Sovannarith</div>
+          <div className="text-2xl text-textprimary -mt-3">
+            Hout Sovannarith
+          </div>
           <div className="text-lg text-primary   flex justify-center ">
             <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
               FRONT-END DEVELOPER
             </h1>
           </div>
-          <div className="flex items-start   justify-center text-textprimary text-2xl ">
-            <ul className="wrapper ">
-              <li className="icon facebook">
-                <span className="tooltip">Facebook</span>
-                <a
-                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/@sovannarith.2804"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="1.2em"
-                    viewBox="0 0 320 512"
-                  >
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon twitter">
-                <span className="tooltip">Telegram</span>
-                <a
-                  href="https://t.me/reksmey_mom"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/hout-sovannarith-8453771a1/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
                 >
-                  <svg
-                    className="telegram"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    fill="currentColor"
-                    height="1.8em"
-                  >
-                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon instagram">
-                <span className="tooltip">GitHub</span>
-                <a
-                  href="https://github.com/Reksmeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/HoutSovannarith"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    height="1.2em"
-                    className="bi bi-github"
-                  >
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -269,62 +311,76 @@ export default function CardTeam() {
               FRONT-END DEVELOPER
             </h1>
           </div>
-          <div className="flex items-start   justify-center text-textprimary text-2xl ">
-            <ul className="wrapper ">
-              <li className="icon facebook">
-                <span className="tooltip">Facebook</span>
-                <a
-                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/share/1NTAu8Gfa7/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="1.2em"
-                    viewBox="0 0 320 512"
-                  >
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon twitter">
-                <span className="tooltip">Telegram</span>
-                <a
-                  href="https://t.me/reksmey_mom"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/seamey-channtha-b465a7288/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
                 >
-                  <svg
-                    className="telegram"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    fill="currentColor"
-                    height="1.8em"
-                  >
-                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon instagram">
-                <span className="tooltip">GitHub</span>
-                <a
-                  href="https://github.com/Reksmeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/Seamey"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    height="1.2em"
-                    className="bi bi-github"
-                  >
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -345,62 +401,76 @@ export default function CardTeam() {
               FRONT-END DEVELOPER
             </h1>
           </div>
-          <div className="flex items-start   justify-center text-textprimary text-2xl ">
-            <ul className="wrapper ">
-              <li className="icon facebook">
-                <span className="tooltip">Facebook</span>
-                <a
-                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/share/15CsACuEbw/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="1.2em"
-                    viewBox="0 0 320 512"
-                  >
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon twitter">
-                <span className="tooltip">Telegram</span>
-                <a
-                  href="https://t.me/reksmey_mom"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/chhem-chhunhy-45a0a8337/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
                 >
-                  <svg
-                    className="telegram"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    fill="currentColor"
-                    height="1.8em"
-                  >
-                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon instagram">
-                <span className="tooltip">GitHub</span>
-                <a
-                  href="https://github.com/Reksmeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/chhunhy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    height="1.2em"
-                    className="bi bi-github"
-                  >
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -421,62 +491,76 @@ export default function CardTeam() {
               FRONT-END DEVELOPER
             </h1>
           </div>
-          <div className="flex items-start   justify-center text-textprimary text-2xl ">
-            <ul className="wrapper ">
-              <li className="icon facebook">
-                <span className="tooltip">Facebook</span>
-                <a
-                  href="https://www.facebook.com/mom.reksmey.12?_rdc=1&_rdr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/profile.php?id=100040141150755"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="1.2em"
-                    viewBox="0 0 320 512"
-                  >
-                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon twitter">
-                <span className="tooltip">Telegram</span>
-                <a
-                  href="https://t.me/reksmey_mom"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
                 >
-                  <svg
-                    className="telegram"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    fill="currentColor"
-                    height="1.8em"
-                  >
-                    <path d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z M34.217,14.77l-3.671,17.32 c-0.275,1.286-1.042,1.601-2.104,0.999l-5.8-4.281l-2.8,2.687c-0.309,0.309-0.566,0.566-1.161,0.566l0.414-5.882L30.74,17.54 c0.466-0.414-0.1-0.64-0.724-0.227l-13.2,8.301l-5.67-1.773c-1.231-0.389-1.26-1.231,0.257-1.832l22.207-8.56 C33.486,13.507,34.767,13.993,34.217,14.77z"></path>
-                  </svg>
-                </a>
-              </li>
-              <li className="icon instagram">
-                <span className="tooltip">GitHub</span>
-                <a
-                  href="https://github.com/Reksmeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/kimla1234"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    height="1.2em"
-                    className="bi bi-github"
-                  >
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.98c.68.003 1.37.092 2.01.27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
