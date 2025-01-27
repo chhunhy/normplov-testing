@@ -585,6 +585,11 @@ export const PublicSkillResultComponent = () => {
     resultType: finalResultTypeString
   });
 
+
+  if(resultTypeString === 'all'){
+    localStorage.setItem('currentTestUuid',finalUuid)
+}
+
   console.log(`result: ${resultTypeString} id: ${uuidString}`)
 
 

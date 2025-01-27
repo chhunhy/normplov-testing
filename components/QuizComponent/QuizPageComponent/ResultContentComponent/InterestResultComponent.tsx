@@ -71,7 +71,7 @@ export const InterestResultComponent = () => {
     
     if(resultTypeString === 'all'){
         localStorage.setItem('currentTestUuid',finalUuid)
-      }
+    }
 
 
     if (error) {

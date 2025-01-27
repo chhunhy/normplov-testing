@@ -632,6 +632,10 @@ export const PublicValueResultComponent = () => {
     resultType: finalResultTypeString,
   });
 
+  if(resultTypeString === 'all'){
+    localStorage.setItem('currentTestUuid',finalUuid)
+}
+
   // if (!resultTypeString || !uuidString) {
   //   return <div className=' w-full flex justify-center items-center'><Loading /></div>;
   // }

@@ -40,7 +40,8 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
 
 
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
-    // const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
+    const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
+    const finalUuid = resultType === 'all' ? localStorage.getItem('currentTestUuid') : uuid;
 
     // useEffect(() => {
     //     const savedLanguage = localStorage.getItem('language');
@@ -56,30 +57,51 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
     //     setIsExpanded(!isExpanded); // Toggle between expanded and collapsed
     // };
 
+    // const handleNavigation = () => {
+
+    //     localStorage.setItem('careerUuid', jobUuid)
+
+    //     const careerId = localStorage.getItem('careerUuid')
+
+    //     if (careerId) {
+    //         const newPath = `/recommend-job/${uuid}`;
+
+    //         // Ensure the new path does not contain the duplicate locale part
+    //         // if (!pathname.startsWith(`/${currentLocale}`)) {
+    //         // If the pathname doesn't include the current locale, add it
+    //         router.push(newPath);
+    //         // } else {
+    //         // If the pathname already includes the locale, navigate to the result directly
+    //         // router.push(newPath);
+    //         // }
+    //     } else {
+    //         toast.error('Something went wrong! Please try again later.')
+    //     }
+
+
+
+    // };
+
     const handleNavigation = () => {
-
-        localStorage.setItem('careerUuid', jobUuid)
-
-        const careerId = localStorage.getItem('careerUuid')
-
-        if (careerId) {
-            const newPath = `/recommend-job/${uuid}`;
-
-            // Ensure the new path does not contain the duplicate locale part
-            // if (!pathname.startsWith(`/${currentLocale}`)) {
-            // If the pathname doesn't include the current locale, add it
-            router.push(newPath);
-            // } else {
-            // If the pathname already includes the locale, navigate to the result directly
-            // router.push(newPath);
-            // }
-        } else {
-            toast.error('Something went wrong! Please try again later.')
-        }
-
-
-
-    };
+    
+            localStorage.setItem('careerUuid', jobUuid)
+    
+            localStorage.setItem('backToTestUuid',uuid)
+    
+            if (jobUuid) {
+                const newPath = `/recommend-job/${finalUuid}`;
+    
+            
+                    // If the pathname already includes the locale, navigate to the result directly
+                    router.push(newPath);
+               
+            }else{
+                toast.error('Something went wrong! Please try again later.')
+            }
+    
+    
+    
+        };
 
     return (
 

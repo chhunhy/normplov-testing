@@ -5,15 +5,22 @@ import { PublicJobIntroComponent } from "./PublicJobIntroComponent";
 import { useParams } from "next/navigation";
 import { useGetCareerByUuidMutation } from "@/redux/feature/assessment/quiz";
 import { Skeleton } from "../ui/skeleton";
+import Link from "next/link";
 
 type JobType = {
   category_name: string;
   responsibilities: string[];
 };
 
+
+type SchoolType = {
+  school_uuid: string;
+  school_name: string;
+}
+
 type Major = {
   major_name: string;
-  schools: string[];
+  schools: SchoolType[];
 };
 
 export default function PublicRecommendJobPageComponent() {
@@ -27,57 +34,71 @@ export default function PublicRecommendJobPageComponent() {
   //     }
   // }, []);
 
+  // State to track the active section (careers or majors)
+  const [, setCurrentLocale] = useState<string>('km');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
+
   const params = useParams();
   const uuidString = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
 
   console.log("uuid from job page:", uuidString);
 
-  // const careerUuid = localStorage.getItem('careerUuid') || ''
 
-  const careerUuid = "b41a6ac2-092e-4134-8ea4-70fd0f146777";
+
 
   const [getCareerByUuid, { isLoading, data }] = useGetCareerByUuidMutation();
 
   useEffect(() => {
+
+    const careerUuid = localStorage.getItem('careerUuid') || ''
     // Trigger the API call when the component mounts
     if (uuidString && careerUuid) {
       getCareerByUuid({ uuid: uuidString, career_uuid: careerUuid })
         .unwrap()
         .then((result) => {
-          console.log("Career Data:", result);
+          console.log('Career Data:', result);
         })
         .catch((err) => {
-          console.error("Error fetching career data:", err);
+          console.error('Error fetching career data:', err);
         });
     } else {
-      console.error("Missing UUID or Career UUID");
+      console.error('Missing UUID or Career UUID');
     }
-  }, [uuidString, careerUuid, getCareerByUuid]);
+  }, [uuidString, getCareerByUuid]);
 
   const jobTitle = data?.payload?.career_name;
 
   const jobList = data?.payload?.categories;
 
-  const majors = data?.payload?.majors;
+  const majors = data?.payload?.majors
 
-  console.log("joblist: ", jobList);
 
-  const [activeSection, setActiveSection] = useState<
-    "Careers" | "Majors" | "job"
-  >("Careers");
+  console.log("joblist: ", jobList)
+
+
+  const [activeSection, setActiveSection] = useState<'Careers' | 'Majors' | 'job'>('Careers');
   const [selectedJob, setSelectedJob] = useState<JobType | null>(null); // Selected job
 
-  const handleSectionChange = (section: "Careers" | "Majors" | "job") => {
+
+  const handleSectionChange = (section: 'Careers' | 'Majors' | 'job') => {
     setActiveSection(section); // Update active section
   };
 
-  console.log("activeSection: ", activeSection);
-  console.log("selectedJob: ", selectedJob);
+  console.log('activeSection: ', activeSection)
+  console.log('selectedJob: ', selectedJob)
+
+
 
   // Function to handle job click
   const handleJobClick = (job: JobType) => {
     setSelectedJob(job); // Set selected job to state
-    setActiveSection("job"); // Ensure we're in the careers section
+    setActiveSection('job'); // Ensure we're in the careers section
   };
 
   return (
@@ -111,28 +132,25 @@ export default function PublicRecommendJobPageComponent() {
               >
                 <div className="flex gap-2">
                   <BriefcaseBusiness
-                    className={`mr-1 ${
-                      activeSection === "Careers"
+                    className={`mr-1 ${activeSection === "Careers"
                         ? "text-primary"
                         : "text-gray-500"
-                    }`}
+                      }`}
                   />
                   <p
-                    className={`font-semibold ${
-                      activeSection === "Careers"
+                    className={`font-semibold ${activeSection === "Careers"
                         ? "text-primary"
                         : "text-gray-500"
-                    }`}
+                      }`}
                   >
                     Careers
                   </p>
                 </div>
                 <ChevronRight
-                  className={` ${
-                    activeSection === "Careers"
+                  className={` ${activeSection === "Careers"
                       ? "text-primary"
                       : "text-gray-500"
-                  }`}
+                    }`}
                 />
               </div>
               <hr />
@@ -142,28 +160,25 @@ export default function PublicRecommendJobPageComponent() {
               >
                 <div className="flex gap-2">
                   <GraduationCap
-                    className={`mr-1 ${
-                      activeSection === "Majors"
+                    className={`mr-1 ${activeSection === "Majors"
                         ? "text-primary"
                         : "text-gray-500"
-                    }`}
+                      }`}
                   />
                   <p
-                    className={`font-semibold ${
-                      activeSection === "Majors"
+                    className={`font-semibold ${activeSection === "Majors"
                         ? "text-primary"
                         : "text-gray-500"
-                    }`}
+                      }`}
                   >
                     Majors
                   </p>
                 </div>
                 <ChevronRight
-                  className={`font-semibold ${
-                    activeSection === "Majors"
+                  className={`font-semibold ${activeSection === "Majors"
                       ? "text-primary"
                       : "text-gray-500"
-                  }`}
+                    }`}
                 />
               </div>
             </div>
@@ -218,7 +233,7 @@ export default function PublicRecommendJobPageComponent() {
                 <div>
                   <p className="text-md text-secondary">{"ជំនាញ"}</p>
 
-                  {majors.length > 0 ? (
+                  {majors ? (
                     majors.map((major: Major, index: string) => (
                       <div key={index}>
                         <p className="text-lg md:text-xl font-bold text-primary">
@@ -230,10 +245,10 @@ export default function PublicRecommendJobPageComponent() {
                         </p>
 
                         <div className="ml-2">
-                          {major.schools.length > 0 ? (
+                          {major ? (
                             <ul className="space-y-2 text-base md:text-md list-disc pl-6">
                               {major.schools.map((school, schoolIndex) => (
-                                <li key={schoolIndex}>{school}</li>
+                                <Link key={schoolIndex} href={`/km/university/${school.school_uuid}`}><li  className="underline mb-2">{school.school_name}</li></Link>
                               ))}
                             </ul>
                           ) : (

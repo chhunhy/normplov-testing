@@ -254,6 +254,11 @@ export const PublicInterestResultComponent = () => {
         testUUID: finalUuid,
         resultType: finalResultTypeString
     });
+
+    if(resultTypeString === 'all'){
+        localStorage.setItem('currentTestUuid',finalUuid)
+    }
+    
     console.log("data from interest: ", response)
 
 

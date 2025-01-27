@@ -557,6 +557,10 @@ export const PublicPersonalityResultComponent = () => {
     resultType: finalResultTypeString,
   });
 
+  if(resultTypeString === 'all'){
+    localStorage.setItem('currentTestUuid',finalUuid)
+}
+
   console.log(`result: ${resultTypeString} id: ${uuidString}`);
 
   if (!resultTypeString || !uuidString) {

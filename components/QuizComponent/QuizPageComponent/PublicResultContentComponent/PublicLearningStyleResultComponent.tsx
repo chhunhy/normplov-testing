@@ -357,6 +357,10 @@ export const PublicLearningStyleResultComponent = () => {
         resultType: finalResultTypeString
     });
 
+    if(resultTypeString === 'all'){
+        localStorage.setItem('currentTestUuid',finalUuid)
+    }
+
     console.log("data from learning: ", response)
 
 

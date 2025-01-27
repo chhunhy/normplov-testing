@@ -38,7 +38,7 @@ export const PublicJobIntroComponent = ({ title, highlight, description, size, t
     // }, []);
 
 
-
+    const backToTestUuid = localStorage.getItem('backToTestUuid')
 
     return (
         <div className=" bg-gradient-to-t from-green-50 to-[#F9FAFE]  ">
@@ -56,7 +56,7 @@ export const PublicJobIntroComponent = ({ title, highlight, description, size, t
                 <Breadcrumb className='my-4 lg:my-6'>
                     <BreadcrumbList>
                         <BreadcrumbItem>
-                            <BreadcrumbLink href={`/share-tests/${resultTypeString}/${uuid}`} className="text-gray-400 font-semibold ">លទ្ធផលតេស្ត</BreadcrumbLink>
+                            <BreadcrumbLink href={`/share-tests/${resultTypeString}/${backToTestUuid}`} className="text-gray-400 font-semibold ">លទ្ធផលតេស្ត</BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         {
