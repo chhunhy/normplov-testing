@@ -194,7 +194,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 // import { StaticImageData } from 'next/image'
 import { useParams } from 'next/navigation';
 import { useFetchAssessmentDetailsQuery } from '@/redux/service/resultPublic';
-import { RecommendationCard } from '../../RecommendationCard';
+// import { RecommendationCard } from '../../RecommendationCard';
 import Pagination from '@/components/ProfileComponent/Pagination';
 import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
@@ -428,7 +428,7 @@ export const PublicInterestResultComponent = () => {
 
                             ))) : (
                             recommendedCareer.map((item: RecommendedCareer, index: number) => (
-                                <RecommendationCard
+                                <RecommendationCardPublic
                                     key={item.career_name || index}
                                     jobTitle={item.career_name}
                                     jobDesc={item.description}

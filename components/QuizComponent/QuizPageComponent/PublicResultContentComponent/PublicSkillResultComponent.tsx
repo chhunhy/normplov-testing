@@ -525,7 +525,7 @@ import upIcon from '@/public/Quiz/skill-icon/up.png';
 import xIcon from '@/public/Quiz/skill-icon/x.png';
 import { useFetchAssessmentDetailsQuery } from '@/redux/service/resultPublic';
 import { useParams } from 'next/navigation';
-import { RecommendationCard } from '../../RecommendationCard';
+// import { RecommendationCard } from '../../RecommendationCard';
 import Pagination from '@/components/ProfileComponent/Pagination';
 import Image from 'next/image';
 import errorLoading from '@/public/assets/errorLoading.png'
@@ -853,7 +853,7 @@ export const PublicSkillResultComponent = () => {
             isLoading ? (
 
               Array(6).fill(0).map((_, index) => (
-                <RecommendationCard
+                <RecommendationCardPublic
                   key={index}
                   jobTitle=""
                   jobDesc=""

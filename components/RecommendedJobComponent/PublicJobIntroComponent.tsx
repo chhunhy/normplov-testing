@@ -27,7 +27,8 @@ export const PublicJobIntroComponent = ({ title, highlight, description, size, t
 
 
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
-    const resultTypeString = localStorage.getItem('resultTypeString')
+    const resultTypeString = localStorage.getItem('currentType')
+    console.log("resultTypeString",resultTypeString)
 
     // useEffect(() => {
     //     const savedLanguage = localStorage.getItem('language');
@@ -39,6 +40,7 @@ export const PublicJobIntroComponent = ({ title, highlight, description, size, t
 
 
     const backToTestUuid = localStorage.getItem('backToTestUuid')
+    console.log("backToTestUuid",backToTestUuid)
 
     return (
         <div className=" bg-gradient-to-t from-green-50 to-[#F9FAFE]  ">

@@ -12,7 +12,6 @@ const useHandleResultUuid = () => {
     const matchAllTest = pathname.match(/\/(en|km)?\/test\/all/);
 
     if (!(matchTestResult || matchChatWithAi)) {
-      localStorage.removeItem("currentType");
       localStorage.removeItem("resultUuid");
     }
 
