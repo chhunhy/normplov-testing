@@ -1,3 +1,5 @@
+// 
+
 'use client'
 import React from 'react'
 
@@ -57,51 +59,30 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
     //     setIsExpanded(!isExpanded); // Toggle between expanded and collapsed
     // };
 
-    // const handleNavigation = () => {
-
-    //     localStorage.setItem('careerUuid', jobUuid)
-
-    //     const careerId = localStorage.getItem('careerUuid')
-
-    //     if (careerId) {
-    //         const newPath = `/recommend-job/${uuid}`;
-
-    //         // Ensure the new path does not contain the duplicate locale part
-    //         // if (!pathname.startsWith(`/${currentLocale}`)) {
-    //         // If the pathname doesn't include the current locale, add it
-    //         router.push(newPath);
-    //         // } else {
-    //         // If the pathname already includes the locale, navigate to the result directly
-    //         // router.push(newPath);
-    //         // }
-    //     } else {
-    //         toast.error('Something went wrong! Please try again later.')
-    //     }
-
-
-
-    // };
-
     const handleNavigation = () => {
-    
-            localStorage.setItem('careerUuid', jobUuid)
-    
-            localStorage.setItem('backToTestUuid',uuid)
-    
-            if (jobUuid) {
-                const newPath = `/recommend-job/${finalUuid}`;
-    
-            
-                    // If the pathname already includes the locale, navigate to the result directly
-                    router.push(newPath);
-               
-            }else{
-                toast.error('Something went wrong! Please try again later.')
-            }
-    
-    
-    
-        };
+
+        localStorage.setItem('careerUuid', jobUuid)
+
+        localStorage.setItem('backToTestUuid',uuid)
+
+        if (jobUuid) {
+            const newPath = `/recommend-job/${finalUuid}`;
+
+            // Ensure the new path does not contain the duplicate locale part
+            // if (!pathname.startsWith(`/${currentLocale}`)) {
+                // If the pathname doesn't include the current locale, add it
+                router.push(newPath);
+            // } else {
+                // If the pathname already includes the locale, navigate to the result directly
+                router.push(newPath);
+            // }
+        }else{
+            toast.error('Something went wrong! Please try again later.')
+        }
+
+
+
+    };
 
     return (
 
@@ -165,8 +146,8 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
 
 
                                                 {/* <span onClick={handleToggle} className="text-primary">
-                                                   {isExpanded ? 'Show Less' : 'Show More'}
-                                               </span> */}
+                                            {isExpanded ? 'Show Less' : 'Show More'}
+                                        </span> */}
                                             </div>
 
                                         ))
@@ -183,7 +164,7 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
 
                                 <div
                                     className={` overflow-hidden text-textprimary line-clamp-3`}
-
+                                
                                 >
 
                                     {majors ? (
@@ -213,8 +194,8 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
 
 
                                                 {/* <span onClick={handleToggle} className="text-primary">
-                                                   {isExpanded ? 'Show Less' : 'Show More'}
-                                               </span> */}
+                                            {isExpanded ? 'Show Less' : 'Show More'}
+                                        </span> */}
                                             </div>
 
                                         ))
@@ -227,7 +208,7 @@ export const RecommendationCardPublic = ({ jobTitle, majors, isLoading, jobList,
 
                     )}
 
-
+             
                 </div>
             </div>
 
