@@ -113,7 +113,7 @@ const LoginComponent = () => {
         // toast.success("Logged in Successfully.", {
         //   autoClose: 3000,
         // });
-        // router.push(`/${currentLocale}/`);
+        router.push(`/${currentLocale}/`);
         console.log("Access token: ", data.accessToken);
       } else {
         throw new Error("Access token not found in response");
